@@ -14,16 +14,31 @@
   $countRoom = mysqli_fetch_array($querycountOFF);
   if(isset($_POST['btnAdd'])){
       $tentoanha = $_POST['tentoanha'];
-      $trangthai = $_POST['trangthai'];
-      $sotang = $_POST['sotang'];      
+      $sotang = $_POST['sotang'];  
+      $trangthai = 0;    
       $dia_chi = $_POST['addressDetail'];
       $tinhthanh = $_POST['Province1'];
       $quanhuyen = $_POST['District1'];
       $phuongxa = $_POST['Ward1'];
+      if(isset($_POST['trangthai']) != null){
+        $trangthai = $_POST['trangthai'];
+      }
       ThemToaNha($tentoanha, $dia_chi, $trangthai, $sotang, $tinhthanh, $quanhuyen, $phuongxa);
   }
-
+  if(isset($_POST['btnSave'])){
+    $newtentoanha = $_POST['newtentoanha'];
+    $newtrangthai = $_POST['newtrangthai'];
+    $newsotang = $_POST['newsotang'];      
+    $newdia_chi = $_POST['newaddressDetail'];
+    $newtinhthanh = $_POST['Province2'];
+    $newquanhuyen = $_POST['District2'];
+    $newphuongxa = $_POST['Ward2'];    
+    $idtoanha = $_POST['idtoanha'];
+    SuaToaNha($newtentoanha, $newdia_chi, $newtrangthai, $newsotang, $newtinhthanh, $newquanhuyen, $newphuongxa, $idtoanha);
+  }
+  
 ?>
+<div class="ketqua"></div>
 <main class="app-content">
 
 <div class="app-title">
@@ -361,18 +376,6 @@
               </div>
               
             </div>
-            <script>
-                                $(document).ready(function () {
-                                    $('.checkbox-switch').change(function () {
-                                        if ($(this).is(':checked')) {
-                                            $('.checkbox-switch').val("1");
-                                        } else {
-                                            $('.checkbox-switch').val("0");
-                                        }                                       
-                                    });
-
-                                });
-                            </script>
             <div class="card-body">
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0" id="sampleTable">                    
               <thead>
@@ -430,8 +433,8 @@
                         }
                         ?>
                       </td>
-                      <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                          onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                      <td class="table-td-center">
+                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" data-id="<?php echo $row['id_toanha']  ?>"><i class="fas fa-trash-alt"></i>
                         </button>
                         <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
                           data-toggle="modal" data-target="#ModalUP" data-id="<?php echo $row['id_toanha']  ?>"><i class="fas fa-edit"></i>
@@ -447,7 +450,6 @@
                     <form action="" method="post" enctype="multipart/form-data">
                       <div class="modal-body">
 
-                          <input type="hidden" id="txtId" value="0" name="txtId"/>
                           <?php 
                               $id_toanha = $row['id_toanha'];
                               $sqlUpdate = "SELECT * FROM tb_toanha WHERE tb_toanha.id_toanha = $id_toanha";
@@ -455,6 +457,7 @@
                               $rowUpdate = mysqli_fetch_array($queryUpdate);
                             
                           ?>
+                              <input type="hidden" id="idtoanha" value="<?= $rowUpdate['id_toanha']?>" name="idtoanha"/>
 
                           <div class="row">
                               <div class="col-12">
@@ -473,7 +476,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="name" type="text" placeholder="CH-01" class="form-control" name="tentoanha" value="<?php echo $rowUpdate['ten_toanha'] ?>" require>
+                                        <input id="name" type="text" placeholder="CH-01" class="form-control" name="newtentoanha" value="<?php echo $rowUpdate['ten_toanha'] ?>" require>
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -497,7 +500,7 @@
                                       <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
                                         <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
                                           <div class="vs__selected-options">
-                                            <select aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search" id="Province2_<?php echo $row['id_toanha'] ?>" name="Province2_<?php echo $row['id_toanha'] ?>" data-province="<?php echo $row['tinhthanh'] ?>">
+                                            <select aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search" id="Province2_<?php echo $row['id_toanha'] ?>" name="Province2" data-province="<?php echo $row['tinhthanh'] ?>">
                                                 <option value="" hidden="">Chọn tỉnh thành</option>                                   
                                             </select>
                                           </div>
@@ -531,7 +534,7 @@
                                       <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="district">
                                         <div id="vs34__combobox" role="combobox" aria-expanded="false" aria-owns="vs34__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
                                           <div class="vs__selected-options">
-                                            <select aria-autocomplete="list" aria-labelledby="vs34__combobox" aria-controls="vs34__listbox" type="search" autocomplete="off" class="vs__search" id="District2_<?php echo $row['id_toanha'] ?>" name="District2_<?php echo $row['id_toanha'] ?>" data-district="<?php echo $row['quanhuyen'] ?>" disabled>
+                                            <select aria-autocomplete="list" aria-labelledby="vs34__combobox" aria-controls="vs34__listbox" type="search" autocomplete="off" class="vs__search" id="District2_<?php echo $row['id_toanha'] ?>" name="District2" data-district="<?php echo $row['quanhuyen'] ?>" disabled>
                                               <option value="" hidden="">Chọn quận huyện</option>
                                             </select>
                                           </div>
@@ -567,7 +570,7 @@
                                       <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
                                         <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
                                           <div class="vs__selected-options">
-                                            <select aria-autocomplete="list" aria-labelledby="vs35__combobox" aria-controls="vs35__listbox" type="search" autocomplete="off" class="vs__search" id="Ward2_<?php echo $row['id_toanha'] ?>" name="Ward2_<?php echo $row['id_toanha'] ?>" data-ward="<?php echo $row['phuongxa'] ?>" disabled>
+                                            <select aria-autocomplete="list" aria-labelledby="vs35__combobox" aria-controls="vs35__listbox" type="search" autocomplete="off" class="vs__search" id="Ward2_<?php echo $row['id_toanha'] ?>" name="Ward2" data-ward="<?php echo $row['phuongxa'] ?>" disabled>
                                             <option value="" hidden="">Chọn phường xã</option>
                                             </select>
                                           </div>
@@ -610,7 +613,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="address" type="text" placeholder="91 Nguyễn Chí Thanh" class="form-control" name="addressDetail" value="<?php echo $rowUpdate['diachi_chitiet'] ?>" require>
+                                        <input id="address" type="text" placeholder="91 Nguyễn Chí Thanh" class="form-control" name="newaddressDetail" value="<?php echo $rowUpdate['diachi_chitiet'] ?>" require>
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -637,7 +640,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="name" type="text" placeholder="10" class="form-control" name="sotang" value="<?php echo $rowUpdate['so_tang'] ?>" require>
+                                        <input id="name" type="text" placeholder="10" class="form-control" name="newsotang" value="<?php echo $rowUpdate['so_tang'] ?>" require>
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -655,9 +658,9 @@
                                      <div class="custom-control custom-control-inline custom-switch">
                                      <?php
                                     if($rowUpdate['trangthai_toanha'] == 1){
-                                      echo '<input type="checkbox" name="trangthai" class="checkbox-switch" value="" id="__BVID__1004" checked>';
+                                      echo '<input type="checkbox" name="newtrangthai" class="checkbox-switch" value="" id="__BVID__1004" checked>';
                                     }else if($rowUpdate['trangthai_toanha'] == 0){
-                                      echo '<input type="checkbox" name="trangthai" class="checkbox-switch" value="" id="__BVID__1004">';
+                                      echo '<input type="checkbox" name="newtrangthai" class="checkbox-switch" value="" id="__BVID__1004">';
                                     }
                                      ?>                       
                                       <label class="custom-control-label" for="__BVID__1004"> Hoạt động </label>
@@ -693,6 +696,7 @@
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
+
 <script>
     $(document).ready(function () {
         $('body').on('click', '.btn-add', function () {          
@@ -709,12 +713,33 @@
             var DistrictValue = $('#District2_' + id).data("district");
             var WardValue = $('#Ward2_' + id).data("ward");
             initializeDropdowns("Province2_" + id, "District2_" + id, "Ward2_" + id, ProvinceValue, DistrictValue, WardValue);
-
         });
         $('body').on('click', '.btnClose', function () {
             var id = $(this).data("id");
             $('#modal-default_' + id).modal('hide');
         });
+        $('body').on('click', '#btn-delete', function () {
+            let text = "Bạn có chắc muốn xóa.";
+            var $idtoanha = $(this).data("id");
+            if (confirm(text) == true) {
+              $.ajax({
+                url: "doc/main/xoa_toanha.php", 
+                type: "post",
+                dataType: "html",          
+                data: { idtoanha: $idtoanha },
+              }).done(function(ketqua){
+                alert(ketqua);
+                window.location.href = "home.php?title=toanha";
+              })
+            } 
+        });
+        $('.checkbox-switch').change(function () {
+                                        if ($(this).is(':checked')) {
+                                            $('.checkbox-switch').val("1");
+                                        } else {
+                                            $('.checkbox-switch').val("0");
+                                        }                                       
+                                    });
     });
 
     function initializeDropdowns(citisId, districtId, wardId, citisIdValue, districtIdValue, wardIdValue) {

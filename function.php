@@ -89,7 +89,7 @@
         if ($query) {
             echo '<script>alert("Thêm thành công"); window.location.href = "home.php?title=toanha";</script>';
         } else {
-            echo '<script>alert("Thêm thất bại"); window.location.href = "home.php?title=toanha";</script>';
+            echo '<script>alert("Thêm thất bại");</script>';
         }
     }
     function ThemCanho_Phong($ten_canho_phong, $ma_canho_phong, $tang, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $tinhtrang) {
@@ -118,14 +118,44 @@
     
         $query = mysqli_query($conn, $sql);
         if ($query) {
-            echo '<script>alert("Thêm thành công"); window.location.href = "home.php?title=toanha";</script>';
+            echo '<script>alert("Thêm thành công"); window.location.href = "home.php?title=canho_phong";</script>';
         } else {
-            echo '<script>alert("Thêm thất bại"); window.location.href = "home.php?title=toanha";</script>';
+            echo '<script>alert("Thêm thất bại"); window.location.href = "home.php?title=canho_phong";</script>';
         }
     }
-    
-    
-    
+    function SuaToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhanh, $quanhuyen, $phuongxa, $id_toanha){
+        GLOBAL $conn;
+        $filter_tentoanha = mysqli_real_escape_string($conn, $tentoanha);
+        $filter_diachi = mysqli_real_escape_string($conn, $diachi);
+        $filter_trangthai = mysqli_real_escape_string($conn, $trangthai);
+        $filter_so_tang = mysqli_real_escape_string($conn, $so_tang);
+        $filter_tinhanh = mysqli_real_escape_string($conn, $tinhanh);
+        $filter_quanhuyen = mysqli_real_escape_string($conn, $quanhuyen);
+        $filter_phuongxa = mysqli_real_escape_string($conn, $phuongxa);
+        $filter_id_toanha = mysqli_real_escape_string($conn, $id_toanha);
+
+        $sql = "UPDATE tb_toanha SET ten_toanha='$filter_tentoanha', so_tang='$filter_so_tang', trangthai_toanha='$filter_trangthai', diachi_chitiet='$filter_diachi', 
+                tinhthanh='$filter_tinhanh', quanhuyen='$filter_quanhuyen', phuongxa='$filter_phuongxa' WHERE id_toanha='$filter_id_toanha'";
+
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            echo '<script>alert("Sửa thành công");</script>';
+        } else {
+            echo '<script>alert("Sửa thất bại");</script>';
+        }
+    }
+    function XoaToaNha($id_toanha){
+        GLOBAL $conn;
+
+        $sql = "DELETE FROM tb_toanha WHERE tb_toanha.id_toanha = $id_toanha";
+
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
 
     

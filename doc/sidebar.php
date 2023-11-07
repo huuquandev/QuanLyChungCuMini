@@ -29,6 +29,7 @@
                   <li><a href="../home.php?title=toanha" class="sub-item"><i class="fas fa-building"></i><span class="app-menu__label">Tòa nhà</span></a></li>
                   <li><a href="../home.php?title=canho_phong" class="sub-item"><i class="fas fa-door-open"></i><span class="app-menu__label">Căn hộ/phòng</span></a></li>
                   <li><a href="../home.php?title=taisan" class="sub-item"><i class="fas fa-umbrella"></i><span class="app-menu__label">Tài sản</span></a></li>
+                  <li><a href="../home.php?title=baotrisuachua" class="sub-item"><i class="fas fa-hammer"></i><span class="app-menu__label">Bảo trì/sửa chữa</span></a></li>
 
             </ul>
       </li>

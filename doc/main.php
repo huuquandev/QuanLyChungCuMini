@@ -15,6 +15,8 @@
                     include("main/danh_sach_canho_phong.php");
                 }else if($tam == "taisan"){
                     include("main/danh_sach_taisan.php");
+                }else if($tam == "baotrisuachua"){
+                    include("main/danh_sach_baotrisuachua.php");
                 }
             }else{
                 $tam = '';
