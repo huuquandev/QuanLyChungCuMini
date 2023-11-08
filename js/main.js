@@ -12,9 +12,8 @@ function validate() {
             close: true,
             button: false,
           });
-        window.location = "doc/index.html";
-        return true;
-       
+        window.location = "home.php";
+        return true;    
     }
     //Nếu không nhập gì mà nhấn đăng nhập thì sẽ báo lỗi
     if (username == "" && password == "") {
@@ -112,4 +111,22 @@ function RegexEmail(emailInputBox) {
         window.location = "#";
 
     }
+}
+function checksession() {
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password-field").value;
+  //Đặt 1 Admin ảo để đăng nhập quản trị
+  if (username == "admin" && password == "123456") {
+      swal({
+          title: "",
+          text: "Xin chào Võ Trường",
+          icon: "success",
+          close: true,
+          button: false,
+        });
+      window.location = "home.php";
+  }
+}
+function validatethemtoanha(){
+
 }

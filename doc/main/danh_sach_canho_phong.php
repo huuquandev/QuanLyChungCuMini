@@ -208,7 +208,7 @@
                                               <?php
 
                                                ?>  
-                                              <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="room_id" disabled>
+                                              <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floor_id" disabled>
                                                 <option value="" hidden="">Chọn tầng</option>     
 
                                               </select>
@@ -501,7 +501,7 @@
                                               <?php
 
                                                ?>  
-                                              <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="room_id" disabled>
+                                              <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floorid" disabled>
                                                 <option value="" hidden="">Chọn tầng</option>     
 
                                               </select>
@@ -675,7 +675,7 @@
   $(document).ready(function () {
         $('body').on('click', '.btn-add', function () { 
             $('#modal-default').modal('show');
-            initializeDropdowns("building_id","room_id");
+            initializeDropdowns("building_id","floor_id");
         });
         $('body').on('click', '#btnClose', function () {
             $('#modal-default').modal('hide');
@@ -689,17 +689,35 @@
             $('#modal-default_' + id).modal('hide');
         });
   });
-    function initializeDropdowns(buildingId, roomId) {
-        // Lấy tham chiếu đến các phần tử select từ id
-        var building = document.getElementById(buildingId);
-        var room = document.getElementById(roomId);
-        console.log(building);
-        building.onchange = function () {         
-          room.disabled = false;     
-          $.ajax({
-            url: '',
-            
-          });     
-        };
-    }
-</script>
+  function initializeDropdowns(buildingId, floorId) {
+    var building = document.getElementById(buildingId);
+    var floor = document.getElementById(floorId);
+
+    building.onchange = function () {
+        var selectedBuildingId = building.value;
+
+        if (selectedBuildingId !== '') {
+            $.ajax({
+                url: "doc/main/commons/lay_tang_by_toanha.php",
+                type: "post",
+                dataType: "json", 
+                data: { idtoanha: selectedBuildingId },
+            }).done(function(floors){
+              console.log(floors);
+                floor.innerHTML = '';
+                for (var i = 0; i < floors.length; i++) {
+                    var option = document.createElement('option');
+                    option.value = floors[i].id_tang; 
+                    option.textContent = "Tầng " + floors[i].ten_tang; 
+                    floor.appendChild(option);
+                }
+
+                floor.disabled = false;
+            });
+        } else {
+            floor.disabled = true;
+            floor.innerHTML = '';
+        }
+    };
+}
+</script> 

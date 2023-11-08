@@ -23,20 +23,19 @@
             $row = mysqli_fetch_assoc($query);
             $_SESSION['id_taikhoan'] = $row['id_taikhoan'];
             $_SESSION['tai_khoan'] = $row['tai_khoan'];
-            $_SESSION['ho_ten'] = $row['ho_ten'];
+            $_SESSION['ten_hien_thi'] = $row['ten_hien_thi'];
             $_SESSION['mat_khau'] = $row['mat_khau'];
-            $_SESSION['role'] = $row['role'];
-            $_SESSION['ngay_sinh'] = $row['ngay_sinh'];
+            $_SESSION['quyen_han'] = $row['quyen_han'];
             $_SESSION['gioi_tinh'] = $row['gioi_tinh'];
-            $_SESSION['so_dt'] = $row['so_dt'];
+            $_SESSION['so_dien_thoai'] = $row['so_dien_thoai'];
             $_SESSION['hinh_anh'] = $row['hinh_anh'];
-            $_SESSION['dia_chi'] = $row['dia_chi'];
             return true;
         }else{
             echo    ' <script> 
                     swal({ title: "", text: "Sai thông tin đăng nhập hãy kiểm tra lại...", icon: "error", close: true, button: "Thử lại", });                    
                     </script>';
             return false;
+
         }       
         
     }
@@ -139,9 +138,9 @@
 
         $query = mysqli_query($conn, $sql);
         if ($query) {
-            echo '<script>alert("Sửa thành công");</script>';
+            return true;
         } else {
-            echo '<script>alert("Sửa thất bại");</script>';
+            return false;
         }
     }
     function XoaToaNha($id_toanha){
@@ -155,6 +154,34 @@
         } else {
             return false;
         }
+    }
+
+    function laytangbytoanha($id_toanha) {
+        GLOBAL $conn;
+    
+        $sql = "SELECT * FROM tb_tang WHERE tb_tang.id_toanha = $id_toanha";
+    
+        $query = mysqli_query($conn, $sql);
+        $floors = array();
+    
+        while ($row = mysqli_fetch_array($query)) {
+            $floors[] = $row;
+        }
+    
+        return $floors;
+    }
+    
+    function laytoanha($id_toanha){
+        GLOBAL $conn;
+    
+        $sql = "SELECT * FROM tb_toanha WHERE tb_toanha.id_toanha = $id_toanha";
+    
+        $query = mysqli_query($conn, $sql);
+
+        $row = mysqli_fetch_array($query);
+
+        return $row;
+        
     }
     
 

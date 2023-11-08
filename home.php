@@ -4,6 +4,9 @@
  
     if(isset($_SESSION['id_taikhoan'])){
        $id_taikhoan = $_SESSION['id_taikhoan'];
+       echo    ' <script> 
+                    swal({ title: "", text: "Xin chào '.json_encode($_SESSION['ten_hien_thi']).'", icon: "success", close: true, button: "Close", }); 
+                    </script> ';
     }else{
        $id_taikhoan = '';
        header('Location:login.php');
@@ -38,14 +41,20 @@
 </head>
 
 <body onload="time()" class="app sidebar-mini rtl">  
-
 <?php
-
             include("doc/header.php");
             include("doc/sidebar.php");
             include("doc/main.php");
             include("doc/footer.php");
 ?> 
+<?php
+ 
+    if(isset($_SESSION['id_taikhoan'])){
+       echo    ' <script> 
+                    swal({ title: "", text: "Xin chào '.$_SESSION['ten_hien_thi'].'", icon: "success", close: true, button: "Close", }); 
+                    </script> ';
+    }
+?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
   <!--===============================================================================================-->
