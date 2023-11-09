@@ -15,7 +15,7 @@
             <span class="app-menu__label">Bảng điều khiển</span></a>
       </li>
       <li>
-            <a class="app-menu__item " href="../home.php?title=quanlydancu">
+            <a class="app-menu__item " href="home.php?title=quanlydancu">
                   <i class='app-menu__icon bx bx-id-card'></i> 
             <span class="app-menu__label">Quản lý dân cư</span></a>
       </li>
@@ -26,10 +26,10 @@
                   <i class="fas fa-angle-right dropdown"></i>
             </a>
             <ul class="sub-menu">
-                  <li><a href="../home.php?title=toanha" class="sub-item"><i class="fas fa-building"></i><span class="app-menu__label">Tòa nhà</span></a></li>
-                  <li><a href="../home.php?title=canho_phong" class="sub-item"><i class="fas fa-door-open"></i><span class="app-menu__label">Căn hộ/phòng</span></a></li>
-                  <li><a href="../home.php?title=taisan" class="sub-item"><i class="fas fa-umbrella"></i><span class="app-menu__label">Tài sản</span></a></li>
-                  <li><a href="../home.php?title=baotrisuachua" class="sub-item"><i class="fas fa-hammer"></i><span class="app-menu__label">Bảo trì/sửa chữa</span></a></li>
+                  <li><a href="home.php?title=toanha" class="sub-item"><i class="fas fa-building"></i><span class="app-menu__label">Tòa nhà</span></a></li>
+                  <li><a href="home.php?title=canho_phong" class="sub-item"><i class="fas fa-door-open"></i><span class="app-menu__label">Căn hộ/phòng</span></a></li>
+                  <li><a href="home.php?title=taisan" class="sub-item"><i class="fas fa-umbrella"></i><span class="app-menu__label">Tài sản</span></a></li>
+                  <li><a href="home.php?title=baotrisuachua" class="sub-item"><i class="fas fa-hammer"></i><span class="app-menu__label">Bảo trì/sửa chữa</span></a></li>
 
             </ul>
       </li>
