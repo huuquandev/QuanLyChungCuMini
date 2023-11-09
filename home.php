@@ -3,6 +3,7 @@
     include "components/connect.php";
  
     if(isset($_SESSION['id_taikhoan'])){
+
        $id_taikhoan = $_SESSION['id_taikhoan'];
        echo    ' <script> 
                     swal({ title: "", text: "Xin chào '.json_encode($_SESSION['ten_hien_thi']).'", icon: "success", close: true, button: "Close", }); 
@@ -48,11 +49,13 @@
             include("doc/footer.php");
 ?> 
 <?php
- 
     if(isset($_SESSION['id_taikhoan'])){
-       echo    ' <script> 
-                    swal({ title: "", text: "Xin chào '.$_SESSION['ten_hien_thi'].'", icon: "success", close: true, button: "Close", }); 
-                    </script> ';
+      if($_SESSION['CountLogin'] < 2){
+        echo    ' <script> 
+        swal({ title: "", text: "Xin chào '.$_SESSION['ten_hien_thi'].'", icon: "success", close: true, button: "Close", }); 
+        </script> ';
+        $_SESSION['CountLogin'] += 1;
+      }
     }
 ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

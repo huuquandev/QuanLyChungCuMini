@@ -20,6 +20,8 @@
         $sql = "SELECT * FROM tb_taikhoan WHERE tai_khoan = '$filter_username' AND mat_khau = '$filter_password'";
         $query = mysqli_query($conn, $sql);
         if(mysqli_num_rows($query) > 0){
+            $_SESSION['CountLogin'] = 1;
+
             $row = mysqli_fetch_assoc($query);
             $_SESSION['id_taikhoan'] = $row['id_taikhoan'];
             $_SESSION['tai_khoan'] = $row['tai_khoan'];
