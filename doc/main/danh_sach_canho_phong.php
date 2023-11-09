@@ -660,7 +660,7 @@
                 <?php 
                     } 
                   }else{
-                    echo '<tr class="odd"><td valign="top" colspan="7" class="dataTables_empty">Không tìm thấy kết quả</td></tr>';
+                    echo '<tr class="odd"><td valign="top" colspan="10" class="dataTables_empty">Không tìm thấy kết quả</td></tr>';
                   }
                     ?>
                     
