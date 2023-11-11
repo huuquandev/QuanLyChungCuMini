@@ -1,5 +1,16 @@
-/* =========================================== */
-/* =========================================== */
+var checkboxes = document.querySelectorAll("table input[type = 'checkbox']");
+var checkboxall = document.querySelector("table input[id = 'all']");
+checkboxall.addEventListener('change', function () {
+  if (checkboxall.checked == true) {
+    checkboxes.forEach(function(checkbox){
+      checkbox.checked = true;
+    });
+  } else {
+    checkboxes.forEach(function(checkbox){
+      checkbox.checked = false;
+    });  
+  } 
+});
 function validate() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password-field").value;
@@ -7,7 +18,7 @@ function validate() {
     if (username == "admin" && password == "123456") {
         swal({
             title: "",
-            text: "Xin chào Võ Trường",
+            text: "Xin chào",
             icon: "success",
             close: true,
             button: false,
@@ -126,7 +137,4 @@ function checksession() {
         });
       window.location = "home.php";
   }
-}
-function validatethemtoanha(){
-
 }

@@ -4,9 +4,18 @@
 
     $idtoanha = $_POST['idtoanha'];
 
+    $response = array();
+
     if(XoaToaNha($idtoanha)){
-        echo "Xóa thành công";
+        $response['success'] = true;
+        $response['id'] = $idtoanha;
+        $response['message'] = 'Xóa thành công';
     }else{
-        echo "Xóa thát bại";
+        $response['success'] = false;
+        $response['message'] = 'Xóa không thành công';    
     }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
 ?>

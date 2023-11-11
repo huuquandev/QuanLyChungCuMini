@@ -12,31 +12,6 @@
   $countON = mysqli_fetch_array($querycountON);
   $countOFF = mysqli_fetch_array($querycountOFF);
   $countRoom = mysqli_fetch_array($querycountOFF);
-  if(isset($_POST['btnAdd'])){
-      $tentoanha = $_POST['tentoanha'];
-      $sotang = $_POST['sotang'];  
-      $trangthai = 0;    
-      $dia_chi = $_POST['addressDetail'];
-      $tinhthanh = $_POST['Province1'];
-      $quanhuyen = $_POST['District1'];
-      $phuongxa = $_POST['Ward1'];
-      if(isset($_POST['trangthai']) != null){
-        $trangthai = $_POST['trangthai'];
-      }
-      ThemToaNha($tentoanha, $dia_chi, $trangthai, $sotang, $tinhthanh, $quanhuyen, $phuongxa);
-  }
-  // if(isset($_POST['btnSave'])){
-  //   $newtentoanha = $_POST['newtentoanha'];
-  //   $newtrangthai = $_POST['newtrangthai'];
-  //   $newsotang = $_POST['newsotang'];      
-  //   $newdia_chi = $_POST['newaddressDetail'];
-  //   $newtinhthanh = $_POST['Province2'];
-  //   $newquanhuyen = $_POST['District2'];
-  //   $newphuongxa = $_POST['Ward2'];    
-  //   $idtoanha = $_POST['idtoanha'];
-  //   SuaToaNha($newtentoanha, $newdia_chi, $newtrangthai, $newsotang, $newtinhthanh, $newquanhuyen, $newphuongxa, $idtoanha);
-  // }
-  
 ?>
 <main class="app-content">
 
@@ -176,7 +151,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="name" type="text" placeholder="CH-01" class="form-control" name="tentoanha" required>
+                                        <input id="tentoanha" type="text" placeholder="CH-01" class="form-control" name="tentoanha" required>
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -313,7 +288,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="address" type="text" placeholder="91 Nguyễn Chí Thanh" class="form-control" name="addressDetail" required>
+                                        <input id="diachichitiet" type="text" placeholder="91 Nguyễn Chí Thanh" class="form-control" name="diachichitiet" required>
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -340,7 +315,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="name" type="text" placeholder="10" class="form-control" name="sotang" required>
+                                        <input id="sotang" type="text" placeholder="10" class="form-control" name="sotang" required>
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -356,7 +331,7 @@
                                   <!---->
                                   <div>
                                     <div class="custom-control custom-control-inline custom-switch">
-                                      <input type="checkbox" name="trangthai" class="checkbox-switch" value="" id="__BVID__1004">
+                                      <input type="checkbox" name="trangthai" class="checkbox-switch" value="" id="trangthai">
                                       <label class="custom-control-label" for="__BVID__1004"> Hoạt động </label>
                                     </div>
                                   </div>
@@ -367,7 +342,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
-                          <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd">Thêm</button>
+                          <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd">Thêm</button>
                       </div>
                     </form>
                   </div>
@@ -376,19 +351,55 @@
               
             </div>
             <div class="card-body">
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0" id="sampleTable">                    
+            <div data-v-7f820fac="" class="row">
+              <!---->
+              <div data-v-7f820fac="" class="col-md-6">
+                <fieldset data-v-7f820fac="" class="form-group" id="__BVID__390">
+                  <!---->
+                  <div>
+                    <div dir="ltr" class="v-select vs--single vs--searchable" id="active">
+                      <div id="vs2__combobox" role="combobox" aria-expanded="false" aria-owns="vs2__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                        <div class="vs__selected-options">
+                        <select aria-autocomplete="list" aria-labelledby="vs17__combobox" aria-controls="vs17__listbox" type="search" autocomplete="off" class="vs__search" id="building_id">
+                            <option value="" hidden="">Trạng thái hoạt động</option>     
+                            <option value="1" >Hoạt động</option>     
+                            <option value="0" >không hoạt động</option>     
+                        </select>
+                        </div>
+                        <div class="vs__actions">
+                          <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                          </svg>
+                          <div class="vs__spinner" style="display: none;">Loading...</div>
+                        </div>
+                      </div>
+                      <ul id="vs2__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                  </div>
+                </fieldset>
+              </div>
+              <div data-v-7f820fac="" class="col-md-6">
+                <input data-v-7f820fac="" type="text" placeholder="Tìm kiếm Tòa nhà..." class="form-control" id="__BVID__395">
+              </div>
+            </div>
+            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0" id="">                   
               <thead>
                       <tr>
                         <th width="10"><input type="checkbox" id="all"></th>
-                        <th width="100">Mã tòa nhà</th>
+                        <th width="110">Mã tòa nhà</th>
                         <th width="150">Tên tòa nhà</th>
-                        <th width="80" class="text-center">Số phòng</th>
+                        <th width="100" class="text-center">Số tầng</th>
                         <th width="500">Địa chỉ</th>
-                        <th width="100">Hoạt động</th>
-                        <th width="100">Tính năng</th>
+                        <th width="110">Hoạt động</th>
+                        <th width="120">Tính năng</th>
                       </tr>
                     </thead>
-                  <tbody>
+                  <tbody id="tbhtml">
                     <?php 
                       $sql = "SELECT tb_toanha.*, COUNT(tb_canho_phong.id_canho_phong) AS so_luong_phong
                       FROM tb_toanha
@@ -444,7 +455,7 @@
                       <?php 
                       } 
                     }else{
-                      echo '<tr class="odd"><td valign="top" colspan="7" class="dataTables_empty">Không tìm thấy kết quả</td></tr>';
+                        echo '<td valign="top" colspan="10" class="dataTables_empty" style="text-align: center;">Không tìm thấy kết quả</td>';
                     }
                       ?>
                   </tbody>
@@ -669,7 +680,7 @@
                               </div>
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
-                                  <button type="button" class="btn btn-primary" id="btn-save" name="btn-save">Lưu</button>
+                                  <button type="button" class="btn btn-primary btnSave" data-dismiss="modal">Lưu</button>
                               </div>
                             </form>
                           </div>
@@ -689,8 +700,85 @@
             $('#modal-default').modal('show');
             initializeDropdowns("Province1", "District1", "Ward1");
         });
+        $('body').on('click', '#btnAdd', function () {  
+            var formData = new FormData();
+            formData.append('tentoanha', $('#tentoanha').val());
+            formData.append('diachi', $('#diachichitiet').val());
+            formData.append('trangthai', $('#trangthai').val());
+            formData.append('sotang', $('#sotang').val());
+            formData.append('tinhthanh', $('#Province1').val());
+            formData.append('quanhuyen', $('#District1').val());
+            formData.append("phuongxa", $('#Ward1').val());   
+            
+            $.ajax({
+                url: "doc/main/commons/them_toanha.php",
+                type: "post",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.success) {  
+                        var classStatus;
+                        var ClassDanger = "bg-danger"
+                        if(response.iDtrangthai == 1){
+                          classStatus = "bg-success"
+                        }else{
+                          classStatus = "bg-danger"
+                        }
+                        var str = "";
+                        str += `<tr id="row_${response.id}">
+                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                        <td class="ma_toanha">${response.matToaNha}</td>
+                        <td class="ten_toanha">${response.ten_toanha}</td>
+                        <td class="text-center so_tang" >${response.sotang}</td>
+                        <td class="diachi_chitiet">${response.diachi}</td>
+                        <td class="trangthai_toanha">
+                        <span class="badge ${classStatus}" style="font-size: 13px;"><b class="span_pending">${response.trangthai}</b></span>
+                        </td>
+                        <td class="table-td-center">
+                          <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" 
+                              data-id="${response.id}"><i class="fas fa-trash-alt"></i>
+                          </button>
+                          <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
+                            data-toggle="modal" data-target="#ModalUP" data-id="${response.id}"><i class="fas fa-edit"></i>
+                          </button>
+                        </td>
+                      </tr>`;                 
+                      $('#tbhtml').append(str);
+                        swal({
+                          title: "Thông báo",
+                          text: response.message,
+                          icon: "success",
+                          close: true,
+                          button: "Đóng",
+                        });
+                        
+                        $('#modal-default').modal('hide');    
+
+                        $('#tentoanha').val('');
+                        $('#diachichitiet').val('');
+                        $('#sotang').val('');
+                        $('#trangthai').prop('checked', false);  
+
+                    } else {
+                      swal({
+                          title: "Lỗi",
+                          text: response.message,
+                          icon: "error",
+                          close: true,
+                          button: "Thử lại",
+                        });                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Ajax request failed!");
+                }
+            });
+
+        });
         $('body').on('click', '.btnClose', function () {
-            $('#modal-default').modal('hide');
+            $('#modal-default').modal('hide');        
         });
         $('body').on('click', '#btn-edit', function () { 
             var id = $(this).data("id");
@@ -707,7 +795,7 @@
                 var decodedData = JSON.parse(decodeURIComponent(toanha));
                 $('#idtoanha').val(id)
                 $('#newtentoanha').val(decodedData.ten_toanha)
-                $('#newdiachichitiet').val(decodedData.ten_toanha)
+                $('#newdiachichitiet').val(decodedData.diachi_chitiet)
                 $('#newsotang').val(decodedData.so_tang)
                 if (decodedData.trangthai_toanha == 1) {
                     $('#newtrangthai').prop('checked', true);
@@ -721,41 +809,71 @@
 
         });
 
-        $('body').on('click', '#btn-save', function () {          
-           var formData = new FormData();
+        $('body').on('click', '.btnSave', function () {
+            var formData = new FormData();
 
             formData.append('id', $('#idtoanha').val());
             formData.append('tentoanha', $('#newtentoanha').val());
             formData.append('diachi', $('#newdiachichitiet').val());
             formData.append('trangthai', $('#newtrangthai').val());
             formData.append('so_tang', $('#newsotang').val());
-            formData.append('tinhanh', $('#Province2').val());
+            formData.append('tinhthanh', $('#Province2').val());
             formData.append('quanhuyen', $('#District2').val());
             formData.append("phuongxa", $('#Ward2').val());
-            // for (var pair of formData.entries()) {
-            //     console.log(pair[0] + ': ' + pair[1]);
-            // }
-            $.ajax({
-                url: "doc/main/commons/sua_toanha.php", 
-                type: "post",
-                dataType: "html",        
-                processData: false, 
-                contentType: false, 
-                data: formData,
-            }).done(function(ketqua){
-              var id = $('#idtoanha').val();
-              var row = $('#row_' + id);
-              // Cập nhật các cột cụ thể với dữ liệu mới
-              row.find('.ten_toanha').text(ketqua.ten_toanha);
-              row.find('.so_tang').text(ketqua.so_tang);
-              row.find('.diachi').text(ketqua.diachi);
-              row.find('.trangthai').text(ketqua.trangthai);
 
-                alert(ketqua);
-            })
+            $.ajax({
+                url: "doc/main/commons/sua_toanha.php",
+                type: "post",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.success) {              
+                        var row = $('#row_' + response.id);
+                        row.find('.ten_toanha').text(response.ten_toanha);
+                        row.find('.so_tang').text(response.so_tang);
+                        row.find('.diachi_chitiet').text(response.diachi);
+                        row.find('.trangthai_toanha span').html(response.trangthai);
+
+                        if(response.iDtrangthai == 1){
+                          row.find('.trangthai_toanha span').removeClass('badge bg-danger')
+                          row.find('.trangthai_toanha span').addClass('badge bg-success')
+
+                        }else if((response.iDtrangthai == 0)){
+                          row.find('.trangthai_toanha span').removeClass('badge bg-success')
+                          row.find('.trangthai_toanha span').addClass('badge bg-danger')
+                        }
+                        swal({
+                          title: "Thông báo",
+                          text: response.message,
+                          icon: "success",
+                          close: true,
+                          button: "Đóng",
+                        });
+                        
+                        $('#modal-default2').modal('hide');
+
+
+                        
+                    } else {
+                      swal({
+                          title: "Lỗi",
+                          text: response.message,
+                          icon: "error",
+                          close: true,
+                          button: "Thử lại",
+                        });                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Ajax request failed!");
+                }
+            });
         });
+
+
         $('body').on('click', '.btnClose', function () {
-            var id = $(this).data("id");
             $('#modal-default2').modal('hide');
         });
         $('body').on('click', '#btn-delete', function () {
@@ -765,11 +883,33 @@
               $.ajax({
                 url: "doc/main/commons/xoa_toanha.php", 
                 type: "post",
-                dataType: "html",          
+                dataType: "json",          
                 data: { idtoanha: $idtoanha },
-              }).done(function(ketqua){
-                alert(ketqua);
-                window.location.href = "home.php?title=toanha";
+                success: function (response) {
+                    if (response.success) {              
+                        var row = $('#row_' + response.id);
+                        row.remove();
+                        swal({
+                          title: "Thông báo",
+                          text: response.message,
+                          icon: "success",
+                          close: true,
+                          button: "Đóng",
+                        });
+                        
+                    } else {
+                      swal({
+                          title: "Lỗi",
+                          text: response.message,
+                          icon: "error",
+                          close: true,
+                          button: "Thử lại",
+                        });                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Ajax request failed!");
+                }
               })
             } 
         });

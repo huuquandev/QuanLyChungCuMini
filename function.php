@@ -66,7 +66,7 @@
         return $row['count'] == 0;
     }
     
-    function ThemToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhanh, $quanhuyen, $phuongxa) {
+    function ThemToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhanh, $quanhuyen, $phuongxa, $matToaNha) {
         GLOBAL $conn;
         $filter_tentoanha = mysqli_real_escape_string($conn, $tentoanha);
         $filter_diachi = mysqli_real_escape_string($conn, $diachi);
@@ -75,24 +75,20 @@
         $filter_tinhanh = mysqli_real_escape_string($conn, $tinhanh);
         $filter_quanhuyen = mysqli_real_escape_string($conn, $quanhuyen);
         $filter_phuongxa = mysqli_real_escape_string($conn, $phuongxa);
-
-        $random = generateRandomCode();
-        $matToaNha = "CH".$random;
-
-        while (!isMaCanHo_PhongUnique($conn, $matToaNha)) {
-            $matToaNha = generateRandomCode();
-        }
     
         $sql = "INSERT INTO tb_toanha (ten_toanha, ma_toanha, so_tang, trangthai_toanha, diachi_chitiet, tinhthanh, quanhuyen, phuongxa) 
                 VALUES ('$filter_tentoanha', '$matToaNha', '$filter_so_tang', '$filter_trangthai', '$filter_diachi', '$filter_tinhanh', '$filter_quanhuyen', '$filter_phuongxa')";
     
         $query = mysqli_query($conn, $sql);
         if ($query) {
-            echo '<script>alert("Thêm thành công"); window.location.href = "home.php?title=toanha";</script>';
+            // Lấy giá trị ID của tòa nhà vừa thêm
+            $lastInsertedId = mysqli_insert_id($conn);
+            return $lastInsertedId;
         } else {
-            echo '<script>alert("Thêm thất bại");</script>';
+            return false;
         }
     }
+    
     function ThemCanho_Phong($ten_canho_phong, $ma_canho_phong, $tang, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $tinhtrang) {
         GLOBAL $conn;
         $filter_ten_canho_phong = mysqli_real_escape_string($conn, $ten_canho_phong);

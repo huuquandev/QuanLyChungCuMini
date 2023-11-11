@@ -1969,7 +1969,7 @@ pre code {
   color: black;
   background-color: #f1f1f1;
   background-clip: padding-box;
-  height: 45px;
+  height: 37px;  
   border: 1px solid #dadada;
   border-radius: .357rem;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -3084,6 +3084,7 @@ border: none !important;
   border-radius: .357rem;
   position: static;
   margin: 20px auto;
+  width: 25%;
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: scale(1);
@@ -3095,6 +3096,11 @@ border: none !important;
   transition: opacity .2s,-webkit-transform .3s;
   transition: transform .3s,opacity .2s;
   transition: transform .3s,opacity .2s,-webkit-transform .3s;
+}
+.swal-button-container{
+  margin: 5px;
+  display: inline-block;
+  position: relative;
 }
 .swal-overlay {
 
@@ -15303,10 +15309,10 @@ be a descendant of the grid when it is being dragged.
   color: #666;
 }
 .swal-button{
-  background: rgb(191 255 184) !important;
+  background: #001c40 !important;
   border-radius: .357rem;
   box-shadow: none !important;
-  color: rgb(13 136 0) !important;
+  color: #fff !important;
   border: none;
 }
 .swal-button--cancel {

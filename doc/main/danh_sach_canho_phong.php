@@ -204,13 +204,9 @@
                                       <div>
                                         <div dir="ltr" class="v-select vs--single vs--searchable" id="floor">
                                           <div id="vs18__combobox" role="combobox" aria-expanded="false" aria-owns="vs18__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                            <div class="vs__selected-options">
-                                              <?php
-
-                                               ?>  
+                                            <div class="vs__selected-options">     
                                               <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floor_id" disabled>
                                                 <option value="" hidden="">Chọn tầng</option>     
-
                                               </select>
                                             </div>
                                             <div class="vs__actions">
@@ -359,8 +355,171 @@
                 </div>
               </div>
             </div>
+            <div data-v-6ea5fee4="" class="row">
+              <div data-v-6ea5fee4="" class="col">
+                <div data-v-6ea5fee4="">
+                  <fieldset class="form-group" id="__BVID__428">
+                    <!---->
+                    <div>
+                      <div dir="ltr" class="v-select vs--single vs--searchable" id="apartment">
+                        <div id="vs3__combobox" role="combobox" aria-expanded="false" aria-owns="vs3__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                          <div class="vs__selected-options">
+                            <select aria-autocomplete="list" aria-labelledby="vs17__combobox" aria-controls="vs17__listbox" type="search" autocomplete="off" class="vs__search" id="building_id_search">
+                                              <option value="" hidden="">Tòa nhà</option>     
+                                              <?php
+                                                $sql = "SELECT * FROM tb_toanha";
+                                                $query = mysqli_query($conn, $sql);
+                                                if(mysqli_num_rows($query) > 0){
+                                                  while ($row = mysqli_fetch_array($query)) {
+                                               ?>
+                                                  <option value="<?php echo $row['id_toanha'] ?>"><?php echo $row['ten_toanha'] ?></option>     
+                                                  <?php
+                                                  }
+                                                }
+                                               ?>
+                                 </select>                          
+                            </div>
+                          <div class="vs__actions">
+                            <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                              </svg>
+                            </button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                              <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            <div class="vs__spinner" style="display: none;">Loading...</div>
+                          </div>
+                        </div>
+                        <ul id="vs3__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                      </div>
+                      <small class="text-danger"></small>
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </fieldset>
+                  <!---->
+                </div>
+              </div>
+              <div data-v-6ea5fee4="" class="col">
+                <div data-v-6ea5fee4="">
+                  <fieldset class="form-group" id="__BVID__434">
+                    <!---->
+                    <div>
+                      <div dir="ltr" class="v-select vs--single vs--searchable" id="floor">
+                        <div id="vs4__combobox" role="combobox" aria-expanded="false" aria-owns="vs4__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                        <div class="vs__selected-options">     
+                                <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floor_id_search">
+                                              <option value="" hidden="">Tầng</option>     
+                                              <?php
+                                                $sqlfloor = "SELECT MIN(id_tang) AS id_tang, ten_tang
+                                                FROM tb_tang
+                                                GROUP BY ten_tang
+                                                ORDER BY ten_tang ASC;                                                
+                                                ";
+                                                $queryfloor = mysqli_query($conn, $sqlfloor);
+                                                if(mysqli_num_rows($queryfloor) > 0){
+                                                  while ($rowfloor = mysqli_fetch_array($queryfloor)) {
+                                               ?>
+                                                  <option value="<?php echo $rowfloor['id_tang'] ?>">Tầng <?php echo $rowfloor['ten_tang'] ?></option>     
+                                                  <?php
+                                                  }
+                                                }
+                                               ?>                                              
+                                </select>
+                          </div>
+                          <div class="vs__actions">
+                            <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                              </svg>
+                            </button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                              <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            <div class="vs__spinner" style="display: none;">Loading...</div>
+                          </div>
+                        </div>
+                        <ul id="vs4__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                      </div>
+                      <small class="text-danger"></small>
+                      <!---->
+                      <!---->
+                      <!---->
+                    </div>
+                  </fieldset>
+                  <!---->
+                </div>
+              </div>
+              <div data-v-6ea5fee4="" class="col">
+                <fieldset data-v-6ea5fee4="" class="form-group" id="__BVID__440">
+                  <!---->
+                  <div>
+                    <div dir="ltr" class="v-select vs--single vs--searchable" id="active">
+                      <div id="vs5__combobox" role="combobox" aria-expanded="false" aria-owns="vs5__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                        <div class="vs__selected-options">
+                          <input placeholder="Trạng thái thuê" aria-autocomplete="list" aria-labelledby="vs5__combobox" aria-controls="vs5__listbox" type="search" autocomplete="off" class="vs__search">
+                        </div>
+                        <div class="vs__actions">
+                          <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                          </svg>
+                          <div class="vs__spinner" style="display: none;">Loading...</div>
+                        </div>
+                      </div>
+                      <ul id="vs5__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+              </div>
+              <div data-v-6ea5fee4="" class="col">
+                <fieldset data-v-6ea5fee4="" class="form-group" id="__BVID__446">
+                  <!---->
+                  <div>
+                    <div dir="ltr" class="v-select vs--single vs--searchable" id="active">
+                      <div id="vs6__combobox" role="combobox" aria-expanded="false" aria-owns="vs6__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                        <div class="vs__selected-options">
+                          <input placeholder="Trạng thái hoạt động" aria-autocomplete="list" aria-labelledby="vs6__combobox" aria-controls="vs6__listbox" type="search" autocomplete="off" class="vs__search">
+                        </div>
+                        <div class="vs__actions">
+                          <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                          </button>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                          </svg>
+                          <div class="vs__spinner" style="display: none;">Loading...</div>
+                        </div>
+                      </div>
+                      <ul id="vs6__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                  </div>
+                </fieldset>
+              </div>
+              <div data-v-6ea5fee4="" class="col">
+                <input data-v-6ea5fee4="" type="text" placeholder="Tìm kiếm..." class="form-control" id="__BVID__451">
+              </div>
+            </div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
-              id="sampleTable">
+              id="">
               <thead>
                       <tr>
                         <th width="10"><input type="checkbox" id="all"></th>
@@ -660,7 +819,7 @@
                 <?php 
                     } 
                   }else{
-                    echo '<tr class="odd"><td valign="top" colspan="10" class="dataTables_empty">Không tìm thấy kết quả</td></tr>';
+                    echo '<td valign="top" colspan="10" class="dataTables_empty" style="text-align: center;">Không tìm thấy kết quả</td>';
                   }
                     ?>
                     
@@ -708,7 +867,7 @@
                 for (var i = 0; i < floors.length; i++) {
                     var option = document.createElement('option');
                     option.value = floors[i].id_tang; 
-                    option.textContent = floors[i].ten_tang; 
+                    option.textContent = "Tầng " + floors[i].ten_tang; 
                     floor.appendChild(option);
                 }
 

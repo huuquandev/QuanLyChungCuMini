@@ -52,7 +52,7 @@
     if(isset($_SESSION['id_taikhoan'])){
       if($_SESSION['CountLogin'] < 2){
         echo    ' <script> 
-        swal({ title: "", text: "Xin chào '.$_SESSION['ten_hien_thi'].'", icon: "success", close: true, button: "Close", }); 
+        swal({ title: "", text: "Xin chào '.$_SESSION['ten_hien_thi'].'", icon: "success", close: true, button: false, }); 
         </script> ';
         $_SESSION['CountLogin'] += 1;
       }
