@@ -383,7 +383,7 @@
                   </div>
                 </fieldset>
               </div>
-              <div data-v-7f820fac="" class="col-md-6">
+              <div data-v-7f820fac="" class="col-md-6 search-input-building">
                 <input data-v-7f820fac="" type="text" placeholder="Tìm kiếm Tòa nhà..." class="form-control" id="__BVID__395">
               </div>
             </div>

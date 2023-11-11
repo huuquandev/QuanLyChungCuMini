@@ -461,7 +461,13 @@
                     <div dir="ltr" class="v-select vs--single vs--searchable" id="active">
                       <div id="vs5__combobox" role="combobox" aria-expanded="false" aria-owns="vs5__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
                         <div class="vs__selected-options">
-                          <input placeholder="Trạng thái thuê" aria-autocomplete="list" aria-labelledby="vs5__combobox" aria-controls="vs5__listbox" type="search" autocomplete="off" class="vs__search">
+                          <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floor_id_search">
+                              <option value="" hidden="">Trạng thái thuê</option>          
+                              <option value="">Đang trống</option>                                               
+                              <option value="">Đang cọc</option>                                               
+                              <option value="">Đang ở</option>                                               
+                              <option value="">Sắp chuyển đi</option>                                                                                 
+                          </select>
                         </div>
                         <div class="vs__actions">
                           <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
@@ -491,7 +497,11 @@
                     <div dir="ltr" class="v-select vs--single vs--searchable" id="active">
                       <div id="vs6__combobox" role="combobox" aria-expanded="false" aria-owns="vs6__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
                         <div class="vs__selected-options">
-                          <input placeholder="Trạng thái hoạt động" aria-autocomplete="list" aria-labelledby="vs6__combobox" aria-controls="vs6__listbox" type="search" autocomplete="off" class="vs__search">
+                          <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floor_id_search">
+                              <option value="" hidden="">Trạng thái hoạt động</option>          
+                              <option value="">Hoạt động</option>                                               
+                              <option value="">Không hoạt động</option>                                               
+                          </select>                        
                         </div>
                         <div class="vs__actions">
                           <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
@@ -514,8 +524,8 @@
                   </div>
                 </fieldset>
               </div>
-              <div data-v-6ea5fee4="" class="col">
-                <input data-v-6ea5fee4="" type="text" placeholder="Tìm kiếm..." class="form-control" id="__BVID__451">
+              <div data-v-6ea5fee4="" class="col .search-input-building">
+                <input data-v-6ea5fee4="" type="text" placeholder="Tìm kiếm..." class="form-control">
               </div>
             </div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
