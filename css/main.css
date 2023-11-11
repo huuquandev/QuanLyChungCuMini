@@ -9719,6 +9719,48 @@ table.table-bordered.dataTable td:last-child,
 table.table-bordered.dataTable td:last-child {
   border-right-width: 0;
 }
+table, th, td {
+  border-collapse: collapse;
+  padding: 1rem;
+  text-align: left;
+}
+tbody tr{
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay), background-color 0s;
+}
+
+tbody tr.hide{
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+tbody tr td,
+tbody tr td p,
+tbody tr td img {
+    transition: .2s ease-in-out;
+}
+
+tbody tr.hide td,
+tbody tr.hide td span,
+tbody tr.hide td button,
+tbody tr.hide td button i,
+tbody tr.hide td b,
+tbody tr.hide td p {
+    margin: 0;
+    padding: 0;
+    font: 0 / 0 sans-serif;
+    transition: .2s ease-in-out .5s;
+}
+
+tbody tr.hide td input,
+tbody tr.hide td img {
+  width: 0;
+  height: 0;
+  transition: .2s ease-in-out .5s;
+}
+tbody tr:nth-child(even) {
+  background-color: #0000000b;
+}
 
 table.table-bordered.dataTable tbody th,
 table.table-bordered.dataTable tbody td {

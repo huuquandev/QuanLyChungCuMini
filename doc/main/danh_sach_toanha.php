@@ -359,11 +359,11 @@
                   <div>
                     <div dir="ltr" class="v-select vs--single vs--searchable" id="active">
                       <div id="vs2__combobox" role="combobox" aria-expanded="false" aria-owns="vs2__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                        <div class="vs__selected-options">
+                        <div class="vs__selected-options selected-status">
                         <select aria-autocomplete="list" aria-labelledby="vs17__combobox" aria-controls="vs17__listbox" type="search" autocomplete="off" class="vs__search" id="building_id">
                             <option value="" hidden="">Trạng thái hoạt động</option>     
-                            <option value="1" >Hoạt động</option>     
-                            <option value="0" >không hoạt động</option>     
+                            <option value="Hoạt động" >Hoạt động</option>     
+                            <option value="không hoạt động" >không hoạt động</option>     
                         </select>
                         </div>
                         <div class="vs__actions">
