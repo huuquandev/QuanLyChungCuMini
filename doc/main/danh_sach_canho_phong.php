@@ -708,7 +708,7 @@
                 for (var i = 0; i < floors.length; i++) {
                     var option = document.createElement('option');
                     option.value = floors[i].id_tang; 
-                    option.textContent = "Tầng " + floors[i].ten_tang; 
+                    option.textContent = floors[i].ten_tang; 
                     floor.appendChild(option);
                 }
 

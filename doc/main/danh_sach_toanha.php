@@ -389,64 +389,64 @@
                       </tr>
                     </thead>
                   <tbody>
-                  <?php 
-                    $sql = "SELECT tb_toanha.*, COUNT(tb_canho_phong.id_canho_phong) AS so_luong_phong
-                    FROM tb_toanha
-                    LEFT JOIN tb_canho_phong ON tb_toanha.id_toanha = tb_canho_phong.id_toanha
-                    GROUP BY tb_toanha.id_toanha;";
-                      $query = mysqli_query($conn, $sql);
-                      if(mysqli_num_rows($query) > 0){
-                      while ($row = mysqli_fetch_array($query)) {
-                    ?>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td><?php echo $row['ma_toanha']; ?></td>
-                      <td><?php echo $row['ten_toanha']; ?></td>
-                      <td class="text-center"><?php echo $row['so_tang']; ?></td>
-                      <td>
-                        <?php 
-                              $showaddress = array();
-
-                        if (!empty($row['diachi_chitiet'])) {
-                                $showaddress[] = $row['diachi_chitiet'];
-                            }
-                            if (!empty($row['tinhthanh'])) {
-                                $showaddress[] = $row['tinhthanh'];
-                            }
-                            if (!empty($row['quanhuyen'])) {
-                                $showaddress[] = $row['quanhuyen'];
-                            }
-                            if (!empty($row['phuongxa'])) {
-                                $showaddress[] = $row['phuongxa'];
-                            }
-                            $show_address = implode(', ', $showaddress); 
-                            echo $show_address;
-                        ?> 
-                      </td>
-                      <td>
-                        <?php 
-                        if($row['trangthai_toanha'] == 1){
-                          echo '<span class="badge bg-success" style="font-size: 13px;"><b class="span_pending">Hoạt động</b></span>';
-                        }else if($row['trangthai_toanha'] == 0){
-                          echo '<span class="badge bg-danger" style="font-size: 13px;"><b class="span_pending">Không hoạt động</b></span>';
-                        }
-                        ?>
-                      </td>
-                      <td class="table-td-center">
-                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" data-id="<?php echo $row['id_toanha']  ?>"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
-                          data-toggle="modal" data-target="#ModalUP" data-id="<?php echo $row['id_toanha']?>"><i class="fas fa-edit"></i>
-                        </button>
-                      </td>
-                    </tr>
-
                     <?php 
-                    } 
-                  }else{
-                    echo '<tr class="odd"><td valign="top" colspan="7" class="dataTables_empty">Không tìm thấy kết quả</td></tr>';
-                  }
-                    ?>
+                      $sql = "SELECT tb_toanha.*, COUNT(tb_canho_phong.id_canho_phong) AS so_luong_phong
+                      FROM tb_toanha
+                      LEFT JOIN tb_canho_phong ON tb_toanha.id_toanha = tb_canho_phong.id_toanha
+                      GROUP BY tb_toanha.id_toanha;";
+                        $query = mysqli_query($conn, $sql);
+                        if(mysqli_num_rows($query) > 0){
+                        while ($row = mysqli_fetch_array($query)) {
+                      ?>
+                      <tr id="row_<?php echo $row['id_toanha']; ?>">
+                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                        <td class="ma_toanha"><?php echo $row['ma_toanha']; ?></td>
+                        <td class="ten_toanha"><?php echo $row['ten_toanha']; ?></td>
+                        <td class="text-center so_tang" ><?php echo $row['so_tang']; ?></td>
+                        <td class="diachi_chitiet">
+                          <?php 
+                                $showaddress = array();
+
+                          if (!empty($row['diachi_chitiet'])) {
+                                  $showaddress[] = $row['diachi_chitiet'];
+                              }
+                              if (!empty($row['tinhthanh'])) {
+                                  $showaddress[] = $row['tinhthanh'];
+                              }
+                              if (!empty($row['quanhuyen'])) {
+                                  $showaddress[] = $row['quanhuyen'];
+                              }
+                              if (!empty($row['phuongxa'])) {
+                                  $showaddress[] = $row['phuongxa'];
+                              }
+                              $show_address = implode(', ', $showaddress); 
+                              echo $show_address;
+                          ?> 
+                        </td>
+                        <td class="trangthai_toanha">
+                          <?php 
+                          if($row['trangthai_toanha'] == 1){
+                            echo '<span class="badge bg-success" style="font-size: 13px;"><b class="span_pending">Hoạt động</b></span>';
+                          }else if($row['trangthai_toanha'] == 0){
+                            echo '<span class="badge bg-danger" style="font-size: 13px;"><b class="span_pending">Không hoạt động</b></span>';
+                          }
+                          ?>
+                        </td>
+                        <td class="table-td-center">
+                          <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" data-id="<?php echo $row['id_toanha']  ?>"><i class="fas fa-trash-alt"></i>
+                          </button>
+                          <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
+                            data-toggle="modal" data-target="#ModalUP" data-id="<?php echo $row['id_toanha']?>"><i class="fas fa-edit"></i>
+                          </button>
+                        </td>
+                      </tr>
+
+                      <?php 
+                      } 
+                    }else{
+                      echo '<tr class="odd"><td valign="top" colspan="7" class="dataTables_empty">Không tìm thấy kết quả</td></tr>';
+                    }
+                      ?>
                   </tbody>
                 </table>
               </div>
@@ -724,7 +724,7 @@
         $('body').on('click', '#btn-save', function () {          
            var formData = new FormData();
 
-            formData.append('idtoanha', $('#idtoanha').val());
+            formData.append('id', $('#idtoanha').val());
             formData.append('tentoanha', $('#newtentoanha').val());
             formData.append('diachi', $('#newdiachichitiet').val());
             formData.append('trangthai', $('#newtrangthai').val());
@@ -743,6 +743,14 @@
                 contentType: false, 
                 data: formData,
             }).done(function(ketqua){
+              var id = $('#idtoanha').val();
+              var row = $('#row_' + id);
+              // Cập nhật các cột cụ thể với dữ liệu mới
+              row.find('.ten_toanha').text(ketqua.ten_toanha);
+              row.find('.so_tang').text(ketqua.so_tang);
+              row.find('.diachi').text(ketqua.diachi);
+              row.find('.trangthai').text(ketqua.trangthai);
+
                 alert(ketqua);
             })
         });

@@ -1,7 +1,7 @@
 <?php
     include_once '../../../function.php';
     include_once '../../../components/connect.php';
-    $idtoanha = $_POST['idtoanha'];
+    $id = $_POST['id'];
     $tentoanha = $_POST['tentoanha'];
     $diachi = $_POST['diachi'];
     $trangthai = $_POST['trangthai'];
@@ -9,8 +9,9 @@
     $tinhanh = $_POST['tinhanh'];
     $quanhuyen = $_POST['quanhuyen'];
     $phuongxa = $_POST['phuongxa'];
-    if(SuaToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhanh, $quanhuyen, $phuongxa, $id_toanha)){
+    if(SuaToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhanh, $quanhuyen, $phuongxa, $id)){
         echo "Sửa thành công";
+        
     }else{
         echo "Sửa thát bại";
     }

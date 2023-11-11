@@ -3,7 +3,7 @@
     <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/<?php echo $_SESSION['hinh_anh']?>" width="50px"
         alt="User Image">
       <div>
-        <p class="app-sidebar__user-name"><b><?php echo $_SESSION['ho_ten'] ?></b></p>
+        <p class="app-sidebar__user-name"><b><?php echo $_SESSION['ten_hien_thi'] ?></b></p>
         <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
       </div>
     </div>
