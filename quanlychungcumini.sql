@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 09, 2023 lúc 11:22 AM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Nov 12, 2023 at 10:12 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `quanlychungcumini`
+-- Database: `quanlychungcumini`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tb_canho_phong`
+-- Table structure for table `tb_canho_phong`
 --
 
 CREATE TABLE `tb_canho_phong` (
@@ -44,7 +44,7 @@ CREATE TABLE `tb_canho_phong` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tb_kho`
+-- Table structure for table `tb_kho`
 --
 
 CREATE TABLE `tb_kho` (
@@ -57,7 +57,7 @@ CREATE TABLE `tb_kho` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tb_taikhoan`
+-- Table structure for table `tb_taikhoan`
 --
 
 CREATE TABLE `tb_taikhoan` (
@@ -72,7 +72,7 @@ CREATE TABLE `tb_taikhoan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `tb_taikhoan`
+-- Dumping data for table `tb_taikhoan`
 --
 
 INSERT INTO `tb_taikhoan` (`id_taikhoan`, `tai_khoan`, `mat_khau`, `ten_hien_thi`, `so_dien_thoai`, `gioi_tinh`, `hinh_anh`, `quyen_han`) VALUES
@@ -81,7 +81,7 @@ INSERT INTO `tb_taikhoan` (`id_taikhoan`, `tai_khoan`, `mat_khau`, `ten_hien_thi
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tb_taisan`
+-- Table structure for table `tb_taisan`
 --
 
 CREATE TABLE `tb_taisan` (
@@ -102,7 +102,7 @@ CREATE TABLE `tb_taisan` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tb_tang`
+-- Table structure for table `tb_tang`
 --
 
 CREATE TABLE `tb_tang` (
@@ -112,13 +112,10 @@ CREATE TABLE `tb_tang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `tb_tang`
+-- Dumping data for table `tb_tang`
 --
 
 INSERT INTO `tb_tang` (`id_tang`, `id_toanha`, `ten_tang`) VALUES
-(36, 2, 1),
-(37, 2, 2),
-(38, 2, 3),
 (39, 1, 1),
 (40, 1, 2),
 (42, 29, 1),
@@ -127,14 +124,15 @@ INSERT INTO `tb_tang` (`id_tang`, `id_toanha`, `ten_tang`) VALUES
 (45, 29, 5),
 (46, 29, 6),
 (47, 29, 7),
-(48, 29, 9),
+(48, 29, 8),
 (49, 29, 9),
-(50, 29, 10);
+(50, 29, 10),
+(51, 29, 4);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tb_toanha`
+-- Table structure for table `tb_toanha`
 --
 
 CREATE TABLE `tb_toanha` (
@@ -150,20 +148,21 @@ CREATE TABLE `tb_toanha` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `tb_toanha`
+-- Dumping data for table `tb_toanha`
 --
 
 INSERT INTO `tb_toanha` (`id_toanha`, `ten_toanha`, `ma_toanha`, `so_tang`, `trangthai_toanha`, `diachi_chitiet`, `tinhthanh`, `quanhuyen`, `phuongxa`) VALUES
-(1, 'Tòa nhà hòa bình', 'CH001392', 3, 1, '91 nguyễn chí thanh', 'Tỉnh Bắc Giang', 'Huyện Lạng Giang', 'Xã An Hà'),
-(2, 'fpt securities', 'CH002345', 20, 0, '52 đường Lạc Long Quân', 'Thành phố Hà Nội', 'Quận Tây Hồ', 'Phường Bưởi'),
-(29, 'Vinhome city', 'CH869889', 12, 1, '25 Nguyễn Khang', 'Tỉnh Bắc Giang', 'Huyện Tân Yên', 'Xã Việt Ngọc');
+(1, 'Tòa nhà hòa bình', 'CH001392', 3, 0, '400 khương đình', 'Tỉnh Bắc Giang', 'Huyện Lạng Giang', 'Xã An Hà'),
+(29, 'Vinhome city', 'CH869889', 12, 1, '25 Nguyễn Khang', 'Tỉnh Bắc Giang', 'Huyện Tân Yên', 'Xã Việt Ngọc'),
+(70, '12', 'CH910173', 12321, 1, '12312', 'Tỉnh Hà Giang', 'Huyện Đồng Văn', 'Xã Má Lé'),
+(71, '12', 'CH137323', 12, 0, '', 'Thành phố Hà Nội', 'Quận Hoàn Kiếm', 'Phường Hàng Buồm');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `tb_canho_phong`
+-- Indexes for table `tb_canho_phong`
 --
 ALTER TABLE `tb_canho_phong`
   ADD PRIMARY KEY (`id_canho_phong`),
@@ -171,19 +170,19 @@ ALTER TABLE `tb_canho_phong`
   ADD KEY `canhophong_tang` (`id_tang`);
 
 --
--- Chỉ mục cho bảng `tb_kho`
+-- Indexes for table `tb_kho`
 --
 ALTER TABLE `tb_kho`
   ADD PRIMARY KEY (`id_kho`);
 
 --
--- Chỉ mục cho bảng `tb_taikhoan`
+-- Indexes for table `tb_taikhoan`
 --
 ALTER TABLE `tb_taikhoan`
   ADD PRIMARY KEY (`id_taikhoan`);
 
 --
--- Chỉ mục cho bảng `tb_taisan`
+-- Indexes for table `tb_taisan`
 --
 ALTER TABLE `tb_taisan`
   ADD PRIMARY KEY (`id_taisan`),
@@ -192,71 +191,71 @@ ALTER TABLE `tb_taisan`
   ADD KEY `taisan_toanha` (`id_toanha`);
 
 --
--- Chỉ mục cho bảng `tb_tang`
+-- Indexes for table `tb_tang`
 --
 ALTER TABLE `tb_tang`
   ADD PRIMARY KEY (`id_tang`),
   ADD KEY `tang_toanha` (`id_toanha`);
 
 --
--- Chỉ mục cho bảng `tb_toanha`
+-- Indexes for table `tb_toanha`
 --
 ALTER TABLE `tb_toanha`
   ADD PRIMARY KEY (`id_toanha`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `tb_canho_phong`
+-- AUTO_INCREMENT for table `tb_canho_phong`
 --
 ALTER TABLE `tb_canho_phong`
   MODIFY `id_canho_phong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `tb_kho`
+-- AUTO_INCREMENT for table `tb_kho`
 --
 ALTER TABLE `tb_kho`
   MODIFY `id_kho` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `tb_taikhoan`
+-- AUTO_INCREMENT for table `tb_taikhoan`
 --
 ALTER TABLE `tb_taikhoan`
   MODIFY `id_taikhoan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `tb_taisan`
+-- AUTO_INCREMENT for table `tb_taisan`
 --
 ALTER TABLE `tb_taisan`
   MODIFY `id_taisan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `tb_tang`
+-- AUTO_INCREMENT for table `tb_tang`
 --
 ALTER TABLE `tb_tang`
-  MODIFY `id_tang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_tang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
--- AUTO_INCREMENT cho bảng `tb_toanha`
+-- AUTO_INCREMENT for table `tb_toanha`
 --
 ALTER TABLE `tb_toanha`
-  MODIFY `id_toanha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_toanha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `tb_canho_phong`
+-- Constraints for table `tb_canho_phong`
 --
 ALTER TABLE `tb_canho_phong`
   ADD CONSTRAINT `canhophong_tang` FOREIGN KEY (`id_tang`) REFERENCES `tb_tang` (`id_tang`),
   ADD CONSTRAINT `canhophong_toanha` FOREIGN KEY (`id_toanha`) REFERENCES `tb_toanha` (`id_toanha`) ON DELETE SET NULL;
 
 --
--- Các ràng buộc cho bảng `tb_taisan`
+-- Constraints for table `tb_taisan`
 --
 ALTER TABLE `tb_taisan`
   ADD CONSTRAINT `taisan_canhophong` FOREIGN KEY (`id_canho_phong`) REFERENCES `tb_canho_phong` (`id_canho_phong`),
@@ -264,10 +263,10 @@ ALTER TABLE `tb_taisan`
   ADD CONSTRAINT `taisan_toanha` FOREIGN KEY (`id_toanha`) REFERENCES `tb_toanha` (`id_toanha`);
 
 --
--- Các ràng buộc cho bảng `tb_tang`
+-- Constraints for table `tb_tang`
 --
 ALTER TABLE `tb_tang`
-  ADD CONSTRAINT `tang_toanha` FOREIGN KEY (`id_toanha`) REFERENCES `tb_toanha` (`id_toanha`) ON DELETE SET NULL ON UPDATE SET NULL;
+  ADD CONSTRAINT `tang_toanha` FOREIGN KEY (`id_toanha`) REFERENCES `tb_toanha` (`id_toanha`) ON DELETE CASCADE ON UPDATE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
