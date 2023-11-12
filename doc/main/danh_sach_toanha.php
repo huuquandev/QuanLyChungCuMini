@@ -166,26 +166,44 @@
                                 <h5>Thông tin địa chỉ</h5>
                               </div>
                               <!---->
-                              <div class="col-md-4">
-                                <div class="vs__selected-options ">
-                                            <select class="w-100 selectpicker" id="Province1" name="Province1" data-live-search="true" >
-                                                <option value="" selected>Chọn tỉnh thành</option>                                   
-                                            </select>
+                              <div class="col-md-4 wrapper">
+                                  <div class="select-btn">
+                                      <span>Tỉnh thành</span>
+                                      <i class="fas fa-angle-down"></i>
+                                  </div>
+                                  <div class="search-option">
+                                    <div class="search">
+                                      <input type="text" placeholder="Search">
                                     </div>
+                                    <ul class="options" id="Province1">
+                                    </ul>
+                                  </div>
                               </div>
-                              <div class="col-md-4">
-                                <div class="vs__selected-options">
-                                            <select class="w-100 selectpicker" id="District1" name="District1" data-live-search="true" disabled>
-                                              <option value="" selected>Chọn quận huyện</option>                                              
-                                            </select>
-                                   </div>
+                              <div class="col-md-4 wrapper">
+                                   <div class="select-btn">
+                                      <span>Quận huyện</span>
+                                      <i class="fas fa-angle-down"></i>
+                                  </div>
+                                  <div class="search-option">
+                                    <div class="search">
+                                      <input type="text" placeholder="Search">
+                                    </div>
+                                    <ul class="options" id="District1">
+                                    </ul>
+                                  </div>
                               </div>
-                              <div class="col-md-4">
-                              <div class="vs__selected-options">
-                                            <select class="w-100 selectpicker" id="Ward1" name="Ward1" data-live-search="true" disabled>
-                                              <option value="" selected>Chọn phường xã</option>
-                                            </select>
-                                   </div>
+                              <div class="col-md-4 wrapper">
+                                   <div class="select-btn">
+                                      <span>Phường xã</span>
+                                      <i class="fas fa-angle-down"></i>
+                                  </div>
+                                  <div class="search-option">
+                                    <div class="search">
+                                      <input type="text" placeholder="Search">
+                                    </div>
+                                    <ul class="options" id="Ward1">
+                                    </ul>
+                                  </div>
                               </div>
                               <div class="col-12">
                                 <span>
@@ -593,7 +611,6 @@
 
         $('body').on('click', '.btn-add', function () {          
             $('#modal-default').modal('show');
-            initializeDropdowns("Province1", "District1", "Ward1");
         });
         $('body').on('click', '#btnAdd', function () {  
             var formData = new FormData();
@@ -820,7 +837,6 @@
         var citis = document.getElementById(citisId);
         var districts = document.getElementById(districtId);
         var wards = document.getElementById(wardId);
-
         // Tạo đối tượng Parameter chứa thông tin yêu cầu HTTP GET
         var Parameter = {
             url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
@@ -837,10 +853,8 @@
         // Hàm renderCity để tạo các tùy chọn cho select tỉnh/thành phố
         function renderCity(data) {
             for (const x of data) {
-                citis.options[citis.options.length] = new Option(x.Name, x.Id = x.Name);
-                if (x.Name == citisIdValue) {
-                    citis.value = citisIdValue;
-                }
+              let li = `<li onclick=updateName(this)>${x.Name}</li>`
+              citis.insertAdjacentHTML("beforeend", li)
             }
             // Xử lý khi select tỉnh/thành phố thay đổi
             citis.onchange = function () {
@@ -851,12 +865,12 @@
 
                 // Tạo các tùy chọn cho select quận/huyện
                 for (const k of result[0].Districts) {
-                    districts.options[districts.options.length] = new Option(k.Name, k.Id = k.Name);
-                    if (k.Name == districtIdValue) {
-                        districts.value = districtIdValue;
-                    }
+                  let li = `<li onclick=updateName(this)>${k.Name}</li>`
+                  districts.insertAdjacentHTML("beforeend", li)
+                    // if (k.Name == districtIdValue) {
+                    //     districts.value = districtIdValue;
+                    // }
                 }
-
                 districts.disabled = false;
                 wards.disabled = true;
                 wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
@@ -872,9 +886,9 @@
                     // Tạo các tùy chọn cho select phường/xã
                     for (const w of dataWards) {
                         wards.options[wards.options.length] = new Option(w.Name, w.Id = w.Name);
-                        if (w.Name == wardIdValue) {
-                            wards.value = wardIdValue;
-                        }
+                        // if (w.Name == wardIdValue) {
+                        //     wards.value = wardIdValue;
+                        // }
                     }
                     wards.disabled = false;
                 } else {

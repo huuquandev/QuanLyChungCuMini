@@ -21,6 +21,19 @@ function searchTable() {
         visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
     });
 }
-$(document).ready(function(){
-    $('select').selectpicker();
-}); 
+
+const wrapper = document.querySelector('.wrapper');
+selectBtnSearch = wrapper.querySelector('.select-btn');
+selectInputSearch = wrapper.querySelector('input');
+
+function updateName(selectedLi){
+    wrapper.classList.remove('active');
+    selectBtnSearch.firstElementChild.innerText = selectedLi.innerText;
+}
+selectInputSearch.addEventListener('keyup', () =>{
+    wrapper.classList.toggle('active');
+});
+
+selectBtnSearch.addEventListener('click', () =>{
+    wrapper.classList.toggle('active');
+});

@@ -157,7 +157,7 @@
     function laytangbytoanha($id_toanha) {
         GLOBAL $conn;
     
-        $sql = "SELECT * FROM tb_tang WHERE tb_tang.id_toanha = $id_toanha";
+        $sql = "SELECT * FROM tb_tang WHERE tb_tang.id_toanha = $id_toanha ORDER BY ten_tang ASC";
     
         $query = mysqli_query($conn, $sql);
         $floors = array();
