@@ -21,3 +21,6 @@ function searchTable() {
         visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
     });
 }
+$(document).ready(function(){
+    $('select').selectpicker();
+}); 

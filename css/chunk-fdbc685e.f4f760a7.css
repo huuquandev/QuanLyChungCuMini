@@ -719,7 +719,6 @@ screen and (-ms-high-contrast:active) {
     flex-wrap: wrap;
     position: relative
 }
-
 [dir] .vs__selected-options {
     padding: 0 2px
 }
@@ -789,11 +788,11 @@ screen and (-ms-high-contrast:active) {
 }
 
 [dir=ltr] .vs__clear {
-    margin-right: 8px
+    margin-right: 5px
 }
 
 [dir=rtl] .vs__clear {
-    margin-left: 8px
+    margin-left: 5px
 }
 
 .vs__dropdown-menu {

@@ -37,11 +37,12 @@
   
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 
 <body onload="time()" class="app sidebar-mini rtl">  
+
 <?php
             include("doc/header.php");
             include("doc/sidebar.php");
@@ -58,32 +59,31 @@
       }
     }
 ?>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-  <!--===============================================================================================-->
- 
-  <script src="js/popper.min.js"></script>
   <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-  <!--===============================================================================================-->
-  <script src="js/bootstrap.min.js"></script>
-  <!--===============================================================================================-->
-  <script src="js/main.js"></script>
-  <!--===============================================================================================-->
-  <script src="js/search.js"></script>
+  
   <!--===============================================================================================-->
   <script src="js/plugins/pace.min.js"></script>
   <!--===============================================================================================-->
   <script type="text/javascript" src="js/plugins/chart.js"></script>
   <!--===============================================================================================-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+ 
   <script src="src/jquery.table2excel.js"></script>
-  <!-- Page specific javascripts-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
   <!-- Data table plugin-->
   <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
   <script type="text/javascript">$('#sampleTable').DataTable();</script>
   <script type="text/javascript">
+
     var data = {
       labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
       datasets: [{
@@ -156,7 +156,11 @@
       }
     }
   </script>
-  
+    <script src="js/main.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/search.js"></script>
+    <!--===============================================================================================-->
+    
 </body>
 
 </html>

@@ -273,7 +273,7 @@ html [type="button"],
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
-  margin-bottom: 5px;
+  margin-bottom: -1px;
 }
 
 button::-moz-focus-inner,
@@ -600,7 +600,9 @@ pre code {
   margin-right: -15px;
   margin-left: -15px;
 }
-
+.row .search-form{
+  margin-bottom: 20px;
+}
 .no-gutters {
   margin-right: 0;
   margin-left: 0;
@@ -3432,17 +3434,14 @@ input[type="button"].btn-block {
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 8px 20px;
+  padding: 0.25rem 1.5rem;
   clear: both;
-  font-weight: 600;
-  color: black;
+  font-weight: 400;
+  color: #212529;
   text-align: inherit;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
-  text-align: center;
-  border-radius: .375rem;
-  box-shadow: 1px 1px 5px #0000006b;
 }
 
 
@@ -3466,8 +3465,11 @@ input[type="button"].btn-block {
 
 .dropdown-menu.show {
   display: block;
+  transform: none !important;
 }
-
+.vs__selected-options .dropdown-menu.show {
+  height: 400px;
+}
 .dropdown-header {
   display: block;
   padding: 0 20px;
