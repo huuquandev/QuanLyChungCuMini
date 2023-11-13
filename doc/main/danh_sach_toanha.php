@@ -173,7 +173,7 @@
                                   </div>
                                   <div class="search-option">
                                     <div class="search">
-                                      <input type="text" placeholder="Search">
+                                      <input type="text" placeholder="Search" id="Province1Search">
                                     </div>
                                     <ul class="options" id="Province1">
                                     </ul>
@@ -186,7 +186,7 @@
                                   </div>
                                   <div class="search-option">
                                     <div class="search">
-                                      <input type="text" placeholder="Search">
+                                      <input type="text" placeholder="Search" id="District1Search">
                                     </div>
                                     <ul class="options" id="District1">
                                     </ul>
@@ -199,7 +199,7 @@
                                   </div>
                                   <div class="search-option">
                                     <div class="search">
-                                      <input type="text" placeholder="Search">
+                                      <input type="text" placeholder="Search" id="Ward1Search">
                                     </div>
                                     <ul class="options" id="Ward1">
                                     </ul>
@@ -611,6 +611,7 @@
 
         $('body').on('click', '.btn-add', function () {          
             $('#modal-default').modal('show');
+            initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", "Ward1Search");
         });
         $('body').on('click', '#btnAdd', function () {  
             var formData = new FormData();
@@ -830,114 +831,4 @@
                                         }                                       
                                     });
     });
-    initializeDropdowns("Province1", "District1", "Ward1");
-
-    function initializeDropdowns(citisId, districtId, wardId, citisIdValue, districtIdValue, wardIdValue) {
-        // Lấy tham chiếu đến các phần tử select từ id
-        var citis = document.getElementById(citisId);
-        var districts = document.getElementById(districtId);
-        var wards = document.getElementById(wardId);
-        // Tạo đối tượng Parameter chứa thông tin yêu cầu HTTP GET
-        var Parameter = {
-            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-            method: "GET",
-            responseType: "application/json",
-        };
-
-        // Gửi yêu cầu HTTP GET và nhận dữ liệu từ tệp JSON
-        var promise = axios(Parameter);
-        promise.then(function (result) {
-            renderCity(result.data);
-        });
-
-        // Hàm renderCity để tạo các tùy chọn cho select tỉnh/thành phố
-        function renderCity(data) {
-            for (const x of data) {
-              let li = `<li onclick=updateName(this)>${x.Name}</li>`
-              citis.insertAdjacentHTML("beforeend", li)
-            }
-            // Xử lý khi select tỉnh/thành phố thay đổi
-            citis.onchange = function () {
-                districts.length = 1;
-                wards.length = 1;
-                // Lọc dữ liệu quận/huyện dựa trên tỉnh/thành phố được chọn
-                const result = data.filter(n => n.Id === this.value);
-
-                // Tạo các tùy chọn cho select quận/huyện
-                for (const k of result[0].Districts) {
-                  let li = `<li onclick=updateName(this)>${k.Name}</li>`
-                  districts.insertAdjacentHTML("beforeend", li)
-                    // if (k.Name == districtIdValue) {
-                    //     districts.value = districtIdValue;
-                    // }
-                }
-                districts.disabled = false;
-                wards.disabled = true;
-                wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
-            };
-
-            // Xử lý khi select quận/huyện thay đổi
-            districts.onchange = function () {
-                const selectedDistrict = this.value;
-                if (selectedDistrict !== '') {
-                    wards.length = 1;
-                    const dataCity = data.filter(n => n.Id === citis.value);
-                    const dataWards = dataCity[0].Districts.filter(n => n.Id === selectedDistrict)[0].Wards;
-                    // Tạo các tùy chọn cho select phường/xã
-                    for (const w of dataWards) {
-                        wards.options[wards.options.length] = new Option(w.Name, w.Id = w.Name);
-                        // if (w.Name == wardIdValue) {
-                        //     wards.value = wardIdValue;
-                        // }
-                    }
-                    wards.disabled = false;
-                } else {
-                    wards.disabled = true;
-                    wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
-                }
-            };
-
-            // Kiểm tra nếu select tỉnh/thành phố đã có giá trị được chọn sẵn
-            if (citis.value !== null && citis.value !== '') {
-                districts.disabled = false;
-                const changeEvent = new Event('change');
-                citis.dispatchEvent(changeEvent);
-                const selectedDistrict = districts.value;
-
-                if (selectedDistrict.value !== null && selectedDistrict.value !== '') {
-                    wards.disabled = false;
-                    // Gọi sự kiện onchange của quận/huyện để kích hoạt xử lý
-                    const changeEvent = new Event('change');
-                    districts.dispatchEvent(changeEvent);
-                }
-            }
-        }
-
-        // Xử lý sự kiện khi select tỉnh/thành phố thay đổi
-        citis.addEventListener('change', function () {
-            var selectedProvince = this.value;
-            if (selectedProvince !== "") {
-                districts.disabled = false;
-            } else {
-                districts.disabled = true;
-                districts.innerHTML = '<option value="" hidden>Chọn quận huyện</option>';
-                wards.disabled = true;
-                wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
-            }
-        });
-
-        // Xử lý sự kiện khi select quận/huyện thay đổi
-        districts.addEventListener('change', function () {
-            var selectedDistrict = this.value;
-            if (selectedDistrict !== "") {
-                wards.disabled = false;
-            } else {
-                wards.disabled = true;
-                wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>>';
-            }
-        });
-    }
-    function selectValue(selectElement, value) {
-        selectElement.value = value;
-    }
 </script>

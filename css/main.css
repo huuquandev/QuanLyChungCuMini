@@ -15852,7 +15852,10 @@ text-align:center;
   transform: rotate(180deg);
 }
 .wrapper.active .search-option{
+  width: 235px;
   display: block;
+  z-index: 10;
+  position: absolute;
 }
 .search-option ul{
   padding: 0;
@@ -15883,12 +15886,13 @@ text-align:center;
   margin: 5px 0 0 0;
   max-height: 250px;
   overflow-y: auto;
+  padding-right: 3px;
 }
 .search-option li{
   height: 40px;
   padding: 0 13px;
   border-radius: 5px;
 }
-.search-option li:hover{
+.search-option li:hover, li.selected  {
   background: #f2f2f2;
 }
