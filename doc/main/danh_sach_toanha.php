@@ -166,9 +166,10 @@
                                 <h5>Thông tin địa chỉ</h5>
                               </div>
                               <!---->
-                              <div class="col-md-4 wrapper">
+                              <div class="col-md-4 wrapper ProvinceSelect1">
                                   <div class="select-btn">
                                       <span>Tỉnh thành</span>
+                                      <input type="hidden" id="Province1Input">
                                       <i class="fas fa-angle-down"></i>
                                   </div>
                                   <div class="search-option">
@@ -179,9 +180,10 @@
                                     </ul>
                                   </div>
                               </div>
-                              <div class="col-md-4 wrapper">
+                              <div class="col-md-4 wrapper DistrictSelect1">
                                    <div class="select-btn">
                                       <span>Quận huyện</span>
+                                      <input type="hidden" id="District1Input">
                                       <i class="fas fa-angle-down"></i>
                                   </div>
                                   <div class="search-option">
@@ -192,8 +194,9 @@
                                     </ul>
                                   </div>
                               </div>
-                              <div class="col-md-4 wrapper">
+                              <div class="col-md-4 wrapper WardSelect1">
                                    <div class="select-btn">
+                                   <input type="hidden" id="Ward1Input">
                                       <span>Phường xã</span>
                                       <i class="fas fa-angle-down"></i>
                                   </div>
@@ -611,7 +614,10 @@
 
         $('body').on('click', '.btn-add', function () {          
             $('#modal-default').modal('show');
-            initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", "Ward1Search");
+          
+            initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", 
+            "Ward1Search", "Province1Input", "District1Input", "Ward1Input", ".ProvinceSelect1", ".DistrictSelect1", 
+            ".WardSelect1");
         });
         $('body').on('click', '#btnAdd', function () {  
             var formData = new FormData();

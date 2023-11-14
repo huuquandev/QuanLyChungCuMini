@@ -22,45 +22,41 @@ function searchTable() {
     });
 }
 
-const wrapper = document.querySelector('.wrapper');
-selectBtnSearch = wrapper.querySelector('.select-btn');
 
-function addcitis(citisName, citisId, searchId, selectedValue) {
+function addcounty(citisName, citisId, searchId, inputValue, Select, selectedValue) {
     let citis = document.getElementById(citisId);
     citis.innerHTML = "";
     let array = citisName;  
     array.forEach(data => {
         let isSelected = data == selectedValue ? "selected" : "";
-        let li = `<li onclick="updateName(this, '${searchId}', '${citisName}', '${citisId}')" class="${isSelected}">${data}</li>`;
+        let li = `<li onclick="updateName(this, '${searchId}', '${citisName}', '${citisId}', '${inputValue}', '${Select}')" class="${isSelected}">${data}</li>`;
         citis.insertAdjacentHTML("beforeend", li);
     });
 }
 
-function updateName(selectedLi, input, citisName, citisId){
+function updateName(selectedLi, input, citisName, citisId, inputValue, Select){
+    const SelectW = document.querySelector(Select);
+    selectBtnSearch = SelectW.querySelector('.select-btn');
     let selectInputSearch = document.getElementById(input);
+    let selectInput = document.getElementById(inputValue);
     selectInputSearch.value = "";
     let array = [];
     array = citisName.split(",");
-    addcitis(array, citisId, input, selectedLi.innerText);
-    wrapper.classList.remove('active');
+    SelectW.classList.remove('active');
     selectBtnSearch.firstElementChild.innerText = selectedLi.innerText;
+    selectInput.value = selectedLi.innerText;
     selectBtnSearch.style.background = "#FFF";
     selectBtnSearch.style.border = "1px solid #b3b3b3";
-
+    addcounty(array, citisId, input, inputValue, Select, selectedLi.innerText);
+    var event = new Event('change');
+    selectInput.dispatchEvent(event);
+    
 }
-selectBtnSearch.addEventListener('click', () =>{
-    wrapper.classList.toggle('active');
-});
 
-document.addEventListener('click', (event) => {
-    const isClickInsideWrapper = wrapper.contains(event.target);
 
-    if (!isClickInsideWrapper) {
-        wrapper.classList.remove('active');
-    }
-});
-
-function initializeDropdowns(citisId, districtId, wardId, citisSearch, districtSearch, wardSearch, citisIdValue, districtIdValue, wardIdValue) {
+function initializeDropdowns(citisId, districtId, wardId, citisSearch, districtSearch, wardSearch, 
+        inputcitisId, inputdistrictId, inputwardId, citisSelect, districtSelect, wardSelect, citisBtn, 
+        districtBtn, wardBtn, citisIdValue, districtIdValue, wardIdValue) {
     // Lấy tham chiếu đến các phần tử select từ id
     var citis = document.getElementById(citisId);
     var districts = document.getElementById(districtId);
@@ -69,6 +65,19 @@ function initializeDropdowns(citisId, districtId, wardId, citisSearch, districtS
     var cSearch = document.getElementById(citisSearch);
     var dSearch = document.getElementById(districtSearch);
     var wSearch = document.getElementById(wardSearch);
+
+    var icitis = document.getElementById(inputcitisId);
+    var idistricts = document.getElementById(inputdistrictId);
+    var iwards = document.getElementById(inputwardId);
+
+    const scitis = document.querySelector(citisSelect);
+    const sdistrict = document.querySelector(districtSelect);
+    const sward = document.querySelector(wardSelect);
+            
+    selectBtnSearch1 = scitis.querySelector(".select-btn");
+    selectBtnSearch2 = sdistrict.querySelector(".select-btn");
+    selectBtnSearch3 = sward.querySelector(".select-btn");
+
     // Tạo đối tượng Parameter chứa thông tin yêu cầu HTTP GET
     var Parameter = {
         url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
@@ -88,97 +97,119 @@ function initializeDropdowns(citisId, districtId, wardId, citisSearch, districtS
         for (const x of data) {
           citisName.push(x.Name);
         }
-        addcitis(citisName, citisId, citisSearch);
-        cSearch.addEventListener('keyup', () => {
-            let searchedVal = cSearch.value.toLowerCase();
-
-            let filteredResults = citisName.filter(datacitis => {
-                return datacitis.toLowerCase().includes(searchedVal);
+        addcounty(citisName, citisId, citisSearch, inputcitisId, citisSelect);
+        selectBtnSearch1.addEventListener('click', () =>{
+            scitis.classList.toggle('active');    
+            cSearch.addEventListener('keyup', () => {
+                let searchedVal = cSearch.value.toLowerCase();
+    
+                let filteredResults = citisName.filter(datacitis => {
+                    return datacitis.toLowerCase().includes(searchedVal);
+                });
+                let arr = filteredResults.map(datacitis => `<li onclick="updateName(this, '${districtSearch}', '${citisName}', '${citisId}', '${inputcitisId}', '${citisSelect}')">${datacitis}</li>`).join("");
+    
+                citis.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
             });
+        });         
 
-            let arr = filteredResults.map(datacitis => `<li onclick="updateName(this, '${citisSearch}', '${citisName}', '${citisId}')">${datacitis}</li>`).join("");
-
-            citis.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
-        });
-        
-        // Xử lý khi select tỉnh/thành phố thay đổi
-        citis.onchange = function () {
-            districts.length = 1;
-            wards.length = 1;
-            // Lọc dữ liệu quận/huyện dựa trên tỉnh/thành phố được chọn
-            const result = data.filter(n => n.Id === this.value);
-
-            // Tạo các tùy chọn cho select quận/huyện
-            for (const k of result[0].Districts) {
-              let li = `<li onclick=updateName(this)>${k.Name}</li>`
-              districts.insertAdjacentHTML("beforeend", li)
-                // if (k.Name == districtIdValue) {
-                //     districts.value = districtIdValue;
-                // }
-            }
-            districts.disabled = false;
-            wards.disabled = true;
-            wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
-        };
-
-        // Xử lý khi select quận/huyện thay đổi
-        districts.onchange = function () {
-            const selectedDistrict = this.value;
-            if (selectedDistrict !== '') {
-                wards.length = 1;
-                const dataCity = data.filter(n => n.Id === citis.value);
-                const dataWards = dataCity[0].Districts.filter(n => n.Id === selectedDistrict)[0].Wards;
-                // Tạo các tùy chọn cho select phường/xã
-                for (const w of dataWards) {
-                    wards.options[wards.options.length] = new Option(w.Name, w.Id = w.Name);
-                    // if (w.Name == wardIdValue) {
-                    //     wards.value = wardIdValue;
-                    // }
+        icitis.addEventListener('change', function() {
+                const result = data.filter(n => n.Name === this.value);
+                let districtsName = [];
+                // Tạo các tùy chọn cho select quận/huyện
+                for (const k of result[0].Districts) {
+                  districtsName.push(k.Name);
                 }
-                wards.disabled = false;
-            } else {
-                wards.disabled = true;
-                wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
-            }
-        };
+                addcounty(districtsName, districtId, districtSearch, inputdistrictId, districtSelect);
+            selectBtnSearch2.addEventListener('click', () =>{
+                sdistrict.classList.toggle('active');   
+                
+                dSearch.addEventListener('keyup', () => {
+                    let searchedVal = dSearch.value.toLowerCase();
+        
+                    let filteredResults = districtsName.filter(datacitis => {
+                        return datacitis.toLowerCase().includes(searchedVal);
+                    });
+                    let arr = filteredResults.map(datadistricts => `<li onclick="updateName(this, '${citisSearch}', '${districtsName}', '${districtId}', '${inputdistrictId}', '${districtSelect}')">${datadistricts}</li>`).join("");
+        
+                    citis.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
+                });
+            });
+        }); 
 
-        // Kiểm tra nếu select tỉnh/thành phố đã có giá trị được chọn sẵn
-        if (citis.value !== null && citis.value !== '') {
-            districts.disabled = false;
-            const changeEvent = new Event('change');
-            citis.dispatchEvent(changeEvent);
-            const selectedDistrict = districts.value;
+        // // Xử lý khi select tỉnh/thành phố thay đổi
+        // // Xử lý khi select quận/huyện thay đổi
+        // districts.onchange = function () {
+        //     const selectedDistrict = this.value;
+        //     if (selectedDistrict !== '') {
+        //         wards.length = 1;
+        //         const dataCity = data.filter(n => n.Id === citis.value);
+        //         const dataWards = dataCity[0].Districts.filter(n => n.Id === selectedDistrict)[0].Wards;
+        //         // Tạo các tùy chọn cho select phường/xã
+        //         for (const w of dataWards) {
+        //             wards.options[wards.options.length] = new Option(w.Name, w.Id = w.Name);
+        //             // if (w.Name == wardIdValue) {
+        //             //     wards.value = wardIdValue;
+        //             // }
+        //         }
+        //         wards.disabled = false;
+        //     } else {
+        //         wards.disabled = true;
+        //         wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
+        //     }
+        // };
 
-            if (selectedDistrict.value !== null && selectedDistrict.value !== '') {
-                wards.disabled = false;
-                // Gọi sự kiện onchange của quận/huyện để kích hoạt xử lý
-                const changeEvent = new Event('change');
-                districts.dispatchEvent(changeEvent);
-            }
-        }
+        // // Kiểm tra nếu select tỉnh/thành phố đã có giá trị được chọn sẵn
+        // if (citis.value !== null && citis.value !== '') {
+        //     districts.disabled = false;
+        //     const changeEvent = new Event('change');
+        //     citis.dispatchEvent(changeEvent);
+        //     const selectedDistrict = districts.value;
+
+        //     if (selectedDistrict.value !== null && selectedDistrict.value !== '') {
+        //         wards.disabled = false;
+        //         // Gọi sự kiện onchange của quận/huyện để kích hoạt xử lý
+        //         const changeEvent = new Event('change');
+        //         districts.dispatchEvent(changeEvent);
+        //     }
+        // }
     }
 
-    // Xử lý sự kiện khi select tỉnh/thành phố thay đổi
-    citis.addEventListener('change', function () {
-        var selectedProvince = this.value;
-        if (selectedProvince !== "") {
-            districts.disabled = false;
-        } else {
-            districts.disabled = true;
-            districts.innerHTML = '<option value="" hidden>Chọn quận huyện</option>';
-            wards.disabled = true;
-            wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
-        }
-    });
+    // // Xử lý sự kiện khi select tỉnh/thành phố thay đổi
+    // citis.addEventListener('change', function () {
+    //     var selectedProvince = this.value;
+    //     if (selectedProvince !== "") {
+    //         districts.disabled = false;
+    //     } else {
+    //         districts.disabled = true;
+    //         districts.innerHTML = '<option value="" hidden>Chọn quận huyện</option>';
+    //         wards.disabled = true;
+    //         wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
+    //     }
+    // });
 
-    // Xử lý sự kiện khi select quận/huyện thay đổi
-    districts.addEventListener('change', function () {
-        var selectedDistrict = this.value;
-        if (selectedDistrict !== "") {
-            wards.disabled = false;
-        } else {
-            wards.disabled = true;
-            wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>>';
+    // // Xử lý sự kiện khi select quận/huyện thay đổi
+    // districts.addEventListener('change', function () {
+    //     var selectedDistrict = this.value;
+    //     if (selectedDistrict !== "") {
+    //         wards.disabled = false;
+    //     } else {
+    //         wards.disabled = true;
+    //         wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>>';
+    //     }
+    // });
+    document.addEventListener('click', (event) => {
+        const isClickscitis = scitis.contains(event.target);
+        const isClicksdistrict = sdistrict.contains(event.target);
+        const isClicksward = sward.contains(event.target);
+
+        if (!isClickscitis) {
+          scitis.classList.remove('active');
+        }
+        if(!isClicksdistrict){
+            sdistrict.classList.remove('active');
+        }
+        if(!isClicksward){
+            sward.classList.remove('active');
         }
     });
 }
