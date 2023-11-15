@@ -196,8 +196,8 @@
                               </div>
                               <div class="col-md-4 wrapper WardSelect1">
                                    <div class="select-btn">
-                                   <input type="hidden" id="Ward1Input">
                                       <span>Phường xã</span>
+                                      <input type="hidden" id="Ward1Input">
                                       <i class="fas fa-angle-down"></i>
                                   </div>
                                   <div class="search-option">
@@ -613,8 +613,7 @@
     $(document).ready(function () {
 
         $('body').on('click', '.btn-add', function () {          
-            $('#modal-default').modal('show');
-          
+            $('#modal-default').modal('show');      
             initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", 
             "Ward1Search", "Province1Input", "District1Input", "Ward1Input", ".ProvinceSelect1", ".DistrictSelect1", 
             ".WardSelect1");
@@ -835,6 +834,6 @@
                                         } else {
                                             $('.checkbox-switch').val("0");
                                         }                                       
-                                    });
+        });
     });
 </script>

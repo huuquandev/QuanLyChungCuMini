@@ -24,6 +24,7 @@ function searchTable() {
 
 
 function addcounty(citisName, citisId, searchId, inputValue, Select, selectedValue) {
+    
     let citis = document.getElementById(citisId);
     citis.innerHTML = "";
     let array = citisName;  
@@ -45,8 +46,7 @@ function updateName(selectedLi, input, citisName, citisId, inputValue, Select){
     SelectW.classList.remove('active');
     selectBtnSearch.firstElementChild.innerText = selectedLi.innerText;
     selectInput.value = selectedLi.innerText;
-    selectBtnSearch.style.background = "#FFF";
-    selectBtnSearch.style.border = "1px solid #b3b3b3";
+    selectBtnSearch.classList.add('active');
     addcounty(array, citisId, input, inputValue, Select, selectedLi.innerText);
     var event = new Event('change');
     selectInput.dispatchEvent(event);
@@ -78,6 +78,8 @@ function initializeDropdowns(citisId, districtId, wardId, citisSearch, districtS
     selectBtnSearch2 = sdistrict.querySelector(".select-btn");
     selectBtnSearch3 = sward.querySelector(".select-btn");
 
+    var citisValue;
+
     // Tạo đối tượng Parameter chứa thông tin yêu cầu HTTP GET
     var Parameter = {
         url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
@@ -99,19 +101,18 @@ function initializeDropdowns(citisId, districtId, wardId, citisSearch, districtS
         }
         addcounty(citisName, citisId, citisSearch, inputcitisId, citisSelect);
         selectBtnSearch1.addEventListener('click', () =>{
-            scitis.classList.toggle('active');    
+            scitis.classList.add('active');    
             cSearch.addEventListener('keyup', () => {
                 let searchedVal = cSearch.value.toLowerCase();
     
                 let filteredResults = citisName.filter(datacitis => {
                     return datacitis.toLowerCase().includes(searchedVal);
                 });
-                let arr = filteredResults.map(datacitis => `<li onclick="updateName(this, '${districtSearch}', '${citisName}', '${citisId}', '${inputcitisId}', '${citisSelect}')">${datacitis}</li>`).join("");
+                let arr = filteredResults.map(datacitis => `<li onclick="updateName(this, '${citisSearch}', '${citisName}', '${citisId}', '${inputcitisId}', '${citisSelect}')">${datacitis}</li>`).join("");
     
                 citis.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
             });
         });         
-
         icitis.addEventListener('change', function() {
                 const result = data.filter(n => n.Name === this.value);
                 let districtsName = [];
@@ -120,22 +121,49 @@ function initializeDropdowns(citisId, districtId, wardId, citisSearch, districtS
                   districtsName.push(k.Name);
                 }
                 addcounty(districtsName, districtId, districtSearch, inputdistrictId, districtSelect);
-            selectBtnSearch2.addEventListener('click', () =>{
-                sdistrict.classList.toggle('active');   
-                
-                dSearch.addEventListener('keyup', () => {
-                    let searchedVal = dSearch.value.toLowerCase();
-        
-                    let filteredResults = districtsName.filter(datacitis => {
-                        return datacitis.toLowerCase().includes(searchedVal);
+                selectBtnSearch2.addEventListener('click', () =>{
+                    sdistrict.classList.add('active');   
+                    dSearch.addEventListener('keyup', () => {
+                        let searchedVal = dSearch.value.toLowerCase();
+            
+                        let filteredResults = districtsName.filter(datadistricts => {
+                            return datadistricts.toLowerCase().includes(searchedVal);
+                        });
+                        let arr = filteredResults.map(datadistricts => `<li onclick="updateName(this, '${districtSearch}', '${districtsName}', '${districtId}', '${inputdistrictId}', '${districtSelect}')">${datadistricts}</li>`).join("");
+            
+                        sdistrict.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
                     });
-                    let arr = filteredResults.map(datadistricts => `<li onclick="updateName(this, '${citisSearch}', '${districtsName}', '${districtId}', '${inputdistrictId}', '${districtSelect}')">${datadistricts}</li>`).join("");
+                });
+                selectBtnSearch2.firstElementChild.innerText = "Quận huyện";
+                selectBtnSearch2.classList.remove('active');
+                selectBtnSearch3.firstElementChild.innerText = "Phương xã";
+                selectBtnSearch3.classList.remove('active'); 
+        }); 
         
-                    citis.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
+        idistricts.addEventListener('change', function() {
+            const dataCity = data.filter(n => n.Name === icitis.value);
+            const dataWards = dataCity[0].Districts.filter(n => n.Name === this.value)[0].Wards;            
+            let WardsName = [];
+            // Tạo các tùy chọn cho select quận/huyện
+            for (const w of dataWards) {
+                WardsName.push(w.Name);
+            }
+            addcounty(WardsName, wardId, wardSearch, inputwardId, wardSelect);
+            selectBtnSearch3.addEventListener('click', () =>{
+                sward.classList.add('active');   
+                wSearch.addEventListener('keyup', () => {
+                    let searchedVal = wSearch.value.toLowerCase();   
+                    let filteredResults = WardsName.filter(datawards => {
+                        return datawards.toLowerCase().includes(searchedVal);
+                    });
+                    let arr = filteredResults.map(datawards => `<li onclick="updateName(this, '${wardSearch}', '${WardsName}', '${wardId}', '${inputwardId}', '${wardSelect}')">${datawards}</li>`).join("");
+        
+                    sward.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
                 });
             });
+            selectBtnSearch3.firstElementChild.innerText = "Phương xã";
+            selectBtnSearch3.classList.remove('active');
         }); 
-
         // // Xử lý khi select tỉnh/thành phố thay đổi
         // // Xử lý khi select quận/huyện thay đổi
         // districts.onchange = function () {
