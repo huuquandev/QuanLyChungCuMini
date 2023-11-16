@@ -181,6 +181,22 @@
         return $row;
         
     }
+    function lay_all_toanha(){
+        GLOBAL $conn;
+    
+        $sql = "SELECT * FROM tb_toanha";
+
+        $query = mysqli_query($conn, $sql);
+
+        $toanha = array();
+    
+        while ($row = mysqli_fetch_array($query)) {
+            $toanha[] = $row;
+        }
+    
+        return $toanha;
+        
+    }
     
 
     

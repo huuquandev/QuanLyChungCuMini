@@ -149,46 +149,30 @@
                                     <fieldset class="form-group" id="__BVID__605">
                                       <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tòa nhà <span class="text-danger"> (*) </span>
                                       </legend>
-                                      <div>
-                                        <div dir="ltr" class="v-select vs--single vs--searchable" id="apartment">
-                                          <div id="vs17__combobox" role="combobox" aria-expanded="false" aria-owns="vs17__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                            <div class="vs__selected-options">
-                                             
-                                              <select aria-autocomplete="list" aria-labelledby="vs17__combobox" aria-controls="vs17__listbox" type="search" autocomplete="off" class="vs__search" id="building_id">
-                                              <option value="" hidden="">Chọn tòa nhà</option>     
-                                              <?php
+                                      <div class="wrapper toannhaOption">
+                                        <div class="select-btn">
+                                          <span>Chọn tòa nhà</span>
+                                          <input type="hidden" id="toannhaInput">
+                                          <i class="fas fa-angle-down"></i>
+                                        </div>
+                                        <div class="search-option">
+                                          <div class="search">
+                                            <input type="text" placeholder="Search" id="toannhaSearch">
+                                          </div>
+                                          <ul class="options" id="toannha">   
+                                          <?php
                                                 $sql = "SELECT * FROM tb_toanha";
                                                 $query = mysqli_query($conn, $sql);
                                                 if(mysqli_num_rows($query) > 0){
                                                   while ($row = mysqli_fetch_array($query)) {
                                                ?>
-                                                  <option value="<?php echo $row['id_toanha'] ?>"><?php echo $row['ten_toanha'] ?></option>     
+                                                  <li id="<?php echo $row['id_toanha'] ?>"><?php echo $row['ten_toanha'] ?></li>     
                                                   <?php
                                                   }
                                                 }
-                                               ?>
-                                              </select>
-                                              
-                                            </div>
-                                            <div class="vs__actions">
-                                              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
-                                              </button>
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                              </svg>
-                                              <div class="vs__spinner" style="display: none;">Loading...</div>
-                                            </div>
-                                          </div>
-                                          <ul id="vs17__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                                               ?>                             
+                                          </ul>
                                         </div>
-                                        <small class="text-danger"></small>
-                                        <!---->
-                                        <!---->
-                                        <!---->
                                       </div>
                                     </fieldset>
                                     <!---->
@@ -201,33 +185,19 @@
                                     <fieldset class="form-group" id="__BVID__614">
                                       <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__614__BV_label_"> Tầng <span class="text-danger"> (*) </span>
                                       </legend>
-                                      <div>
-                                        <div dir="ltr" class="v-select vs--single vs--searchable" id="floor">
-                                          <div id="vs18__combobox" role="combobox" aria-expanded="false" aria-owns="vs18__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                            <div class="vs__selected-options">     
-                                              <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floor_id" disabled>
-                                                <option value="" hidden="">Chọn tầng</option>     
-                                              </select>
-                                            </div>
-                                            <div class="vs__actions">
-                                              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
-                                              </button>
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                              </svg>
-                                              <div class="vs__spinner" style="display: none;">Loading...</div>
-                                            </div>
-                                          </div>
-                                          <ul id="vs18__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                                      <div class="wrapper tangoption">
+                                        <div class="select-btn">
+                                          <span>Chọn Tầng</span>
+                                          <input type="hidden" id="tangInput">
+                                          <i class="fas fa-angle-down"></i>
                                         </div>
-                                        <small class="text-danger"></small>
-                                        <!---->
-                                        <!---->
-                                        <!---->
+                                        <div class="search-option">
+                                          <div class="search">
+                                            <input type="text" placeholder="Search" id="tangSearch">
+                                          </div>
+                                          <ul class="options" id="tang">                                
+                                          </ul>
+                                        </div>
                                       </div>
                                     </fieldset>
                                     <!---->
@@ -844,7 +814,7 @@
   $(document).ready(function () {
         $('body').on('click', '.btn-add', function () { 
             $('#modal-default').modal('show');
-            initializeDropdowns("building_id","floor_id");
+            initializeDropdownsToanha(".toannhaOption","toannhaInput", "toannhaSearch", "toannha");
         });
         $('body').on('click', '#btnClose', function () {
             $('#modal-default').modal('hide');
@@ -858,35 +828,49 @@
             $('#modal-default_' + id).modal('hide');
         });
   });
-  function initializeDropdowns(buildingId, floorId) {
-    var building = document.getElementById(buildingId);
-    var floor = document.getElementById(floorId);
-
-    building.onchange = function () {
-        var selectedBuildingId = building.value;
-
-        if (selectedBuildingId !== '') {
-            $.ajax({
-                url: "doc/main/commons/lay_tang_by_toanha.php",
+  function initializeDropdownsToanha(btnSelect, input, search, id) {
+    const optionSelect = document.querySelector(btnSelect);
+    input = optionSelect.querySelector(".select-btn");
+    input.addEventListener('click', () =>{
+      optionSelect.classList.add('active');    
+      $.ajax({
+                url: "doc/main/commons/lay_all_toanha.php",
                 type: "post",
                 dataType: "json", 
-                data: { idtoanha: selectedBuildingId },
-            }).done(function(floors){
-              console.log(floors);
-                floor.innerHTML = '';
-                for (var i = 0; i < floors.length; i++) {
+            }).done(function(toanha){
+              console.log(toanha);
+              for (var i = 0; i < toanha.length; i++) {
                     var option = document.createElement('option');
                     option.value = floors[i].id_tang; 
                     option.textContent = "Tầng " + floors[i].ten_tang; 
                     floor.appendChild(option);
                 }
-
-                floor.disabled = false;
             });
-        } else {
-            floor.disabled = true;
-            floor.innerHTML = '';
-        }
-    };
-}
+    });  
+    // building.onchange = function () {
+    //     var selectedBuildingId = building.value;
+    //     if (selectedBuildingId !== '') {
+    //         $.ajax({
+    //             url: "doc/main/commons/lay_tang_by_toanha.php",
+    //             type: "post",
+    //             dataType: "json", 
+    //             data: { idtoanha: selectedBuildingId },
+    //         }).done(function(floors){
+    //           console.log(floors);
+    //             floor.innerHTML = '';
+    //             for (var i = 0; i < floors.length; i++) {
+    //                 var option = document.createElement('option');
+    //                 option.value = floors[i].id_tang; 
+    //                 option.textContent = "Tầng " + floors[i].ten_tang; 
+    //                 floor.appendChild(option);
+    //             }
+    //             floor.disabled = false;
+    //         });
+    //     } else {
+    //         floor.disabled = true;
+    //         floor.innerHTML = '';
+    //     }
+    // };
+  }
+
 </script> 

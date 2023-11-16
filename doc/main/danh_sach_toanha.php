@@ -289,15 +289,21 @@
             <div class="card-body">
             <div data-v-7f820fac="" class="row search-form">
               <!---->
-              <div data-v-7f820fac="" class="col-md-6">
-                <div class="selected-status">
-                          <select class="w-100" id="status_id" data-live-search="true">
-                              <option value="" selected>Trạng thái hoạt động</option>     
-                              <option value="Hoạt động" >Hoạt động</option>     
-                              <option value="không hoạt động" >không hoạt động</option>     
-                          </select>                
-                  </div>   
-              </div>
+              <div class="col-md-6 statustoanha">
+                                   <div class="select-btn">
+                                      <span>Trạng thái hoạt động</span>
+                                      <input type="hidden" id="statusInput">
+                                      <i class="fas fa-angle-down"></i>
+                                  </div>
+                                  <div class="search-option">
+                                    <div class="search">
+                                      <input type="text" placeholder="Search" id="statusSearch">
+                                    </div>
+                                    <ul class="options" id="status">
+                                      <li>Tất cả</li>
+                                    </ul>
+                                  </div>
+                </div>
               <div data-v-7f820fac="" class="col-md-6 search-input-building">
                 <input data-v-7f820fac="" type="text" placeholder="Tìm kiếm Tòa nhà..." class="form-control" id="__BVID__395">
               </div>
@@ -418,112 +424,48 @@
                                         <h5>Thông tin địa chỉ</h5>
                                       </div>
                                       <!---->
-                                      <div class="col-md-4">
-                                        <span>
-                                          <fieldset class="form-group" id="__BVID__981">
-                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__981__BV_label_"> Tỉnh/Thành phố <span class="text-danger"> (*) </span>
-                                            </legend>
-                                            <div>
-                                              <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
-                                                <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                                  <div class="vs__selected-options">
-                                                    <select aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search" id="Province2" name="Province2" data-province="">
-                                                        <option value="" hidden="">Chọn tỉnh thành</option>                                   
-                                                    </select>
-                                                  </div>
-                                                  <div class="vs__actions">
-                                                    <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                      </svg>
-                                                    </button>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                                      <polyline points="6 9 12 15 18 9"></polyline>
-                                                    </svg>
-                                                    <div class="vs__spinner" style="display: none;">Loading...</div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <!---->
-                                              <!---->
-                                              <!---->
-                                            </div>
-                                          </fieldset>
-                                        </span>
-                                      </div>
-                                      <div class="col-md-4">
-                                        <span>
-                                          <fieldset class="form-group" id="__BVID__988">
-                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__988__BV_label_"> Quận/Huyện <span class="text-danger"> (*) </span>
-                                            </legend>
-                                            <div>
-                                              <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="district">
-                                                <div id="vs34__combobox" role="combobox" aria-expanded="false" aria-owns="vs34__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                                  <div class="vs__selected-options">
-                                                    <select aria-autocomplete="list" aria-labelledby="vs34__combobox" aria-controls="vs34__listbox" type="search" autocomplete="off" class="vs__search" id="District2" name="District2" data-district="" disabled>
-                                                      <option value="" hidden="">Chọn quận huyện</option>
-                                                    </select>
-                                                  </div>
-                                                  <div class="vs__actions">
-                                                    <button disabled="disabled" type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                      </svg>
-                                                    </button>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                                      <polyline points="6 9 12 15 18 9"></polyline>
-                                                    </svg>
-                                                    <div class="vs__spinner" style="display: none;">Loading...</div>
-                                                  </div>
-                                                </div>
-                                                <ul id="vs34__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-                                              </div>
-                                              <small class="text-danger"></small>
-                                              <!---->
-                                              <!---->
-                                              <!---->
-                                            </div>
-                                          </fieldset>
-                                        </span>
-                                      </div>
-                                      <div class="col-md-4">
-                                        <span>
-                                          <fieldset class="form-group" id="__BVID__995">
-                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_"> Xã/Phường <span class="text-danger"> (*) </span>
-                                            </legend>
-                                            <div>
-                                              <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
-                                                <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                                  <div class="vs__selected-options">
-                                                    <select aria-autocomplete="list" aria-labelledby="vs35__combobox" aria-controls="vs35__listbox" type="search" autocomplete="off" class="vs__search" id="Ward2" name="Ward2" data-ward="" disabled>
-                                                    <option value="" hidden="">Chọn phường xã</option>
-                                                    </select>
-                                                  </div>
-                                                  <div class="vs__actions">
-                                                    <button disabled="disabled" type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                      </svg>
-                                                    </button>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                                      <polyline points="6 9 12 15 18 9"></polyline>
-                                                    </svg>
-                                                    <div class="vs__spinner" style="display: none;">Loading...</div>
-                                                  </div>
-                                                </div>
-                                                <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-                                              </div>
-                                              <small class="text-danger"></small>
-                                              <!---->
-                                              <!---->
-                                              <!---->
-                                            </div>
-                                          </fieldset>
-                                        </span>
-                                      </div>
+                                      <div class="col-md-4 wrapper ProvinceSelect2">
+                                  <div class="select-btn">
+                                      <span>Tỉnh thành</span>
+                                      <input type="hidden" id="Province2Input">
+                                      <i class="fas fa-angle-down"></i>
+                                  </div>
+                                  <div class="search-option">
+                                    <div class="search">
+                                      <input type="text" placeholder="Search" id="Province2Search">
+                                    </div>
+                                    <ul class="options" id="Province2">
+                                    </ul>
+                                  </div>
+                              </div>
+                              <div class="col-md-4 wrapper DistrictSelect2">
+                                   <div class="select-btn">
+                                      <span>Quận huyện</span>
+                                      <input type="hidden" id="District2Input">
+                                      <i class="fas fa-angle-down"></i>
+                                  </div>
+                                  <div class="search-option">
+                                    <div class="search">
+                                      <input type="text" placeholder="Search" id="District2Search">
+                                    </div>
+                                    <ul class="options" id="District2">
+                                    </ul>
+                                  </div>
+                              </div>
+                              <div class="col-md-4 wrapper WardSelect2">
+                                   <div class="select-btn">
+                                      <span>Phường xã</span>
+                                      <input type="hidden" id="Ward2Input">
+                                      <i class="fas fa-angle-down"></i>
+                                  </div>
+                                  <div class="search-option">
+                                    <div class="search">
+                                      <input type="text" placeholder="Search" id="Ward2Search">
+                                    </div>
+                                    <ul class="options" id="Ward2">
+                                    </ul>
+                                  </div>
+                              </div>
                                       <div class="col-12">
                                         <span>
                                           <fieldset class="form-group" id="__BVID__1001">
@@ -616,7 +558,7 @@
             $('#modal-default').modal('show');      
             initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", 
             "Ward1Search", "Province1Input", "District1Input", "Ward1Input", ".ProvinceSelect1", ".DistrictSelect1", 
-            ".WardSelect1");
+            ".WardSelect1");        
         });
         $('body').on('click', '#btnAdd', function () {  
             var formData = new FormData();
@@ -624,9 +566,9 @@
             formData.append('diachi', $('#diachichitiet').val());
             formData.append('trangthai', $('#trangthai').val());
             formData.append('sotang', $('#sotang').val());
-            formData.append('tinhthanh', $('#Province1').val());
-            formData.append('quanhuyen', $('#District1').val());
-            formData.append("phuongxa", $('#Ward1').val());   
+            formData.append('tinhthanh', $('#Province1Input').val());
+            formData.append('quanhuyen', $('#District1Input').val());
+            formData.append("phuongxa", $('#Ward1Input').val());   
             
             $.ajax({
                 url: "doc/main/commons/them_toanha.php",
@@ -720,9 +662,9 @@
                 } else {
                     $('#newtrangthai').prop('checked', false);
                 }
-
-                initializeDropdowns("Province2", "District2", "Ward2", decodedData.tinhthanh, decodedData.quanhuyen, decodedData.phuongxa);
-
+                initializeDropdowns("Province2", "District2", "Ward2", "Province2Search", "District2Search", 
+                  "Ward2Search", "Province2Input", "District2Input", "Ward2Input", ".ProvinceSelect2", ".DistrictSelect2", 
+                  ".WardSelect2", decodedData.tinhthanh, decodedData.quanhuyen, decodedData.phuongxa);  
             });
 
         });
@@ -734,9 +676,9 @@
             formData.append('diachi', $('#newdiachichitiet').val());
             formData.append('trangthai', $('#newtrangthai').val());
             formData.append('so_tang', $('#newsotang').val());
-            formData.append('tinhthanh', $('#Province2').val());
-            formData.append('quanhuyen', $('#District2').val());
-            formData.append("phuongxa", $('#Ward2').val());
+            formData.append('tinhthanh', $('#Province2Input').val());
+            formData.append('quanhuyen', $('#District2Input').val());
+            formData.append("phuongxa", $('#Ward2Input').val());
 
             $.ajax({
                 url: "doc/main/commons/sua_toanha.php",
@@ -828,6 +770,33 @@
               })
             } 
         });
+        const statusSelect = $('.statustoanha');         
+        const statusSelectBtn = $('.statustoanha .select-btn');
+        statusSelectBtn.on('click', function () {
+          let sSearch = $('#statusSearch');
+          let array = ['Tất cả', 'Hoạt động', 'Không hoạt động'];
+          addcounty(array, 'status', 'statusSearch', 'statusInput', '.statustoanha');
+          statusSelect.toggleClass('active');
+          sSearch.on('keyup', () => {
+              let status = $('#status');
+              let searchedVal = sSearch.val().toLowerCase(); 
+              
+              let filteredResults = array.filter(data => {
+                  return data.toLowerCase().includes(searchedVal);
+              });
+              let arr = filteredResults.map(data => `<li onclick="updateName(this, 'statusSearch', '${array}', 'status', 'statusInput', '.statustoanha')">${data}</li>`).join("");
+
+              status.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+          });
+        });
+        $(document).on('click', function (event) {
+            const isClickStatus = statusSelect.is(event.target) || statusSelect.has(event.target).length > 0;
+
+            if (!isClickStatus) {
+                statusSelect.removeClass('active');
+            }
+        });
+
         $('.checkbox-switch').change(function () {
                                         if ($(this).is(':checked')) {
                                             $('.checkbox-switch').val("1");
