@@ -159,18 +159,7 @@
                                           <div class="search">
                                             <input type="text" placeholder="Search" id="toannhaSearch">
                                           </div>
-                                          <ul class="options" id="toannha">   
-                                          <?php
-                                                $sql = "SELECT * FROM tb_toanha";
-                                                $query = mysqli_query($conn, $sql);
-                                                if(mysqli_num_rows($query) > 0){
-                                                  while ($row = mysqli_fetch_array($query)) {
-                                               ?>
-                                                  <li id="<?php echo $row['id_toanha'] ?>"><?php echo $row['ten_toanha'] ?></li>     
-                                                  <?php
-                                                  }
-                                                }
-                                               ?>                             
+                                          <ul class="options" id="toannha">                              
                                           </ul>
                                         </div>
                                       </div>
@@ -828,24 +817,61 @@
             $('#modal-default_' + id).modal('hide');
         });
   });
-  function initializeDropdownsToanha(btnSelect, input, search, id) {
-    const optionSelect = document.querySelector(btnSelect);
-    input = optionSelect.querySelector(".select-btn");
-    input.addEventListener('click', () =>{
-      optionSelect.classList.add('active');    
-      $.ajax({
+  function addforcanho(arrayName, citisId, searchId, inputValue, Select, selectedValue) {    
+    let citis = document.getElementById(citisId);
+    let selectInput = document.getElementById(inputValue);
+    const SelectW = document.querySelector(Select);
+    selectBtnSearch = SelectW.querySelector('.select-btn');
+    citis.innerHTML = "";
+    let name = arrayName; 
+    name.forEach(data => {
+        if (data == selectedValue) {
+            selectBtnSearch.firstElementChild.innerText = data;
+            selectInput.value = data;
+        }
+        var isSelected = data == selectedValue ? "selected" : "";
+
+        let li = `<li onclick="updateforcanho(this, '${searchId}', '${arrayName}', '${citisId}', '${inputValue}', '${Select}')" class="${isSelected}">${data}</li>`;
+        citis.insertAdjacentHTML("beforeend", li);
+    });
+}
+  function updateforcanho(selectedLi, input, arrayName, citisId, inputValue, Select){
+    const SelectW = document.querySelector(Select);
+    selectBtnSearch = SelectW.querySelector('.select-btn');
+    let selectInputSearch = document.getElementById(input);
+    let selectInput = document.getElementById(inputValue);
+    selectInputSearch.value = "";
+    let name = [];
+    name = arrayName.split(",");
+    SelectW.classList.remove('active');
+    selectBtnSearch.firstElementChild.innerText = selectedLi.innerText;
+    selectInput.value = selectedLi.innerText;
+    selectBtnSearch.classList.add('active');
+    addforcanho(name, citisId, input, inputValue, Select, selectedLi.innerText);
+    var event = new Event('change');
+    selectInput.dispatchEvent(event);  
+}
+  function initializeDropdownsToanha(btnSelectbuilding, inputbuilding, searchbuilding, idbuilding) {
+    const optionSelect = document.querySelector(btnSelectbuilding);
+    building = optionSelect.querySelector(".select-btn");
+    var buildingId = document.getElementById(idbuilding);
+    var buildinginput = document.getElementById(inputbuilding);
+    $.ajax({
                 url: "doc/main/commons/lay_all_toanha.php",
                 type: "post",
                 dataType: "json", 
             }).done(function(toanha){
-              console.log(toanha);
-              for (var i = 0; i < toanha.length; i++) {
-                    var option = document.createElement('option');
-                    option.value = floors[i].id_tang; 
-                    option.textContent = "Tầng " + floors[i].ten_tang; 
-                    floor.appendChild(option);
+              let arrayName = [];
+              for (const b of toanha) {
+                arrayName.push(b.ten_toanha);
                 }
+                addforcanho(arrayName, idbuilding, searchbuilding, inputbuilding, btnSelectbuilding);
+
             });
+
+    building.addEventListener('click', () =>{
+      optionSelect.classList.toggle('active');    
+
     });  
     // building.onchange = function () {
     //     var selectedBuildingId = building.value;
@@ -871,6 +897,7 @@
     //         floor.innerHTML = '';
     //     }
     // };
+
   }
 
 </script> 
