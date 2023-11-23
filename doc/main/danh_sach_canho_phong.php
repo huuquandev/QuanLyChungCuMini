@@ -176,7 +176,7 @@
                                       </legend>
                                       <div class="wrapper tangoption">
                                         <div class="select-btn">
-                                          <span>Chọn Tầng</span>
+                                          <span>Chọn tầng</span>
                                           <input type="hidden" id="tangInput">
                                           <i class="fas fa-angle-down"></i>
                                         </div>
@@ -803,7 +803,7 @@
   $(document).ready(function () {
         $('body').on('click', '.btn-add', function () { 
             $('#modal-default').modal('show');
-            initializeDropdownsToanha(".toannhaOption","toannhaInput", "toannhaSearch", "toannha");
+            initializeDropdownsToanha(".toannhaOption","toannhaInput", "toannhaSearch", "toannha", ".tangoption","tangInput", "tangSearch", "tang");
         });
         $('body').on('click', '#btnClose', function () {
             $('#modal-default').modal('hide');
@@ -823,17 +823,20 @@
     const SelectW = document.querySelector(Select);
     selectBtnSearch = SelectW.querySelector('.select-btn');
     citis.innerHTML = "";
-    let name = arrayName; 
+    let name = arrayName;
+    let jsonString = JSON.stringify(name);
+    let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
     name.forEach(data => {
-        if (data == selectedValue) {
-            selectBtnSearch.firstElementChild.innerText = data;
-            selectInput.value = data;
+        if (data.ten == selectedValue) {
+            selectBtnSearch.firstElementChild.innerText = data.ten;
+            selectInput.value = data.id;
         }
-        var isSelected = data == selectedValue ? "selected" : "";
+        var isSelected = data.ten == selectedValue ? "selected" : "";
 
-        let li = `<li onclick="updateforcanho(this, '${searchId}', '${arrayName}', '${citisId}', '${inputValue}', '${Select}')" class="${isSelected}">${data}</li>`;
+        let li = `<li onclick="updateforcanho(this, '${searchId}', '${escapedJsonString}', '${citisId}', '${inputValue}', '${Select}')" class="${isSelected}">${data.ten}</li>`;
         citis.insertAdjacentHTML("beforeend", li);
     });
+
 }
   function updateforcanho(selectedLi, input, arrayName, citisId, inputValue, Select){
     const SelectW = document.querySelector(Select);
@@ -841,21 +844,30 @@
     let selectInputSearch = document.getElementById(input);
     let selectInput = document.getElementById(inputValue);
     selectInputSearch.value = "";
-    let name = [];
-    name = arrayName.split(",");
+    let name = arrayName;
+    let dataArray = JSON.parse(name);
+
     SelectW.classList.remove('active');
     selectBtnSearch.firstElementChild.innerText = selectedLi.innerText;
     selectInput.value = selectedLi.innerText;
     selectBtnSearch.classList.add('active');
-    addforcanho(name, citisId, input, inputValue, Select, selectedLi.innerText);
+    addforcanho(dataArray, citisId, input, inputValue, Select, selectedLi.innerText);
     var event = new Event('change');
     selectInput.dispatchEvent(event);  
 }
-  function initializeDropdownsToanha(btnSelectbuilding, inputbuilding, searchbuilding, idbuilding) {
-    const optionSelect = document.querySelector(btnSelectbuilding);
-    building = optionSelect.querySelector(".select-btn");
+  function initializeDropdownsToanha(btnSelectbuilding, inputbuilding, searchbuilding, idbuilding, btnSelectfloor, inputfloor, searchfloor, idfloor) {
+    const optionSelectbuilding = document.querySelector(btnSelectbuilding);
+    const optionSelectfloor = document.querySelector(btnSelectfloor);
+    building = optionSelectbuilding.querySelector(".select-btn");
+    floor = optionSelectfloor.querySelector(".select-btn");
     var buildingId = document.getElementById(idbuilding);
     var buildinginput = document.getElementById(inputbuilding);
+    var buildingSearch = document.getElementById(searchbuilding);
+
+    var floorId = document.getElementById(idfloor);
+    var floorinput = document.getElementById(inputfloor);
+    var floorSearch = document.getElementById(searchfloor);
+
     $.ajax({
                 url: "doc/main/commons/lay_all_toanha.php",
                 type: "post",
@@ -863,40 +875,55 @@
             }).done(function(toanha){
               let arrayName = [];
               for (const b of toanha) {
-                arrayName.push(b.ten_toanha);
+                arrayName.push({ id: b.id_toanha, ten: b.ten_toanha });
                 }
-                addforcanho(arrayName, idbuilding, searchbuilding, inputbuilding, btnSelectbuilding);
-
+                addforcanho(arrayName, idbuilding, searchbuilding, inputbuilding, btnSelectbuilding);     
+                buildingSearch.addEventListener('keyup', () => {
+                        let searchedVal = buildingSearch.value.toLowerCase();
+            
+                        let filteredResults = arrayName.filter(databuilding => {
+                            return databuilding.ten.toLowerCase().includes(searchedVal);
+                        });
+                        let arr = filteredResults.map(databuilding => `<li onclick="updateName(this, '${buildingSearch}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${databuilding.ten}</li>`).join("");
+            
+                        buildingId.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
+                    });        
             });
 
     building.addEventListener('click', () =>{
-      optionSelect.classList.toggle('active');    
+      optionSelectbuilding.classList.add('active');    
 
     });  
-    // building.onchange = function () {
-    //     var selectedBuildingId = building.value;
-    //     if (selectedBuildingId !== '') {
-    //         $.ajax({
-    //             url: "doc/main/commons/lay_tang_by_toanha.php",
-    //             type: "post",
-    //             dataType: "json", 
-    //             data: { idtoanha: selectedBuildingId },
-    //         }).done(function(floors){
-    //           console.log(floors);
-    //             floor.innerHTML = '';
-    //             for (var i = 0; i < floors.length; i++) {
-    //                 var option = document.createElement('option');
-    //                 option.value = floors[i].id_tang; 
-    //                 option.textContent = "Tầng " + floors[i].ten_tang; 
-    //                 floor.appendChild(option);
-    //             }
-    //             floor.disabled = false;
-    //         });
-    //     } else {
-    //         floor.disabled = true;
-    //         floor.innerHTML = '';
-    //     }
-    // };
+    buildinginput.addEventListener('change', function() {
+    $.ajax({
+        url: "doc/main/commons/lay_tang_by_toanha.php",
+        type: "post",
+        dataType: "json", 
+        data: { idtoanha: buildinginput.value },
+    }).done(function(tang) {
+        let arrayName = [];
+        for (const b of tang) {
+            arrayName.push({ id: b.id_tang, ten: "Tầng " + b.ten_tang });
+        }
+        addforcanho(arrayName, idfloor, searchfloor, inputfloor, btnSelectfloor);
+
+        floor.addEventListener('click', () => {
+            optionSelectfloor.classList.add('active');    
+            floorSearch.addEventListener('keyup', () => {
+                let searchedVal = floorSearch.value.toLowerCase();
+            
+                let filteredResults = arrayName.filter(datafloor => {
+                    return datafloor.ten.toLowerCase().includes(searchedVal);
+                });
+                let arr = filteredResults.map(datafloor => `<li onclick="updateName(this, '${searchfloor}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${datafloor.ten}</li>`).join("");
+            
+                floorId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
+            });        
+        });  
+        floor.firstElementChild.innerText = "Chọn tầng";
+        floor.classList.remove('active');
+        });
+    });
 
   }
 
