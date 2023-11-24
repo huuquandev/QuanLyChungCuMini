@@ -300,7 +300,6 @@
                                       <input type="text" placeholder="Search" id="statusSearch">
                                     </div>
                                     <ul class="options" id="status">
-                                      <li>Tất cả</li>
                                     </ul>
                                   </div>
                 </div>
@@ -804,5 +803,9 @@
                                             $('.checkbox-switch').val("0");
                                         }                                       
         });
+        const searchbuilding = document.querySelector(".search-input-building input");
+        const selectedStatus = document.querySelector(".statustoanha .select-btn input");
+        searchbuilding.addEventListener('input', searchTable_tb_toanhoa);
+        selectedStatus.addEventListener('change', searchTable_tb_toanhoa);
     });
 </script>

@@ -197,6 +197,22 @@
         return $toanha;
         
     }
+    function lay_soluong_tang(){
+        GLOBAL $conn;
+
+        $sqlfloor = "SELECT MIN(id_tang) AS id_tang, ten_tang
+        FROM tb_tang
+        GROUP BY ten_tang
+        ORDER BY ten_tang ASC";
+        $queryfloor = mysqli_query($conn, $sqlfloor);
+
+        $tang = array();
+        while ($rowfloor = mysqli_fetch_array($queryfloor)) {
+            $tang[] = $rowfloor;
+        }
+        return $tang;
+
+    }
     
 
     

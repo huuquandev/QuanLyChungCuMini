@@ -15901,7 +15901,13 @@ text-align:center;
   background: #d4d5d4;
 }
 .statustoanha.active .search-option {
-  width: 555px;
+  width: 470px;
+  display: block;
+  z-index: 10;
+  position: absolute;
+}
+.table_search .wrapper.active .search-option {
+  width: 181px;
   display: block;
   z-index: 10;
   position: absolute;

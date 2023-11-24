@@ -319,44 +319,21 @@
                 <div data-v-6ea5fee4="">
                   <fieldset class="form-group" id="__BVID__428">
                     <!---->
-                    <div>
-                      <div dir="ltr" class="v-select vs--single vs--searchable" id="apartment">
-                        <div id="vs3__combobox" role="combobox" aria-expanded="false" aria-owns="vs3__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                          <div class="vs__selected-options">
-                            <select aria-autocomplete="list" aria-labelledby="vs17__combobox" aria-controls="vs17__listbox" type="search" autocomplete="off" class="vs__search" id="building_id_search">
-                                              <option value="" hidden="">Tòa nhà</option>     
-                                              <?php
-                                                $sql = "SELECT * FROM tb_toanha";
-                                                $query = mysqli_query($conn, $sql);
-                                                if(mysqli_num_rows($query) > 0){
-                                                  while ($row = mysqli_fetch_array($query)) {
-                                               ?>
-                                                  <option value="<?php echo $row['id_toanha'] ?>"><?php echo $row['ten_toanha'] ?></option>     
-                                                  <?php
-                                                  }
-                                                }
-                                               ?>
-                                 </select>                          
-                            </div>
-                          <div class="vs__actions">
-                            <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                              </svg>
-                            </button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                              <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                            <div class="vs__spinner" style="display: none;">Loading...</div>
-                          </div>
-                        </div>
-                        <ul id="vs3__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-                      </div>
-                      <small class="text-danger"></small>
-                      <!---->
-                      <!---->
-                      <!---->
+                    <div class="table_search">
+                      <div class="wrapper toannhaOptionselect">
+                                        <div class="select-btn">
+                                          <span>Tòa nhà</span>
+                                          <input type="hidden" id="toannhaInputSearch">
+                                          <i class="fas fa-angle-down"></i>
+                                        </div>
+                                        <div class="search-option">
+                                          <div class="search">
+                                            <input type="text" placeholder="Search" id="toannhaSearch2">
+                                          </div>
+                                          <ul class="options" id="toannhaOptionSearch">                              
+                                          </ul>
+                                        </div>
+                         </div>
                     </div>
                   </fieldset>
                   <!---->
@@ -366,48 +343,21 @@
                 <div data-v-6ea5fee4="">
                   <fieldset class="form-group" id="__BVID__434">
                     <!---->
-                    <div>
-                      <div dir="ltr" class="v-select vs--single vs--searchable" id="floor">
-                        <div id="vs4__combobox" role="combobox" aria-expanded="false" aria-owns="vs4__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                        <div class="vs__selected-options">     
-                                <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floor_id_search">
-                                              <option value="" hidden="">Tầng</option>     
-                                              <?php
-                                                $sqlfloor = "SELECT MIN(id_tang) AS id_tang, ten_tang
-                                                FROM tb_tang
-                                                GROUP BY ten_tang
-                                                ORDER BY ten_tang ASC;                                                
-                                                ";
-                                                $queryfloor = mysqli_query($conn, $sqlfloor);
-                                                if(mysqli_num_rows($queryfloor) > 0){
-                                                  while ($rowfloor = mysqli_fetch_array($queryfloor)) {
-                                               ?>
-                                                  <option value="<?php echo $rowfloor['id_tang'] ?>">Tầng <?php echo $rowfloor['ten_tang'] ?></option>     
-                                                  <?php
-                                                  }
-                                                }
-                                               ?>                                              
-                                </select>
-                          </div>
-                          <div class="vs__actions">
-                            <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                              </svg>
-                            </button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                              <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                            <div class="vs__spinner" style="display: none;">Loading...</div>
-                          </div>
-                        </div>
-                        <ul id="vs4__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-                      </div>
-                      <small class="text-danger"></small>
-                      <!---->
-                      <!---->
-                      <!---->
+                    <div class="table_search">
+                    <div class="wrapper tangOptionselect">
+                                        <div class="select-btn">
+                                          <span>Tầng</span>
+                                          <input type="hidden" id="tangInputSearch">
+                                          <i class="fas fa-angle-down"></i>
+                                        </div>
+                                        <div class="search-option">
+                                          <div class="search">
+                                            <input type="text" placeholder="Search" id="tangSearch2">
+                                          </div>
+                                          <ul class="options" id="tangOptionSearch">                                
+                                          </ul>
+                                        </div>
+                                      </div>
                     </div>
                   </fieldset>
                   <!---->
@@ -416,74 +366,46 @@
               <div data-v-6ea5fee4="" class="col">
                 <fieldset data-v-6ea5fee4="" class="form-group" id="__BVID__440">
                   <!---->
-                  <div>
-                    <div dir="ltr" class="v-select vs--single vs--searchable" id="active">
-                      <div id="vs5__combobox" role="combobox" aria-expanded="false" aria-owns="vs5__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                        <div class="vs__selected-options">
-                          <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floor_id_search">
-                              <option value="" hidden="">Trạng thái thuê</option>          
-                              <option value="">Đang trống</option>                                               
-                              <option value="">Đang cọc</option>                                               
-                              <option value="">Đang ở</option>                                               
-                              <option value="">Sắp chuyển đi</option>                                                                                 
-                          </select>
-                        </div>
-                        <div class="vs__actions">
-                          <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                          </button>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                          </svg>
-                          <div class="vs__spinner" style="display: none;">Loading...</div>
-                        </div>
-                      </div>
-                      <ul id="vs5__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-                    </div>
-                    <!---->
-                    <!---->
-                    <!---->
+                  <div class="table_search">
+                  <div class="wrapper statusthueoption">
+                                        <div class="select-btn">
+                                          <span>Trạng thái thuê</span>
+                                          <input type="hidden" id="statusthueInput">
+                                          <i class="fas fa-angle-down"></i>
+                                        </div>
+                                        <div class="search-option">
+                                          <div class="search">
+                                            <input type="text" placeholder="Search" id="statusthueSearch">
+                                          </div>
+                                          <ul class="options" id="statusthue">                                
+                                          </ul>
+                                        </div>
+                          </div>
                   </div>
                 </fieldset>
               </div>
               <div data-v-6ea5fee4="" class="col">
                 <fieldset data-v-6ea5fee4="" class="form-group" id="__BVID__446">
                   <!---->
-                  <div>
-                    <div dir="ltr" class="v-select vs--single vs--searchable" id="active">
-                      <div id="vs6__combobox" role="combobox" aria-expanded="false" aria-owns="vs6__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                        <div class="vs__selected-options">
-                          <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floor_id_search">
-                              <option value="" hidden="">Trạng thái hoạt động</option>          
-                              <option value="">Hoạt động</option>                                               
-                              <option value="">Không hoạt động</option>                                               
-                          </select>                        
-                        </div>
-                        <div class="vs__actions">
-                          <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                          </button>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                          </svg>
-                          <div class="vs__spinner" style="display: none;">Loading...</div>
-                        </div>
-                      </div>
-                      <ul id="vs6__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-                    </div>
-                    <!---->
-                    <!---->
-                    <!---->
+                  <div class="table_search">
+                  <div class="wrapper statushoatdongoption">
+                                        <div class="select-btn">
+                                          <span>Trạng thái hoạt động</span>
+                                          <input type="hidden" id="statushoatdongInput">
+                                          <i class="fas fa-angle-down"></i>
+                                        </div>
+                                        <div class="search-option">
+                                          <div class="search">
+                                            <input type="text" placeholder="Search" id="statushoatdongSearch">
+                                          </div>
+                                          <ul class="options" id="statushoatdong">                                
+                                          </ul>
+                                        </div>
+                          </div>
                   </div>
                 </fieldset>
               </div>
-              <div data-v-6ea5fee4="" class="col .search-input-building">
+              <div data-v-6ea5fee4="" class="col search-input-apartment">
                 <input data-v-6ea5fee4="" type="text" placeholder="Tìm kiếm..." class="form-control">
               </div>
             </div>
@@ -494,8 +416,8 @@
                         <th width="10"><input type="checkbox" id="all"></th>
                         <th width="150">Mã căn hộ/phòng</th>
                         <th width="150">Tên căn hộ/phòng</th>
-                        <th width="100" class="text-right">Giá thuê</th>
-                        <th width="100" class="text-right">Đặt cọc</th>
+                        <th width="130" class="text-right">Giá thuê</th>
+                        <th width="130" class="text-right">Đặt cọc</th>
                         <th width="100" class="text-right">Diện tích</th>
                         <th width="100">Trạng thái</th>
                         <th width="100">Hoạt động</th>
@@ -515,12 +437,12 @@
                 <tr>
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
                   <td><?php echo $row['ma_canho_phong']; ?></td>
-                  <td>
+                  <td class="ten_can_phong">
                     <?php echo $row['ten_canho_phong']; ?>
-                    <span class="text-muted">
-                      <br><?php echo $row['ten_toanha']; ?> </span>
-                    <span class="text-muted">
-                    <br><?php echo $row['ten_tang']; ?> </span>
+                    <br>
+                    <span class="text-muted ten_toanha"><?php echo $row['ten_toanha']; ?></span>
+                    <br>
+                    <span class="text-muted tang">Tầng <?php echo $row['ten_tang']; ?> </span>
                   </td>
                   <td class="text-right"><?php echo convertToVietnameseCurrency($row['tienthue_canho_phong']); ?> đ</td>
                   <td class="text-right"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?> đ</td>
@@ -816,115 +738,134 @@
             var id = $(this).data("id");
             $('#modal-default_' + id).modal('hide');
         });
-  });
-  function addforcanho(arrayName, citisId, searchId, inputValue, Select, selectedValue) {    
-    let citis = document.getElementById(citisId);
-    let selectInput = document.getElementById(inputValue);
-    const SelectW = document.querySelector(Select);
-    selectBtnSearch = SelectW.querySelector('.select-btn');
-    citis.innerHTML = "";
-    let name = arrayName;
-    let jsonString = JSON.stringify(name);
-    let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
-    name.forEach(data => {
-        if (data.ten == selectedValue) {
-            selectBtnSearch.firstElementChild.innerText = data.ten;
-            selectInput.value = data.id;
-        }
-        var isSelected = data.ten == selectedValue ? "selected" : "";
+        const toannhaSelect = $('.toannhaOptionselect');  
+        const toannhaSelectBtn = $('.toannhaOptionselect .select-btn');
+        toannhaSelectBtn.on('click', function () {
+          $.ajax({
+                      url: "doc/main/commons/lay_all_toanha.php",
+                      type: "post",
+                      dataType: "json", 
+                  }).done(function(toanha){
+                    let arrayName = [];
+                    arrayName.push("Tất cả");
+                    for (const b of toanha) {
+                      arrayName.push(b.ten_toanha);
+                      }
+                      addcounty(arrayName, 'toannhaOptionSearch', 'toannhaSearch2', 'toannhaInputSearch', '.toannhaOptionselect');
+                      toannhaSelect.toggleClass('active');
+                      let Search = $('#toannhaSearch2');
 
-        let li = `<li onclick="updateforcanho(this, '${searchId}', '${escapedJsonString}', '${citisId}', '${inputValue}', '${Select}')" class="${isSelected}">${data.ten}</li>`;
-        citis.insertAdjacentHTML("beforeend", li);
-    });
+                      Search.on('keyup', () => {
+                          let toanha = $('#toannhaOptionSearch');
+                          let searchedVal = Search.val().toLowerCase(); 
+                          
+                          let filteredResults = arrayName.filter(data => {
+                              return data.toLowerCase().includes(searchedVal);
+                          });
+                          let arr = filteredResults.map(data => `<li onclick="updateName(this, 'toannhaSearch2', '${arrayName}', 'toannhaOptionSearch', 'toannhaInputSearch', '.toannhaOptionselect')">${data}</li>`).join("");
 
-}
-  function updateforcanho(selectedLi, input, arrayName, citisId, inputValue, Select){
-    const SelectW = document.querySelector(Select);
-    selectBtnSearch = SelectW.querySelector('.select-btn');
-    let selectInputSearch = document.getElementById(input);
-    let selectInput = document.getElementById(inputValue);
-    selectInputSearch.value = "";
-    let name = arrayName;
-    let dataArray = JSON.parse(name);
+                          toanha.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                      });       
+                  });
 
-    SelectW.classList.remove('active');
-    selectBtnSearch.firstElementChild.innerText = selectedLi.innerText;
-    selectInput.value = selectedLi.innerText;
-    selectBtnSearch.classList.add('active');
-    addforcanho(dataArray, citisId, input, inputValue, Select, selectedLi.innerText);
-    var event = new Event('change');
-    selectInput.dispatchEvent(event);  
-}
-  function initializeDropdownsToanha(btnSelectbuilding, inputbuilding, searchbuilding, idbuilding, btnSelectfloor, inputfloor, searchfloor, idfloor) {
-    const optionSelectbuilding = document.querySelector(btnSelectbuilding);
-    const optionSelectfloor = document.querySelector(btnSelectfloor);
-    building = optionSelectbuilding.querySelector(".select-btn");
-    floor = optionSelectfloor.querySelector(".select-btn");
-    var buildingId = document.getElementById(idbuilding);
-    var buildinginput = document.getElementById(inputbuilding);
-    var buildingSearch = document.getElementById(searchbuilding);
-
-    var floorId = document.getElementById(idfloor);
-    var floorinput = document.getElementById(inputfloor);
-    var floorSearch = document.getElementById(searchfloor);
-
-    $.ajax({
-                url: "doc/main/commons/lay_all_toanha.php",
-                type: "post",
-                dataType: "json", 
-            }).done(function(toanha){
-              let arrayName = [];
-              for (const b of toanha) {
-                arrayName.push({ id: b.id_toanha, ten: b.ten_toanha });
-                }
-                addforcanho(arrayName, idbuilding, searchbuilding, inputbuilding, btnSelectbuilding);     
-                buildingSearch.addEventListener('keyup', () => {
-                        let searchedVal = buildingSearch.value.toLowerCase();
-            
-                        let filteredResults = arrayName.filter(databuilding => {
-                            return databuilding.ten.toLowerCase().includes(searchedVal);
-                        });
-                        let arr = filteredResults.map(databuilding => `<li onclick="updateName(this, '${buildingSearch}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${databuilding.ten}</li>`).join("");
-            
-                        buildingId.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
-                    });        
-            });
-
-    building.addEventListener('click', () =>{
-      optionSelectbuilding.classList.add('active');    
-
-    });  
-    buildinginput.addEventListener('change', function() {
-    $.ajax({
-        url: "doc/main/commons/lay_tang_by_toanha.php",
-        type: "post",
-        dataType: "json", 
-        data: { idtoanha: buildinginput.value },
-    }).done(function(tang) {
-        let arrayName = [];
-        for (const b of tang) {
-            arrayName.push({ id: b.id_tang, ten: "Tầng " + b.ten_tang });
-        }
-        addforcanho(arrayName, idfloor, searchfloor, inputfloor, btnSelectfloor);
-
-        floor.addEventListener('click', () => {
-            optionSelectfloor.classList.add('active');    
-            floorSearch.addEventListener('keyup', () => {
-                let searchedVal = floorSearch.value.toLowerCase();
-            
-                let filteredResults = arrayName.filter(datafloor => {
-                    return datafloor.ten.toLowerCase().includes(searchedVal);
-                });
-                let arr = filteredResults.map(datafloor => `<li onclick="updateName(this, '${searchfloor}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${datafloor.ten}</li>`).join("");
-            
-                floorId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
-            });        
-        });  
-        floor.firstElementChild.innerText = "Chọn tầng";
-        floor.classList.remove('active');
         });
-    });
+        const tangSelect = $('.tangOptionselect');         
+        const tangSelectBtn = $('.tangOptionselect .select-btn');
+        tangSelectBtn.on('click', function () {
+          $.ajax({
+                      url: "doc/main/commons/lay_soluong_tang.php",
+                      type: "post",
+                      dataType: "json", 
+                  }).done(function(tang){
+                    let arrayName = [];
+                    arrayName.push("Tất cả");
+                    for (const b of tang) {
+                      arrayName.push("Tầng " + b.ten_tang);
+                      }
+                      addcounty(arrayName, 'tangOptionSearch', 'tangSearch2', 'tangInputSearch', '.tangoptionselect');
+                      tangSelect.toggleClass('active');
+                      let Search = $('#tangSearch2');
 
-  }
+                      Search.on('keyup', () => {
+                          let tang = $('#tangOptionSearch');
+                          let searchedVal = Search.val().toLowerCase(); 
+                          
+                          let filteredResults = arrayName.filter(data => {
+                              return data.toLowerCase().includes(searchedVal);
+                          });
+                          let arr = filteredResults.map(data => `<li onclick="updateName(this, 'tangSearch2', '${arrayName}', 'tangOptionSearch', 'tangInputSearch', '.tangoptionselect')">${data}</li>`).join("");
+
+                          tang.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                      });       
+                  });
+
+        });
+        const statusthueSelect = $('.statusthueoption');         
+        const statusthueSelectBtn = $('.statusthueoption .select-btn');
+        statusthueSelectBtn.on('click', function () {
+          let arrayName = ["Tất cả", "Đang trống", "Đang ở", "Sắp chuyển đi"];
+                      addcounty(arrayName, 'statusthue', 'statusthueSearch', 'statusthueInput', '.statusthueoption');
+                      statusthueSelect.toggleClass('active');
+                      let Search = $('#statusthueSearch');
+
+                      Search.on('keyup', () => {
+                          let statusthue = $('#statusthue');
+                          let searchedVal = Search.val().toLowerCase(); 
+                          
+                          let filteredResults = arrayName.filter(data => {
+                              return data.toLowerCase().includes(searchedVal);
+                          });
+                          let arr = filteredResults.map(data => `<li onclick="updateName(this, 'statusthueSearch', '${arrayName}', 'statusthue', 'statusthueInput', '.statusthueoption')">${data}</li>`).join("");
+
+                          statusthue.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                      }); 
+        });
+        const statushoatdongSelect = $('.statushoatdongoption');         
+        const statushoatdongSelectBtn = $('.statushoatdongoption .select-btn');
+        statushoatdongSelectBtn.on('click', function () {
+          let arrayName = ["Tất cả", "Hoạt động", "Không hoạt động"];
+                      addcounty(arrayName, 'statushoatdong', 'statushoatdongSearch', 'statushoatdongInput', '.statushoatdongoption');
+                      statushoatdongSelect.toggleClass('active');
+                      let Search = $('#statushoatdongSearch');
+
+                      Search.on('keyup', () => {
+                          let statushoatdong = $('#statushoatdong');
+                          let searchedVal = Search.val().toLowerCase(); 
+                          
+                          let filteredResults = arrayName.filter(data => {
+                              return data.toLowerCase().includes(searchedVal);
+                          });
+                          let arr = filteredResults.map(data => `<li onclick="updateName(this, 'statushoatdongSearch', '${arrayName}', 'statushoatdong', 'statushoatdongInput', '.statushoatdongoption')">${data}</li>`).join("");
+
+                          statushoatdong.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                      }); 
+        });
+        $(document).on('click', function (event) {
+            const isClicktoanha = toannhaSelect.is(event.target) || toannhaSelect.has(event.target).length > 0 ;
+            const isClicktang = tangSelect.is(event.target) || tangSelect.has(event.target).length > 0 ;
+            const isClickStatusthue = statusthueSelect.is(event.target) || statusthueSelect.has(event.target).length > 0 ;
+            const isClickStatushoatdong = statushoatdongSelect.is(event.target) || statushoatdongSelect.has(event.target).length > 0 ;
+
+            if (!isClicktoanha) {
+                toannhaSelect.removeClass('active');
+            }if (!isClicktang) {
+                tangSelect.removeClass('active');
+            }if (!isClickStatusthue) {
+                statusthueSelect.removeClass('active');
+            }if (!isClickStatushoatdong) {
+                statushoatdongSelect.removeClass('active');
+            }
+        });
+        const searchapartment = document.querySelector(".search-input-apartment input");
+        const tb_toanha_selectedtoanha = document.querySelector(".toannhaOptionselect .select-btn input");
+        const tb_toanha_selectedtang = document.querySelector(".tangOptionselect .select-btn input");
+        const tb_toanha_selectedStatusthue = document.querySelector(".statusthueoption .select-btn input");
+        const tb_toanha_selectedStatushoatdong = document.querySelector(".statushoatdongoption .select-btn input");
+        searchapartment.addEventListener('input', searchTable_tb_can_phong);
+        tb_toanha_selectedtoanha.addEventListener('change', searchTable_tb_can_phong);
+        tb_toanha_selectedtang.addEventListener('change', searchTable_tb_can_phong);
+
+  });
+
 
 </script> 
