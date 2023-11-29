@@ -591,7 +591,7 @@
                         <td class="ma_toanha">${response.matToaNha}</td>
                         <td class="ten_toanha">${response.ten_toanha}</td>
                         <td class="text-center so_tang" >${response.sotang}</td>
-                        <td class="diachi_chitiet">${response.diachi}</td>
+                        <td class="diachi_chitiet">${response.diachi.join(', ')}</td>
                         <td class="trangthai_toanha">
                         <span class="badge ${classStatus}" style="font-size: 13px;"><b class="span_pending">${response.trangthai}</b></span>
                         </td>
@@ -642,9 +642,6 @@
         $('body').on('click', '#btn-edit', function () { 
             var id = $(this).data("id");
             $('#modal-default2').modal('show');
-            var ProvinceValue = $('#Province2').data("province");
-            var DistrictValue = $('#District2').data("district");
-            var WardValue = $('#Ward2').data("ward");
             $.ajax({
                 url: "doc/main/commons/lay_toanha.php", 
                 type: "post",
@@ -687,13 +684,12 @@
                 contentType: false,
                 data: formData,
                 success: function (response) {
-                    if (response.success) {              
+                    if (response.success) {     
                         var row = $('#row_' + response.id);
                         row.find('.ten_toanha').text(response.ten_toanha);
                         row.find('.so_tang').text(response.so_tang);
-                        row.find('.diachi_chitiet').text(response.diachi);
+                        row.find('.diachi_chitiet').text(response.diachi.join(', '));
                         row.find('.trangthai_toanha span').html(response.trangthai);
-
                         if(response.iDtrangthai == 1){
                           row.find('.trangthai_toanha span').removeClass('badge bg-danger')
                           row.find('.trangthai_toanha span').addClass('badge bg-success')

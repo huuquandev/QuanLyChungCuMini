@@ -186,8 +186,10 @@
                                           </div>
                                           <ul class="options" id="tang">                                
                                           </ul>
-                                        </div>
+                                        </div>                                
                                       </div>
+                                      <!-- <small class="text-danger">Thông tin bắt buộc</small> -->
+
                                     </fieldset>
                                     <!---->
                                   </div>
@@ -209,7 +211,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="name" type="text" placeholder="P.101" class="form-control" name="tenphong">
+                                        <input id="tenphong1" type="text" placeholder="P.101" class="form-control" name="tenphong">
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -228,7 +230,7 @@
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__626__BV_label_"> Tiền thuê <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
-                                      <input type="text" value="0" id="" placeholder="5,000,000" class="form-control" name="tienthue">
+                                      <input type="text" id="tienthue1" placeholder="5,000,000" class="form-control" name="tienthue">
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -243,7 +245,7 @@
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__630__BV_label_"> Tiền cọc <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
-                                      <input type="text" value="0" id="" placeholder="5,000,000" class="form-control" name="tiencoc">
+                                      <input type="text" id="tiencoc1" placeholder="5,000,000" class="form-control" name="tiencoc">
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -259,7 +261,7 @@
                                       <!---->
                                     </legend>
                                     <div>
-                                      <input type="text" value="0" id="" placeholder="30" class="form-control" name="dientich">
+                                      <input type="text" id="dientich1" placeholder="30" class="form-control" name="dientich">
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -275,7 +277,7 @@
                                   <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__637__BV_label_"> Số khách tối đa <span class="text-danger"> (*) </span>
                                   </legend>
                                   <div>
-                                    <input type="text" value="0" id="" placeholder="30" class="form-control" name="soluongkhacho">
+                                    <input type="text" id="soluongnguoio1" placeholder="30" class="form-control" name="soluongnguoio">
                                     <small class="text-danger"></small>
                                     <!---->
                                     <!---->
@@ -290,7 +292,7 @@
                                 <!---->
                                 <div>
                                   <div class="custom-control custom-control-inline custom-switch">
-                                    <input type="checkbox" name="check-button" class="checkbox-switch" value="true" id="__BVID__1004">
+                                    <input type="checkbox" name="check-button" class="checkbox-switch" value="true" id="trangthai">
                                     <label class="custom-control-label" for="__BVID__1004"> Hoạt động </label>
                                   </div>
                                 </div>
@@ -306,10 +308,10 @@
                             </div>
                           </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="btnSave">Lưu</button>
-                    </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                          <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd">Thêm</button>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -335,7 +337,8 @@
                                         </div>
                          </div>
                     </div>
-                  </fieldset>
+
+                </fieldset>
                   <!---->
                 </div>
               </div>
@@ -436,27 +439,29 @@
                     ?>
                 <tr>
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                  <td><?php echo $row['ma_canho_phong']; ?></td>
+                  <td class="ma_phong"><?php echo $row['ma_canho_phong']; ?></td>
                   <td class="ten_can_phong">
                     <?php echo $row['ten_canho_phong']; ?>
                     <br>
                     <span class="text-muted ten_toanha"><?php echo $row['ten_toanha']; ?></span>
                     <br>
-                    <span class="text-muted tang">Tầng <?php echo $row['ten_tang']; ?> </span>
+                    <span class="text-muted ten_tang">Tầng <?php echo $row['ten_tang']; ?> </span>
                   </td>
                   <td class="text-right"><?php echo convertToVietnameseCurrency($row['tienthue_canho_phong']); ?> đ</td>
                   <td class="text-right"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?> đ</td>
                   <td class="text-right"><?php echo convertToVietnameseCurrency($row['dientich_canho_phong']); ?> m²</td>
-                  <td>
+                  <td class="trangthai_thue">
                       <?php 
                           if($row['trangthai_canho_phong'] == 1){
                             echo '<span class="badge bg-success" style="font-size: 13px;"><b class="span_pending">Đang thuê</b></span>';
                           }else if($row['trangthai_canho_phong'] == 0){
                             echo '<span class="badge bg-danger" style="font-size: 13px;"><b class="span_pending">Đang trống</b></span>';
+                          }else if($row['trangthai_canho_phong'] == 2){
+                            echo '<span class="badge bg-primary" style="font-size: 13px;"><b class="span_pending">Sắp chuyển đi</b></span>';
                           }
                         ?>                  
                   </td>
-                  <td>
+                  <td class="trangthai_hoatdong"> 
                       <?php 
                         if($row['tinhtrang_canho_phong'] == 1){
                           echo '<span class="badge bg-success" style="font-size: 13px;"><b class="span_pending">Hoạt động</b></span>';
@@ -475,63 +480,46 @@
                       data-toggle="modal" data-target="#ModalUP" data-id="<?= $row['id_canho_phong'] ?>"><i class="fas fa-edit"></i>
                     </button>
                   </td>             
-                </tr>
-                <div class="modal fade bd-example-modal-lg" id="modal-default_<?= $row['id_canho_phong'] ?>">
+                </tr>    
+                <?php 
+                    } 
+                  }else{
+                    echo '<td valign="top" colspan="10" class="dataTables_empty" style="text-align: center;">Không tìm thấy kết quả</td>';
+                  }
+                    ?>
+                    
+              </tbody>
+            </table>
+          </div>
+          <div class="modal fade bd-example-modal-lg" id="modal-default2">
                   <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Căn hộ/phòng</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="txtOrderId" value="0" />
+                    <input type="hidden" value="" id="idphong">
                         <form class="">
                             <div class="row">
-                              <div class="col-md-4">
+                            <div class="col-md-4">
                                 <span>
                                   <div>
                                     <fieldset class="form-group" id="__BVID__605">
                                       <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tòa nhà <span class="text-danger"> (*) </span>
                                       </legend>
-                                      <div>
-                                        <div dir="ltr" class="v-select vs--single vs--searchable" id="apartment">
-                                          <div id="vs17__combobox" role="combobox" aria-expanded="false" aria-owns="vs17__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                            <div class="vs__selected-options">
-                                             
-                                              <select aria-autocomplete="list" aria-labelledby="vs17__combobox" aria-controls="vs17__listbox" type="search" autocomplete="off" class="vs__search" id="building_id">
-                                              <option value="" hidden="">Chọn tòa nhà</option>     
-                                                <?php
-                                                  $sqlselecttoanha = "SELECT * FROM tb_toanha";
-                                                  $queryselecttoanha = mysqli_query($conn, $sqlselecttoanha);
-                                                  if(mysqli_num_rows($queryselecttoanha) > 0){
-                                                    while ($rowselecttoanha = mysqli_fetch_array($queryselecttoanha)) {
-                                                ?>
-                                                    <option value="<?php echo $rowselecttoanha['id_toanha'] ?>"><?php echo $rowselecttoanha['ten_toanha'] ?></option>     
-                                                    <?php
-                                                    }
-                                                  }
-                                                ?>
-                                              </select>
-                                              
-                                            </div>
-                                            <div class="vs__actions">
-                                              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
-                                              </button>
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                              </svg>
-                                              <div class="vs__spinner" style="display: none;">Loading...</div>
-                                            </div>
-                                          </div>
-                                          <ul id="vs17__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                                      <div class="wrapper toannhaOption2">
+                                        <div class="select-btn">
+                                          <span>Chọn tòa nhà</span>
+                                          <input type="hidden" id="toannhaInput2">
+                                          <i class="fas fa-angle-down"></i>
                                         </div>
-                                        <small class="text-danger"></small>
-                                        <!---->
-                                        <!---->
-                                        <!---->
+                                        <div class="search-option">
+                                          <div class="search">
+                                            <input type="text" placeholder="Search" id="toannhaSearch2">
+                                          </div>
+                                          <ul class="options" id="toannha2">                              
+                                          </ul>
+                                        </div>
                                       </div>
                                     </fieldset>
                                     <!---->
@@ -544,38 +532,22 @@
                                     <fieldset class="form-group" id="__BVID__614">
                                       <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__614__BV_label_"> Tầng <span class="text-danger"> (*) </span>
                                       </legend>
-                                      <div>
-                                        <div dir="ltr" class="v-select vs--single vs--searchable" id="floor">
-                                          <div id="vs18__combobox" role="combobox" aria-expanded="false" aria-owns="vs18__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                            <div class="vs__selected-options">
-                                              <?php
-
-                                               ?>  
-                                              <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="floorid" disabled>
-                                                <option value="" hidden="">Chọn tầng</option>     
-
-                                              </select>
-                                            </div>
-                                            <div class="vs__actions">
-                                              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
-                                              </button>
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                              </svg>
-                                              <div class="vs__spinner" style="display: none;">Loading...</div>
-                                            </div>
-                                          </div>
-                                          <ul id="vs18__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                                      <div class="wrapper tangoption2">
+                                        <div class="select-btn">
+                                          <span>Chọn tầng</span>
+                                          <input type="hidden" id="tangInput2">
+                                          <i class="fas fa-angle-down"></i>
                                         </div>
-                                        <small class="text-danger"></small>
-                                        <!---->
-                                        <!---->
-                                        <!---->
+                                        <div class="search-option">
+                                          <div class="search">
+                                            <input type="text" placeholder="Search" id="tangSearch2">
+                                          </div>
+                                          <ul class="options" id="tang2">                                
+                                          </ul>
+                                        </div>                                
                                       </div>
+                                      <!-- <small class="text-danger">Thông tin bắt buộc</small> -->
+
                                     </fieldset>
                                     <!---->
                                   </div>
@@ -597,7 +569,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="name" type="text" placeholder="P.101" class="form-control" name="tenphong" value="<?= $row['ten_canho_phong'] ?>"> 
+                                        <input id="tenphong2" type="text" placeholder="P.101" class="form-control" name="tenphong2"> 
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -616,7 +588,7 @@
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__626__BV_label_"> Tiền thuê <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
-                                      <input type="text" value="<?= convertToVietnameseCurrency($row['tienthue_canho_phong']); ?>" id="" placeholder="5,000,000" class="form-control" name="tienthue">
+                                      <input type="text" id="tienthue2" placeholder="5,000,000" class="form-control" name="tienthue">
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -631,7 +603,7 @@
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__630__BV_label_"> Tiền cọc <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
-                                      <input type="text" value="<?= convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?>" id="" placeholder="5,000,000" class="form-control" name="tiencoc">
+                                      <input type="text" id="tiencoc2" placeholder="5,000,000" class="form-control" name="tiencoc">
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -647,7 +619,7 @@
                                       <!---->
                                     </legend>
                                     <div>
-                                      <input type="text" value="<?= convertToVietnameseCurrency($row['dientich_canho_phong']); ?>" id="" placeholder="30" class="form-control" name="dientich">
+                                      <input type="text" id="dientich2" placeholder="30" class="form-control" name="dientich">
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -663,7 +635,7 @@
                                   <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__637__BV_label_"> Số khách tối đa <span class="text-danger"> (*) </span>
                                   </legend>
                                   <div>
-                                    <input type="text" value="<?= $row['so_nguoi_o'] ?>" id="" placeholder="30" class="form-control" name="soluongkhacho">
+                                    <input type="text" id="soluongnguoio2" placeholder="30" class="form-control" name="soluongnguoio">
                                     <small class="text-danger"></small>
                                     <!---->
                                     <!---->
@@ -673,50 +645,27 @@
                               </div>
                             </div>
                             <div class="row">
-                            <div class="mt-2 col-12">
+                              <div class="mt-2 col-12">
                               <fieldset class="form-group" id="__BVID__1003">
                                 <!---->
                                 <div>
                                   <div class="custom-control custom-control-inline custom-switch">
-                                  <?php
-                                    if($row['trangthai_canho_phong'] == 1){
-                                      echo '<input type="checkbox" name="newtrangthai" class="checkbox-switch" value="" id="__BVID__1004" checked>';
-                                    }else if($row['trangthai_canho_phong'] == 0){
-                                      echo '<input type="checkbox" name="newtrangthai" class="checkbox-switch" value="" id="__BVID__1004">';
-                                    }
-                                     ?>                                       
+                                  <input type="checkbox" name="newtrangthai" class="checkbox-switch" value="" id="trangthai2">                                     
                                      <label class="custom-control-label" for="__BVID__1004"> Hoạt động </label>
                                   </div>
                                 </div>
                               </fieldset>
                             </div>
                             </div>
-                            <div class="row">
-                              <div class="col">
-                                <div>
-                                  <!---->
-                                </div>
-                              </div>
-                            </div>
                           </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal" data-id="<?php echo $row['id_canho_phong']  ?>">Hủy</button>
+                        <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal" data-id="">Hủy</button>
                         <button type="button" class="btn btn-primary" id="btnSave">Lưu</button>
                     </div>
                     </div>
                   </div>
-                </div>       
-                <?php 
-                    } 
-                  }else{
-                    echo '<td valign="top" colspan="10" class="dataTables_empty" style="text-align: center;">Không tìm thấy kết quả</td>';
-                  }
-                    ?>
-                    
-              </tbody>
-            </table>
-          </div>
+                </div>   
         </div>
       </div>
     </div>
@@ -726,13 +675,131 @@
         $('body').on('click', '.btn-add', function () { 
             $('#modal-default').modal('show');
             initializeDropdownsToanha(".toannhaOption","toannhaInput", "toannhaSearch", "toannha", ".tangoption","tangInput", "tangSearch", "tang");
+
         });
-        $('body').on('click', '#btnClose', function () {
-            $('#modal-default').modal('hide');
+        $('body').on('click', '#btnAdd', function () {  
+            var formData = new FormData();
+            let ten_toanha = document.querySelector(".toannhaOption .select-btn span").textContent;
+            let ten_tang = document.querySelector(".tangoption .select-btn").textContent;
+            formData.append('ten_phong', $('#tenphong').val());
+            formData.append('id_toanha', $('#toannhaInput').val());
+            formData.append('id_tang', $('#tangInput').val());
+            formData.append('tien_thue1', $('#tienthue').val());
+            formData.append('tien_coc1', $('#tiencoc').val());
+            formData.append("dien_tich1", $('#dientich').val());   
+            formData.append("soluong_nguoio1", $('#soluongnguoio').val());   
+            formData.append("trang_thai", $('#trangthai').val());   
+            formData.append("ten_toanha", ten_toanha);   
+            formData.append("ten_tang", ten_tang);
+            $.ajax({
+                url: "doc/main/commons/them_phong.php",
+                type: "post",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.success) {  
+                        var classStatus;
+                        var ClassDanger = "bg-danger"
+                        if(response.iDtrangthai == 1){
+                          classStatus = "bg-success"
+                        }else{
+                          classStatus = "bg-danger"
+                        }
+                        var str = "";
+                        let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'đ' }).format(response.tien_thue);
+                        let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'đ' }).format(response.tien_coc);
+                        let dientic = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'm²' }).format(response.tien_thue);
+
+                        str += `<tr id="row_${response.id}">
+                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                        <td class="ma_phong">${response.maPhong}</td>
+                        <td class="ten_can_phong">
+                              ${response.ten_phong}
+                            <br>
+                            <span class="text-muted ten_toanha">${response.ten_toanha}</span>
+                            <br>
+                            <span class="text-muted ten_tang">${response.ten_tang}</span>
+                        </td>
+                        <td class="text-right">${tienthue}</td>
+                        <td class="text-right">${tiencoc}</td>
+                        <td class="text-right">${response.dien_tich}</td>
+                        <td class="trangthai_thue">
+                        <span class="badge bg-danger" style="font-size: 13px;"><b class="span_pending">Không hoạt động</b></span>
+                        </td>
+                        <td class="trangthai_toanha">
+                          <span class="badge ${classStatus}" style="font-size: 13px;"><b class="span_pending">${response.trangthai}</b></span>
+                        </td>
+                        <td class="table-td-center">
+                          <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" 
+                              data-id="${response.id}"><i class="fas fa-trash-alt"></i>
+                          </button>
+                          <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
+                            data-toggle="modal" data-target="#ModalUP" data-id="${response.id}"><i class="fas fa-edit"></i>
+                          </button>
+                        </td>
+                        </tr>`;                 
+                      $('#tbhtml').append(str);
+                        swal({
+                          title: "Thông báo",
+                          text: response.message,
+                          icon: "success",
+                          close: true,
+                          button: "Đóng",
+                        });
+                        
+                        $('#modal-default').modal('hide');    
+
+                        $('#tentoanha').val('');
+                        $('#diachichitiet').val('');
+                        $('#sotang').val('');
+                        $('#trangthai').prop('checked', false);  
+
+                    } else {
+                      swal({
+                          title: "Lỗi",
+                          text: response.message,
+                          icon: "error",
+                          close: true,
+                          button: "Thử lại",
+                        });                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Ajax request failed!");
+                }
+            });
+
+        });
+        $('body').on('click', '.btnClose', function () {
+            $('#modal-default').modal('hide');        
         });
         $('body').on('click', '#btn-edit', function () { 
             var id = $(this).data("id");
-            $('#modal-default_' + id).modal('show');
+            $('#modal-default2').modal('show');
+            $.ajax({
+                url: "doc/main/commons/lay_canhophong.php", 
+                type: "post",
+                dataType: "html",          
+                data: { idphong: id },
+              }).done(function(phong){
+                var decodedData = JSON.parse(decodeURIComponent(phong));
+                $('#idphong').val(id)
+                $('#tenphong2').val(decodedData.ten_canho_phong)
+                $('#tienthue2').val(decodedData.tienthue_canho_phong)
+                $('#tiencoc2').val(decodedData.tiencoc_canho_phong)
+                $('#dientich2').val(decodedData.dientich_canho_phong)
+                $('#soluongnguoio2').val(decodedData.so_nguoi_o)
+
+                if (decodedData.trangthai_canho_phong	== 1) {
+                    $('#trangthai2').prop('checked', true);
+                } else {
+                    $('#trangthai2').prop('checked', false);
+                }
+                initializeDropdownsToanha(".toannhaOption2","toannhaInput2", "toannhaSearch2", "toannha2", ".tangoption2","tangInput2", "tangSearch2", "tang2", decodedData.ten_toanha, "Tầng " + decodedData.ten_tang);
+            });
+
         });
         $('body').on('click', '.btnClose', function () {
             var id = $(this).data("id");
@@ -803,7 +870,7 @@
         const statusthueSelect = $('.statusthueoption');         
         const statusthueSelectBtn = $('.statusthueoption .select-btn');
         statusthueSelectBtn.on('click', function () {
-          let arrayName = ["Tất cả", "Đang trống", "Đang ở", "Sắp chuyển đi"];
+          let arrayName = ["Tất cả", "Đang trống", "Đang thuê", "Sắp chuyển đi"];
                       addcounty(arrayName, 'statusthue', 'statusthueSearch', 'statusthueInput', '.statusthueoption');
                       statusthueSelect.toggleClass('active');
                       let Search = $('#statusthueSearch');
@@ -823,7 +890,7 @@
         const statushoatdongSelect = $('.statushoatdongoption');         
         const statushoatdongSelectBtn = $('.statushoatdongoption .select-btn');
         statushoatdongSelectBtn.on('click', function () {
-          let arrayName = ["Tất cả", "Hoạt động", "Không hoạt động"];
+          let arrayName = ["Tất cả", "Hoạt động", "Không hoạt động" , "Đang sửa chữa"];
                       addcounty(arrayName, 'statushoatdong', 'statushoatdongSearch', 'statushoatdongInput', '.statushoatdongoption');
                       statushoatdongSelect.toggleClass('active');
                       let Search = $('#statushoatdongSearch');
@@ -864,7 +931,16 @@
         searchapartment.addEventListener('input', searchTable_tb_can_phong);
         tb_toanha_selectedtoanha.addEventListener('change', searchTable_tb_can_phong);
         tb_toanha_selectedtang.addEventListener('change', searchTable_tb_can_phong);
+        tb_toanha_selectedStatusthue.addEventListener('change', searchTable_tb_can_phong);
+        tb_toanha_selectedStatushoatdong.addEventListener('change', searchTable_tb_can_phong);
 
+        $('.checkbox-switch').change(function () {
+                                        if ($(this).is(':checked')) {
+                                            $('.checkbox-switch').val("1");
+                                        } else {
+                                            $('.checkbox-switch').val("0");
+                                        }                                       
+        });
   });
 
 

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 24, 2023 lúc 06:16 AM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Thời gian đã tạo: Th10 29, 2023 lúc 09:01 PM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -163,7 +163,8 @@ CREATE TABLE `tb_toanha` (
 
 INSERT INTO `tb_toanha` (`id_toanha`, `ten_toanha`, `ma_toanha`, `so_tang`, `trangthai_toanha`, `diachi_chitiet`, `tinhthanh`, `quanhuyen`, `phuongxa`) VALUES
 (1, 'Tòa nhà hòa bình', 'CH001392', 3, 0, '400 khương đình', 'Tỉnh Bắc Giang', 'Huyện Lạng Giang', 'Xã An Hà'),
-(29, 'Vinhome city', 'CH869889', 12, 1, '25 Nguyễn Khang', 'Tỉnh Bắc Giang', 'Huyện Tân Yên', 'Xã Việt Ngọc');
+(29, 'Vinhome city', 'CH869889', 12, 1, '25 Nguyễn Khang', 'Tỉnh Bắc Giang', 'Huyện Tân Yên', 'Xã Việt Ngọc'),
+(72, 'Tòa nhà an bình', 'CH344573', 12, 0, '3123', 'Tỉnh Hà Giang', 'Huyện Đồng Văn', 'Xã Lũng Cú');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -249,7 +250,7 @@ ALTER TABLE `tb_tang`
 -- AUTO_INCREMENT cho bảng `tb_toanha`
 --
 ALTER TABLE `tb_toanha`
-  MODIFY `id_toanha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_toanha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

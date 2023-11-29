@@ -15846,7 +15846,7 @@ text-align:center;
   transition: transform 0.3s linear;
 }
 .wrapper{
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .wrapper.active .select-btn{
   border: 1px solid #b3b3b3;

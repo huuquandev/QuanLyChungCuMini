@@ -25,7 +25,7 @@
                               if (!empty($diachi)) {
                                       $showaddress[] = $diachi;
                                   }
-                                  if (!empty($tinhanh)) {
+                                  if (!empty($tinhthanh)) {
                                       $showaddress[] = $tinhthanh;
                                   }
                                   if (!empty($quanhuyen)) {
