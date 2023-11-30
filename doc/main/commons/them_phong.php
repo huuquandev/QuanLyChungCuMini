@@ -18,13 +18,13 @@ $response = array();
 $random = generateRandomCode();
 $maPhong = "P".$random;
 
-while (!isMaCanHo_PhongUnique($conn, $maToaNha)) {
-    $matToaNha = generateRandomCode();
+while (!isMaCanHo_PhongUnique($conn, $maPhong)) {
+    $maPhong = generateRandomCode();
 }
 
 $newPhongId = ThemCanho_Phong($ten_phong, $maPhong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang);
 
-if ($newToaNhaId) {
+if ($newPhongId) {
     $response['success'] = true;
     $response['id'] = $newPhongId;
     $response['maPhong'] = $maPhong;
@@ -35,8 +35,8 @@ if ($newToaNhaId) {
     $response['tien_coc'] = $tien_coc;
     $response['dien_tich'] = $dien_tich;
     $response['trangthaithue'] = 'Đang trống';
-    $response['trangthaihoatdong'] = ($trangthai == 1) ? 'Hoạt động' : 'Không hoạt động';
-    $response['iDtrangthai'] = $trangthai;
+    $response['trangthaihoatdong'] = ($trang_thai == 1) ? 'Hoạt động' : 'Không hoạt động';
+    $response['iDtrangthai'] = $trang_thai;
     $response['message'] = 'Thêm thành công';
 } else {
     $response['success'] = false;

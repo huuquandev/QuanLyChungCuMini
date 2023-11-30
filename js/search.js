@@ -259,6 +259,13 @@ function initializeDropdowns(citisId, districtId, wardId, citisSearch, districtS
                     });
                 });
             }
+        }else{
+            selectBtnSearch1.firstElementChild.innerText = "Tỉnh thành";
+            selectBtnSearch1.classList.remove('active');
+            selectBtnSearch2.firstElementChild.innerText = "Quận huyện";
+            selectBtnSearch2.classList.remove('active');
+            selectBtnSearch3.firstElementChild.innerText = "Phương xã";
+            selectBtnSearch3.classList.remove('active');           
         }
     }
 

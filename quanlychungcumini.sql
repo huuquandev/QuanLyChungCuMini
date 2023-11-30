@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 29, 2023 lúc 09:01 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Thời gian đã tạo: Th10 30, 2023 lúc 06:02 AM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,7 +49,7 @@ INSERT INTO `tb_canho_phong` (`id_canho_phong`, `ten_canho_phong`, `ma_canho_pho
 (7, 'P-101', 'P567015', 1, 3, 4000000, 4000000, 160, 1, 1, 39),
 (8, 'P-102', 'P561234', 1, 5, 15000000, 10000000, 250, 0, 2, 40),
 (9, 'P-201', 'P135647', 29, 4, 15000000, 45000000, 200, 1, 1, 43),
-(10, 'P-202', 'P484621', 29, 1, 8000000, 8000000, 200, 0, 0, 44);
+(26, '3123', 'P519035', 1, 12, 123123, 12, 12, 0, 1, 39);
 
 -- --------------------------------------------------------
 
@@ -163,8 +163,7 @@ CREATE TABLE `tb_toanha` (
 
 INSERT INTO `tb_toanha` (`id_toanha`, `ten_toanha`, `ma_toanha`, `so_tang`, `trangthai_toanha`, `diachi_chitiet`, `tinhthanh`, `quanhuyen`, `phuongxa`) VALUES
 (1, 'Tòa nhà hòa bình', 'CH001392', 3, 0, '400 khương đình', 'Tỉnh Bắc Giang', 'Huyện Lạng Giang', 'Xã An Hà'),
-(29, 'Vinhome city', 'CH869889', 12, 1, '25 Nguyễn Khang', 'Tỉnh Bắc Giang', 'Huyện Tân Yên', 'Xã Việt Ngọc'),
-(72, 'Tòa nhà an bình', 'CH344573', 12, 0, '3123', 'Tỉnh Hà Giang', 'Huyện Đồng Văn', 'Xã Lũng Cú');
+(29, 'Vinhome city', 'CH869889', 12, 1, '25 Nguyễn Khang', 'Tỉnh Bắc Giang', 'Huyện Tân Yên', 'Xã Việt Ngọc');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -220,7 +219,7 @@ ALTER TABLE `tb_toanha`
 -- AUTO_INCREMENT cho bảng `tb_canho_phong`
 --
 ALTER TABLE `tb_canho_phong`
-  MODIFY `id_canho_phong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_canho_phong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_kho`
@@ -250,7 +249,7 @@ ALTER TABLE `tb_tang`
 -- AUTO_INCREMENT cho bảng `tb_toanha`
 --
 ALTER TABLE `tb_toanha`
-  MODIFY `id_toanha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id_toanha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

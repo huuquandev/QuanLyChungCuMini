@@ -557,7 +557,8 @@
             $('#modal-default').modal('show');      
             initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", 
             "Ward1Search", "Province1Input", "District1Input", "Ward1Input", ".ProvinceSelect1", ".DistrictSelect1", 
-            ".WardSelect1");        
+            ".WardSelect1", $('#Province1Input').val(), $('#District1Input').val(), $('#Ward1Input').val());    
+
         });
         $('body').on('click', '#btnAdd', function () {  
             var formData = new FormData();
@@ -591,7 +592,7 @@
                         <td class="ma_toanha">${response.matToaNha}</td>
                         <td class="ten_toanha">${response.ten_toanha}</td>
                         <td class="text-center so_tang" >${response.sotang}</td>
-                        <td class="diachi_chitiet">${response.diachi.join(', ')}</td>
+                        <td class="diachi_chitiet">${response.diachi}</td>
                         <td class="trangthai_toanha">
                         <span class="badge ${classStatus}" style="font-size: 13px;"><b class="span_pending">${response.trangthai}</b></span>
                         </td>
@@ -611,23 +612,25 @@
                           icon: "success",
                           close: true,
                           button: "Đóng",
-                        });
-                        
-                        $('#modal-default').modal('hide');    
-
-                        $('#tentoanha').val('');
-                        $('#diachichitiet').val('');
-                        $('#sotang').val('');
-                        $('#trangthai').prop('checked', false);  
-
+                        });                        
                     } else {
                       swal({
                           title: "Lỗi",
                           text: response.message,
                           icon: "error",
-                          close: true,
+                          close: true,  
                           button: "Thử lại",
-                        });                    }
+                        });                    
+                      }
+                        $('#modal-default').modal('hide');    
+                        $('#Province1Input').val('');
+                        $('#District1Input').val('');
+                        $('#Ward1Input').val('');
+                        $('#tentoanha').val('');
+                        $('#diachichitiet').val('');
+                        $('#sotang').val('');
+                        $('#trangthai').val(0);
+                        $('#trangthai').prop('checked', false);    
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);

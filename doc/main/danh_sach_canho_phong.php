@@ -292,7 +292,7 @@
                                 <!---->
                                 <div>
                                   <div class="custom-control custom-control-inline custom-switch">
-                                    <input type="checkbox" name="check-button" class="checkbox-switch" value="true" id="trangthai">
+                                    <input type="checkbox" name="check-button" class="checkbox-switch" value="0" id="trangthai1">
                                     <label class="custom-control-label" for="__BVID__1004"> Hoạt động </label>
                                   </div>
                                 </div>
@@ -427,7 +427,7 @@
                         <th width="100">Tính năng</th>
                       </tr>
               </thead>
-              <tbody>
+              <tbody id="tbhtml">
               <?php 
                     $sql = "SELECT tb_canho_phong.*, tb_toanha.ten_toanha , tb_tang.ten_tang
                     FROM `tb_canho_phong`
@@ -451,6 +451,8 @@
                   <td class="text-right"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?> đ</td>
                   <td class="text-right"><?php echo convertToVietnameseCurrency($row['dientich_canho_phong']); ?> m²</td>
                   <td class="trangthai_thue">
+                  <input type="hidden" value="<?= $row['trangthai_canho_phong'] ?>" id="trangthaithue">
+
                       <?php 
                           if($row['trangthai_canho_phong'] == 1){
                             echo '<span class="badge bg-success" style="font-size: 13px;"><b class="span_pending">Đang thuê</b></span>';
@@ -660,9 +662,9 @@
                           </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal" data-id="">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="btnSave">Lưu</button>
-                    </div>
+                                  <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                                  <button type="button" class="btn btn-primary btnSave" data-dismiss="modal">Lưu</button>
+                              </div>
                     </div>
                   </div>
                 </div>   
@@ -675,20 +677,19 @@
         $('body').on('click', '.btn-add', function () { 
             $('#modal-default').modal('show');
             initializeDropdownsToanha(".toannhaOption","toannhaInput", "toannhaSearch", "toannha", ".tangoption","tangInput", "tangSearch", "tang");
-
         });
         $('body').on('click', '#btnAdd', function () {  
             var formData = new FormData();
             let ten_toanha = document.querySelector(".toannhaOption .select-btn span").textContent;
             let ten_tang = document.querySelector(".tangoption .select-btn").textContent;
-            formData.append('ten_phong', $('#tenphong').val());
+            formData.append('ten_phong', $('#tenphong1').val());
             formData.append('id_toanha', $('#toannhaInput').val());
             formData.append('id_tang', $('#tangInput').val());
-            formData.append('tien_thue1', $('#tienthue').val());
-            formData.append('tien_coc1', $('#tiencoc').val());
-            formData.append("dien_tich1", $('#dientich').val());   
-            formData.append("soluong_nguoio1", $('#soluongnguoio').val());   
-            formData.append("trang_thai", $('#trangthai').val());   
+            formData.append('tien_thue', $('#tienthue1').val());
+            formData.append('tien_coc', $('#tiencoc1').val());
+            formData.append("dien_tich", $('#dientich1').val());   
+            formData.append("soluong_nguoio", $('#soluongnguoio1').val());   
+            formData.append("trang_thai", $('#trangthai1').val());   
             formData.append("ten_toanha", ten_toanha);   
             formData.append("ten_tang", ten_tang);
             $.ajax({
@@ -708,9 +709,10 @@
                           classStatus = "bg-danger"
                         }
                         var str = "";
-                        let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'đ' }).format(response.tien_thue);
-                        let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'đ' }).format(response.tien_coc);
-                        let dientic = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'm²' }).format(response.tien_thue);
+                        let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_thue);
+                        let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_coc);
+                        let dientic = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.dien_tich);
+
 
                         str += `<tr id="row_${response.id}">
                         <td width="10"><input type="checkbox" name="check1" value="1"></td>
@@ -724,12 +726,12 @@
                         </td>
                         <td class="text-right">${tienthue}</td>
                         <td class="text-right">${tiencoc}</td>
-                        <td class="text-right">${response.dien_tich}</td>
+                        <td class="text-right">${response.dien_tich} m²</td>
                         <td class="trangthai_thue">
-                        <span class="badge bg-danger" style="font-size: 13px;"><b class="span_pending">Không hoạt động</b></span>
+                        <span class="badge bg-danger" style="font-size: 13px;"><b class="span_pending">${response.trangthaithue}</b></span>
                         </td>
                         <td class="trangthai_toanha">
-                          <span class="badge ${classStatus}" style="font-size: 13px;"><b class="span_pending">${response.trangthai}</b></span>
+                          <span class="badge ${classStatus}" style="font-size: 13px;"><b class="span_pending">${response.trangthaihoatdong}</b></span>
                         </td>
                         <td class="table-td-center">
                           <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" 
@@ -748,13 +750,6 @@
                           close: true,
                           button: "Đóng",
                         });
-                        
-                        $('#modal-default').modal('hide');    
-
-                        $('#tentoanha').val('');
-                        $('#diachichitiet').val('');
-                        $('#sotang').val('');
-                        $('#trangthai').prop('checked', false);  
 
                     } else {
                       swal({
@@ -763,7 +758,18 @@
                           icon: "error",
                           close: true,
                           button: "Thử lại",
-                        });                    }
+                        });   
+                      }
+                        $('#modal-default').modal('hide');    
+                        $('#toannhaInput').val('');
+                        $('#tangInput').val('');
+                        $('#ten_phong1').val('');
+                        $('#tienthue1').val('');
+                        $('#tiencoc1').val('');
+                        $('#dien_tich1').val('');
+                        $('#soluong_nguoio1').val('');
+                        $('#trangthai1').val(0);
+                        $('#trangthai1').prop('checked', false);  
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);
@@ -801,9 +807,74 @@
             });
 
         });
+        $('body').on('click', '.btnSave', function () {
+            var formData = new FormData();
+            let ten_toanha = document.querySelector(".toannhaOption .select-btn span").textContent;
+            let ten_tang = document.querySelector(".tangoption .select-btn").textContent;
+            formData.append('id', $('#idphong').val());
+            formData.append('ten_phong', $('#tenphong2').val());
+            formData.append('id_toanha', $('#toannhaInput2').val());
+            formData.append('id_tang', $('#tangInput2').val());
+            formData.append('tien_thue', $('#tienthue2').val());
+            formData.append('tien_coc', $('#tiencoc2').val());
+            formData.append("dien_tich", $('#dientich2').val());   
+            formData.append("soluong_nguoio", $('#soluongnguoio2').val());   
+            formData.append("trang_thai", $('#trangthai2').val());   
+            formData.append("ten_toanha", ten_toanha);   
+            formData.append("ten_tang", ten_tang);
+            formData.append("trang_thai_thue", $('#trangthaithue').val());
+            // for (const pair of formData.entries()) {
+            //     console.log(pair[0] + ': ' + pair[1]);
+            // }
+            // $.ajax({
+            //     url: "doc/main/commons/sua_phong.php",
+            //     type: "post",
+            //     dataType: "json",
+            //     processData: false,
+            //     contentType: false,
+            //     data: formData,
+            //     success: function (response) {
+            //         // if (response.success) {     
+            //         //     var row = $('#row_' + response.id);
+            //         //     row.find('.ten_toanha').text(response.ten_toanha);
+            //         //     row.find('.so_tang').text(response.so_tang);
+            //         //     row.find('.diachi_chitiet').text(response.diachi.join(', '));
+            //         //     row.find('.trangthai_toanha span').html(response.trangthai);
+            //         //     if(response.iDtrangthai == 1){
+            //         //       row.find('.trangthai_toanha span').removeClass('badge bg-danger')
+            //         //       row.find('.trangthai_toanha span').addClass('badge bg-success')
+
+            //         //     }else if((response.iDtrangthai == 0)){
+            //         //       row.find('.trangthai_toanha span').removeClass('badge bg-success')
+            //         //       row.find('.trangthai_toanha span').addClass('badge bg-danger')
+            //         //     }
+            //         //     swal({
+            //         //       title: "Thông báo",
+            //         //       text: response.message,
+            //         //       icon: "success",
+            //         //       close: true,
+            //         //       button: "Đóng",
+            //         //     });
+                        
+            //         //     $('#modal-default2').modal('hide');                     
+            //         // } else {
+            //         //   swal({
+            //         //       title: "Lỗi",
+            //         //       text: response.message,
+            //         //       icon: "error",
+            //         //       close: true,
+            //         //       button: "Thử lại",
+            //         //     });                    
+            //         //   }
+            //     },
+            //     error: function (xhr, status, error) {
+            //         console.error(xhr.responseText);
+            //         alert("Ajax request failed!");
+            //     }
+            // });
+        });
         $('body').on('click', '.btnClose', function () {
-            var id = $(this).data("id");
-            $('#modal-default_' + id).modal('hide');
+            $('#modal-default2').modal('hide');
         });
         const toannhaSelect = $('.toannhaOptionselect');  
         const toannhaSelectBtn = $('.toannhaOptionselect .select-btn');

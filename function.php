@@ -88,39 +88,6 @@
             return false;
         }
     }
-    
-    function ThemCanho_Phong($ten_canho_phong, $ma_canho_phong, $id_toanha, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $id_tang) {
-        GLOBAL $conn;
-        $filter_ten_canho_phong = mysqli_real_escape_string($conn, $ten_canho_phong);
-        $filter_ma_canho_phong = mysqli_real_escape_string($conn, $ma_canho_phong);
-        $filter_toanha = mysqli_real_escape_string($conn, $id_toanha);
-        $filter_tang = mysqli_real_escape_string($conn, $id_tang);
-        $filter_so_nguoi_o = mysqli_real_escape_string($conn, $so_nguoi_o);
-        $filter_tienthue = mysqli_real_escape_string($conn, $tienthue);
-        $filter_tiencoc = mysqli_real_escape_string($conn, $tiencoc);
-        $filter_dientich = mysqli_real_escape_string($conn, $dientich);
-        $filter_trangthai = mysqli_real_escape_string($conn, $trangthai);
-        $random = generateRandomCode();
-        $maCanho = "P".$random;
-    
-        while (!isMatToaNhaUnique($conn, $maCanho)) {
-            $matToaNha = generateRandomCode();
-        }
-    
-        $sql = "INSERT INTO tb_canho_phong (ten_canho_phong, ma_canho_phong, id_toanha, so_nguoi_o, tienthue_canho_phong,
-         tiencoc_canho_phong, trangthai_canho_phong, tinhtrang_canho_phong, id_tang) 
-                VALUES ('$filter_ten_canho_phong', '$filter_ma_canho_phong', '$filter_toanha', '$filter_so_nguoi_o', '$filter_tienthue',
-                 '$filter_tiencoc', '$filter_tienthue', '$filter_dientich', '$filter_trangthai', 0, '$filter_tang')";
-    
-        $query = mysqli_query($conn, $sql);
-        if ($query) {
-            // Lấy giá trị ID của tòa nhà vừa thêm
-            $lastInsertedId = mysqli_insert_id($conn);
-            return $lastInsertedId;
-        } else {
-            return false;
-        }
-    }
     function SuaToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhanh, $quanhuyen, $phuongxa, $id_toanha){
         GLOBAL $conn;
         $filter_tentoanha = mysqli_real_escape_string($conn, $tentoanha);
@@ -154,7 +121,54 @@
             return false;
         }
     }
+    function ThemCanho_Phong($ten_canho_phong, $ma_canho_phong, $id_toanha, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $id_tang) {
+        GLOBAL $conn;
+        $filter_ten_canho_phong = mysqli_real_escape_string($conn, $ten_canho_phong);
+        $filter_ma_canho_phong = mysqli_real_escape_string($conn, $ma_canho_phong);
+        $filter_toanha = mysqli_real_escape_string($conn, $id_toanha);
+        $filter_tang = mysqli_real_escape_string($conn, $id_tang);
+        $filter_so_nguoi_o = mysqli_real_escape_string($conn, $so_nguoi_o);
+        $filter_tienthue = mysqli_real_escape_string($conn, $tienthue);
+        $filter_tiencoc = mysqli_real_escape_string($conn, $tiencoc);
+        $filter_dientich = mysqli_real_escape_string($conn, $dientich);
+        $filter_trangthai = mysqli_real_escape_string($conn, $trangthai);
+    
+        $sql = "INSERT INTO tb_canho_phong (ten_canho_phong, ma_canho_phong, id_toanha, so_nguoi_o, tienthue_canho_phong,
+        tiencoc_canho_phong,dientich_canho_phong, trangthai_canho_phong, tinhtrang_canho_phong, id_tang) 
+                VALUES ('$filter_ten_canho_phong', '$filter_ma_canho_phong', '$filter_toanha', '$filter_so_nguoi_o', '$filter_tienthue',
+                 '$filter_tiencoc', '$filter_dientich', 0, $filter_trangthai, '$filter_tang')";
+    
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            // Lấy giá trị ID của tòa nhà vừa thêm
+            $lastInsertedId = mysqli_insert_id($conn);
+            return $lastInsertedId;
+        } else {
+            return false;
+        }
+    }
+    function SuaCanho_Phong($ten_canho_phong, $id_toanha, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $id_tang, $id_canhophong){
+        GLOBAL $conn;
+        $filter_ten_canho_phong = mysqli_real_escape_string($conn, $ten_canho_phong);
+        $filter_toanha = mysqli_real_escape_string($conn, $id_toanha);
+        $filter_tang = mysqli_real_escape_string($conn, $id_tang);
+        $filter_so_nguoi_o = mysqli_real_escape_string($conn, $so_nguoi_o);
+        $filter_tienthue = mysqli_real_escape_string($conn, $tienthue);
+        $filter_tiencoc = mysqli_real_escape_string($conn, $tiencoc);
+        $filter_dientich = mysqli_real_escape_string($conn, $dientich);
+        $filter_trangthai = mysqli_real_escape_string($conn, $trangthai);
+        $filter_id_canhophong = mysqli_real_escape_string($conn, $id_canhophong);
 
+        $sql = "UPDATE tb_canho_phong SET ten_canho_phong='$filter_ten_canho_phong', id_toanha='$filter_toanha', so_nguoi_o='$filter_so_nguoi_o', tienthue_canho_phong='$filter_tienthue', 
+                tiencoc_canho_phong='$filter_tiencoc', dientich_canho_phong='$filter_dientich',tinhtrang_canho_phong='$filter_trangthai',id_tang='$filter_tang' WHERE id_canho_phong='$filter_id_canhophong'";
+
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     function laytangbytoanha($id_toanha) {
         GLOBAL $conn;
     
