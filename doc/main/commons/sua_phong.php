@@ -1,7 +1,7 @@
 <?php
     include_once '../../../function.php';
     include_once '../../../components/connect.php';
-    $id = $_POST['id'];
+    $id_phong = $_POST['id'];
     $ten_phong = $_POST['ten_phong'];
     $id_toanha = $_POST['id_toanha'];
     $id_tang = $_POST['id_tang'];
@@ -13,12 +13,10 @@
     $ten_toanha = $_POST['ten_toanha'];
     $ten_tang = $_POST['ten_tang'];
     $trang_thai_thue = $_POST['trang_thai_thue'];
-
     $response = array();
     if (SuaCanho_Phong($ten_phong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang, $id_phong)) {
         $response['success'] = true;
-        $response['id'] = $newPhongId;
-        $response['maPhong'] = $maPhong;
+        $response['id'] = $id_phong;
         $response['ten_phong'] = $ten_phong;
         $response['ten_toanha'] = $ten_toanha;
         $response['ten_tang'] = $ten_tang;
@@ -42,8 +40,9 @@
             $response['trangthaihoatdong'] = 'Không hoạt động';
         }   
           
-        $response['iDtrangthai'] = $trang_thai;
-        $response['message'] = 'Thêm thành công';
+        $response['iDtrangthaithue'] = $trang_thai;
+        $response['iDtrangthaihoatdong'] = $trang_thai;
+        $response['message'] = 'Cập nhật thành công';
     } else {
         $response['success'] = false;
         $response['message'] = 'Cập nhật không thành công';

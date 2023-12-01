@@ -2,12 +2,12 @@
 
    include_once './function.php';
 
-  $sqlcount0 = "SELECT COUNT(*) FROM baotri_suachua WHERE baotri_suachua.trang_thai = 0;";
-  $sqlcount1 = "SELECT COUNT(*) FROM baotri_suachua WHERE baotri_suachua.trang_thai = 1;";
-  $sqlcount2 = "SELECT COUNT(*) FROM baotri_suachua WHERE baotri_suachua.trang_thai = 2;";
-  $sqlcount3 = "SELECT COUNT(*) FROM baotri_suachua WHERE baotri_suachua.trang_thai = 3;";
-  $sqlcount4 = "SELECT COUNT(*) FROM baotri_suachua WHERE baotri_suachua.trang_thai = 4;";
-  $sqlcount5 = "SELECT COUNT(*) FROM baotri_suachua WHERE baotri_suachua.trang_thai = 5;";
+  $sqlcount0 = "SELECT COUNT(*) FROM tb_baotri_suachua WHERE tb_baotri_suachua.trang_thai = 0;";
+  $sqlcount1 = "SELECT COUNT(*) FROM tb_baotri_suachua WHERE tb_baotri_suachua.trang_thai = 1;";
+  $sqlcount2 = "SELECT COUNT(*) FROM tb_baotri_suachua WHERE tb_baotri_suachua.trang_thai = 2;";
+  $sqlcount3 = "SELECT COUNT(*) FROM tb_baotri_suachua WHERE tb_baotri_suachua.trang_thai = 3;";
+  $sqlcount4 = "SELECT COUNT(*) FROM tb_baotri_suachua WHERE tb_baotri_suachua.trang_thai = 4;";
+  $sqlcount5 = "SELECT COUNT(*) FROM tb_baotri_suachua WHERE tb_baotri_suachua.trang_thai = 5;";
 
   $querycount0 = mysqli_query($conn, $sqlcount0);
   $querycount1 = mysqli_query($conn, $sqlcount1);
@@ -429,6 +429,200 @@
                 </div>
               </div>
             </div>
+            <div data-v-38625d2e="" class="row">
+  <div data-v-38625d2e="" class="col">
+    <fieldset data-v-38625d2e="" class="form-group" id="__BVID__981">
+      <!---->
+      <div>
+        <div dir="ltr" class="v-select vs--single vs--searchable" id="status">
+          <div id="vs44__combobox" role="combobox" aria-expanded="false" aria-owns="vs44__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+            <div class="vs__selected-options">
+              <input placeholder="Trạng thái" aria-autocomplete="list" aria-labelledby="vs44__combobox" aria-controls="vs44__listbox" type="search" autocomplete="off" class="vs__search">
+            </div>
+            <div class="vs__actions">
+              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+              <div class="vs__spinner" style="display: none;">Loading...</div>
+            </div>
+          </div>
+          <ul id="vs44__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+        </div>
+        <!---->
+        <!---->
+        <!---->
+      </div>
+    </fieldset>
+  </div>
+  <div data-v-38625d2e="" class="col">
+    <div data-v-38625d2e="">
+      <fieldset class="form-group" id="__BVID__987">
+        <!---->
+        <div>
+          <div dir="ltr" class="v-select vs--single vs--searchable" id="taskType">
+            <div id="vs45__combobox" role="combobox" aria-expanded="false" aria-owns="vs45__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+              <div class="vs__selected-options">
+                <input placeholder="Loại công việc" aria-autocomplete="list" aria-labelledby="vs45__combobox" aria-controls="vs45__listbox" type="search" autocomplete="off" class="vs__search">
+              </div>
+              <div class="vs__actions">
+                <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <div class="vs__spinner" style="display: none;">Loading...</div>
+              </div>
+            </div>
+            <ul id="vs45__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+          </div>
+          <small class="text-danger"></small>
+          <!---->
+          <!---->
+          <!---->
+        </div>
+      </fieldset>
+      <!---->
+    </div>
+  </div>
+  <div data-v-38625d2e="" class="col">
+    <div data-v-38625d2e="">
+      <fieldset class="form-group" id="__BVID__993">
+        <!---->
+        <div>
+          <div dir="ltr" class="v-select vs--single vs--searchable" id="apartment">
+            <div id="vs46__combobox" role="combobox" aria-expanded="false" aria-owns="vs46__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+              <div class="vs__selected-options">
+                <input placeholder="Tòa nhà" aria-autocomplete="list" aria-labelledby="vs46__combobox" aria-controls="vs46__listbox" type="search" autocomplete="off" class="vs__search">
+              </div>
+              <div class="vs__actions">
+                <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <div class="vs__spinner" style="display: none;">Loading...</div>
+              </div>
+            </div>
+            <ul id="vs46__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+          </div>
+          <small class="text-danger"></small>
+          <!---->
+          <!---->
+          <!---->
+        </div>
+      </fieldset>
+      <!---->
+    </div>
+  </div>
+  <div data-v-38625d2e="" class="col">
+    <div data-v-38625d2e="">
+      <fieldset class="form-group" id="__BVID__999">
+        <!---->
+        <div>
+          <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="room">
+            <div id="vs47__combobox" role="combobox" aria-expanded="false" aria-owns="vs47__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+              <div class="vs__selected-options">
+                <input disabled="disabled" placeholder="Phòng" aria-autocomplete="list" aria-labelledby="vs47__combobox" aria-controls="vs47__listbox" type="search" autocomplete="off" class="vs__search">
+              </div>
+              <div class="vs__actions">
+                <button disabled="disabled" type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <div class="vs__spinner" style="display: none;">Loading...</div>
+              </div>
+            </div>
+            <ul id="vs47__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+          </div>
+          <small class="text-danger"></small>
+          <!---->
+          <!---->
+          <!---->
+        </div>
+      </fieldset>
+      <!---->
+    </div>
+  </div>
+</div>
+<div data-v-38625d2e="" class="row">
+  <div data-v-38625d2e="" class="col">
+    <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1005">
+      <!---->
+      <div>
+        <div dir="ltr" class="v-select vs--single vs--searchable" id="sale">
+          <div id="vs48__combobox" role="combobox" aria-expanded="false" aria-owns="vs48__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+            <div class="vs__selected-options">
+              <input placeholder="Vui lòng chọn" aria-autocomplete="list" aria-labelledby="vs48__combobox" aria-controls="vs48__listbox" type="search" autocomplete="off" class="vs__search">
+            </div>
+            <div class="vs__actions">
+              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+              <div class="vs__spinner" style="display: none;">Loading...</div>
+            </div>
+          </div>
+          <ul id="vs48__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+        </div>
+        <small class="text-danger"></small>
+        <!---->
+        <!---->
+        <!---->
+      </div>
+    </fieldset>
+  </div>
+  <div data-v-38625d2e="" class="col">
+    <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1011">
+      <!---->
+      <div>
+        <input type="text" data-input="true" id="" placeholder="Ngày bắt đầu" class="form-control flatpickr-input">
+        <small class="text-danger"></small>
+        <!---->
+        <!---->
+        <!---->
+      </div>
+    </fieldset>
+  </div>
+  <div data-v-38625d2e="" class="col">
+    <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1014">
+      <!---->
+      <div>
+        <input type="text" data-input="true" id="" placeholder="Ngày kết thúc" class="form-control flatpickr-input">
+        <small class="text-danger"></small>
+        <!---->
+        <!---->
+        <!---->
+      </div>
+    </fieldset>
+  </div>
+  <div data-v-38625d2e="" class="col">
+    <input data-v-38625d2e="" type="text" placeholder="Tìm kiếm" class="form-control" id="__BVID__1016">
+  </div>
+</div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
               id="sampleTable">
               <thead>
@@ -447,11 +641,11 @@
               </thead>
               <tbody>
               <?php 
-                    $sql = "SELECT baotri_suachua.*, tb_toanha.ten_toanha, tb_taikhoan.ten_hien_thi, tb_canho_phong.ten_canho_phong 
-                    FROM baotri_suachua
-                    JOIN tb_toanha ON tb_toanha.id_toanha = baotri_suachua.id_toanha 
-                    JOIN tb_taikhoan ON tb_taikhoan.id_taikhoan = baotri_suachua.id_nguoi_thuc_hien
-                    JOIN tb_canho_phong ON tb_canho_phong.id_canho_phong = baotri_suachua.id_phong";
+                    $sql = "SELECT tb_baotri_suachua.*, tb_toanha.ten_toanha, tb_taikhoan.ten_hien_thi, tb_canho_phong.ten_canho_phong 
+                    FROM tb_baotri_suachua
+                    JOIN tb_toanha ON tb_toanha.id_toanha = tb_baotri_suachua.id_toanha 
+                    JOIN tb_taikhoan ON tb_taikhoan.id_taikhoan = tb_baotri_suachua.id_taikhoan
+                    JOIN tb_canho_phong ON tb_canho_phong.id_canho_phong = tb_baotri_suachua.id_phong";
                       $query = mysqli_query($conn, $sql);
                       if(mysqli_num_rows($query) > 0){
                       while ($row = mysqli_fetch_array($query)) {
@@ -459,7 +653,7 @@
                 <tr>
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
                   <td><?php echo $row['ma_baotri_suachua']; ?></td>
-                  <td><?php echo $row['noidung_baotri_suachua']; ?></td>
+                  <td><?php echo $row['mota_baotri_suachua']; ?></td>
                   <td><?php echo $row['ten_toanha']; ?></td>
                   <td><?php echo $row['ten_canho_phong']; ?></td>                 
                   <td><?php echo $row['loai_cong_viec']; ?></td>       
@@ -494,7 +688,7 @@
                 <?php 
                     } 
                   }else{
-                    echo '<tr class="odd"><td valign="top" colspan="10" class="dataTables_empty">Không tìm thấy kết quả</td></tr>';
+                    echo '<td valign="top" colspan="10" class="dataTables_empty" style="text-align: center;">Không tìm thấy kết quả</td>';
                   }
                     ?>
               </tbody>

@@ -130,7 +130,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title">Dự án/Tòa nhà</h4>
                     </div>
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="" method="post" enctype="multipart/form-data" class="formadd">
                       <div class="modal-body">
                           <input type="hidden" id="txtOrderId" value="0" />
             
@@ -387,9 +387,9 @@
                             <div class="modal-header">
                                 <h4 class="modal-title">Dự án/Tòa nhà</h4>
                             </div>
-                            <form action="" method="post" enctype="multipart/form-data">
                             <input type="hidden" value="" id="idtoanha">
 
+                            <form action="" method="post" enctype="multipart/form-data" class="formedit">
                               <div class="modal-body">
                                   <div class="row">
                                       <div class="col-12">
@@ -552,7 +552,34 @@
 
 <script>
     $(document).ready(function () {
-
+          $('.formadd input[required]').on('blur', function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+            if (!$(this).val().trim()) {
+                $(this).addClass('is-invalid');
+                smallElement.text('Thông tin bắt buộc').show();
+            } else {
+                $(this).removeClass('is-invalid');
+                smallElement.text('').hide();
+            }
+          });
+        $('.formadd input[required]').on('focus', function() {
+            $(this).removeClass('is-invalid');
+            $(this).closest('.form-group').find('small.text-danger').text('').hide();
+        });
+        $('.formedit input[required]').on('blur', function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+            if (!$(this).val().trim()) {
+                $(this).addClass('is-invalid');
+                smallElement.text('Thông tin bắt buộc').show();
+            } else {
+                $(this).removeClass('is-invalid');
+                smallElement.text('').hide();
+            }
+          });
+        $('.formedit input[required]').on('focus', function() {
+            $(this).removeClass('is-invalid');
+            $(this).closest('.form-group').find('small.text-danger').text('').hide();
+        });
         $('body').on('click', '.btn-add', function () {          
             $('#modal-default').modal('show');      
             initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", 
@@ -561,15 +588,28 @@
 
         });
         $('body').on('click', '#btnAdd', function () {  
-            var formData = new FormData();
+          let isValid = true;
+
+          $('.formadd input[required]').each(function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+                  if (!$(this).val().trim()) {
+                          $(this).addClass('is-invalid');
+                          smallElement.text('Thông tin bắt buộc').show();
+                          isValid = false;
+                      } else {
+                          $(this).removeClass('is-invalid');
+                          smallElement.text('').hide();
+                      }
+          });
+            if(isValid){
+              var formData = new FormData();
             formData.append('tentoanha', $('#tentoanha').val());
             formData.append('diachi', $('#diachichitiet').val());
             formData.append('trangthai', $('#trangthai').val());
             formData.append('sotang', $('#sotang').val());
             formData.append('tinhthanh', $('#Province1Input').val());
             formData.append('quanhuyen', $('#District1Input').val());
-            formData.append("phuongxa", $('#Ward1Input').val());   
-            
+            formData.append("phuongxa", $('#Ward1Input').val());               
             $.ajax({
                 url: "doc/main/commons/them_toanha.php",
                 type: "post",
@@ -637,6 +677,7 @@
                     alert("Ajax request failed!");
                 }
             });
+            }
 
         });
         $('body').on('click', '.btnClose', function () {
@@ -668,8 +709,21 @@
 
         });
         $('body').on('click', '.btnSave', function () {
-            var formData = new FormData();
+          let isValid = true;
 
+          $('.formedit input[required]').each(function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+                  if (!$(this).val().trim()) {
+                          $(this).addClass('is-invalid');
+                          smallElement.text('Thông tin bắt buộc').show();
+                          isValid = false;
+                      } else {
+                          $(this).removeClass('is-invalid');
+                          smallElement.text('').hide();
+                      }
+          });
+            if(isValid){
+              var formData = new FormData();
             formData.append('id', $('#idtoanha').val());
             formData.append('tentoanha', $('#newtentoanha').val());
             formData.append('diachi', $('#newdiachichitiet').val());
@@ -727,6 +781,7 @@
                     alert("Ajax request failed!");
                 }
             });
+            }
         });
         $('body').on('click', '.btnClose', function () {
             $('#modal-default2').modal('hide');

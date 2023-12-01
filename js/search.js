@@ -321,6 +321,17 @@ function addforcanho(arrayName, citisId, searchId, inputValue, Select, selectedV
     selectBtnSearch.firstElementChild.innerText = selectedLi.innerText;
     selectInput.value = selectedLi.innerText;
     selectBtnSearch.classList.add('active');
+    selectBtnSearch.classList.remove('is-invalid');
+            var closestFormGroup = selectBtnSearch.closest('.form-group'); 
+
+            if (closestFormGroup) {
+                var textDangerElement = closestFormGroup.querySelector('small.text-danger'); 
+
+                if (textDangerElement) {
+                    textDangerElement.textContent = ''; 
+                    textDangerElement.style.display = 'none'; 
+                }
+            }
     addforcanho(dataArray, citisId, input, inputValue, Select, selectedLi.innerText);
     var event = new Event('change');
     selectInput.dispatchEvent(event);  
@@ -378,7 +389,7 @@ function initializeDropdownsToanha(btnSelectbuilding, inputbuilding, searchbuild
             }
             addforcanho(arrayName, idfloor, searchfloor, inputfloor, btnSelectfloor, floorValue);
             floor.addEventListener('click', () => {
-                optionSelectfloor.classList.add('active');    
+                optionSelectfloor.classList.add('active');  
                 floorSearch.addEventListener('keyup', () => {
                     let searchedVal = floorSearch.value.toLowerCase();
                 
@@ -421,5 +432,15 @@ function initializeDropdownsToanha(btnSelectbuilding, inputbuilding, searchbuild
             });  
         });
     }
+    $(document).on('click', function (event) {
+        const isClicktoanha = optionSelectbuilding.contains(event.target);
+        const isClicktang = optionSelectfloor.contains(event.target);
+
+        if (!isClicktoanha) {
+            optionSelectbuilding.classList.remove('active');   
+        }if (!isClicktang) {
+            optionSelectfloor.classList.remove('active');
+        }
+    });
 }
 

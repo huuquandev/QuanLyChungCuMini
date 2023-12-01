@@ -169,6 +169,18 @@
             return false;
         }
     }
+    function XoaCanho_Phong($id_canho_phong){
+        GLOBAL $conn;
+
+        $sql = "DELETE FROM tb_canho_phong WHERE tb_canho_phong.id_canho_phong = $id_canho_phong";
+
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     function laytangbytoanha($id_toanha) {
         GLOBAL $conn;
     

@@ -141,7 +141,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="txtOrderId" value="0" />
-                        <form class="">
+                        <form class="formadd">
                             <div class="row">
                               <div class="col-md-4">
                                 <span>
@@ -163,6 +163,8 @@
                                           </ul>
                                         </div>
                                       </div>
+                                      <small class="text-danger"></small>
+
                                     </fieldset>
                                     <!---->
                                   </div>
@@ -188,7 +190,7 @@
                                           </ul>
                                         </div>                                
                                       </div>
-                                      <!-- <small class="text-danger">Thông tin bắt buộc</small> -->
+                                      <small class="text-danger"></small>
 
                                     </fieldset>
                                     <!---->
@@ -211,7 +213,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="tenphong1" type="text" placeholder="P.101" class="form-control" name="tenphong">
+                                        <input id="tenphong1" type="text" placeholder="P.101" class="form-control" name="tenphong" required>
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -230,7 +232,7 @@
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__626__BV_label_"> Tiền thuê <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
-                                      <input type="text" id="tienthue1" placeholder="5,000,000" class="form-control" name="tienthue">
+                                      <input type="text" id="tienthue1" placeholder="5,000,000" class="form-control" name="tienthue" required>
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -245,7 +247,7 @@
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__630__BV_label_"> Tiền cọc <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
-                                      <input type="text" id="tiencoc1" placeholder="5,000,000" class="form-control" name="tiencoc">
+                                      <input type="text" id="tiencoc1" placeholder="5,000,000" class="form-control" name="tiencoc" required>
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -261,7 +263,7 @@
                                       <!---->
                                     </legend>
                                     <div>
-                                      <input type="text" id="dientich1" placeholder="30" class="form-control" name="dientich">
+                                      <input type="text" id="dientich1" placeholder="30" class="form-control" name="dientich" required>
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -277,7 +279,7 @@
                                   <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__637__BV_label_"> Số khách tối đa <span class="text-danger"> (*) </span>
                                   </legend>
                                   <div>
-                                    <input type="text" id="soluongnguoio1" placeholder="30" class="form-control" name="soluongnguoio">
+                                    <input type="text" id="soluongnguoio1" placeholder="30" class="form-control" name="soluongnguoio" required>
                                     <small class="text-danger"></small>
                                     <!---->
                                     <!---->
@@ -437,7 +439,7 @@
                       if(mysqli_num_rows($query) > 0){
                       while ($row = mysqli_fetch_array($query)) {
                     ?>
-                <tr>
+                <tr id="row_<?php echo $row['id_canho_phong']; ?>">
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
                   <td class="ma_phong"><?php echo $row['ma_canho_phong']; ?></td>
                   <td class="ten_can_phong">
@@ -447,11 +449,11 @@
                     <br>
                     <span class="text-muted ten_tang">Tầng <?php echo $row['ten_tang']; ?> </span>
                   </td>
-                  <td class="text-right"><?php echo convertToVietnameseCurrency($row['tienthue_canho_phong']); ?> đ</td>
-                  <td class="text-right"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?> đ</td>
-                  <td class="text-right"><?php echo convertToVietnameseCurrency($row['dientich_canho_phong']); ?> m²</td>
+                  <td class="text-right tienthue"><?php echo convertToVietnameseCurrency($row['tienthue_canho_phong']); ?> đ</td>
+                  <td class="text-right tiencoc"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?> đ</td>
+                  <td class="text-right dientich"><?php echo convertToVietnameseCurrency($row['dientich_canho_phong']); ?> m²</td>
                   <td class="trangthai_thue">
-                  <input type="hidden" value="<?= $row['trangthai_canho_phong'] ?>" id="trangthaithue">
+                    <input type="hidden" value="<?= $row['trangthai_canho_phong'] ?>" id="trangthaithue">
 
                       <?php 
                           if($row['trangthai_canho_phong'] == 1){
@@ -471,12 +473,13 @@
                           echo '<span class="badge bg-danger" style="font-size: 13px;"><b class="span_pending">Không hoạt động</b></span>';
                         }
                         else if($row['tinhtrang_canho_phong'] == 2){
-                          echo '<span class="badge bg-warning" style="font-size: 13px;"><b class="span_pending">Đang sửa chữa</b></span>';
+                          echo '<span class="badge bg-primary" style="font-size: 13px;"><b class="span_pending">Đang sửa chữa</b></span>';
                         }
                       ?>                  
                   </td>               
-                  <td class="table-td-center"><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                      onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                  <td class="table-td-center">
+                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" 
+                    data-id="<?php echo $row['id_canho_phong']  ?>"><i class="fas fa-trash-alt"></i>
                     </button>
                     <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
                       data-toggle="modal" data-target="#ModalUP" data-id="<?= $row['id_canho_phong'] ?>"><i class="fas fa-edit"></i>
@@ -501,7 +504,7 @@
                     </div>
                     <div class="modal-body">
                     <input type="hidden" value="" id="idphong">
-                        <form class="">
+                        <form class="formedit">
                             <div class="row">
                             <div class="col-md-4">
                                 <span>
@@ -523,6 +526,8 @@
                                           </ul>
                                         </div>
                                       </div>
+                                      <small class="text-danger"></small>
+
                                     </fieldset>
                                     <!---->
                                   </div>
@@ -548,7 +553,7 @@
                                           </ul>
                                         </div>                                
                                       </div>
-                                      <!-- <small class="text-danger">Thông tin bắt buộc</small> -->
+                                      <small class="text-danger"></small>
 
                                     </fieldset>
                                     <!---->
@@ -571,7 +576,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="tenphong2" type="text" placeholder="P.101" class="form-control" name="tenphong2"> 
+                                        <input id="tenphong2" type="text" placeholder="P.101" class="form-control" name="tenphong2" required> 
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -590,7 +595,7 @@
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__626__BV_label_"> Tiền thuê <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
-                                      <input type="text" id="tienthue2" placeholder="5,000,000" class="form-control" name="tienthue">
+                                      <input type="text" id="tienthue2" placeholder="5,000,000" class="form-control" name="tienthue" required>
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -605,7 +610,7 @@
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__630__BV_label_"> Tiền cọc <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
-                                      <input type="text" id="tiencoc2" placeholder="5,000,000" class="form-control" name="tiencoc">
+                                      <input type="text" id="tiencoc2" placeholder="5,000,000" class="form-control" name="tiencoc" required>
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -621,7 +626,7 @@
                                       <!---->
                                     </legend>
                                     <div>
-                                      <input type="text" id="dientich2" placeholder="30" class="form-control" name="dientich">
+                                      <input type="text" id="dientich2" placeholder="30" class="form-control" name="dientich" required> 
                                       <small class="text-danger"></small>
                                       <!---->
                                       <!---->
@@ -637,9 +642,8 @@
                                   <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__637__BV_label_"> Số khách tối đa <span class="text-danger"> (*) </span>
                                   </legend>
                                   <div>
-                                    <input type="text" id="soluongnguoio2" placeholder="30" class="form-control" name="soluongnguoio">
-                                    <small class="text-danger"></small>
-                                    <!---->
+                                    <input type="text" id="soluongnguoio2" placeholder="30" class="form-control" name="soluongnguoio" required>
+                                     <!---->
                                     <!---->
                                     <!---->
                                   </div>
@@ -674,12 +678,81 @@
 </main>
 <script>
   $(document).ready(function () {
+      function validateInput(input) {
+          var smallElement = input.closest('.form-group').find('small.text-danger');
+          if (!input.val().trim()) {
+              input.addClass('is-invalid');
+              smallElement.text('Thông tin bắt buộc').show();
+          } else {
+              input.removeClass('is-invalid');
+              smallElement.text('').hide();
+          }
+      }
+      function validateSelect(input) {
+          var smallElement = input.closest('.form-group').find('small.text-danger');
+          if (!input.val().trim()) {
+            selectElement.addClass('is-invalid');
+          } else {
+            selectElement.removeClass('is-invalid');
+          }
+      }
+      // Sự kiện keypress để ngăn người dùng nhập ký tự
+        $('#tienthue1, #tiencoc1, #dientich1, #tienthue2, #tiencoc2, #dientich2').on('keypress', function(event) {
+            // Lấy mã ASCII của ký tự vừa nhập
+            var keyCode = event.which;
+
+            // Chỉ cho phép các ký tự số (mã ASCII từ 48 đến 57) và phím điều hướng (mã từ 37 đến 40)
+            if ((keyCode < 48 || keyCode > 57) && (keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40)) {
+                event.preventDefault(); // Ngăn chặn ký tự được nhập
+            }
+      });
+      // Sự kiện blur cho các trường input bắt buộc trong formadd và formedit
+        $('.formadd input[required], .formedit input[required]').on('blur', function() {
+            validateInput($(this));
+        });
+        // Sự kiện focus cho các trường input bắt buộc trong formadd và formedit
+        $('.formadd input[required], .formedit input[required]').on('focus', function() {
+            $(this).removeClass('is-invalid');
+            $(this).closest('.form-group').find('small.text-danger').text('').hide();
+        });
+        // Sự kiện focus cho các trường input bắt buộc trong formadd và formedit
+        $('.formadd .select-btn input').on('focus', function() {
+            $(this).closest('.form-group').find('.select-btn').removeClass('is-invalid');
+        });
         $('body').on('click', '.btn-add', function () { 
             $('#modal-default').modal('show');
             initializeDropdownsToanha(".toannhaOption","toannhaInput", "toannhaSearch", "toannha", ".tangoption","tangInput", "tangSearch", "tang");
         });
         $('body').on('click', '#btnAdd', function () {  
-            var formData = new FormData();
+          let isValid = true;
+
+          $('.formadd input[required]').each(function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+                  if (!$(this).val().trim()) {
+                          $(this).addClass('is-invalid');
+                          smallElement.text('Thông tin bắt buộc').show();
+                          isValid = false;
+                      } else {
+                          $(this).removeClass('is-invalid');
+                          smallElement.text('').hide();
+                      }
+          });
+          $('.formadd .select-btn input').each(function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+            var selectElement = $(this).closest('.form-group').find('.select-btn');
+            console.log(selectElement);
+
+                  if (!$(this).val().trim()) {
+                          selectElement.addClass('is-invalid');
+                          smallElement.text('Thông tin bắt buộc').show();
+                          isValid = false;
+                      }else {
+                          selectElement.removeClass('is-invalid');
+                          smallElement.text('').hide();
+                      }
+          });
+            if(isValid){
+              var formData = new FormData();
             let ten_toanha = document.querySelector(".toannhaOption .select-btn span").textContent;
             let ten_tang = document.querySelector(".tangoption .select-btn").textContent;
             formData.append('ten_phong', $('#tenphong1').val());
@@ -711,7 +784,6 @@
                         var str = "";
                         let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_thue);
                         let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_coc);
-                        let dientic = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.dien_tich);
 
 
                         str += `<tr id="row_${response.id}">
@@ -776,6 +848,7 @@
                     alert("Ajax request failed!");
                 }
             });
+            }
 
         });
         $('body').on('click', '.btnClose', function () {
@@ -797,8 +870,7 @@
                 $('#tiencoc2').val(decodedData.tiencoc_canho_phong)
                 $('#dientich2').val(decodedData.dientich_canho_phong)
                 $('#soluongnguoio2').val(decodedData.so_nguoi_o)
-
-                if (decodedData.trangthai_canho_phong	== 1) {
+                if (decodedData.tinhtrang_canho_phong	== 1) {
                     $('#trangthai2').prop('checked', true);
                 } else {
                     $('#trangthai2').prop('checked', false);
@@ -808,7 +880,24 @@
 
         });
         $('body').on('click', '.btnSave', function () {
-            var formData = new FormData();
+          let isValid = true;
+          $('.formedit input[required]').each(function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+                  if (!$(this).val().trim()) {
+                          $(this).addClass('is-invalid');
+                          smallElement.text('Thông tin bắt buộc').show();
+                          isValid = false;
+                      }else if(!$(this).val() > 0){
+                        $(this).addClass('is-invalid');
+                          smallElement.text('Thông tin không hợp lệ').show();
+                          isValid = false;
+                      } else {
+                          $(this).removeClass('is-invalid');
+                          smallElement.text('').hide();
+                      }
+          });
+            if(isValid){
+              var formData = new FormData();
             let ten_toanha = document.querySelector(".toannhaOption .select-btn span").textContent;
             let ten_tang = document.querySelector(".tangoption .select-btn").textContent;
             formData.append('id', $('#idphong').val());
@@ -823,58 +912,122 @@
             formData.append("ten_toanha", ten_toanha);   
             formData.append("ten_tang", ten_tang);
             formData.append("trang_thai_thue", $('#trangthaithue').val());
-            // for (const pair of formData.entries()) {
-            //     console.log(pair[0] + ': ' + pair[1]);
-            // }
-            // $.ajax({
-            //     url: "doc/main/commons/sua_phong.php",
-            //     type: "post",
-            //     dataType: "json",
-            //     processData: false,
-            //     contentType: false,
-            //     data: formData,
-            //     success: function (response) {
-            //         // if (response.success) {     
-            //         //     var row = $('#row_' + response.id);
-            //         //     row.find('.ten_toanha').text(response.ten_toanha);
-            //         //     row.find('.so_tang').text(response.so_tang);
-            //         //     row.find('.diachi_chitiet').text(response.diachi.join(', '));
-            //         //     row.find('.trangthai_toanha span').html(response.trangthai);
-            //         //     if(response.iDtrangthai == 1){
-            //         //       row.find('.trangthai_toanha span').removeClass('badge bg-danger')
-            //         //       row.find('.trangthai_toanha span').addClass('badge bg-success')
+            for (const pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+            $.ajax({
+                url: "doc/main/commons/sua_phong.php",
+                type: "post",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.success) {     
+                      let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_thue);
+                      let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_coc);
+                        var row = $('#row_' + response.id);
+                        row.find('.ten_can_phong').text(response.ten_phong);
+                        row.find('.ten_can_phong .ten_toanha').text(response.ten_toanha);
+                        row.find('.ten_can_phong .ten_tang').text(response.ten_tang);
+                        row.find('.tienthue').text(tienthue);
+                        row.find('.tiencoc').text(tiencoc);
+                        row.find('.dientich').text(response.dien_tich + " m²");
+                        row.find('.trangthai_thue span').html(response.trangthaithue);
+                        row.find('.trangthai_hoatdong span').html(response.trangthaihoatdong);
 
-            //         //     }else if((response.iDtrangthai == 0)){
-            //         //       row.find('.trangthai_toanha span').removeClass('badge bg-success')
-            //         //       row.find('.trangthai_toanha span').addClass('badge bg-danger')
-            //         //     }
-            //         //     swal({
-            //         //       title: "Thông báo",
-            //         //       text: response.message,
-            //         //       icon: "success",
-            //         //       close: true,
-            //         //       button: "Đóng",
-            //         //     });
+                        if(response.iDtrangthaithue == 1){
+                          row.find('.trangthai_toanha span').removeClass('badge bg-primary')
+                          row.find('.trangthai_toanha span').removeClass('badge bg-danger')
+                          row.find('.trangthai_toanha span').addClass('badge bg-success')                     
+                        }else if((response.iDtrangthaithue == 0)){
+                          row.find('.trangthai_toanha span').removeClass('badge bg-primary')
+                          row.find('.trangthai_toanha span').removeClass('badge bg-success')
+                          row.find('.trangthai_toanha span').addClass('badge bg-danger')
+                        }else if(response.iDtrangthaithue == 2){
+                          row.find('.trangthai_toanha span').removeClass('badge bg-success')
+                          row.find('.trangthai_toanha span').removeClass('badge bg-danger')
+                          row.find('.trangthai_toanha span').addClass('badge bg-primary')
+                        }
                         
-            //         //     $('#modal-default2').modal('hide');                     
-            //         // } else {
-            //         //   swal({
-            //         //       title: "Lỗi",
-            //         //       text: response.message,
-            //         //       icon: "error",
-            //         //       close: true,
-            //         //       button: "Thử lại",
-            //         //     });                    
-            //         //   }
-            //     },
-            //     error: function (xhr, status, error) {
-            //         console.error(xhr.responseText);
-            //         alert("Ajax request failed!");
-            //     }
-            // });
+                        if(response.iDtrangthaihoatdong == 1){
+                          row.find('.trangthai_hoatdong span').removeClass('badge bg-primary')
+                          row.find('.trangthai_hoatdong span').removeClass('badge bg-danger')
+                          row.find('.trangthai_hoatdong span').addClass('badge bg-success')                     
+                        }else if((response.iDtrangthaihoatdong == 0)){
+                          row.find('.trangthai_hoatdong span').removeClass('badge bg-primary')
+                          row.find('.trangthai_hoatdong span').removeClass('badge bg-success')
+                          row.find('.trangthai_hoatdong span').addClass('badge bg-danger')
+                        }else if(response.iDtrangthaihoatdong == 2){
+                          row.find('.trangthai_hoatdong span').removeClass('badge bg-success')
+                          row.find('.trangthai_hoatdong span').removeClass('badge bg-danger')
+                          row.find('.trangthai_hoatdong span').addClass('badge bg-primary')
+                        }
+                        swal({
+                          title: "Thông báo",
+                          text: response.message,
+                          icon: "success",
+                          close: true,
+                          button: "Đóng",
+                        });
+                        
+                        $('#modal-default2').modal('hide');                     
+                    } else {
+                      swal({
+                          title: "Lỗi",
+                          text: response.message,
+                          icon: "error",
+                          close: true,
+                          button: "Thử lại",
+                        });                    
+                      }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Ajax request failed!");
+                }
+            });
+            }
         });
         $('body').on('click', '.btnClose', function () {
             $('#modal-default2').modal('hide');
+        });
+        $('body').on('click', '#btn-delete', function () {
+            let text = "Bạn có chắc muốn xóa.";
+            var $idPhong = $(this).data("id");
+            if (confirm(text) == true) {
+              $.ajax({
+                url: "doc/main/commons/xoa_phong.php", 
+                type: "post",
+                dataType: "json",          
+                data: { idPhong: $idPhong },
+                success: function (response) {
+                    if (response.success) {              
+                        var row = $('#row_' + response.id);
+                        row.remove();
+                        swal({
+                          title: "Thông báo",
+                          text: response.message,
+                          icon: "success",
+                          close: true,
+                          button: "Đóng",
+                        });
+                        
+                    } else {
+                      swal({
+                          title: "Lỗi",
+                          text: response.message,
+                          icon: "error",
+                          close: true,
+                          button: "Thử lại",
+                        });                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Ajax request failed!");
+                }
+              })
+            } 
         });
         const toannhaSelect = $('.toannhaOptionselect');  
         const toannhaSelectBtn = $('.toannhaOptionselect .select-btn');
