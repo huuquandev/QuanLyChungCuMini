@@ -10694,8 +10694,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   background-clip: padding-box;
-  *border-right-width: 2px;
-  *border-bottom-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
   color: #333333;
   font-size: 13px;
   line-height: 1.42857143;
@@ -15914,4 +15914,16 @@ text-align:center;
 }
 .select-btn.is-invalid{
   border: 1px solid #ea5455;
+}
+.navigation-header{
+  margin: 0.286rem 0 0.8rem 1.2rem;
+  padding: 0;
+  color: #a6a4b0;
+  line-height: 1.5;
+  letter-spacing: .01rem;
+  font-family: Helvetica,Arial,serif;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: .9rem;
+  text-transform: uppercase;
 }

@@ -9,10 +9,21 @@
     </div>
     <hr>
     <ul class="app-menu">
+      <li class="navigation-header text-truncate">
+            <span>Theo dõi nhanh</span>
+      </li>
       <li>
             <a class="app-menu__item" href="">
                   <i class='app-menu__icon bx bx-tachometer'></i>
-            <span class="app-menu__label">Bảng điều khiển</span></a>
+            <span class="app-menu__label">Bảng tin</span></a>
+      </li>
+      <li>
+            <a class="app-menu__item" href="../home.php?title=sodotoanha">
+                  <i class='app-menu__icon bx bx-tachometer'></i>
+            <span class="app-menu__label">Sở đồ tòa nhà</span></a>
+      </li>
+      <li class="navigation-header text-truncate">
+            <span>QUẢN LÝ & VẬN HÀNH</span>
       </li>
       <li>
             <a class="app-menu__item " href="../home.php?title=quanlydancu">
@@ -48,15 +59,30 @@
                   <i class='app-menu__icon bx bx-dollar'></i>
             <span class="app-menu__label">Quản lý an ninh, trật tự</span></a>
       </li>
+      <li class="navigation-header text-truncate">
+            <span>BÁO CÁO</span>
+      </li>
       <li>
             <a class="app-menu__item" href="quan-ly-bao-cao.html">
                   <i class='app-menu__icon bx bx-pie-chart-alt-2'></i>
-            <span class="app-menu__label">Báo cáo doanh thu</span></a>
+            <span class="app-menu__label">Báo cáo tài chính</span></a>
+      </li>
+      <li class="navigation-header text-truncate">
+            <span>CÀI ĐẶT HỆ THỐNG</span>
       </li>
       <li>
             <a class="app-menu__item" href="#">
                   <i class='app-menu__icon bx bx-cog'></i>
-            <span class="app-menu__label">Cài đặt hệ thống</span></a>
+            <span class="app-menu__label">Cài đặt chung</span></a>
+      </li>
+      <li>
+            <a class="app-menu__item" href="#">
+                  <i class='app-menu__icon bx bx-cog'></i>
+            <span class="app-menu__label">Danh mục khác</span></a>
+      </li><li>
+            <a class="app-menu__item" href="#">
+                  <i class='app-menu__icon bx bx-cog'></i>
+            <span class="app-menu__label">Mẫu biêu</span></a>
       </li>
     </ul>
   </aside>

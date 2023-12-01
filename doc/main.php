@@ -19,10 +19,12 @@
                     include("main/danh_sach_baotrisuachua.php");
                 }else if($tam == "thanhtoanhoadon"){
                     include("main/thanhtoanhoadon.php");
-                }
-				else if($tam == "xulythanhtoanmomo"){
+                }else if($tam == "xulythanhtoanmomo"){
                     include("main/xulythanhtoanmomo.php");
+                }else if($tam == "sodotoanha"){
+                    include("main/so_do_toanha.php");
                 }
+				
             }else{
                 $tam = '';
                 include("main/index.php");
