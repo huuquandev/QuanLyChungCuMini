@@ -696,26 +696,20 @@
             selectElement.removeClass('is-invalid');
           }
       }
-      // Sự kiện keypress để ngăn người dùng nhập ký tự
-        $('#tienthue1, #tiencoc1, #dientich1, #tienthue2, #tiencoc2, #dientich2').on('keypress', function(event) {
-            // Lấy mã ASCII của ký tự vừa nhập
+        $('#tienthue1, #tiencoc1, #dientich1, #soluongnguoio1, #tienthue2,#tiencoc2, #dientich2, #soluongnguoio2').on('keypress', function(event) {
             var keyCode = event.which;
 
-            // Chỉ cho phép các ký tự số (mã ASCII từ 48 đến 57) và phím điều hướng (mã từ 37 đến 40)
             if ((keyCode < 48 || keyCode > 57) && (keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40)) {
                 event.preventDefault(); // Ngăn chặn ký tự được nhập
             }
       });
-      // Sự kiện blur cho các trường input bắt buộc trong formadd và formedit
         $('.formadd input[required], .formedit input[required]').on('blur', function() {
             validateInput($(this));
         });
-        // Sự kiện focus cho các trường input bắt buộc trong formadd và formedit
         $('.formadd input[required], .formedit input[required]').on('focus', function() {
             $(this).removeClass('is-invalid');
             $(this).closest('.form-group').find('small.text-danger').text('').hide();
         });
-        // Sự kiện focus cho các trường input bắt buộc trong formadd và formedit
         $('.formadd .select-btn input').on('focus', function() {
             $(this).closest('.form-group').find('.select-btn').removeClass('is-invalid');
         });
@@ -822,16 +816,6 @@
                           close: true,
                           button: "Đóng",
                         });
-
-                    } else {
-                      swal({
-                          title: "Lỗi",
-                          text: response.message,
-                          icon: "error",
-                          close: true,
-                          button: "Thử lại",
-                        });   
-                      }
                         $('#modal-default').modal('hide');    
                         $('#toannhaInput').val('');
                         $('#tangInput').val('');
@@ -842,6 +826,15 @@
                         $('#soluong_nguoio1').val('');
                         $('#trangthai1').val(0);
                         $('#trangthai1').prop('checked', false);  
+                    } else {
+                      swal({
+                          title: "Lỗi",
+                          text: response.message,
+                          icon: "error",
+                          close: true,
+                          button: "Thử lại",
+                        });   
+                      }
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);
@@ -870,6 +863,7 @@
                 $('#tiencoc2').val(decodedData.tiencoc_canho_phong)
                 $('#dientich2').val(decodedData.dientich_canho_phong)
                 $('#soluongnguoio2').val(decodedData.so_nguoi_o)
+                $('#trangthai2').val(decodedData.tinhtrang_canho_phong)
                 if (decodedData.tinhtrang_canho_phong	== 1) {
                     $('#trangthai2').prop('checked', true);
                 } else {
@@ -912,9 +906,9 @@
             formData.append("ten_toanha", ten_toanha);   
             formData.append("ten_tang", ten_tang);
             formData.append("trang_thai_thue", $('#trangthaithue').val());
-            for (const pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-            }
+            // for (const pair of formData.entries()) {
+            //     console.log(pair[0] + ': ' + pair[1]);
+            // }
             $.ajax({
                 url: "doc/main/commons/sua_phong.php",
                 type: "post",
@@ -969,8 +963,7 @@
                           icon: "success",
                           close: true,
                           button: "Đóng",
-                        });
-                        
+                        });                 
                         $('#modal-default2').modal('hide');                     
                     } else {
                       swal({

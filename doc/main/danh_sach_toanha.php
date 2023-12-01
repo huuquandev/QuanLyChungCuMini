@@ -552,34 +552,33 @@
 
 <script>
     $(document).ready(function () {
-          $('.formadd input[required]').on('blur', function() {
-            var smallElement = $(this).closest('.form-group').find('small.text-danger');
-            if (!$(this).val().trim()) {
-                $(this).addClass('is-invalid');
-                smallElement.text('Thông tin bắt buộc').show();
-            } else {
-                $(this).removeClass('is-invalid');
-                smallElement.text('').hide();
+      function validateInput(input) {
+          var smallElement = input.closest('.form-group').find('small.text-danger');
+          if (!input.val().trim()) {
+              input.addClass('is-invalid');
+              smallElement.text('Thông tin bắt buộc').show();
+          } else {
+              input.removeClass('is-invalid');
+              smallElement.text('').hide();
+          }
+      }
+        $('#sotang, #sotang2').on('keypress', function(event) {
+            var keyCode = event.which;
+            if ((keyCode < 48 || keyCode > 57) && (keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40)) {
+                event.preventDefault(); // Ngăn chặn ký tự được nhập
             }
-          });
-        $('.formadd input[required]').on('focus', function() {
+      });
+        $('.formadd input[required], .formedit input[required]').on('blur', function() {
+            validateInput($(this));
+        });
+        $('.formadd input[required], .formedit input[required]').on('focus', function() {
             $(this).removeClass('is-invalid');
             $(this).closest('.form-group').find('small.text-danger').text('').hide();
         });
-        $('.formedit input[required]').on('blur', function() {
-            var smallElement = $(this).closest('.form-group').find('small.text-danger');
-            if (!$(this).val().trim()) {
-                $(this).addClass('is-invalid');
-                smallElement.text('Thông tin bắt buộc').show();
-            } else {
-                $(this).removeClass('is-invalid');
-                smallElement.text('').hide();
-            }
-          });
-        $('.formedit input[required]').on('focus', function() {
-            $(this).removeClass('is-invalid');
-            $(this).closest('.form-group').find('small.text-danger').text('').hide();
+        $('.formadd .select-btn input').on('focus', function() {
+            $(this).closest('.form-group').find('.select-btn').removeClass('is-invalid');
         });
+
         $('body').on('click', '.btn-add', function () {          
             $('#modal-default').modal('show');      
             initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", 
@@ -652,7 +651,16 @@
                           icon: "success",
                           close: true,
                           button: "Đóng",
-                        });                        
+                        });    
+                        $('#modal-default').modal('hide');    
+                        $('#Province1Input').val('');
+                        $('#District1Input').val('');
+                        $('#Ward1Input').val('');
+                        $('#tentoanha').val('');
+                        $('#diachichitiet').val('');
+                        $('#sotang').val('');
+                        $('#trangthai').val(0);
+                        $('#trangthai').prop('checked', false);                     
                     } else {
                       swal({
                           title: "Lỗi",
@@ -662,15 +670,7 @@
                           button: "Thử lại",
                         });                    
                       }
-                        $('#modal-default').modal('hide');    
-                        $('#Province1Input').val('');
-                        $('#District1Input').val('');
-                        $('#Ward1Input').val('');
-                        $('#tentoanha').val('');
-                        $('#diachichitiet').val('');
-                        $('#sotang').val('');
-                        $('#trangthai').val(0);
-                        $('#trangthai').prop('checked', false);    
+    
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);
@@ -697,6 +697,7 @@
                 $('#newtentoanha').val(decodedData.ten_toanha)
                 $('#newdiachichitiet').val(decodedData.diachi_chitiet)
                 $('#newsotang').val(decodedData.so_tang)
+                $('#newtrangthai').val(decodedData.trangthai_toanha);
                 if (decodedData.trangthai_toanha == 1) {
                     $('#newtrangthai').prop('checked', true);
                 } else {
@@ -761,12 +762,8 @@
                           icon: "success",
                           close: true,
                           button: "Đóng",
-                        });
-                        
-                        $('#modal-default2').modal('hide');
-
-
-                        
+                        });                   
+                        $('#modal-default2').modal('hide');                
                     } else {
                       swal({
                           title: "Lỗi",
