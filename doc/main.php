@@ -17,6 +17,11 @@
                     include("main/danh_sach_taisan.php");
                 }else if($tam == "baotrisuachua"){
                     include("main/danh_sach_baotrisuachua.php");
+                }else if($tam == "thanhtoanhoadon"){
+                    include("main/thanhtoanhoadon.php");
+                }
+				else if($tam == "xulythanhtoanmomo"){
+                    include("main/xulythanhtoanmomo.php");
                 }
             }else{
                 $tam = '';

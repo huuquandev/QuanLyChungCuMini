@@ -257,6 +257,113 @@
         return $row;
     }
 
+    // Quang làm
+    function GetListHoaDon(){
+		GLOBAL $conn;
+		$sql = "select hoadon.id as id, phong.id_phong as id_phong, dichvu.tenDV as tenDV, hoadon.gia as gia, hoadon.ngay_het_han as ngay_het_han, hoadon.ngay_thanh_toan as ngay_thanh_toan, hoadon.tinhtrang as tinhtrang
+				from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_phong as phong, tb_dichvu as dichvu
+				where hoadon.id_DV = dichvu.id
+				and hoadon.id_hopdong = hopdong.id
+				and hopdong.id_phong = phong.id_phong";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function GetListHoaDonByIdHoaDonHoacIDPhong($keyword){
+		GLOBAL $conn;
+		$sql = "select hoadon.id, phong.id_phong, dichvu.tenDV, hoadon.gia, hoadon.ngay_het_han, hoadon.ngay_thanh_toan, hoadon.tinhtrang
+				from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_phong as phong, tb_dichvu as dichvu
+				where hoadon.id_DV = dichvu.id
+				and hoadon.id_hopdong = hopdong.id
+				and hopdong.id_phong = phong.id_phong
+				and (hoadon.id = '$keyword' or phong.id_phong = '$keyword')";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function GetListHoaDonByIDPhong($keyword){
+		GLOBAL $conn;
+		$sql = "select hoadon.id, phong.id_phong, dichvu.tenDV, hoadon.gia, hoadon.ngay_het_han, hoadon.ngay_thanh_toan, hoadon.tinhtrang
+				from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_phong as phong, tb_dichvu as dichvu
+				where hoadon.id_DV = dichvu.id
+				and hoadon.id_hopdong = hopdong.id
+				and hopdong.id_phong = phong.id_phong
+				and phong.id_phong = '$keyword'";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function GetListDichVu(){
+		GLOBAL $conn;
+		$sql = "select * from tb_dichvu";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}	
+	function GetListHopDong(){
+		GLOBAL $conn;
+		$sql = "SELECT tb_hopdong.id as id, tb_phong.ten_phong as tenphong, tb_phong.id_phong as id_phong FROM tb_hopdong, tb_phong WHERE tb_hopdong.id_phong = tb_phong.id_phong";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}	
+	function CreateHoaDon($dichVu, $hopDong, $loai, $ngayHetHan, $gia, $tinhTrang) {
+		// Kết nối tới cơ sở dữ liệu
+		GLOBAL $conn;    
+		// Chuẩn bị câu truy vấn INSERT
+		$sql = "insert into tb_hoadon (id_DV, id_hopdong, loai, ngay_het_han, gia, tinhtrang, ngay_tao) VALUES ('$dichVu', '$hopDong', '$loai', '$ngayHetHan', '$gia', '$tinhTrang', now())";
+		// Thực thi câu truy vấn
+		if (mysqli_query($conn, $sql)) {
+			return true;
+		}
+		return false;
+	}	
+	function CreateMoMoPayment($parterCode,
+		$orderId,
+		$amount,
+		$orderInfo,
+		$orderType,
+		$transId,
+		$payType){
+		GLOBAL $conn;    
+		$sql = "insert into payment (partner_code, order_id, amount, order_info, order_type, trans_id, pay_type) values('$parterCode',
+		'$orderId',
+		'$amount',
+		'$orderInfo',
+		'$orderType',
+		'$transId',
+		'$payType')";
+		if (mysqli_query($conn, $sql)) {
+			return true;
+		}
+		return false;
+	}
+
     
     
     
