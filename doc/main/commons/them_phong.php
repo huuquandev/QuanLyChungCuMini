@@ -24,7 +24,7 @@ while (!isMaCanHo_PhongUnique($conn, $maPhong)) {
 
 $newPhongId = ThemCanho_Phong($ten_phong, $maPhong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang);
 
-if ($newPhongId) {
+if ($newPhongId && $newPhongId != 2) {
     $response['success'] = true;
     $response['id'] = $newPhongId;
     $response['maPhong'] = $maPhong;
@@ -38,6 +38,9 @@ if ($newPhongId) {
     $response['trangthaihoatdong'] = ($trang_thai == 1) ? 'Hoạt động' : 'Không hoạt động';
     $response['iDtrangthai'] = $trang_thai;
     $response['message'] = 'Thêm thành công';
+} else if($newPhongId == 2){
+    $response['success'] = false;
+    $response['message'] = 'Tên phòng đã tồn tại';
 } else {
     $response['success'] = false;
     $response['message'] = 'Thêm không thành công';

@@ -75,17 +75,21 @@
         $filter_tinhanh = mysqli_real_escape_string($conn, $tinhanh);
         $filter_quanhuyen = mysqli_real_escape_string($conn, $quanhuyen);
         $filter_phuongxa = mysqli_real_escape_string($conn, $phuongxa);
-    
-        $sql = "INSERT INTO tb_toanha (ten_toanha, ma_toanha, so_tang, trangthai_toanha, diachi_chitiet, tinhthanh, quanhuyen, phuongxa) 
-                VALUES ('$filter_tentoanha', '$matToaNha', '$filter_so_tang', '$filter_trangthai', '$filter_diachi', '$filter_tinhanh', '$filter_quanhuyen', '$filter_phuongxa')";
-    
+        $sql = "SELECT * FROM tb_toanha WHERE tb_toanha.ten_toanha = '".$filter_tentoanha."'";
         $query = mysqli_query($conn, $sql);
-        if ($query) {
-            // Lấy giá trị ID của tòa nhà vừa thêm
-            $lastInsertedId = mysqli_insert_id($conn);
-            return $lastInsertedId;
+        if (mysqli_num_rows($query) > 0) {     
+            return 2;
         } else {
-            return false;
+            $sql = "INSERT INTO tb_toanha (ten_toanha, ma_toanha, so_tang, trangthai_toanha, diachi_chitiet, tinhthanh, quanhuyen, phuongxa) 
+            VALUES ('$filter_tentoanha', '$matToaNha', '$filter_so_tang', '$filter_trangthai', '$filter_diachi', '$filter_tinhanh', '$filter_quanhuyen', '$filter_phuongxa')";
+            $query = mysqli_query($conn, $sql);
+            if($query){
+                // Lấy giá trị ID của tòa nhà vừa thêm
+                $lastInsertedId = mysqli_insert_id($conn);
+                return $lastInsertedId;
+            }else{
+                return false;
+            }
         }
     }
     function SuaToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhanh, $quanhuyen, $phuongxa, $id_toanha){
@@ -98,15 +102,19 @@
         $filter_quanhuyen = mysqli_real_escape_string($conn, $quanhuyen);
         $filter_phuongxa = mysqli_real_escape_string($conn, $phuongxa);
         $filter_id_toanha = mysqli_real_escape_string($conn, $id_toanha);
-
-        $sql = "UPDATE tb_toanha SET ten_toanha='$filter_tentoanha', so_tang='$filter_so_tang', trangthai_toanha='$filter_trangthai', diachi_chitiet='$filter_diachi', 
-                tinhthanh='$filter_tinhanh', quanhuyen='$filter_quanhuyen', phuongxa='$filter_phuongxa' WHERE id_toanha='$filter_id_toanha'";
-
+        $sql = "SELECT * FROM tb_toanha WHERE tb_toanha.ten_toanha = '$filter_tentoanha' AND tb_toanha.id_toanha != '$filter_id_toanha'";
         $query = mysqli_query($conn, $sql);
-        if ($query) {
-            return true;
+        if (mysqli_num_rows($query) > 0) {     
+            return 2;
         } else {
-            return false;
+            $sql = "UPDATE tb_toanha SET ten_toanha='$filter_tentoanha', so_tang='$filter_so_tang', trangthai_toanha='$filter_trangthai', diachi_chitiet='$filter_diachi', 
+            tinhthanh='$filter_tinhanh', quanhuyen='$filter_quanhuyen', phuongxa='$filter_phuongxa' WHERE id_toanha='$filter_id_toanha'";
+            $query = mysqli_query($conn, $sql);
+            if($query){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
     function XoaToaNha($id_toanha){
@@ -132,20 +140,25 @@
         $filter_tiencoc = mysqli_real_escape_string($conn, $tiencoc);
         $filter_dientich = mysqli_real_escape_string($conn, $dientich);
         $filter_trangthai = mysqli_real_escape_string($conn, $trangthai);
-    
-        $sql = "INSERT INTO tb_canho_phong (ten_canho_phong, ma_canho_phong, id_toanha, so_nguoi_o, tienthue_canho_phong,
-        tiencoc_canho_phong,dientich_canho_phong, trangthai_canho_phong, tinhtrang_canho_phong, id_tang) 
-                VALUES ('$filter_ten_canho_phong', '$filter_ma_canho_phong', '$filter_toanha', '$filter_so_nguoi_o', '$filter_tienthue',
-                 '$filter_tiencoc', '$filter_dientich', 0, $filter_trangthai, '$filter_tang')";
-    
+        $sql = "SELECT * FROM tb_canho_phong WHERE tb_canho_phong.ten_canho_phong = '$filter_ten_canho_phong'";
         $query = mysqli_query($conn, $sql);
-        if ($query) {
-            // Lấy giá trị ID của tòa nhà vừa thêm
-            $lastInsertedId = mysqli_insert_id($conn);
-            return $lastInsertedId;
+        if (mysqli_num_rows($query) > 0) {     
+            return 2;
         } else {
-            return false;
+            $sql = "INSERT INTO tb_canho_phong (ten_canho_phong, ma_canho_phong, id_toanha, so_nguoi_o, tienthue_canho_phong,
+            tiencoc_canho_phong,dientich_canho_phong, trangthai_canho_phong, tinhtrang_canho_phong, id_tang) 
+                    VALUES ('$filter_ten_canho_phong', '$filter_ma_canho_phong', '$filter_toanha', '$filter_so_nguoi_o', '$filter_tienthue',
+                     '$filter_tiencoc', '$filter_dientich', 0, $filter_trangthai, '$filter_tang')";
+        
+            $query = mysqli_query($conn, $sql);
+            if ($query) {
+                $lastInsertedId = mysqli_insert_id($conn);
+                return $lastInsertedId;
+            } else {
+                return false;
+            }
         }
+
     }
     function SuaCanho_Phong($ten_canho_phong, $id_toanha, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $id_tang, $id_canhophong){
         GLOBAL $conn;
@@ -159,14 +172,19 @@
         $filter_trangthai = mysqli_real_escape_string($conn, $trangthai);
         $filter_id_canhophong = mysqli_real_escape_string($conn, $id_canhophong);
 
-        $sql = "UPDATE tb_canho_phong SET ten_canho_phong='$filter_ten_canho_phong', id_toanha='$filter_toanha', so_nguoi_o='$filter_so_nguoi_o', tienthue_canho_phong='$filter_tienthue', 
-                tiencoc_canho_phong='$filter_tiencoc', dientich_canho_phong='$filter_dientich',tinhtrang_canho_phong='$filter_trangthai',id_tang='$filter_tang' WHERE id_canho_phong='$filter_id_canhophong'";
-
+        $sql = "SELECT * FROM tb_canho_phong WHERE tb_canho_phong.ten_canho_phong = '$filter_ten_canho_phong' AND tb_canho_phong.ten_canho_phong != '$filter_id_canhophong'";
         $query = mysqli_query($conn, $sql);
-        if ($query) {
-            return true;
+        if (mysqli_num_rows($query) > 0) {     
+            return 2;
         } else {
-            return false;
+            $sql = "UPDATE tb_canho_phong SET ten_canho_phong='$filter_ten_canho_phong', id_toanha='$filter_toanha', so_nguoi_o='$filter_so_nguoi_o', tienthue_canho_phong='$filter_tienthue', 
+            tiencoc_canho_phong='$filter_tiencoc', dientich_canho_phong='$filter_dientich',tinhtrang_canho_phong='$filter_trangthai',id_tang='$filter_tang' WHERE id_canho_phong='$filter_id_canhophong'";
+                $query = mysqli_query($conn, $sql);
+                if ($query) {
+                    return true;
+                } else {
+                    return false;
+                }
         }
     }
     function XoaCanho_Phong($id_canho_phong){
@@ -256,6 +274,113 @@
 
         return $row;
     }
+
+    // Quang làm
+    	function GetListHoaDon(){
+		GLOBAL $conn;
+		$sql = "select hoadon.id as id, phong.id_phong as id_phong, dichvu.tenDV as tenDV, hoadon.gia as gia, hoadon.ngay_het_han as ngay_het_han, hoadon.ngay_thanh_toan as ngay_thanh_toan, hoadon.tinhtrang as tinhtrang
+				from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_phong as phong, tb_dichvu as dichvu
+				where hoadon.id_DV = dichvu.id
+				and hoadon.id_hopdong = hopdong.id
+				and hopdong.id_phong = phong.id_phong";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function GetListHoaDonByIdHoaDonHoacIDPhong($keyword){
+		GLOBAL $conn;
+		$sql = "select hoadon.id, phong.id_phong, dichvu.tenDV, hoadon.gia, hoadon.ngay_het_han, hoadon.ngay_thanh_toan, hoadon.tinhtrang
+				from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_phong as phong, tb_dichvu as dichvu
+				where hoadon.id_DV = dichvu.id
+				and hoadon.id_hopdong = hopdong.id
+				and hopdong.id_phong = phong.id_phong
+				and (hoadon.id = '$keyword' or phong.id_phong = '$keyword')";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function GetListHoaDonByIDPhong($keyword){
+		GLOBAL $conn;
+		$sql = "select hoadon.id, phong.id_phong, dichvu.tenDV, hoadon.gia, hoadon.ngay_het_han, hoadon.ngay_thanh_toan, hoadon.tinhtrang
+				from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_phong as phong, tb_dichvu as dichvu
+				where hoadon.id_DV = dichvu.id
+				and hoadon.id_hopdong = hopdong.id
+				and hopdong.id_phong = phong.id_phong
+				and phong.id_phong = '$keyword'";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function GetListDichVu(){
+		GLOBAL $conn;
+		$sql = "select * from tb_dichvu";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}	
+	function GetListHopDong(){
+		GLOBAL $conn;
+		$sql = "SELECT tb_hopdong.id as id, tb_phong.ten_phong as tenphong, tb_phong.id_phong as id_phong FROM tb_hopdong, tb_phong WHERE tb_hopdong.id_phong = tb_phong.id_phong";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}	
+	function CreateHoaDon($dichVu, $hopDong, $loai, $ngayHetHan, $gia, $tinhTrang) {
+		// Kết nối tới cơ sở dữ liệu
+		GLOBAL $conn;    
+		// Chuẩn bị câu truy vấn INSERT
+		$sql = "insert into tb_hoadon (id_DV, id_hopdong, loai, ngay_het_han, gia, tinhtrang, ngay_tao) VALUES ('$dichVu', '$hopDong', '$loai', '$ngayHetHan', '$gia', '$tinhTrang', now())";
+		// Thực thi câu truy vấn
+		if (mysqli_query($conn, $sql)) {
+			return true;
+		}
+		return false;
+	}	
+	function CreateMoMoPayment($parterCode,
+		$orderId,
+		$amount,
+		$orderInfo,
+		$orderType,
+		$transId,
+		$payType){
+		GLOBAL $conn;    
+		$sql = "insert into payment (partner_code, order_id, amount, order_info, order_type, trans_id, pay_type) values('$parterCode',
+		'$orderId',
+		'$amount',
+		'$orderInfo',
+		'$orderType',
+		'$transId',
+		'$payType')";
+		if (mysqli_query($conn, $sql)) {
+			return true;
+		}
+		return false;
+	}
 
     function xoa_dan_cu($id_dan_cu){
         GLOBAL $conn;

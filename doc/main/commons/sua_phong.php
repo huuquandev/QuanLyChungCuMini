@@ -14,7 +14,8 @@
     $ten_tang = $_POST['ten_tang'];
     $trang_thai_thue = $_POST['trang_thai_thue'];
     $response = array();
-    if (SuaCanho_Phong($ten_phong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang, $id_phong)) {
+    $result = SuaCanho_Phong($ten_phong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang, $id_phong);
+    if ($result && $result != 2) {
         $response['success'] = true;
         $response['id'] = $id_phong;
         $response['ten_phong'] = $ten_phong;
@@ -43,7 +44,10 @@
         $response['iDtrangthaithue'] = $trang_thai;
         $response['iDtrangthaihoatdong'] = $trang_thai;
         $response['message'] = 'Cập nhật thành công';
-    } else {
+    } else if($result == 2) {
+        $response['success'] = false;
+        $response['message'] = 'Tên phòng đã tồn tại';
+    }else {
         $response['success'] = false;
         $response['message'] = 'Cập nhật không thành công';
     }
