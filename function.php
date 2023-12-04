@@ -27,6 +27,7 @@
             $_SESSION['tai_khoan'] = $row['tai_khoan'];
             $_SESSION['ten_hien_thi'] = $row['ten_hien_thi'];
             $_SESSION['mat_khau'] = $row['mat_khau'];
+            $_SESSION['cccd']=$row['cccd'];
             $_SESSION['quyen_han'] = $row['quyen_han'];
             $_SESSION['gioi_tinh'] = $row['gioi_tinh'];
             $_SESSION['so_dien_thoai'] = $row['so_dien_thoai'];
@@ -93,6 +94,68 @@
             echo '<script>alert("Thêm thất bại");</script>';
         }
     }
+    function ThemHopDong(
+    $name_dan_cu,
+    $name_can_ho,
+    $ngaybatdau,
+    $ngayketthuc,
+    $tongthang,$filehopdong) {
+        GLOBAL $conn;
+        $content="";
+        $file_path ="";
+        if (isset($filehopdong) && $filehopdong['error'] !== UPLOAD_ERR_NO_FILE) {
+            // File upload logic here...
+            $file_hop_dong = $filehopdong;
+            $file_extension = pathinfo($file_hop_dong['name'], PATHINFO_EXTENSION);
+        
+            // Check if the file extension is allowed
+            $allowed_extensions = ['pdf','PDF'];
+            if (in_array(strtolower($file_extension), $allowed_extensions)) {
+    // ... your code ...
+    
+    // Get the absolute path of the current script's directory
+    
+    // Specify the relative path to the desired upload directory
+                 echo $file_hop_dong['name'];
+                $upload_dir='file/hop_dong/';
+                $sql_upload_dir ='file/hop_dong/';
+                // Use absolute path
+                 // Update the upload directory as needed
+        
+                // Generate a unique filename to avoid overwriting existing files
+                $unique_filename = uniqid() . '_' . $name_dan_cu. '.' . $file_extension;
+                // Move the uploaded file to the destination directory with the unique filename
+                if (move_uploaded_file($file_hop_dong['tmp_name'], $sql_upload_dir . $unique_filename)) {
+                    $file_path = $upload_dir . $unique_filename;
+                } else {
+                    $content .= 'Lỗi khi di chuyển tệp lên.';
+                }
+            } else {
+                $content .= '<br>Chỉ chấp nhận tệp file (pdf).';
+            }
+        }
+        if($content==""){
+            $filter_name_dan_cu = mysqli_real_escape_string($conn,$name_dan_cu);
+            $filter_name_can_ho = mysqli_real_escape_string($conn,$name_can_ho);
+            $filter_ngaybatdau = mysqli_real_escape_string($conn,$ngaybatdau);
+            $filter_ngayketthuc = mysqli_real_escape_string($conn,$ngayketthuc);
+            $filter_tongthang = mysqli_real_escape_string($conn,$tongthang);
+            $filter_tongthang = mysqli_real_escape_string($conn,$tongthang);
+            $filter_hop_dong=mysqli_real_escape_string($conn,$file_path);
+            $sql1="SELECT `tienthue_canho_phong` from `tb_canho_phong` where `id_canho_phong`=$filter_name_can_ho";
+            $query1 = mysqli_query($conn, $sql1);
+            // Lấy kết quả
+            $row = mysqli_fetch_assoc($query1);
+            $tong=$filter_tongthang*$row['tienthue_canho_phong'];
+            $sql = "INSERT INTO `tb_hopdong` (`bat_dau`, `ket_thuc`, `id_dan_cu`, `id_can_ho_phong`, `tong`, `file_hop_dong`) VALUES ('$filter_ngaybatdau', '$filter_ngayketthuc', '$filter_name_dan_cu', '$filter_name_can_ho', '$tong','$filter_hop_dong');";
+            $query = mysqli_query($conn, $sql);
+            if ($query) {
+                echo '<script>alert("Thêm thành công"); window.location.href = "home.php?title=hopdong";</script>';
+            } else {
+                echo '<script>alert("Thêm thất bại");</script>';
+            }
+        }
+    }
     function ThemCanho_Phong($ten_canho_phong, $ma_canho_phong, $tang, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $tinhtrang) {
         GLOBAL $conn;
         $filter_ten_canho_phong = mysqli_real_escape_string($conn, $ten_canho_phong);
@@ -157,7 +220,30 @@
             return false;
         }
     }
+    function xoa_dan_cu($id_dan_cu){
+        GLOBAL $conn;
 
+        $sql = "DELETE FROM `tb_dancu` WHERE  `cccd`=$id_dan_cu;";
+
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function xoa_HopDong($hopdong){
+        GLOBAL $conn;
+
+        $sql = "DELETE FROM `tb_hopdong` WHERE  `id`=$hopdong;";
+
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     function laytangbytoanha($id_toanha) {
         GLOBAL $conn;
     
@@ -185,7 +271,100 @@
         return $row;
         
     }
+    function layhopdong($id_hopdong){
+        GLOBAL $conn;
     
+        $sql = "SELECT * FROM tb_hopdong WHERE id = $id_hopdong";
+    
+        $query = mysqli_query($conn, $sql);
+
+        $row = mysqli_fetch_array($query);
+
+        return $row;
+        
+    }
+    function them_dan_cu($tendancu,
+    $gioitinh,
+    $sdt,
+    $ngaysinh,
+    $addressDetail,$cccd){
+    $content ="";
+$file_path = '';
+GLOBAL $conn;
+
+// Check if the phone number already exists in the database
+$checkPhoneNumberQuery = "SELECT COUNT(*) AS count FROM tb_dancu WHERE so_dien_thoai = '$sdt'";
+$checkPhoneNumberResult = mysqli_query($conn, $checkPhoneNumberQuery);
+$phoneNumberCount = mysqli_fetch_assoc($checkPhoneNumberResult)['count'];
+$checkcccd="SELECT COUNT(*) AS count FROM tb_dancu WHERE `cccd`='$cccd'";
+$checkcccd=mysqli_query($conn,$checkcccd);
+$checkcccdCount = mysqli_fetch_assoc($checkcccd)['count'];
+if($checkcccdCount>0){
+    $content .='<br>Căn cước công dân/hộ chiếu đã tồn tại trong hệ thống.';
+}
+elseif ($phoneNumberCount > 0) {
+    // Phone number already exists, print a message and stop further processing
+    $content .='<br>Số điện thoại đã tồn tại trong hệ thống.';
+} else {
+    // Phone number does not exist, proceed with other checks and database insertion
+    if (isset($_FILES['file_img']) && $_FILES['file_img']['error'] !== UPLOAD_ERR_NO_FILE) {
+        // File upload logic here...
+        $file_img = $_FILES['file_img'];
+        $file_extension = pathinfo($file_img['name'], PATHINFO_EXTENSION);
+    
+        // Check if the file extension is allowed
+        $allowed_extensions = ['png', 'jpg', 'git', 'PNG', 'JPG', 'GIT'];
+        if (in_array(strtolower($file_extension), $allowed_extensions)) {
+// ... your code ...
+
+// Get the absolute path of the current script's directory
+
+// Specify the relative path to the desired upload directory
+
+            $upload_dir='images/anh/';
+            $sql_upload_dir ='../../../images/anh/';
+            // Use absolute path
+            // Update the upload directory as needed
+    
+            // Generate a unique filename to avoid overwriting existing files
+            $unique_filename = uniqid() . '_' . $sdt . '.' . $file_extension;
+            echo $unique_filename;
+            // Move the uploaded file to the destination directory with the unique filename
+            if (move_uploaded_file($file_img['tmp_name'], $sql_upload_dir . $unique_filename)) {
+                $file_path = $upload_dir . $unique_filename;
+            } else {
+                $content .= 'Lỗi khi di chuyển tệp lên.';
+            }
+        } else {
+            $content .= '<br>Chỉ chấp nhận tệp ảnh (png, jpg, git).';
+        }
+    }
+     else {
+
+        $content.='<br> chưa có ảnh'; // Set an empty string or a default value
+    }
+
+    // Now you can include $file_path in your database query or handle it as needed
+    if($content==""){
+        $sql="INSERT INTO `tb_dancu` (`cccd`, `ten_hien_thi`, `so_dien_thoai`, `gioi_tinh`, `hinh_anh`, `dia_chi`, `ngay_sinh`) VALUES ('$cccd', '$tendancu', '$sdt', '$gioitinh', '$file_path', '$addressDetail', '$ngaysinh');";
+
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        $content .= 'Thêm thành công';
+        // header("Location: "); // Redirect to another page after successful insert
+        // return $content;
+    } else {
+        $content .= 'Thêm thất bại: ' . mysqli_error($conn);
+    }
+    }
+    
+
+    echo $content;
+    echo '<script>alert("'.$content.'"); window.location = "../../../home.php?title=quanlydancu#";</script>';
+    return $content;
+    }
+    }
 
     
     
