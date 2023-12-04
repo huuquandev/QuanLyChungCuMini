@@ -17,6 +17,12 @@
                     include("main/danh_sach_taisan.php");
                 }else if($tam == "baotrisuachua"){
                     include("main/danh_sach_baotrisuachua.php");
+                }else if($tam == "hopdong"){
+                    if (isset($_GET['id'])) {
+                        include("main/commons/sua_hop_dong.php");
+                    } else {
+                        include("main/danh_sach_hopdong.php");
+                    }
                 }
             }else{
                 $tam = '';
