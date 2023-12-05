@@ -1,4 +1,5 @@
 <?php 
+    //Quân làm
     //Check session
     function checkLogin(){
         if(!isset($_SESSION['id_taikhoan'])){
@@ -276,13 +277,13 @@
     }
 
     // Quang làm
-    	function GetListHoaDon(){
+    function GetListHoaDon(){
 		GLOBAL $conn;
-		$sql = "select hoadon.id as id, phong.id_phong as id_phong, dichvu.tenDV as tenDV, hoadon.gia as gia, hoadon.ngay_het_han as ngay_het_han, hoadon.ngay_thanh_toan as ngay_thanh_toan, hoadon.tinhtrang as tinhtrang
-				from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_phong as phong, tb_dichvu as dichvu
-				where hoadon.id_DV = dichvu.id
-				and hoadon.id_hopdong = hopdong.id
-				and hopdong.id_phong = phong.id_phong";
+		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong
+		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
+		where hoadon.id_DV = dichvu.id
+		and hoadon.id_hopdong = hopdong.id
+		and hopdong.id_canho = phong.id_canho_phong";
         $query = mysqli_query($conn, $sql);
 		$data = array();
         if(mysqli_num_rows($query) > 0){
@@ -292,42 +293,19 @@
 		}
 		return $data;
 	}
-	function GetListHoaDonByIdHoaDonHoacIDPhong($keyword){
-		GLOBAL $conn;
-		$sql = "select hoadon.id, phong.id_phong, dichvu.tenDV, hoadon.gia, hoadon.ngay_het_han, hoadon.ngay_thanh_toan, hoadon.tinhtrang
-				from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_phong as phong, tb_dichvu as dichvu
-				where hoadon.id_DV = dichvu.id
-				and hoadon.id_hopdong = hopdong.id
-				and hopdong.id_phong = phong.id_phong
-				and (hoadon.id = '$keyword' or phong.id_phong = '$keyword')";
-        $query = mysqli_query($conn, $sql);
-		$data = array();
-        if(mysqli_num_rows($query) > 0){
-			while($row = mysqli_fetch_assoc($query)){
-				$data[] = $row;
-			}
-		}
-		return $data;
-	}
-	function GetListHoaDonByIDPhong($keyword){
-		GLOBAL $conn;
-		$sql = "select hoadon.id, phong.id_phong, dichvu.tenDV, hoadon.gia, hoadon.ngay_het_han, hoadon.ngay_thanh_toan, hoadon.tinhtrang
-				from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_phong as phong, tb_dichvu as dichvu
-				where hoadon.id_DV = dichvu.id
-				and hoadon.id_hopdong = hopdong.id
-				and hopdong.id_phong = phong.id_phong
-				and phong.id_phong = '$keyword'";
-        $query = mysqli_query($conn, $sql);
-		$data = array();
-        if(mysqli_num_rows($query) > 0){
-			while($row = mysqli_fetch_assoc($query)){
-				$data[] = $row;
-			}
-		}
-		return $data;
-	}
+
 	function GetListDichVu(){
 		GLOBAL $conn;
+		    // Kiểm tra xem kết nối đã được thiết lập chưa
+		if ($conn === null) {
+			// Thực hiện kết nối đến cơ sở dữ liệu
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			
+			// Kiểm tra kết nối
+			if (!$conn) {
+				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+			}
+		}
 		$sql = "select * from tb_dichvu";
         $query = mysqli_query($conn, $sql);
 		$data = array();
@@ -337,10 +315,23 @@
 			}
 		}
 		return $data;
-	}	
+	}
+	
 	function GetListHopDong(){
 		GLOBAL $conn;
-		$sql = "SELECT tb_hopdong.id as id, tb_phong.ten_phong as tenphong, tb_phong.id_phong as id_phong FROM tb_hopdong, tb_phong WHERE tb_hopdong.id_phong = tb_phong.id_phong";
+				    // Kiểm tra xem kết nối đã được thiết lập chưa
+		if ($conn === null) {
+			// Thực hiện kết nối đến cơ sở dữ liệu
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			
+			// Kiểm tra kết nối
+			if (!$conn) {
+				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+			}
+		}
+		$sql = "SELECT tb_hopdong.id as id, tb_canho_phong.ten_canho_phong as tenphong, tb_canho_phong.ma_canho_phong as maphong 
+			FROM tb_hopdong, tb_canho_phong
+			WHERE tb_hopdong.id_phong = tb_canho_phong.id_canho_phong";
         $query = mysqli_query($conn, $sql);
 		$data = array();
         if(mysqli_num_rows($query) > 0){
@@ -349,7 +340,7 @@
 			}
 		}
 		return $data;
-	}	
+	}
 	function CreateHoaDon($dichVu, $hopDong, $loai, $ngayHetHan, $gia, $tinhTrang) {
 		// Kết nối tới cơ sở dữ liệu
 		GLOBAL $conn;    
@@ -361,6 +352,44 @@
 		}
 		return false;
 	}	
+	function GetNumberPhoneByIDHopDong($id_hopdong){
+		GLOBAL $conn;
+		$sql = "select cd.sdt as sdt from tb_hopdong as hd, tb_cudan as cd where cd.id_phong = hd.id_phong and hd.id = '$id_hopdong'";
+		$query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	
+	function SendSMSToAlert($sdt, $msg){
+		// Authorisation details.
+		$username = "hnueschoolapp@gmail.com";
+		$hash = "5327581e10e5388bfd6caff5761a286632be1b18af0533df7d5511a338ef1dc0";
+
+		// Config variables. Consult http://api.txtlocal.com/docs for more info.
+		$test = "0";
+
+		// Data for text message. This is the text message data.
+		$sender = "API Test"; // This is who the message appears to be from.
+		$numbers = $sdt; // A single number or a comma-seperated list of numbers
+		$message = $msg;
+		// 612 chars or less
+		// A single number or a comma-seperated list of numbers
+		$message = urlencode($message);
+		$data = "username=".$username."&hash=".$hash."&message=".$message."&sender=".$sender."&numbers=".$numbers."&test=".$test;
+		$ch = curl_init('https://api.txtlocal.com/send/?');
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$result = curl_exec($ch); // This is the result from the API
+		curl_close($ch);
+		echo $result;
+	}
+	
 	function CreateMoMoPayment($parterCode,
 		$orderId,
 		$amount,
@@ -369,6 +398,15 @@
 		$transId,
 		$payType){
 		GLOBAL $conn;    
+				if ($conn === null) {
+			// Thực hiện kết nối đến cơ sở dữ liệu
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			
+			// Kiểm tra kết nối
+			if (!$conn) {
+				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+			}
+		}
 		$sql = "insert into payment (partner_code, order_id, amount, order_info, order_type, trans_id, pay_type) values('$parterCode',
 		'$orderId',
 		'$amount',
@@ -381,7 +419,182 @@
 		}
 		return false;
 	}
+	
+	function GetListKhoanThuPhi(){
+		GLOBAL $conn;
+		$sql = "select khoanthuphi.id as id, khoanthuphi.id_dichvu as id_dichvu, dichvu.TenDV as tendv,phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong,khoanthuphi.heso as heso, khoanthuphi.tongtien as tongtien, khoanthuphi.id_canho_phong as id_canho_phong 
+		from tb_khoanthuphi as khoanthuphi, tb_canho_phong as phong, tb_dichvu as dichvu
+		where khoanthuphi.id_dichvu = dichvu.id
+		and khoanthuphi.id_canho_phong = phong.id_canho_phong
+		";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+    
+	function UpdateKhoanThuPhi($id, $heso, $tongtien, $id_canho_phong, $id_dichvu) {
+		GLOBAL $conn;
+		
+		// Khởi tạo chuỗi truy vấn
+		$sql = "UPDATE tb_khoanthuphi SET";
+		
+		// Kiểm tra và nối chuỗi cho các giá trị không rỗng
+		if (!empty($heso)) {
+			$sql .= " heso = '$heso',";
+		}
+		if (!empty($tongtien)) {
+			$sql .= " tongtien = '$tongtien',";
+		}
+		if (!empty($id_canho_phong)) {
+			$sql .= " id_canho_phong = '$id_canho_phong',";
+		}
+		if (!empty($id_dichvu)) {
+			$sql .= " id_dichvu = '$id_dichvu',";
+		}
+		
+		// Xóa dấu phẩy cuối cùng nếu có
+		$sql = rtrim($sql, ",");
+		
+		// Hoàn thành câu truy vấn
+		$sql .= " WHERE id = '$id'";
+		
+		// Thực hiện cập nhật dữ liệu
+		$query = mysqli_query($conn, $sql);
+		
+		if ($query) {
+			return true;
+		}
+		
+		return false;
+	}
+	function DeleteKhoanThuPhi($id){
+		GLOBAL $conn;
+		$sql = "DELETE from tb_khoanthuphi where id= '$id'";
+		$query = mysqli_query($conn, $sql);
+		if ($query) {
+			return true;
+		}
+		
+		return false;
+	}
+	function CreateKhoanThuPhi($heso, $tongtien, $id_canho_phong, $id_dichvu) {
+		GLOBAL $conn;
+		// Kiểm tra xem các giá trị đầu vào có hợp lệ không
+		if (empty($heso) || empty($tongtien) || empty($id_canho_phong) || empty($id_dichvu)) {
+			return false;
+		}
+		// Thực hiện thêm mới dữ liệu vào bảng "tb_khoanthuphi"
+		$sql = "INSERT INTO tb_khoanthuphi (heso, tongtien, id_canho_phong, id_dichvu) VALUES ('$heso', '$tongtien', '$id_canho_phong', '$id_dichvu')";
+		$query = mysqli_query($conn, $sql);
+		if ($query) {
+			return true;
+		}
+		return false;
+	}
+    
+    function GetListHoaDonDaThanhToan(){
+		GLOBAL $conn;
+		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong
+		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
+		where hoadon.id_DV = dichvu.id
+		and hoadon.id_hopdong = hopdong.id
+		and hopdong.id_canho = phong.id_canho_phong
+				and hoadon.tinhtrang='Đã thanh toán'";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function GetListHoaDonChuaThanhToan(){
+		GLOBAL $conn;
+		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong
+		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
+		where hoadon.id_DV = dichvu.id
+		and hoadon.id_hopdong = hopdong.id
+		and hopdong.id_canho = phong.id_canho_phong
+		and hoadon.tinhtrang = 'Chưa thanh toán'";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
 
+	function GetListHoaDonByIdHoaDonHoacIDPhong($keyword){
+		GLOBAL $conn;
+		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong
+		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
+		where hoadon.id_DV = dichvu.id
+		and hoadon.id_hopdong = hopdong.id
+		and hopdong.id_canho = phong.id_canho_phong
+				and (hoadon.id = '$keyword' or phong.id_canho_phong = '$keyword')";
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function GetListHoaDonByIDPhong($keyword){
+		GLOBAL $conn;
+		if ($conn === null) {
+			// Thực hiện kết nối đến cơ sở dữ liệu
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			
+			// Kiểm tra kết nối
+			if (!$conn) {
+				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+			}
+		}
+		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong, phong.id_canho_phong as id_phong
+		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
+		where hoadon.id_DV = dichvu.id
+		and hoadon.id_hopdong = hopdong.id
+		and hopdong.id_canho = phong.id_canho_phong
+		and hoadon.tinhtrang = 'Chưa thanh toán'
+		and (phong.id_canho_phong = '$keyword' or phong.ma_canho_phong like '%$keyword%' or phong.ten_canho_phong like '%$keyword%')" ;
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	function UpdateThanhToanHoaDon($id){
+				GLOBAL $conn;
+		if ($conn === null) {
+			// Thực hiện kết nối đến cơ sở dữ liệu
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			
+			// Kiểm tra kết nối
+			if (!$conn) {
+				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+			}
+		}
+		$sql = "update tb_hoadon set tb_hoadon.tinhtrang = 'Đã thanh toán', tb_hoadon.ngay_thanh_toan = NOW() where tb_hoadon.id_hopdong = (select tb_hopdong.id from tb_hopdong where tb_hopdong.id_phong = '$id')";
+        $query = mysqli_query($conn, $sql);
+		if($query){
+			return true;
+		}
+		return false;
+	}
+    //Quyến làm
     function xoa_dan_cu($id_dan_cu){
         GLOBAL $conn;
 

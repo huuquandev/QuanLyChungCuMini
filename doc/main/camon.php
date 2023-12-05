@@ -1,7 +1,7 @@
 <?php
-	include_once "function.php";
-	if($_GET['parterCode']){
-		$parterCode = $_GET['parterCode'];
+	include_once "../../function.php";
+	if($_GET['partnerCode']){
+		$parterCode = $_GET['partnerCode'];
 		$orderId = $_GET['orderId'];
 		$amount = $_GET['amount'];
 		$orderInfo = $_GET['orderInfo'];
@@ -16,7 +16,17 @@
 		$orderType,
 		$transId,
 		$payType)){
-			echo "<script>alert(1);</script>";
+			$id = "";
+			$count = 0;
+			for ($i = 0; $i < strlen($orderId); $i++) {
+				$char = $orderId[$i];
+				if ($char == "9" && substr($orderId, $i, 5) == "90009") {
+					break; // Kết thúc vòng lặp nếu gặp số "90009"
+				}
+				$id = $id . $orderId[$i];
+			}
+			if(UpdateThanhToanHoaDon($id)){
+			}
 		}
 ?>
 <!DOCTYPE html>
@@ -35,7 +45,7 @@
                     <div class="card-body text-center">
                         <h2 class="card-title">Cảm ơn đã thanh toán!</h2>
                         <p class="card-text">Chúng tôi đã nhận được thanh toán của bạn.</p>
-                        <a href="index.html" class="btn btn-primary">Quay lại trang chủ</a>
+                        <a href="thanhtoanhoadon.php" class="btn btn-primary">Quay lại trước</a>
                     </div>
                 </div>
             </div>

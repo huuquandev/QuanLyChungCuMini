@@ -1,5 +1,5 @@
 <?php 
-	include "function.php";
+    include_once 'function.php';
 	$data = [];
 	$hoadon = $data;
 	$phong = "";
@@ -48,16 +48,25 @@ document.addEventListener("DOMContentLoaded", function() {
 				<div class="col-sm-4 text-right">
 					<form action="" method="post">
 						<div class="input-group">
-							<input type="search" class="form-control form-control-sm" id="searchInput" name="searchInput" placeholder="Tìm kiếm hóa đơn theo phòng">
+							<input type="search" class="form-control form-control-sm" id="searchInput" name="searchInput" placeholder="Tìm kiếm hóa đơn theo ID tên, mã phòng">
 							<div class="input-group-append">
 								<input type="submit" class="btn btn-outline-secondary" id="btnSearch" name="btnSearch" value="Tìm kiếm">								
 							</div>
 						</div>
 					</form>
-					<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="doc/main/xulythanhtoanmomo.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
+					<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="xulythanhtoanmomo.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
 						<div class="input-group">
 								<?php if(!empty($data)){ ?>
-								<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAll" name="btnThanhToanAll" value="Thanh toán tất cả.">
+								<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAll" name="btnThanhToanAll" value="Thanh toán tất cả bằng QR.">
+								<?php } ?>
+								
+							</div>
+						</div>
+					</form>
+					<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="xulythanhtoanmomoatm.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
+						<div class="input-group">
+								<?php if(!empty($data)){ ?>
+								<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAllAtm" name="btnThanhToanAllAtm" value="Thanh toán tất cả bằng ATM.">
 								<?php } ?>
 								
 							</div>
@@ -68,13 +77,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 <thead>
                   <tr>
                     <th width="10"><input type="checkbox" id="all"></th>
-                    <th>ID hóa đơn</th>
-                    <th>Số phòng</th>
-                    <th>Tên dịch vụ</th>
-                    <th>Giá</th>
-                    <th>Hết hạn</th>
+                    <th>Id hóa đơn</th>
+					<th>Loại </th>
+                    <th>Ngày tạo</th>
+                    <th>Ngày hết hạn</th>
                     <th>Ngày thanh toán</th>
-					<th>Tình trạng</th>
+                    <th>Giá</th>
+                    <th>Tình trạng</th>
+					<th>Tên dịch vụ</th>
+					<th>Tên phòng</th>
+					<th>Mã phòng</th>
 					<th>Thao tác</th>
                   </tr>
                 </thead>
@@ -83,13 +95,17 @@ document.addEventListener("DOMContentLoaded", function() {
 					foreach ($hoadon as $value){
 				?>
 				<tr>
-                    <td width="10"><input type="checkbox" name="check1" value="<?php echo $value['id']; ?>"></td>
-                    <td><?php echo $value['id']; ?></td>
-                    <td><?php echo $value['id_phong']; ?></td>
-                    <td><?php echo $value['tenDV']; ?></td>
-                    <td><?php echo $value['gia']; ?></td>
-                    <td><?php echo $value['ngay_het_han']; ?></td>
-					<td><?php echo $value['ngay_thanh_toan']; ?></td>
+                    <td width="10"><input type="checkbox" name="check1" value="<?php echo $value['id_hoadon']; ?>"></td>
+                    <td><?php echo $value['id_hoadon']; ?></td>
+                    <td><?php echo $value['loai']; ?></td>
+                    <td><?php echo $value['ngaytao']; ?></td>
+					<td><?php echo $value['ngayhethan']; ?></td>
+                    <td><?php echo $value['ngaythanhtoan']; ?></td>
+					<td><?php echo $value['gia']; ?></td>
+					<td><?php echo $value['tinhtrang']; ?></td>
+                    <td><?php echo $value['tendv']; ?></td>
+					<td><?php echo $value['tenphong']; ?></td>
+                    <td><?php echo $value['maphong']; ?></td>
                     <td><span class="badge bg-success"><?php echo $value['tinhtrang']; ?></</span></td>
                     <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"><i class="fas fa-trash-alt"></i> </button>
                       <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"><i class="fa fa-edit"></i></button></td>
