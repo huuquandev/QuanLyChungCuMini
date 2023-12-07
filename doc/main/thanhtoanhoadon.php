@@ -1,5 +1,5 @@
 <?php 
-    include_once 'function.php';
+    include_once '../../function.php';
 	$data = [];
 	$hoadon = $data;
 	$phong = "";
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <main class="app-content">
       <div class="app-title">
         <ul class="app-breadcrumb breadcrumb side">
-          <li class="breadcrumb-item active"><a href="#"><b>Danh sách hóa đơn</b></a></li>
+          <li class="breadcrumb-item active"><a href="../danh_sach_hoadon.php"><b>Danh sách hóa đơn</b></a></li>
         </ul>
         <div id="clock"></div>
       </div>
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							</div>
 						</div>
 					</form>
-					<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="xulythanhtoanmomo.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
+				<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="xulythanhtoanmomo.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
 						<div class="input-group">
 								<?php if(!empty($data)){ ?>
 								<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAll" name="btnThanhToanAll" value="Thanh toán tất cả bằng QR.">
@@ -87,7 +87,6 @@ document.addEventListener("DOMContentLoaded", function() {
 					<th>Tên dịch vụ</th>
 					<th>Tên phòng</th>
 					<th>Mã phòng</th>
-					<th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -107,9 +106,6 @@ document.addEventListener("DOMContentLoaded", function() {
 					<td><?php echo $value['tenphong']; ?></td>
                     <td><?php echo $value['maphong']; ?></td>
                     <td><span class="badge bg-success"><?php echo $value['tinhtrang']; ?></</span></td>
-                    <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"><i class="fas fa-trash-alt"></i> </button>
-                      <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"><i class="fa fa-edit"></i></button></td>
-                 </tr>
                 <?php 
 
 					}

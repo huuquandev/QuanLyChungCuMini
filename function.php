@@ -283,7 +283,7 @@
 		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
 		where hoadon.id_DV = dichvu.id
 		and hoadon.id_hopdong = hopdong.id
-		and hopdong.id_canho = phong.id_canho_phong";
+		and hopdong.id_canho_phong = phong.id_canho_phong";
         $query = mysqli_query($conn, $sql);
 		$data = array();
         if(mysqli_num_rows($query) > 0){
@@ -331,7 +331,7 @@
 		}
 		$sql = "SELECT tb_hopdong.id as id, tb_canho_phong.ten_canho_phong as tenphong, tb_canho_phong.ma_canho_phong as maphong 
 			FROM tb_hopdong, tb_canho_phong
-			WHERE tb_hopdong.id_phong = tb_canho_phong.id_canho_phong";
+			WHERE tb_hopdong.id_canho_phong = tb_canho_phong.id_canho_phong";
         $query = mysqli_query($conn, $sql);
 		$data = array();
         if(mysqli_num_rows($query) > 0){
@@ -503,7 +503,7 @@
 		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
 		where hoadon.id_DV = dichvu.id
 		and hoadon.id_hopdong = hopdong.id
-		and hopdong.id_canho = phong.id_canho_phong
+		and hopdong.id_canho_phong = phong.id_canho_phong
 				and hoadon.tinhtrang='Đã thanh toán'";
         $query = mysqli_query($conn, $sql);
 		$data = array();
@@ -520,7 +520,7 @@
 		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
 		where hoadon.id_DV = dichvu.id
 		and hoadon.id_hopdong = hopdong.id
-		and hopdong.id_canho = phong.id_canho_phong
+		and hopdong.id_canho_phong = phong.id_canho_phong
 		and hoadon.tinhtrang = 'Chưa thanh toán'";
         $query = mysqli_query($conn, $sql);
 		$data = array();
@@ -534,12 +534,13 @@
 
 	function GetListHoaDonByIdHoaDonHoacIDPhong($keyword){
 		GLOBAL $conn;
-		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong
-		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
-		where hoadon.id_DV = dichvu.id
-		and hoadon.id_hopdong = hopdong.id
-		and hopdong.id_canho = phong.id_canho_phong
-				and (hoadon.id = '$keyword' or phong.id_canho_phong = '$keyword')";
+		$sql = "SELECT hoadon.id AS id_hoadon, hoadon.loai AS loai, hoadon.ngay_tao AS ngaytao, hoadon.ngay_het_han AS ngayhethan, hoadon.ngay_thanh_toan AS ngaythanhtoan, hoadon.gia AS gia, hoadon.tinhtrang AS tinhtrang, dichvu.TenDV AS tendv, phong.ten_canho_phong AS tenphong, phong.ma_canho_phong AS maphong
+        FROM tb_hoadon AS hoadon
+        INNER JOIN tb_hopdong AS hopdong ON hoadon.id_hopdong = hopdong.id
+        INNER JOIN tb_dichvu AS dichvu ON hoadon.id_DV = dichvu.id
+        INNER JOIN tb_canho_phong AS phong ON hopdong.id_canho_phong = phong.id_canho_phong
+        WHERE hoadon.id = '$keyword' OR phong.id_canho_phong = '$keyword' OR phong.ten_canho_phong LIKE '%$keyword%' OR phong.ma_canho_phong LIKE '%$keyword%'";
+
         $query = mysqli_query($conn, $sql);
 		$data = array();
         if(mysqli_num_rows($query) > 0){
@@ -564,7 +565,7 @@
 		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
 		where hoadon.id_DV = dichvu.id
 		and hoadon.id_hopdong = hopdong.id
-		and hopdong.id_canho = phong.id_canho_phong
+		and hopdong.id_canho_phong = phong.id_canho_phong
 		and hoadon.tinhtrang = 'Chưa thanh toán'
 		and (phong.id_canho_phong = '$keyword' or phong.ma_canho_phong like '%$keyword%' or phong.ten_canho_phong like '%$keyword%')" ;
         $query = mysqli_query($conn, $sql);
@@ -767,5 +768,74 @@
         }
     }
     
-    
+	function UpdateHoaDon($id, $id_DV, $id_hopdong, $loai, $ngay_het_han, $ngay_tao, $gia){
+		GLOBAL $conn;
+		
+		// Validate các trường thông tin
+		if(empty($id) || empty($id_DV) || empty($id_hopdong) || empty($loai) || empty($ngay_het_han) || empty($ngay_tao) || empty($gia)){
+			return false; // Trả về false nếu có trường thông tin trống
+		}
+		
+		// Thực hiện cập nhật vào cơ sở dữ liệu
+		$sql = "UPDATE tb_hoadon SET id_DV = '$id_DV', id_hopdong = '$id_hopdong', loai = '$loai', ngay_het_han = '$ngay_het_han', ngay_tao = '$ngay_tao', gia = '$gia' WHERE id = $id";
+		$query = mysqli_query($conn, $sql);
+		if($query){
+			return true; // Trả về true nếu cập nhật thành công
+		} else {
+			return false; // Trả về false nếu cập nhật thất bại
+		}
+	}
+
+	function DeleteHoaDon($id){
+		GLOBAL $conn;
+		if ($conn === null) {
+			// Thực hiện kết nối đến cơ sở dữ liệu
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			
+			// Kiểm tra kết nối
+			if (!$conn) {
+				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+			}
+		}
+		// Validate các trường thông tin
+		if(empty($id)){
+			return false; // Trả về false nếu có trường thông tin trống
+		}
+		
+		// Thực hiện cập nhật vào cơ sở dữ liệu
+		$sql = "delete from tb_hoadon where id='$id'";
+		$query = mysqli_query($conn, $sql);
+		if($query){
+			return true; // Trả về true nếu cập nhật thành công
+		} else {
+			return false; // Trả về false nếu cập nhật thất bại
+		}
+	}
+	
+	function GetDataToUpdateHoaDon($id){
+		GLOBAL $conn;
+		if ($conn === null) {
+			// Thực hiện kết nối đến cơ sở dữ liệu
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			
+			// Kiểm tra kết nối
+			if (!$conn) {
+				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+			}
+		}
+		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong, phong.id_canho_phong as id_phong, dichvu.id as id_dichvu, hopdong.id as id_hopdong
+		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
+		where hoadon.id_DV = dichvu.id
+		and hoadon.id_hopdong = hopdong.id
+		and hopdong.id_canho_phong = phong.id_canho_phong
+		and hoadon.id= '$id'" ;
+        $query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
     

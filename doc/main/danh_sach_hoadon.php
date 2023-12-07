@@ -38,6 +38,104 @@
 	// 	}
 	// }
 	$dataDV = GetListDichVu();
+	
+	require "doc/Classes/PHPExcel.php";
+	
+	if(isset($_POST['xuatExcel'])){
+		echo "<script>alert('Xuất file Excel thành công.')</script>";
+		//Khởi tạo đối tượng
+		$excel = new PHPExcel();
+		//Chọn trang cần ghi (là số từ 0->n)
+		$excel->setActiveSheetIndex(0);
+		//Tạo tiêu đề cho trang. (có thể không cần)
+		$excel->getActiveSheet()->setTitle('demo ghi dữ liệu');
+		// Dat kich thuoc cho cac cot
+		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
+		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
+		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
+		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(50);
+		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(50);
+		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(50);
+		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
+		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(50);
+		
+		$excel->getActiveSheet()->getStyle('A1:J1')->getFont()->setBold(true);
+		$excel->getActiveSheet()->setCellValue('A1', 'IdHD');
+		$excel->getActiveSheet()->setCellValue('B1', 'Loại');
+		$excel->getActiveSheet()->setCellValue('C1', 'Tên dịch vụ');
+		$excel->getActiveSheet()->setCellValue('D1', 'Tên phòng');
+		$excel->getActiveSheet()->setCellValue('E1', 'Mã phòng');
+		$excel->getActiveSheet()->setCellValue('F1', 'Ngày tạo');
+		$excel->getActiveSheet()->setCellValue('G1', 'Ngày hết hạn');
+		$excel->getActiveSheet()->setCellValue('H1', 'Ngày thanh toán');
+		$excel->getActiveSheet()->setCellValue('I1', 'Giá');
+		$excel->getActiveSheet()->setCellValue('J1', 'Tình trạng');
+		
+		$numRow = 2;
+		foreach ($hoadon as $row) {
+			$excel->getActiveSheet()->setCellValue('A' . $numRow, $row['id_hoadon']);
+			$excel->getActiveSheet()->setCellValue('B' . $numRow, $row['loai']);
+			$excel->getActiveSheet()->setCellValue('C' . $numRow, $row['tendv']);
+			$excel->getActiveSheet()->setCellValue('D' . $numRow, $row['tenphong']);
+			$excel->getActiveSheet()->setCellValue('E' . $numRow, $row['maphong']);
+			$excel->getActiveSheet()->setCellValue('F' . $numRow, $row['ngaytao']);
+			$excel->getActiveSheet()->setCellValue('G' . $numRow, $row['ngayhethan']);
+			$excel->getActiveSheet()->setCellValue('H' . $numRow, $row['ngaythanhtoan']);
+			$excel->getActiveSheet()->setCellValue('I' . $numRow, $row['gia']);
+			$excel->getActiveSheet()->setCellValue('J' . $numRow, $row['tinhtrang']);
+			$numRow++;
+		}
+		PHPExcel_IOFactory::createWriter($excel, 'Excel2007')->save('data.xlsx');
+		//header('Content-type: application/vnd.ms-excel');
+		//header('Content-Disposition: attachment; filename="data.xls"');
+		//PHPExcel_IOFactory::createWriter($excel, 'Excel2007')->save('php://output');
+	}
+	if(isset($_POST['xacnhan'])){
+		$target_dir = "doc/Classes/PHPExcel/Reader/";
+		$target_file = $target_dir . basename($_FILES["nhapExcel"]["name"]);
+		move_uploaded_file($_FILES["nhapExcel"]["tmp_name"], $target_file);
+		$file = basename($_FILES["nhapExcel"]["tmp_name"]);
+		$file = $target_file;
+		$objFile = PHPExcel_IOFactory::identify($file);
+		$objData = PHPExcel_IOFactory::createReader($objFile);
+		//Chỉ đọc dữ liệu
+		$objData->setReadDataOnly(true);
+
+		// Load dữ liệu sang dạng đối tượng
+		$objPHPExcel = $objData->load($file);
+
+		//Lấy ra số trang sử dụng phương thức getSheetCount();
+		// Lấy Ra tên trang sử dụng getSheetNames();
+
+		//Chọn trang cần truy xuất
+		$sheet = $objPHPExcel->setActiveSheetIndex(0);
+
+		//Lấy ra số dòng cuối cùng
+		$Totalrow = $sheet->getHighestRow();
+		//Lấy ra tên cột cuối cùng
+		$LastColumn = $sheet->getHighestColumn();
+
+		//Chuyển đổi tên cột đó về vị trí thứ, VD: C là 3,D là 4
+		$TotalCol = PHPExcel_Cell::columnIndexFromString($LastColumn);
+
+		//Tạo mảng chứa dữ liệu
+		$data = [];
+
+		//Tiến hành lặp qua từng ô dữ liệu
+		//----Lặp dòng, Vì dòng đầu là tiêu đề cột nên chúng ta sẽ lặp giá trị từ dòng 2
+		for ($i = 2; $i <= $Totalrow; $i++) {
+			//----Lặp cột
+			for ($j = 0; $j < $TotalCol; $j++) {
+				// Tiến hành lấy giá trị của từng ô đổ vào mảng
+				$data[$i - 2][$j] = $sheet->getCellByColumnAndRow($j, $i)->getValue();;
+			}
+		}
+		//Hiển thị mảng dữ liệu
+//		echo '<pre>';
+//		var_dump($data);
+	}
 ?>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -70,16 +168,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     Tạo mới hóa đơn</a>
                 </div>
                 <div class="col-sm-2">
-                  <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
-                      class="fas fa-file-upload"></i>Nhập Excel</a>
-                </div>
-                <div class="col-sm-2">
-                  <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
-                </div>
-                <div class="col-sm-2">
                   <a class="btn btn-excel btn-sm" href="doc/main/thanhtoanhoadon.php" title="In"><i class="fas fa-file-excel"></i>Thanh toán hóa đơn</a>
                 </div>
-								<div class="col-sm-4 text-right">
+				<div class="col-sm-2">
+				<form method="POST">
+					<input id="xuatExcel" name="xuatExcel" class="btn btn-delete btn-sm nhap-tu-file" type="submit" value="Xuất Excel">
+				</form>
+                </div>
+                <div class="col-sm-4">
+                  <form method="POST" enctype="multipart/form-data">
+					<label for="nhapExcel" class="btn btn-delete btn-sm nhap-tu-file">Nhập Excel</label>
+					<input id="nhapExcel" name="nhapExcel" class="btn btn-delete btn-sm nhap-tu-file" type="file" hidden>
+					<input id="xacnhan" name="xacnhan" class="btn btn-delete btn-sm nhap-tu-file" type="submit">
+				</form>
+                </div>
+				<div class="col-sm-4 text-right">
 					<form action="" method="post">
 						<div class="input-group">
 							<input type="search" class="form-control form-control-sm" id="searchInput" name="searchInput" placeholder="Tìm kiếm...">
@@ -102,14 +205,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     <th width="10"><input type="checkbox" id="all"></th>
                     <th>Id hóa đơn</th>
 					<th>Loại </th>
+					<th>Tên dịch vụ</th>
+					<th>Tên phòng</th>
+					<th>Mã phòng</th>
                     <th>Ngày tạo</th>
                     <th>Ngày hết hạn</th>
                     <th>Ngày thanh toán</th>
                     <th>Giá</th>
                     <th>Tình trạng</th>
-					<th>Tên dịch vụ</th>
-					<th>Tên phòng</th>
-					<th>Mã phòng</th>
 					<th>Thao tác</th>
                   </tr>
                 </thead>
@@ -121,17 +224,18 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td width="10"><input type="checkbox" name="check1" value="<?php echo $value['id_hoadon']; ?>"></td>
                     <td><?php echo $value['id_hoadon']; ?></td>
                     <td><?php echo $value['loai']; ?></td>
+                    <td><?php echo $value['tendv']; ?></td>
+					<td><?php echo $value['tenphong']; ?></td>
+					<td><?php echo $value['maphong']; ?></td>
                     <td><?php echo $value['ngaytao']; ?></td>
 					<td><?php echo $value['ngayhethan']; ?></td>
                     <td><?php echo $value['ngaythanhtoan']; ?></td>
 					<td><?php echo $value['gia']; ?></td>
 					<td><?php echo $value['tinhtrang']; ?></td>
-                    <td><?php echo $value['tendv']; ?></td>
-					<td><?php echo $value['tenphong']; ?></td>
-                    <td><?php echo $value['maphong']; ?></td>
                     <td width="50">
-						<button class="btn btn-primary btn-sm trash" type="button" title="Xóa"><i class="fas fa-trash-alt"></i> </button>
-                      <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"><i class="fa fa-edit"></i></button>
+						<a class="btn btn-primary btn-sm trash" title="Xóa" href="doc/main/commons/xoa_hoa_don.php?id=<?php echo $value['id_hoadon']; ?>"><i class="fas fa-trash-alt"></i> </a>
+						<a class="btn btn-primary btn-sm edit" title="Sửa" href="doc/main/commons/sua_hoadon.php?id=<?php echo $value['id_hoadon']; ?>"><i class="fa fa-edit"></i></a>
+
 					 </td>
                  </tr>
                 <?php 
@@ -139,8 +243,29 @@ document.addEventListener("DOMContentLoaded", function() {
 				?>
                 </tbody>
               </table>
+			  <div id="editForm" style="display: none;">
+					<!-- Các trường thông tin trong form sửa -->
+					<input type="text" id="maphongInput">
+					<!-- Các trường thông tin khác -->
+					<!-- Nút lưu để lưu thông tin đã sửa -->
+					<button onclick="saveChanges()">Lưu</button>
+				</div>
             </div>
           </div>
         </div>
       </div>
-    </main>
+	  <script>
+			function openEditForm(maphong) {
+				// Hiển thị form sửa và điền thông tin cần sửa vào form
+				document.getElementById('maphongInput').value = maphong;
+				document.getElementById('editForm').style.display = 'block';
+			}
+
+			function saveChanges() {
+				// Xử lý lưu thông tin đã sửa và ẩn form sau khi lưu
+				// ...
+				document.getElementById('editForm').style.display = 'none';
+			}
+		</script>
+    </main
+	
