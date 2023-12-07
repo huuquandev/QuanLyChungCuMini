@@ -36,7 +36,7 @@
 					<?php 
 						foreach($dataHopDong as $value){
 					?>
-					<option value="<?php echo $value['id']; ?>">Hợp đồng: <?php echo $value['id']; ?> - Mã phòng: <?php echo$value['id_phong']; ?> - Tên phòng: <?php echo $value['tenphong']; ?></option>
+					<option value="<?php echo $value['id']; ?>">Hợp đồng: <?php echo $value['id']; ?> - Mã phòng: <?php echo$value['maphong']; ?> - Tên phòng: <?php echo $value['tenphong']; ?></option>
 					<?php 
 						}
 					?>

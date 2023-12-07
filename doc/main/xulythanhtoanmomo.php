@@ -36,7 +36,6 @@ $redirectUrl = "http://localhost/QuanLyChungCuMiNi/doc/main/camon.php";
 $ipnUrl = "http://localhost/QuanLyChungCuMiNi/doc/main/camon.php";
 $extraData = "";
 
-
     $requestId = time() . "";
     $requestType = "captureWallet";
 //    $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
@@ -58,7 +57,7 @@ $extraData = "";
         'signature' => $signature);
     $result = execPostRequest($endpoint, json_encode($data));
     $jsonResult = json_decode($result, true);  // decode json
-
+	
     //Just a example, please check more in there
     header('Location: ' . $jsonResult['payUrl']);
 
