@@ -8,12 +8,14 @@ $cccd=$_POST['cccd'];
 $sdt = $_POST['sdt'];
 $ngaysinh = date('Y-m-d', strtotime($_POST['ngaysinh']));
 $addressDetail = $_POST['addressDetail'];
+$addressDetail = $_POST['email'];
+
 if(them_dan_cu($tendancu,
 $gioitinh,
 $sdt,
 $ngaysinh,
 $addressDetail,
-$cccd)){
+$cccd, $email)){
     echo "Sửa thành công";
 }else{
     echo "Sửa thát bại";

@@ -401,7 +401,7 @@
             //     console.log(pair[0] + ': ' + pair[1]);
             // }
             $.ajax({
-                url: "doc/main/commons/sua_toanha.php", 
+                url: "doc/main/commons/sua_dan_cu.php", 
                 type: "post",
                 dataType: "html",        
                 processData: false, 
@@ -548,8 +548,5 @@
     //         }
     //     });
     // }
-    function selectValue(selectElement, value) {
-        selectElement.value = value;
-    }
 
 </script>

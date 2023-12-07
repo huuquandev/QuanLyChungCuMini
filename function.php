@@ -596,10 +596,21 @@
 		return false;
 	}
     //Quyến làm
+    function laydancu($id_dan_cu){
+        GLOBAL $conn;
+
+        $sql = "SELECT * FROM tb_dancu WHERE tb_dancu.id_dancu = $id_dan_cu";
+
+        $query = mysqli_query($conn, $sql);
+
+        $row = mysqli_fetch_array($query);
+
+        return $row;
+    }
     function xoa_dan_cu($id_dan_cu){
         GLOBAL $conn;
 
-        $sql = "DELETE FROM `tb_dancu` WHERE  `cccd`=$id_dan_cu;";
+        $sql = "DELETE FROM `tb_dancu` WHERE  `id`=$id_dan_cu;";
 
         $query = mysqli_query($conn, $sql);
         if ($query) {
@@ -632,7 +643,7 @@
         return $row;
         
     }
-    function them_dan_cu($tendancu, $gioitinh, $sdt, $ngaysinh, $addressDetail,$cccd){ 
+    function them_dan_cu($tendancu, $gioitinh, $sdt, $ngaysinh, $addressDetail,$cccd, $email){ 
         $content ="";
         $file_path = '';
         GLOBAL $conn;
@@ -691,7 +702,7 @@
 
             // Now you can include $file_path in your database query or handle it as needed
             if($content==""){
-                $sql="INSERT INTO `tb_dancu` (`cccd`, `ten_hien_thi`, `so_dien_thoai`, `gioi_tinh`, `hinh_anh`, `dia_chi`, `ngay_sinh`) VALUES ('$cccd', '$tendancu', '$sdt', '$gioitinh', '$file_path', '$addressDetail', '$ngaysinh');";
+                $sql="INSERT INTO `tb_dancu` (`cccd`, `ho_ten`, `so_dien_thoai`, `gioi_tinh`, `hinh_anh`, `dia_chi`, `ngay_sinh`, `email`) VALUES ('$cccd', '$tendancu', '$sdt', '$gioitinh', '$file_path', '$addressDetail', '$ngaysinh', '$email');";
 
             $result = mysqli_query($conn, $sql);
 
