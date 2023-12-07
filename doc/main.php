@@ -4,7 +4,11 @@
                 if($tam == "toanha"){
                     include("main/danh_sach_toanha.php");
                 }else if($tam == "quanlydancu"){ 
-                    include("main/danh_sach_dancu.php");
+                    if (isset($_GET['id'])) {
+                        include("main/commons/sua_dan_cu.php");
+                    } else {
+                        include("main/danh_sach_dancu.php");
+                    }
                 }else if($tam == "quanlydichvu"){
                     include("main/danh_sach_dichvu.php");
                 }else if($tam == "quanlythuphi"){
@@ -31,6 +35,12 @@
                     include("main/commons/sua_hoadon.php");
                 }else if($tam == "xoahoadon"){
                     include("main/commons/xoa_hoa_don.php");
+                }else if($tam == "hopdong"){
+                    if (isset($_GET['id'])) {
+                        include("main/commons/sua_hop_dong.php");
+                    } else {
+                        include("main/danh_sach_hopdong.php");
+                    }
                 }
             }else{
                 $tam = '';
