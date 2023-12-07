@@ -4,14 +4,14 @@
         <li class="breadcrumb-item active"><a href="#"><b>
           Sửa dân cư
           <?php
-          $sql="SELECT `ten_hien_thi` from `tb_dancu` where `cccd`='".$_GET['id']."'";
+          $sql="SELECT `ho_ten` from `tb_dancu` where `cccd`='".$_GET['id']."'";
           $query = mysqli_query($conn, $sql);
               // Lấy kết quả
               $row = mysqli_fetch_assoc($query);
-              $ten_hien_thi = $row['ten_hien_thi'];
+              $ho_ten = $row['ho_ten'];
 
               // Hiển thị tên
-              echo  $ten_hien_thi."- "." với id dân cư:".$_GET['id'];
+              echo  $ho_ten."- "." với id dân cư:".$_GET['id'];
           ?>
         </b></a></li>
       </ul>
@@ -32,7 +32,7 @@
                                 $query = mysqli_query($conn, $sql);
                                     // Lấy kết quả
                                     $row = mysqli_fetch_assoc($query);
-                                    $ten_hien_thi = $row['ten_hien_thi'];
+                                    $ho_ten = $row['ho_ten'];
                                     $cccd = $row['cccd'];
                                     $so_dien_thoai=$row['so_dien_thoai'];
                                     $gioi_tinh=$row['gioi_tinh'];
@@ -56,7 +56,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 448 512"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
                                           </div>
                                         </div>
-                                        <input id="name" type="text" class="form-control" name="tendancu" value="<?php echo $ten_hien_thi;?>" required>
+                                        <input id="name" type="text" class="form-control" name="tendancu" value="<?php echo $ho_ten;?>" required>
                                         <!---->
                                       </div>
                                       <br>
@@ -91,9 +91,11 @@
                                           <div class="vs__selected-options">
                                             <select name="gioitinh" id="gioitinh"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  >
                                             <option value="" selected disabled>Giới tính</option>
-                                            <option value="nam" <?php echo ($gioi_tinh === 'nam') ? 'selected' : ''; ?>>Nam</option>
-                                            <option value="nu" <?php echo ($gioi_tinh === 'nu') ? 'selected' : ''; ?>>Nữ</option>
-                                            <option value="khac" <?php echo ($gioi_tinh === 'khac') ? 'selected' : ''; ?>>Khác</option>
+                                            <option value="nam" 
+                                            <?php echo ($gioi_tinh == '1') ? 'selected' : ''; ?> 
+                                            >Nam</option>
+                                            <option value="nu" <?php echo ($gioi_tinh == '0') ? 'selected' : ''; ?>>Nữ</option>
+                                            <option value="khac" <?php echo ($gioi_tinh == '2') ? 'selected' : ''; ?>>Khác</option>
                                             </select>
                                           </div>
 
@@ -212,7 +214,8 @@
             
                       </div>
                       <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                      <a class="btn btn-secondary btnClose" href="home.php?title=quanlydancu"
+                         data-target="#ModalUP">Hủy</a>
                           <button type="submit" class="btn btn-success" id="btn-Add" name="btnEdit">Sửa</button>
                       </div>
                     </form>
@@ -306,12 +309,21 @@ document.getElementById("sdt").addEventListener("input", function() {
   $addressDetail=$_POST['addressDetail'];
   // echo updateSql(1,12,13);
   if(trim($_POST['tendancu'])!=""){
-    $content=updateSql('ten_hien_thi',$tendancu,$_GET['id']);
+    $content=updateSql('ho_ten',$tendancu,$_GET['id']);
 
   }
   if(trim($_POST['gioitinh'])!=""){
-    $name="gioi_tinh";
-      $content=updateSql($name,$gioitinh,$_GET['id']);
+    $gioi_tinh=$_POST['gioitinh'];
+  if($gioitinh=='nam'){
+      $gioitinh=1;
+  }
+  elseif($gioitinh=='nu'){
+      $gioitinh=0;
+  }
+  else{
+      $gioitinh=2;
+  }
+      $content=updateSql('gioi_tinh',$gioitinh,$_GET['id']);
   }
   if(trim($_POST['sdt'])!=""){
     $content=updateSql('so_dien_thoai',$sdt,$_GET['id']);

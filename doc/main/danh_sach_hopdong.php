@@ -22,7 +22,65 @@
       <div class="col-md-12">
         <div class="tile">
           <div class="tile-body">
+            <div class="card-body">
 
+                          <div class="modal-body">
+                              <h5>Tìm kiểm các hợp đồng </h5>
+                              <div class="row">
+
+                                  <div class="col-md-5">
+                                    <span>
+                                      <fieldset class="form-group" id="__BVID__995">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_"> Ngày bắt đầu
+                                        </legend>
+                                        <div>
+                                          <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
+                                            <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
+                                              <div class="vs__selected-options">
+                                              <input id="Tngaybatdau" type="date" class="form-control" name="Tngaybatdau">
+
+                                              </div>
+                                            </div>
+                                            <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                                          </div>
+                                          <small class="text-danger"></small>
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                        </div>
+                                      </fieldset>
+                                    </span>
+                                  </div>                              
+                                  <div class="col-md-6">
+                                    <span>
+                                      <fieldset class="form-group" id="__BVID__995">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_">Ngày kết thức
+                                        </legend>
+                                        <div>
+                                          <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
+                                            <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
+                                              <div class="vs__selected-options">
+                                              <input id="Tngayketthuc" type="date" class="form-control" name="Tngayketthuc">
+
+                                              </div>
+                                            </div>
+                                            <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                                          </div>
+                                          <small class="text-danger"></small>
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                        </div>
+                                      </fieldset>
+                                    </span>
+                                  </div>
+                
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary btnSearch" data-dismiss="modal">Tìm</button>
+                          </div>
+              
+            </div>
             <div class="row element-button">
               <div class="col-sm-2">
 
@@ -113,11 +171,11 @@
                                           <select name="name_dan_cu" id="gioitinh"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  >
                                                 <option value="" hidden="">Chọn người thuê</option>
                                                 <?php
-                                                $sql="SELECT `cccd`,`ten_hien_thi` From `tb_dancu`";
+                                                $sql="SELECT `cccd`,`id_dancu`,`ho_ten` From `tb_dancu`";
                                                 $query=mysqli_query($conn,$sql);
                                                 if(mysqli_num_rows($query) > 0){
                                                   while ($row = mysqli_fetch_array($query)) {
-                                                  echo '<option value="'.$row['cccd'].'" >'.$row['ten_hien_thi'].'-'.$row['cccd'].'</option>';
+                                                  echo '<option value="'.$row['id_dancu'].'" >'.$row['ho_ten'].'-'.$row['cccd'].'</option>';
                                                 }}
                                                 ?>                                   
                                             </select>
@@ -165,7 +223,8 @@
                                     </div>
                                   </fieldset>
                                 </span>
-                              </div>                              <div class="col-md-4">
+                              </div>                              
+                              <div class="col-md-4">
                                 <span>
                                   <fieldset class="form-group" id="__BVID__995">
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_"> Ngày kết thức <span class="text-danger"> (*) </span>
@@ -265,6 +324,7 @@
                         <th width="80" class="text-center">Tên căn phòng</th>
                         <th width="100">Thời gian bắt đầu</th>
                         <th width="100">Thời gian kết thúc</th>
+                        <th width="50">Già phòng/tháng</th>
                         <th width="100">Tổng tiền</th>
                         <th width='100'>Hợp đồng</th>
                         <th width="100">Tính năng</th>
@@ -272,10 +332,10 @@
                     </thead>
                   <tbody>
                   <?php 
-                    $sql2 = "SELECT h.*,t.`ten_hien_thi`,ph.`ten_canho_phong` from `tb_hopdong` AS h 
+                    $sql2 = "SELECT h.*,t.`ho_ten`,ph.`ten_canho_phong` from `tb_hopdong` AS h 
                     INNER JOIN `tb_canho_phong` AS ph 
                     INNER JOIN `tb_dancu` AS t 
-                    on h.`id_dan_cu`=t.`cccd` AND h.`id_can_ho_phong`=ph.`id_canho_phong`";
+                    on h.`id_dancu`=t.`id_dancu` AND h.`id_canho_phong`=ph.`id_canho_phong`";
                       $query2 = mysqli_query($conn, $sql2);
                       // echo $sql2;
                       if(mysqli_num_rows($query) > 0){
@@ -284,18 +344,19 @@
                     <tr>
                       <td width="10"><input type="checkbox" name="check1" value="1"></td>
                       <td><?php echo $row['id']; ?></td>
-                      <td><?php echo $row['ten_hien_thi']; ?></td>
+                      <td><?php echo $row['ho_ten']; ?></td>
                       <td class="text-center"><?php echo $row['ten_canho_phong']; ?></td>
-                      <td><?php $batdau=date("d-m-Y", strtotime($row['bat_dau']));
+                      <td><?php $batdau=date("d-m-Y", strtotime($row['ngay_batdau']));
                       echo $batdau;?></td>
-                      <td><?php $ketthuc=date("d-m-Y", strtotime($row['ket_thuc']));
+                      <td><?php $ketthuc=date("d-m-Y", strtotime($row['ngay_ketthuc']));
                       echo $ketthuc;?></td>
+                      <td><?php echo $row['gia'];?> VND</td>
                       <td><?php echo $row['tong'];?> VND</td>
-                      <td><a class="btn" href="<?php echo $row['file_hop_dong'];?>"
+                      <td><a class="btn" href="<?php echo $row['filehopdong'];?>"
                          data-target="#ModalUP">
                          <?php 
                         // Assuming $row['file_hop_dong'] contains the file path
-                        $file_path = $row['file_hop_dong'];
+                        $file_path = $row['filehopdong'];
 
                         $pattern = "/file\/hop_dong\/(.*?)\.pdf/";
                         preg_match($pattern, $file_path, $matches);
@@ -401,7 +462,7 @@
             //     console.log(pair[0] + ': ' + pair[1]);
             // }
             $.ajax({
-                url: "doc/main/commons/sua_dan_cu.php", 
+                url: "doc/main/commons/sua_toanha.php", 
                 type: "post",
                 dataType: "html",        
                 processData: false, 
@@ -430,123 +491,35 @@
               })
             } 
         });
-        $('.checkbox-switch').change(function () {
-                                        if ($(this).is(':checked')) {
-                                            $('.checkbox-switch').val("1");
-                                        } else {
-                                            $('.checkbox-switch').val("0");
-                                        }                                       
-                                    });
+        $('body').on('click', '#btnSearch', function () {
+    var startDate = document.getElementById('Tngaybatdau').value;
+    var endDate = document.getElementById('Tngayketthuc').value;
+
+    var table = document.getElementById('sampleTable');
+    var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+    for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName('td');
+
+        // Assuming start date is in the fifth cell (index 4) and end date is in the sixth cell (index 5)
+        var startTime = new Date(cells[4].innerText).getTime();
+        var endTime = new Date(cells[5].innerText).getTime();
+
+        var filterStartDate = new Date(startDate).getTime();
+        var filterEndDate = new Date(endDate).getTime();
+
+        if (startTime >= filterStartDate && endTime <= filterEndDate) {
+            rows[i].style.display = '';
+        } else {
+            rows[i].style.display = 'none';
+        }
+    }
+});
+
 
     });
-    
-    // function initializeDropdowns(citisId, districtId, wardId, citisIdValue, districtIdValue, wardIdValue) {
-    //     // Lấy tham chiếu đến các phần tử select từ id
-    //     var citis = document.getElementById(citisId);
-    //     var districts = document.getElementById(districtId);
-    //     var wards = document.getElementById(wardId);
-
-    //     // Tạo đối tượng Parameter chứa thông tin yêu cầu HTTP GET
-    //     var Parameter = {
-    //         url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-    //         method: "GET",
-    //         responseType: "application/json",
-    //     };
-
-    //     // Gửi yêu cầu HTTP GET và nhận dữ liệu từ tệp JSON
-    //     var promise = axios(Parameter);
-    //     promise.then(function (result) {
-    //         renderCity(result.data);
-    //     });
-
-    //     // Hàm renderCity để tạo các tùy chọn cho select tỉnh/thành phố
-    //     function renderCity(data) {
-    //         for (const x of data) {
-    //             citis.options[citis.options.length] = new Option(x.Name, x.Id = x.Name);
-    //             if (x.Name == citisIdValue) {
-    //                 citis.value = citisIdValue;
-    //             }
-    //         }
-    //         // Xử lý khi select tỉnh/thành phố thay đổi
-    //         citis.onchange = function () {
-    //             districts.length = 1;
-    //             wards.length = 1;
-    //             // Lọc dữ liệu quận/huyện dựa trên tỉnh/thành phố được chọn
-    //             const result = data.filter(n => n.Id === this.value);
-
-    //             // Tạo các tùy chọn cho select quận/huyện
-    //             for (const k of result[0].Districts) {
-    //                 districts.options[districts.options.length] = new Option(k.Name, k.Id = k.Name);
-    //                 if (k.Name == districtIdValue) {
-    //                     districts.value = districtIdValue;
-    //                 }
-    //             }
-
-    //             districts.disabled = false;
-    //             wards.disabled = true;
-    //             wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
-    //         };
-
-    //         // Xử lý khi select quận/huyện thay đổi
-    //         districts.onchange = function () {
-    //             const selectedDistrict = this.value;
-    //             if (selectedDistrict !== '') {
-    //                 wards.length = 1;
-    //                 const dataCity = data.filter(n => n.Id === citis.value);
-    //                 const dataWards = dataCity[0].Districts.filter(n => n.Id === selectedDistrict)[0].Wards;
-    //                 // Tạo các tùy chọn cho select phường/xã
-    //                 for (const w of dataWards) {
-    //                     wards.options[wards.options.length] = new Option(w.Name, w.Id = w.Name);
-    //                     if (w.Name == wardIdValue) {
-    //                         wards.value = wardIdValue;
-    //                     }
-    //                 }
-    //                 wards.disabled = false;
-    //             } else {
-    //                 wards.disabled = true;
-    //                 wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
-    //             }
-    //         };
-
-    //         // Kiểm tra nếu select tỉnh/thành phố đã có giá trị được chọn sẵn
-    //         if (citis.value !== null && citis.value !== '') {
-    //             districts.disabled = false;
-    //             const changeEvent = new Event('change');
-    //             citis.dispatchEvent(changeEvent);
-    //             const selectedDistrict = districts.value;
-
-    //             if (selectedDistrict.value !== null && selectedDistrict.value !== '') {
-    //                 wards.disabled = false;
-    //                 // Gọi sự kiện onchange của quận/huyện để kích hoạt xử lý
-    //                 const changeEvent = new Event('change');
-    //                 districts.dispatchEvent(changeEvent);
-    //             }
-    //         }
-    //     }
-
-    //     // Xử lý sự kiện khi select tỉnh/thành phố thay đổi
-    //     citis.addEventListener('change', function () {
-    //         var selectedProvince = this.value;
-    //         if (selectedProvince !== "") {
-    //             districts.disabled = false;
-    //         } else {
-    //             districts.disabled = true;
-    //             districts.innerHTML = '<option value="" hidden>Chọn quận huyện</option>';
-    //             wards.disabled = true;
-    //             wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>';
-    //         }
-    //     });
-
-    //     // Xử lý sự kiện khi select quận/huyện thay đổi
-    //     districts.addEventListener('change', function () {
-    //         var selectedDistrict = this.value;
-    //         if (selectedDistrict !== "") {
-    //             wards.disabled = false;
-    //         } else {
-    //             wards.disabled = true;
-    //             wards.innerHTML = '<option value="" hidden>Chọn phường xã</option>>';
-    //         }
-    //     });
-    // }
+    function selectValue(selectElement, value) {
+        selectElement.value = value;
+    }
 
 </script>
