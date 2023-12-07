@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     Tạo mới hóa đơn</a>
                 </div>
                 <div class="col-sm-2">
-                  <a class="btn btn-excel btn-sm" href="doc/main/thanhtoanhoadon.php" title="In"><i class="fas fa-file-excel"></i>Thanh toán hóa đơn</a>
+                  <a class="btn btn-excel btn-sm" href="../../home.php?title=xulythanhtoan" title="In"><i class="fas fa-file-excel"></i>Thanh toán hóa đơn</a>
                 </div>
 				<div class="col-sm-2">
 				<form method="POST">
@@ -233,8 +233,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					<td><?php echo $value['gia']; ?></td>
 					<td><?php echo $value['tinhtrang']; ?></td>
                     <td width="50">
-						<a class="btn btn-primary btn-sm trash" title="Xóa" href="doc/main/commons/xoa_hoa_don.php?id=<?php echo $value['id_hoadon']; ?>"><i class="fas fa-trash-alt"></i> </a>
-						<a class="btn btn-primary btn-sm edit" title="Sửa" href="doc/main/commons/sua_hoadon.php?id=<?php echo $value['id_hoadon']; ?>"><i class="fa fa-edit"></i></a>
+						<a class="btn btn-primary btn-sm trash" title="Xóa" href="../../../home.php?title=xoahoadon&id=<?php echo $value['id_hoadon']; ?>"><i class="fas fa-trash-alt"></i> </a>
+						<a class="btn btn-primary btn-sm edit" title="Sửa" href="../../../home.php?title=suahoadon&id=<?php echo $value['id_hoadon']; ?>"><i class="fa fa-edit"></i></a>
 
 					 </td>
                  </tr>

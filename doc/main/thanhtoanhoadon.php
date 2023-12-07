@@ -1,5 +1,5 @@
 <?php 
-    include_once '../../function.php';
+    include_once 'function.php';
 	$data = [];
 	$hoadon = $data;
 	$phong = "";
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							</div>
 						</div>
 					</form>
-				<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="xulythanhtoanmomo.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
+				<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="doc/main/xulythanhtoanmomo.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
 						<div class="input-group">
 								<?php if(!empty($data)){ ?>
 								<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAll" name="btnThanhToanAll" value="Thanh toán tất cả bằng QR.">
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							</div>
 						</div>
 					</form>
-					<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="xulythanhtoanmomoatm.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
+					<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="doc/main/xulythanhtoanmomoatm.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
 						<div class="input-group">
 								<?php if(!empty($data)){ ?>
 								<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAllAtm" name="btnThanhToanAllAtm" value="Thanh toán tất cả bằng ATM.">

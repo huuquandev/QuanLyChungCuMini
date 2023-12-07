@@ -299,7 +299,7 @@
 		    // Kiểm tra xem kết nối đã được thiết lập chưa
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -322,7 +322,7 @@
 				    // Kiểm tra xem kết nối đã được thiết lập chưa
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -400,7 +400,7 @@
 		GLOBAL $conn;    
 				if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -554,7 +554,7 @@
 		GLOBAL $conn;
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -581,7 +581,7 @@
 				GLOBAL $conn;
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -790,7 +790,7 @@
 		GLOBAL $conn;
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -816,7 +816,7 @@
 		GLOBAL $conn;
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
