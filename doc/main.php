@@ -25,6 +25,12 @@
                     include("main/so_do_toanha.php");
                 }else if($tam == "addhoadon"){
                     include("main/commons/form-add-hoa-don.php");
+                }else if($tam == "xulythanhtoan"){
+                    include("main/thanhtoanhoadon.php");
+                }else if($tam == "suahoadon"){
+                    include("main/commons/sua_hoadon.php");
+                }else if($tam == "xoahoadon"){
+                    include("main/commons/xoa_hoa_don.php");
                 }
             }else{
                 $tam = '';
