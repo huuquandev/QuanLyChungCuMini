@@ -168,6 +168,33 @@
                               <div class="col-12">
                                 <span>
                                   <fieldset class="form-group" id="__BVID__1001">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Email <span class="text-danger">(*)</span>
+                                    </legend>
+                                    <div>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
+                                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                              <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                          </div>
+                                        </div>
+                                        <input id="email" type="text" placeholder="hoten@gmail.com" class="form-control" name="email" required>
+                                        <!---->
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-12">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__1001">
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Địa chỉ chi tiết <span class="text-danger">(*)</span>
                                     </legend>
                                     <div>

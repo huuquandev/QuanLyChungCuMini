@@ -8,14 +8,16 @@ $cccd=$_POST['cccd'];
 $sdt = $_POST['sdt'];
 $ngaysinh = date('Y-m-d', strtotime($_POST['ngaysinh']));
 $addressDetail = $_POST['addressDetail'];
-$addressDetail = $_POST['email'];
+$file_img=$_FILES['file_img'];
+$email=$_FILES['email'];
 
+// print_r($fileimg);
 if(them_dan_cu($tendancu,
 $gioitinh,
 $sdt,
 $ngaysinh,
 $addressDetail,
-$cccd, $email)){
+$cccd,$file_img, $email)){
     echo "Sửa thành công";
 }else{
     echo "Sửa thát bại";

@@ -703,7 +703,7 @@
         return $row;
         
     }
-    function them_dan_cu($tendancu, $gioitinh, $sdt, $ngaysinh, $addressDetail,$cccd,$file_img){ 
+    function them_dan_cu($tendancu, $gioitinh, $sdt, $ngaysinh, $addressDetail,$cccd,$file_img, $email){ 
         $content ="";
         $file_path = '';
         GLOBAL $conn;
@@ -755,10 +755,6 @@
                     $content .= '<br>Chỉ chấp nhận tệp ảnh (png, jpg, git).';
                 }
             }
-            else {
-
-                $content.='<br> chưa có ảnh'; // Set an empty string or a default value
-            }
 
             // Now you can include $file_path in your database query or handle it as needed
             if($gioitinh=='nam'){
@@ -771,7 +767,7 @@
                 $gioitinh=2;
             }
             if($content==""){
-                $sql="INSERT INTO `tb_dancu` ( `id_dancu`,`ho_ten`, `so_dien_thoai`, `cccd`, `gioi_tinh`, `dia_chi`, `ngay_sinh`, `hinh_anh`) VALUES (NULL,'$tendancu', '$sdt', '$cccd', '$gioitinh', '$addressDetail', '$ngaysinh', '$file_path');";
+                $sql="INSERT INTO `tb_dancu` (`ho_ten`, `so_dien_thoai`, `cccd`, `gioi_tinh`, `dia_chi`, `ngay_sinh`, `hinh_anh`, `email`) VALUES ('$tendancu', '$sdt', '$cccd', '$gioitinh', '$addressDetail', '$ngaysinh', '$file_path', '$email');";
                 
             echo $sql;
             $result = mysqli_query($conn, $sql);
