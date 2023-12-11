@@ -180,7 +180,7 @@
     </div>
   </div>
 </div>
-    <div class="row">
+<div class="row">
       <div class="col-md-12">
         <div class="tile">
           <div class="tile-body">
@@ -430,176 +430,111 @@
               </div>
             </div>
             <div data-v-38625d2e="" class="row">
-  <div data-v-38625d2e="" class="col">
-    <fieldset data-v-38625d2e="" class="form-group" id="__BVID__981">
-      <!---->
-      <div>
-        <div dir="ltr" class="v-select vs--single vs--searchable" id="status">
-          <div id="vs44__combobox" role="combobox" aria-expanded="false" aria-owns="vs44__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-            <div class="vs__selected-options">
-              <input placeholder="Trạng thái" aria-autocomplete="list" aria-labelledby="vs44__combobox" aria-controls="vs44__listbox" type="search" autocomplete="off" class="vs__search">
-            </div>
-            <div class="vs__actions">
-              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-              <div class="vs__spinner" style="display: none;">Loading...</div>
-            </div>
-          </div>
-          <ul id="vs44__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-        </div>
-        <!---->
-        <!---->
-        <!---->
-      </div>
-    </fieldset>
-  </div>
-  <div data-v-38625d2e="" class="col">
-    <div data-v-38625d2e="">
-      <fieldset class="form-group" id="__BVID__987">
-        <!---->
-        <div>
-          <div dir="ltr" class="v-select vs--single vs--searchable" id="taskType">
-            <div id="vs45__combobox" role="combobox" aria-expanded="false" aria-owns="vs45__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-              <div class="vs__selected-options">
-                <input placeholder="Loại công việc" aria-autocomplete="list" aria-labelledby="vs45__combobox" aria-controls="vs45__listbox" type="search" autocomplete="off" class="vs__search">
+              <div data-v-38625d2e="" class="col">
+              <fieldset class="form-group" id="__BVID__428">
+                                <!---->
+                                <div class="table_search">
+                                  <div class="wrapper toannhaOptionselect">
+                                                    <div class="select-btn">
+                                                      <span>Trạng thái</span>
+                                                      <input type="hidden" id="toannhaInputSearch">
+                                                      <i class="fas fa-angle-down"></i>
+                                                    </div>
+                                                    <div class="search-option">
+                                                      <div class="search">
+                                                        <input type="text" placeholder="Search" id="toannhaSearch2">
+                                                      </div>
+                                                      <ul class="options" id="toannhaOptionSearch">                              
+                                                      </ul>
+                                                    </div>
+                                    </div>
+                                </div>
+
+                              </fieldset>
               </div>
-              <div class="vs__actions">
-                <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-                <div class="vs__spinner" style="display: none;">Loading...</div>
+              <div data-v-38625d2e="" class="col">
+                <div data-v-38625d2e="">
+                <fieldset class="form-group" id="__BVID__428">
+                                <!---->
+                                <div class="table_search">
+                                  <div class="wrapper toannhaOptionselect">
+                                                    <div class="select-btn">
+                                                      <span>Loại công việc</span>
+                                                      <input type="hidden" id="toannhaInputSearch">
+                                                      <i class="fas fa-angle-down"></i>
+                                                    </div>
+                                                    <div class="search-option">
+                                                      <div class="search">
+                                                        <input type="text" placeholder="Search" id="toannhaSearch2">
+                                                      </div>
+                                                      <ul class="options" id="toannhaOptionSearch">                              
+                                                      </ul>
+                                                    </div>
+                                    </div>
+                                </div>
+
+                              </fieldset>
+                  <!---->
+                </div>
               </div>
+                <div data-v-38625d2e="" class="col">
+                  <div data-v-38625d2e="">
+                  <fieldset class="form-group" id="__BVID__428">
+                                  <!---->
+                                  <div class="table_search">
+                                    <div class="wrapper toannhaOptionselect">
+                                                      <div class="select-btn">
+                                                        <span>Tòa nhà</span>
+                                                        <input type="hidden" id="toannhaInputSearch">
+                                                        <i class="fas fa-angle-down"></i>
+                                                      </div>
+                                                      <div class="search-option">
+                                                        <div class="search">
+                                                          <input type="text" placeholder="Search" id="toannhaSearch2">
+                                                        </div>
+                                                        <ul class="options" id="toannhaOptionSearch">                              
+                                                        </ul>
+                                                      </div>
+                                      </div>
+                                  </div>
+
+                                          </fieldset>
+                              <!---->
+                        </div>
             </div>
-            <ul id="vs45__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-          </div>
-          <small class="text-danger"></small>
-          <!---->
-          <!---->
-          <!---->
-        </div>
-      </fieldset>
-      <!---->
-    </div>
-  </div>
-  <div data-v-38625d2e="" class="col">
-    <div data-v-38625d2e="">
-      <fieldset class="form-group" id="__BVID__993">
-        <!---->
-        <div>
-          <div dir="ltr" class="v-select vs--single vs--searchable" id="apartment">
-            <div id="vs46__combobox" role="combobox" aria-expanded="false" aria-owns="vs46__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-              <div class="vs__selected-options">
-                <input placeholder="Tòa nhà" aria-autocomplete="list" aria-labelledby="vs46__combobox" aria-controls="vs46__listbox" type="search" autocomplete="off" class="vs__search">
-              </div>
-              <div class="vs__actions">
-                <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-                <div class="vs__spinner" style="display: none;">Loading...</div>
-              </div>
-            </div>
-            <ul id="vs46__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-          </div>
-          <small class="text-danger"></small>
-          <!---->
-          <!---->
-          <!---->
-        </div>
-      </fieldset>
-      <!---->
-    </div>
-  </div>
   <div data-v-38625d2e="" class="col">
     <div data-v-38625d2e="">
-      <fieldset class="form-group" id="__BVID__999">
-        <!---->
-        <div>
-          <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="room">
-            <div id="vs47__combobox" role="combobox" aria-expanded="false" aria-owns="vs47__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-              <div class="vs__selected-options">
-                <input disabled="disabled" placeholder="Phòng" aria-autocomplete="list" aria-labelledby="vs47__combobox" aria-controls="vs47__listbox" type="search" autocomplete="off" class="vs__search">
-              </div>
-              <div class="vs__actions">
-                <button disabled="disabled" type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-                <div class="vs__spinner" style="display: none;">Loading...</div>
-              </div>
-            </div>
-            <ul id="vs47__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-          </div>
-          <small class="text-danger"></small>
-          <!---->
-          <!---->
-          <!---->
-        </div>
-      </fieldset>
+    <fieldset class="form-group" id="__BVID__428">
+                    <!---->
+                    <div class="table_search">
+                      <div class="wrapper toannhaOptionselect">
+                                        <div class="select-btn">
+                                          <span>Phòng</span>
+                                          <input type="hidden" id="toannhaInputSearch">
+                                          <i class="fas fa-angle-down"></i>
+                                        </div>
+                                        <div class="search-option">
+                                          <div class="search">
+                                            <input type="text" placeholder="Search" id="toannhaSearch2">
+                                          </div>
+                                          <ul class="options" id="toannhaOptionSearch">                              
+                                          </ul>
+                                        </div>
+                         </div>
+                    </div>
+
+                  </fieldset>
       <!---->
     </div>
   </div>
 </div>
 <div data-v-38625d2e="" class="row">
-  <div data-v-38625d2e="" class="col">
-    <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1005">
-      <!---->
-      <div>
-        <div dir="ltr" class="v-select vs--single vs--searchable" id="sale">
-          <div id="vs48__combobox" role="combobox" aria-expanded="false" aria-owns="vs48__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-            <div class="vs__selected-options">
-              <input placeholder="Vui lòng chọn" aria-autocomplete="list" aria-labelledby="vs48__combobox" aria-controls="vs48__listbox" type="search" autocomplete="off" class="vs__search">
-            </div>
-            <div class="vs__actions">
-              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-              <div class="vs__spinner" style="display: none;">Loading...</div>
-            </div>
-          </div>
-          <ul id="vs48__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-        </div>
-        <small class="text-danger"></small>
-        <!---->
-        <!---->
-        <!---->
-      </div>
-    </fieldset>
-  </div>
+
   <div data-v-38625d2e="" class="col">
     <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1011">
       <!---->
       <div>
-        <input type="text" data-input="true" id="" placeholder="Ngày bắt đầu" class="form-control flatpickr-input">
+        <input type="text" data-input="true" id="dateInput" placeholder="Ngày bắt đầu" class="form-control flatpickr-input">
         <small class="text-danger"></small>
         <!---->
         <!---->
@@ -611,7 +546,7 @@
     <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1014">
       <!---->
       <div>
-        <input type="text" data-input="true" id="" placeholder="Ngày kết thúc" class="form-control flatpickr-input">
+        <input type="text" data-input="true" id="dateInput" placeholder="Ngày kết thúc" class="form-control flatpickr-input">
         <small class="text-danger"></small>
         <!---->
         <!---->

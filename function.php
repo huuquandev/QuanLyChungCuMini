@@ -44,7 +44,7 @@
     }
     function convertToVietnameseCurrency($amount) {
         $currencySymbol = "₫"; // Ký hiệu tiền tệ Việt Nam
-        $formattedAmount = number_format($amount, 0, ',', '.');
+        $formattedAmount = number_format($amount, 0, ',', ',');
         return $formattedAmount;
     }
 

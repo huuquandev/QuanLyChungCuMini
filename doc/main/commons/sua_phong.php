@@ -15,7 +15,7 @@
     $trang_thai_thue = $_POST['trang_thai_thue'];
     $response = array();
     $result = SuaCanho_Phong($ten_phong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang, $id_phong);
-    if ($result && $result != 2) {
+    if ($result == true) {
         $response['success'] = true;
         $response['id'] = $id_phong;
         $response['ten_phong'] = $ten_phong;
@@ -41,7 +41,7 @@
             $response['trangthaihoatdong'] = 'Không hoạt động';
         }   
           
-        $response['iDtrangthaithue'] = $trang_thai;
+        $response['iDtrangthaithue'] = $trang_thai_thue;
         $response['iDtrangthaihoatdong'] = $trang_thai;
         $response['message'] = 'Cập nhật thành công';
     } else if($result == 2) {

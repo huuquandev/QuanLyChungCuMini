@@ -31,7 +31,7 @@
             <!---->
             <!---->
             <div class="truncate">
-              <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo $count['COUNT(*)'] ?> </h2>
+              <h2 class="mb-25 font-weight-bolder text-secondary" id="soluongtoanha"> <?php echo $count['COUNT(*)'] ?> </h2>
               <span class="text-secondary">Tòa nhà</span>
             </div>
             <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -56,7 +56,7 @@
             <!---->
             <!---->
             <div class="truncate">
-              <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo $countON['COUNT(*)'] ?> </h2>
+              <h2 class="mb-25 font-weight-bolder text-secondary"  id="trangthaihoatdong"> <?php echo $countON['COUNT(*)'] ?> </h2>
               <span class="text-secondary">Hoạt động</span>
             </div>
             <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -81,7 +81,7 @@
             <!---->
             <!---->
             <div class="truncate">
-              <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo $countOFF['COUNT(*)'] ?> </h2>
+              <h2 class="mb-25 font-weight-bolder text-secondary"  id="trangthaikhonghoatdong"> <?php echo $countOFF['COUNT(*)'] ?> </h2>
               <span class="text-secondary">Không hoạt động</span>
             </div>
             <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -267,7 +267,7 @@
                                   <!---->
                                   <div>
                                     <div class="custom-control custom-control-inline custom-switch">
-                                      <input type="checkbox" name="trangthai" class="checkbox-switch" value="" id="trangthai">
+                                      <input type="checkbox" name="trangthai" class="checkbox-switch" value="0" id="trangthai">
                                       <label class="custom-control-label" for="__BVID__1004"> Hoạt động </label>
                                     </div>
                                   </div>
@@ -524,7 +524,7 @@
                                           <!---->
                                           <div>                                  
                                             <div class="custom-control custom-control-inline custom-switch">
-                                            <input type="checkbox" name="newtrangthai" class="checkbox-switch" value="" id="newtrangthai">                     
+                                            <input type="checkbox" name="newtrangthai" class="checkbox-switch" value="0" id="newtrangthai">                     
                                               <label class="custom-control-label" for="newtrangthai"> Hoạt động </label>
                                             </div>
                                             
@@ -579,11 +579,18 @@
             $(this).closest('.form-group').find('.select-btn').removeClass('is-invalid');
         });
 
-        $('body').on('click', '.btn-add', function () {          
-            $('#modal-default').modal('show');      
-            initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", 
-            "Ward1Search", "Province1Input", "District1Input", "Ward1Input", ".ProvinceSelect1", ".DistrictSelect1", 
-            ".WardSelect1", $('#Province1Input').val(), $('#District1Input').val(), $('#Ward1Input').val());    
+        $('body').on('click', '.btn-add', function () {       
+          let form = $('.formadd');
+          form.trigger('reset');
+          $('#Province1Input').val("");
+          $('#District1Input').val("");
+          $('#Ward1Input').val("");
+
+          $('#modal-default').modal('show');      
+          
+          initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", 
+          "Ward1Search", "Province1Input", "District1Input", "Ward1Input", ".ProvinceSelect1", ".DistrictSelect1", 
+          ".WardSelect1", $('#Province1Input').val(), $('#District1Input').val(), $('#Ward1Input').val());    
 
         });
         $('body').on('click', '#btnAdd', function () {  
@@ -618,11 +625,17 @@
                 data: formData,
                 success: function (response) {
                     if (response.success) {  
+                        var toanha = parseInt($("#soluongtoanha").text()); 
+                        var hoatdong = parseInt($("#trangthaihoatdong").text());
+                        var khonghoatdong = parseInt($("#trangthaikhonghoatdong").text()); 
                         var classStatus;
                         var ClassDanger = "bg-danger"
+                        $("#soluongtoanha").text(toanha + 1); 
                         if(response.iDtrangthai == 1){
+                          $("#trangthaihoatdong").text(hoatdong + 1); 
                           classStatus = "bg-success"
                         }else{
+                          $("#trangthaikhonghoatdong").text(khonghoatdong + 1); 
                           classStatus = "bg-danger"
                         }
                         var str = "";
@@ -660,7 +673,8 @@
                         $('#diachichitiet').val('');
                         $('#sotang').val('');
                         $('#trangthai').val(0);
-                        $('#trangthai').prop('checked', false);                     
+                        $('#trangthai').prop('checked', false);             
+                             
                     } else {
                       swal({
                           title: "Lỗi",
@@ -748,13 +762,21 @@
                         row.find('.so_tang').text(response.so_tang);
                         row.find('.diachi_chitiet').text(response.diachi.join(', '));
                         row.find('.trangthai_toanha span').html(response.trangthai);
+                        var hoatdong = parseInt($("#trangthaihoatdong").text());
+                        var khonghoatdong = parseInt($("#trangthaikhonghoatdong").text());
                         if(response.iDtrangthai == 1){
                           row.find('.trangthai_toanha span').removeClass('badge bg-danger')
-                          row.find('.trangthai_toanha span').addClass('badge bg-success')
+                          row.find('.trangthai_toanha span').addClass('badge bg-success')   
 
+                          $("#trangthaihoatdong").text(hoatdong + 1); 
+                          $("#trangthaikhonghoatdong").text(khonghoatdong - 1); 
                         }else if((response.iDtrangthai == 0)){
                           row.find('.trangthai_toanha span').removeClass('badge bg-success')
                           row.find('.trangthai_toanha span').addClass('badge bg-danger')
+
+                          
+                          $("#trangthaihoatdong").text(hoatdong - 1); 
+                          $("#trangthaikhonghoatdong").text(khonghoatdong + 1); 
                         }
                         swal({
                           title: "Thông báo",
@@ -784,6 +806,7 @@
             $('#modal-default2').modal('hide');
         });
         $('body').on('click', '#btn-delete', function () {
+          
             let text = "Bạn có chắc muốn xóa.";
             var $idtoanha = $(this).data("id");
             if (confirm(text) == true) {
@@ -793,8 +816,17 @@
                 dataType: "json",          
                 data: { idtoanha: $idtoanha },
                 success: function (response) {
-                    if (response.success) {              
+                    if (response.success) {       
+                        var toanha = parseInt($("#soluongtoanha").text()); 
+                        var hoatdong = parseInt($("#trangthaihoatdong").text());
+                        var khonghoatdong = parseInt($("#trangthaikhonghoatdong").text());    
+                        $("#soluongtoanha").text(toanha - 1)    
                         var row = $('#row_' + response.id);
+                        if(row.find('.trangthai_toanha span').text() == "Hoạt động"){
+                          $("#trangthaihoatdong").text(hoatdong - 1)    
+                        }else{
+                          $("#trangthaikhonghoatdong").text(khonghoatdong - 1)    
+                        }
                         row.remove();
                         swal({
                           title: "Thông báo",

@@ -35,7 +35,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo $count['COUNT(*)'] ?> </h2>
+          <h2 class="mb-25 font-weight-bolder text-secondary" id="tranthaithue"> <?php echo $count['COUNT(*)'] ?> </h2>
           <span class="text-secondary">Đang thuê</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -62,7 +62,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo $countON['COUNT(*)'] ?> </h2>
+          <h2 class="mb-25 font-weight-bolder text-secondary" id="tranthaicoc"> <?php echo $countON['COUNT(*)'] ?> </h2>
           <span class="text-secondary">Đang cọc</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -89,7 +89,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo $countOFF['COUNT(*)'] ?> </h2>
+          <h2 class="mb-25 font-weight-bolder text-secondary" id="tranthaitrong"> <?php echo $countOFF['COUNT(*)'] ?> </h2>
           <span class="text-secondary">Đang trống</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -340,8 +340,7 @@
                          </div>
                     </div>
 
-                </fieldset>
-                  <!---->
+                  </fieldset>
                 </div>
               </div>
               <div data-v-6ea5fee4="" class="col">
@@ -453,8 +452,6 @@
                   <td class="text-right tiencoc"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?> đ</td>
                   <td class="text-right dientich"><?php echo convertToVietnameseCurrency($row['dientich_canho_phong']); ?> m²</td>
                   <td class="trangthai_thue">
-                    <input type="hidden" value="<?= $row['trangthai_canho_phong'] ?>" id="trangthaithue">
-
                       <?php 
                           if($row['trangthai_canho_phong'] == 1){
                             echo '<span class="badge bg-success" style="font-size: 13px;"><b class="span_pending">Đang thuê</b></span>';
@@ -650,6 +647,8 @@
                                 </fieldset>
                               </div>
                             </div>
+                            <input type="hidden" value="" id="trangthaithue2">
+
                             <div class="row">
                               <div class="mt-2 col-12">
                               <fieldset class="form-group" id="__BVID__1003">
@@ -678,6 +677,16 @@
 </main>
 <script>
   $(document).ready(function () {
+          function formatNumberInput(selector) {
+          $(selector).on('input', function(e) {
+              let value = e.target.value.replace(/[^\d]/g, ""); // Loại bỏ tất cả ký tự không phải số
+              if (!isNaN(value)) {
+                  let formattedValue = new Intl.NumberFormat('vi-VN').format(value);
+                  let finalValue = formattedValue.replace(/\./g, ",");
+                  $(this).val(finalValue);
+              }
+          });
+      }
       function validateInput(input) {
           var smallElement = input.closest('.form-group').find('small.text-danger');
           if (!input.val().trim()) {
@@ -714,10 +723,14 @@
             $(this).closest('.form-group').find('.select-btn').removeClass('is-invalid');
         });
         $('body').on('click', '.btn-add', function () { 
+            let form = $('.formadd')
+            form.trigger('reset');
             $('#modal-default').modal('show');
+            formatNumberInput('#tiencoc1, #tienthue1');
             initializeDropdownsToanha(".toannhaOption","toannhaInput", "toannhaSearch", "toannha", ".tangoption","tangInput", "tangSearch", "tang");
         });
         $('body').on('click', '#btnAdd', function () {  
+        
           let isValid = true;
 
           $('.formadd input[required]').each(function() {
@@ -746,14 +759,14 @@
                       }
           });
             if(isValid){
-              var formData = new FormData();
+            var formData = new FormData();
             let ten_toanha = document.querySelector(".toannhaOption .select-btn span").textContent;
             let ten_tang = document.querySelector(".tangoption .select-btn").textContent;
             formData.append('ten_phong', $('#tenphong1').val());
             formData.append('id_toanha', $('#toannhaInput').val());
             formData.append('id_tang', $('#tangInput').val());
-            formData.append('tien_thue', $('#tienthue1').val());
-            formData.append('tien_coc', $('#tiencoc1').val());
+            formData.append('tien_thue', $('#tienthue1').val().replace(/,/g, ""));
+            formData.append('tien_coc', $('#tiencoc1').val().replace(/,/g, ""));
             formData.append("dien_tich", $('#dientich1').val());   
             formData.append("soluong_nguoio", $('#soluongnguoio1').val());   
             formData.append("trang_thai", $('#trangthai1').val());   
@@ -776,8 +789,8 @@
                           classStatus = "bg-danger"
                         }
                         var str = "";
-                        let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_thue);
-                        let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_coc);
+                        let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_thue).replace(/\./g, ",");
+                        let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_coc).replace(/\./g, ",");
 
 
                         str += `<tr id="row_${response.id}">
@@ -850,6 +863,8 @@
         $('body').on('click', '#btn-edit', function () { 
             var id = $(this).data("id");
             $('#modal-default2').modal('show');
+            formatNumberInput('#tiencoc2, #tienthue2');
+
             $.ajax({
                 url: "doc/main/commons/lay_canhophong.php", 
                 type: "post",
@@ -857,13 +872,17 @@
                 data: { idphong: id },
               }).done(function(phong){
                 var decodedData = JSON.parse(decodeURIComponent(phong));
+                let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(decodedData.tienthue_canho_phong).replace(/\./g, ",").replace("₫", "");
+                let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(decodedData.tiencoc_canho_phong).replace(/\./g, ",").replace("₫", "");
                 $('#idphong').val(id)
                 $('#tenphong2').val(decodedData.ten_canho_phong)
-                $('#tienthue2').val(decodedData.tienthue_canho_phong)
-                $('#tiencoc2').val(decodedData.tiencoc_canho_phong)
+                $('#tienthue2').val(tienthue)
+                $('#tiencoc2').val(tiencoc)
                 $('#dientich2').val(decodedData.dientich_canho_phong)
                 $('#soluongnguoio2').val(decodedData.so_nguoi_o)
                 $('#trangthai2').val(decodedData.tinhtrang_canho_phong)
+                $('#trangthaithue2').val(decodedData.trangthai_canho_phong)
+
                 if (decodedData.tinhtrang_canho_phong	== 1) {
                     $('#trangthai2').prop('checked', true);
                 } else {
@@ -891,24 +910,24 @@
                       }
           });
             if(isValid){
-              var formData = new FormData();
-            let ten_toanha = document.querySelector(".toannhaOption .select-btn span").textContent;
-            let ten_tang = document.querySelector(".tangoption .select-btn").textContent;
+            var formData = new FormData();
+            let ten_toanha = document.querySelector(".toannhaOption2 .select-btn span").textContent;
+            let ten_tang = document.querySelector(".tangoption2 .select-btn").textContent;
             formData.append('id', $('#idphong').val());
             formData.append('ten_phong', $('#tenphong2').val());
             formData.append('id_toanha', $('#toannhaInput2').val());
             formData.append('id_tang', $('#tangInput2').val());
-            formData.append('tien_thue', $('#tienthue2').val());
-            formData.append('tien_coc', $('#tiencoc2').val());
+            formData.append('tien_thue', $('#tienthue2').val().replace(/,/g, ""));
+            formData.append('tien_coc', $('#tiencoc2').val().replace(/,/g, ""));
             formData.append("dien_tich", $('#dientich2').val());   
             formData.append("soluong_nguoio", $('#soluongnguoio2').val());   
             formData.append("trang_thai", $('#trangthai2').val());   
             formData.append("ten_toanha", ten_toanha);   
             formData.append("ten_tang", ten_tang);
-            formData.append("trang_thai_thue", $('#trangthaithue').val());
-            // for (const pair of formData.entries()) {
-            //     console.log(pair[0] + ': ' + pair[1]);
-            // }
+            formData.append("trang_thai_thue", $('#trangthaithue2').val());
+            for (const pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
             $.ajax({
                 url: "doc/main/commons/sua_phong.php",
                 type: "post",
@@ -921,9 +940,9 @@
                       let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_thue);
                       let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_coc);
                         var row = $('#row_' + response.id);
-                        row.find('.ten_can_phong').text(response.ten_phong);
-                        row.find('.ten_can_phong .ten_toanha').text(response.ten_toanha);
-                        row.find('.ten_can_phong .ten_tang').text(response.ten_tang);
+                        row.find('.ten_can_phong').contents().first().replaceWith(response.ten_phong);
+                        row.find('.ten_toanha').text(response.ten_toanha);
+                        row.find('.ten_tang').text(response.ten_tang);
                         row.find('.tienthue').text(tienthue);
                         row.find('.tiencoc').text(tiencoc);
                         row.find('.dientich').text(response.dien_tich + " m²");

@@ -12,7 +12,7 @@
 
     $response = array();
     $result = SuaToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhthanh, $quanhuyen, $phuongxa, $id);
-    if ($result && $result != 2) {
+    if ($result == true) {
         $response['success'] = true;
         $response['id'] = $id;
         $response['ten_toanha'] = $tentoanha;

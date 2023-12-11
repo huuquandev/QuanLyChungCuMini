@@ -130,7 +130,7 @@ function initializeDropdowns(citisId, districtId, wardId, citisSearch, districtS
     selectBtnSearch1 = scitis.querySelector(".select-btn");
     selectBtnSearch2 = sdistrict.querySelector(".select-btn");
     selectBtnSearch3 = sward.querySelector(".select-btn");
-
+      
     // Tạo đối tượng Parameter chứa thông tin yêu cầu HTTP GET
     var Parameter = {
         url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",

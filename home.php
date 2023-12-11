@@ -25,6 +25,7 @@
   <!-- Main CSS-->
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" type="text/css" href="css/chunk-fdbc685e.f4f760a7.css">
+  <link rel="stylesheet" type="text/css" href="css/chunk.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
@@ -39,6 +40,8 @@
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 </head>
 
 <body onload="time()" class="app sidebar-mini rtl">  
@@ -59,6 +62,8 @@
       }
     }
 ?>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" ></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
@@ -79,6 +84,7 @@
   
   <!-- Data table plugin-->
   <script type="text/javascript">
+    flatpickr("#dateInput", {});
 
     var data = {
       labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
