@@ -204,229 +204,205 @@
                     class="fas fa-trash-alt"></i> Xóa tất cả </a>
               </div>
               <div class="modal fade bd-example-modal-lg" id="modal-default">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Căn hộ/phòng</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="txtOrderId" value="0" />
-                        <form class="">
-                            <div class="row">
-                              <div class="col-md-4">
-                                <span>
-                                  <div>
-                                    <fieldset class="form-group" id="__BVID__605">
-                                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tòa nhà <span class="text-danger"> (*) </span>
-                                      </legend>
-                                      <div>
-                                        <div dir="ltr" class="v-select vs--single vs--searchable" id="apartment">
-                                          <div id="vs17__combobox" role="combobox" aria-expanded="false" aria-owns="vs17__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                            <div class="vs__selected-options">
-                                             
-                                              <select aria-autocomplete="list" aria-labelledby="vs17__combobox" aria-controls="vs17__listbox" type="search" autocomplete="off" class="vs__search" id="building_id">
-                                              <option value="" hidden="">Chọn tòa nhà</option>     
-                                              <?php
-                                                $sql = "SELECT * FROM tb_toanha";
-                                                $query = mysqli_query($conn, $sql);
-                                                if(mysqli_num_rows($query) > 0){
-                                                  while ($row = mysqli_fetch_array($query)) {
-                                               ?>
-                                                  <option value="<?php echo $row['id_toanha'] ?>"><?php echo $row['ten_toanha'] ?></option>     
-                                                  <?php
-                                                  }
-                                                }
-                                               ?>
-                                              </select>
-                                              
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Bảo trì/Sửa chữa</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="txtOrderId" value="0" />
+                                <form class="formaddbaotrisuachua">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div>
+                                          <fieldset class="form-group" id="__BVID__747">
+                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__747__BV_label_"> Tòa nhà
+                                              <!---->
+                                            </legend>
+                                            <div class="wrapper toannhaOption1">
+                                                <div class="select-btn">
+                                                <span>Chọn tòa nhà</span>
+                                                <input type="hidden" id="toannhaInput1">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="toannhaSearch1">
+                                                </div>
+                                                <ul class="options" id="toannha1">                              
+                                                </ul>
+                                                </div>
                                             </div>
-                                            <div class="vs__actions">
-                                              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
-                                              </button>
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                              </svg>
-                                              <div class="vs__spinner" style="display: none;">Loading...</div>
-                                            </div>
-                                          </div>
-                                          <ul id="vs17__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                                          </fieldset>
+                                          <!---->
                                         </div>
-                                        <small class="text-danger"></small>
-                                        <!---->
-                                        <!---->
-                                        <!---->
                                       </div>
-                                    </fieldset>
-                                    <!---->
-                                  </div>
-                                </span>
-                              </div>
-                              <div class="col-md-4">
-                                <span>
-                                  <div>
-                                    <fieldset class="form-group" id="__BVID__614">
-                                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__614__BV_label_"> Tầng <span class="text-danger"> (*) </span>
-                                      </legend>
-                                      <div>
-                                        <div dir="ltr" class="v-select vs--single vs--searchable" id="floor">
-                                          <div id="vs18__combobox" role="combobox" aria-expanded="false" aria-owns="vs18__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                            <div class="vs__selected-options">
-                                              <?php
+                                      <div class="col-md-6">
+                                        <div>
+                                          <fieldset class="form-group" id="__BVID__753">
+                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__753__BV_label_"> Phòng
+                                              <!---->
+                                            </legend>
+                                            <div class="wrapper phongOption1">
+                                                <div class="select-btn">
+                                                <span>Chọn phòng</span>
+                                                <input type="hidden" id="phongInput1">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="phongSearch1">
+                                                </div>
+                                                <ul class="options" id="phong1">                              
+                                                </ul>
+                                                </div>
+                                            </div>
+                                          </fieldset>
+                                          <!---->
+                                        </div>
+                                      </div>
+                                      <!---->
+                                    </div>
+                                    <span>
+                                      <fieldset class="form-group" id="__BVID__759">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__759__BV_label_">Tiêu đề</legend>
+                                        <div>
+                                          <input id="task-title" type="text" placeholder="Sửa sự cố internet" class="form-control">
+                                          <div class="invalid-feedback"></div>
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                        </div>
+                                      </fieldset>
+                                    </span>
+                                    <span>
+                                      <fieldset class="form-group" id="__BVID__762">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__762__BV_label_">Mô tả</legend>
+                                        <div>
+                                          <textarea rows="3" wrap="soft" class="form-control" id="__BVID__763"></textarea>
+                                          <div class="invalid-feedback"></div>
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                        </div>
+                                      </fieldset>
+                                    </span>
+                                    <div class="row">
+                                      <div class="col-4">
+                                        <div>
+                                          <fieldset class="form-group" id="__BVID__765">
+                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__765__BV_label_"> Loại công việc
+                                              <!---->
+                                            </legend>
+                                            <div class="wrapper phongOption1">
+                                                <div class="select-btn">
+                                                <span>Loại công việc</span>
+                                                <input type="hidden" id="phongInput1">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="phongSearch1">
+                                                </div>
+                                                <ul class="options" id="phong1">                              
+                                                </ul>
+                                                </div>
+                                            </div>
+                                          </fieldset>
+                                          <!---->
+                                        </div>
+                                      </div>
+                                      <div class="col-4">
+                                        <fieldset class="form-group" value="[object Object]" id="__BVID__773">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__773__BV_label_"> Mức độ ưu tiên
+                                            <!---->
+                                          </legend>
+                                          <div class="wrapper phongOption1">
+                                                <div class="select-btn">
+                                                <span>Mức độ ưu tiên</span>
+                                                <input type="hidden" id="phongInput1">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="phongSearch1">
+                                                </div>
+                                                <ul class="options" id="phong1">                              
+                                                </ul>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                      </div>
+                                      <div class="col-4">
+                                        <fieldset class="form-group" value="15-12-2023 14:07" id="__BVID__779">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__779__BV_label_"> Hạn hoàn thành
+                                            <!---->
+                                          </legend>
+                                          <div>
+                                            <input type="text" data-input="true" id="date1" class="form-control flatpickr-input" readonly="readonly" placeholder="2023-11-12">
+                                            <small class="text-danger"></small>
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                          </div>
+                                        </fieldset>
+                                      </div>
+                                      <div class="col"></div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <fieldset class="form-group" value="" id="__BVID__782">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__782__BV_label_"> Người thực hiện
+                                            <!---->
+                                          </legend>
+                                          <div class="wrapper phongOption1">
+                                                <div class="select-btn">
+                                                <span>Chọn người thực hiện</span>
+                                                <input type="hidden" id="phongInput1">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="phongSearch1">
+                                                </div>
+                                                <ul class="options" id="phong1">                              
+                                                </ul>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                      </div>
+                                    </div>
+                                    <div class="row"></div>
 
-                                               ?>  
-                                              <select aria-autocomplete="list" aria-labelledby="vs18__combobox" aria-controls="vs18__listbox" type="search" autocomplete="off" class="vs__search" id="room_id" disabled>
-                                                <option value="" hidden="">Chọn tầng</option>     
-
-                                              </select>
+                                    <div class="d-flex justify-space-between font-small-4 font-weight-bolder text-uppercase text-primary pb-1"> Đính kèm </div>
+                                    <div data-v-0f357511="">
+                                      <!---->
+                                      <div data-v-0f357511="" class="row match-height mt-1">
+                                        <div data-v-0f357511="" class="col-md-2 col-4">
+                                            <div data-v-0f357511="" class="image-container" style="width: 100%; height: 100%;">
+                                              <label data-v-0f357511="" for="file-input" style="width: 100%; height: 100%;">
+                                                  <div data-v-0f357511="" class="empty-img thumbnail">
+                                                    <svg data-v-0f357511="" xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" for="file-input" variant="primary" class="feather feather-plus">
+                                                        <line data-v-0f357511="" x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line data-v-0f357511="" x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg>
+                                                  </div>
+                                              </label>
+                                              <input data-v-0f357511="" id="file-input" type="file" name="file-input" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/pdf,image/png,image/jpeg,audio/mpeg,video/mp4,video/mpeg" multiple="multiple" class="d-none">
                                             </div>
-                                            <div class="vs__actions">
-                                              <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
-                                              </button>
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                              </svg>
-                                              <div class="vs__spinner" style="display: none;">Loading...</div>
-                                            </div>
-                                          </div>
-                                          <ul id="vs18__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
                                         </div>
-                                        <small class="text-danger"></small>
-                                        <!---->
-                                        <!---->
-                                        <!---->
-                                      </div>
-                                    </fieldset>
-                                    <!---->
-                                  </div>
-                                </span>
-                              </div>
-                              <div class="col-md-4">
-                                <span>
-                                  <fieldset class="form-group" id="__BVID__622">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__622__BV_label_"> Tên phòng <span class="text-danger"> (*) </span>
-                                    </legend>
-                                    <div>
-                                      <div role="group" class="input-group">
-                                        <!---->
-                                        <div class="input-group-prepend">
-                                          <div class="input-group-text">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                              <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
-                                          </div>
+                                        <div class="containerImages match-height mt-1">
                                         </div>
-                                        <input id="name" type="text" placeholder="P.101" class="form-control" name="tenphong">
-                                        <!---->
                                       </div>
-                                      <small class="text-danger"></small>
-                                      <!---->
-                                      <!---->
-                                      <!---->
                                     </div>
-                                  </fieldset>
-                                </span>
-                              </div>
+                                </form>
                             </div>
-                            <div class="row">
-                              <div class="col-md-4">
-                                <span>
-                                  <fieldset class="form-group is-valid" value="0" id="__BVID__626">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__626__BV_label_"> Tiền thuê <span class="text-danger"> (*) </span>
-                                    </legend>
-                                    <div>
-                                      <input type="text" value="0" id="" placeholder="5,000,000" class="form-control" name="tienthue">
-                                      <small class="text-danger"></small>
-                                      <!---->
-                                      <!---->
-                                      <!---->
-                                    </div>
-                                  </fieldset>
-                                </span>
-                              </div>
-                              <div class="col-md-4">
-                                <span>
-                                  <fieldset class="form-group is-valid" value="0" id="__BVID__630">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__630__BV_label_"> Tiền cọc <span class="text-danger"> (*) </span>
-                                    </legend>
-                                    <div>
-                                      <input type="text" value="0" id="" placeholder="5,000,000" class="form-control" name="tiencoc">
-                                      <small class="text-danger"></small>
-                                      <!---->
-                                      <!---->
-                                      <!---->
-                                    </div>
-                                  </fieldset>
-                                </span>
-                              </div>
-                              <div class="col-md-4">
-                                <span>
-                                  <fieldset class="form-group is-valid" value="0" id="__BVID__634">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__634__BV_label_"> Diện tích
-                                      <!---->
-                                    </legend>
-                                    <div>
-                                      <input type="text" value="0" id="" placeholder="30" class="form-control" name="dientich">
-                                      <small class="text-danger"></small>
-                                      <!---->
-                                      <!---->
-                                      <!---->
-                                    </div>
-                                  </fieldset>
-                                </span>
-                              </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Hủy</button>
+                                <button type="button" class="btn btn-primary" id="btnSave">Lưu</button>
                             </div>
-                            <div class="row">
-                              <div class="col">
-                                <fieldset class="form-group" value="0" id="__BVID__637">
-                                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__637__BV_label_"> Số khách tối đa <span class="text-danger"> (*) </span>
-                                  </legend>
-                                  <div>
-                                    <input type="text" value="0" id="" placeholder="30" class="form-control" name="soluongkhacho">
-                                    <small class="text-danger"></small>
-                                    <!---->
-                                    <!---->
-                                    <!---->
-                                  </div>
-                                </fieldset>
-                              </div>
-                            </div>
-                            <div class="row">
-                            <div class="mt-2 col-12">
-                              <fieldset class="form-group" id="__BVID__1003">
-                                <!---->
-                                <div>
-                                  <div class="custom-control custom-control-inline custom-switch">
-                                    <input type="checkbox" name="check-button" class="checkbox-switch" value="true" id="__BVID__1004">
-                                    <label class="custom-control-label" for="__BVID__1004"> Hoạt động </label>
-                                  </div>
-                                </div>
-                              </fieldset>
-                            </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <div>
-                                  <!---->
-                                </div>
-                              </div>
-                            </div>
-                          </form>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-primary" id="btnSave">Lưu</button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <div data-v-38625d2e="" class="row">
@@ -534,7 +510,7 @@
     <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1011">
       <!---->
       <div>
-        <input type="text" data-input="true" id="dateInput" placeholder="Ngày bắt đầu" class="form-control flatpickr-input">
+        <input type="text" data-input="true" id="startDate" placeholder="Ngày bắt đầu" class="form-control flatpickr-input">
         <small class="text-danger"></small>
         <!---->
         <!---->
@@ -546,7 +522,7 @@
     <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1014">
       <!---->
       <div>
-        <input type="text" data-input="true" id="dateInput" placeholder="Ngày kết thúc" class="form-control flatpickr-input">
+        <input type="text" data-input="true" id="overdate" placeholder="Ngày kết thúc" class="form-control flatpickr-input">
         <small class="text-danger"></small>
         <!---->
         <!---->
@@ -634,22 +610,54 @@
     </div>
 </main>
 <script>
-  $(document).ready(function () {
-        $('body').on('click', '.btn-add', function () { 
-            $('#modal-default').modal('show');
-            // initializeDropdowns("building_id","room_id");
-        });
-        $('body').on('click', '#btnClose', function () {
-            $('#modal-default').modal('hide');
-        });
-    });
-    function initializeDropdowns(buildingId, roomId) {
-        // Lấy tham chiếu đến các phần tử select từ id
-        var building = document.getElementById(buildingId);
-        var room = document.getElementById(roomId);
-        console.log(building);
-        building.onchange = function () {
-          room.disabled = false;          
-        };
-    }
+            let files = []; 
+            let container = document.querySelector('.containerImages');
+            let input = document.getElementById('file-input');
+            input.addEventListener("change", () => {
+              let file = input.files;
+              for (let i = 0; i < file.length; i++) {
+                files.push(file[i]);
+              }
+              showImages(files);
+              input.value = ''; 
+
+            })
+            const showImages = (array) =>{
+              let images = '';
+              array.forEach((e, i) => {
+                images += `<div data-v-0f357511="" class="col-md-2 col-4">
+                                  <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
+                                        <div data-v-1f5e929c="" class="position-relative image-container mb-2">
+                                          <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
+                                    <img data-v-1f5e929c="" src="${URL.createObjectURL(e)}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">        
+                                    <div data-v-1f5e929c="" class="control-btns" onclick="delImage(${i})">
+                                      <button data-v-1f5e929c="" type="button">
+                                        <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                          <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
+                                          <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                      </button>
+                                    </div>
+                                    <!---->
+                                  </div>
+                                </div>
+                                </div>
+                              </div>`
+                
+              });
+              container.innerHTML = images;
+            }
+            const delImage = (index) =>{
+              files.splice(index, 1);
+              console.log(files);
+              showImages(files);
+            }
+
+     $('body').on('click', '.btn-add', function () {       
+          let form = $('#formaddbaotrisuachua')
+          form.trigger('reset');
+          files = []; 
+          showImages(files);
+          $('#modal-default').modal('show');
+      });
 </script>

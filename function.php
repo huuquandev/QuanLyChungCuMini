@@ -214,7 +214,20 @@
     
         return $floors;
     }
+    function layphongbytoanha($id_toanha) {
+        GLOBAL $conn;
     
+        $sql = "SELECT * FROM tb_canho_phong WHERE tb_canho_phong.id_toanha = $id_toanha";
+    
+        $query = mysqli_query($conn, $sql);
+        $floors = array();
+    
+        while ($row = mysqli_fetch_array($query)) {
+            $floors[] = $row;
+        }
+    
+        return $floors;
+    }
     function laytoanha($id_toanha){
         GLOBAL $conn;
     
@@ -241,6 +254,22 @@
         }
     
         return $toanha;
+        
+    }
+    function lay_all_kho(){
+        GLOBAL $conn;
+    
+        $sql = "SELECT * FROM tb_kho";
+
+        $query = mysqli_query($conn, $sql);
+
+        $kho = array();
+    
+        while ($row = mysqli_fetch_array($query)) {
+            $kho[] = $row;
+        }
+    
+        return $kho;
         
     }
     function lay_soluong_tang(){
@@ -299,7 +328,7 @@
 		    // Kiểm tra xem kết nối đã được thiết lập chưa
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -322,7 +351,7 @@
 				    // Kiểm tra xem kết nối đã được thiết lập chưa
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -400,7 +429,7 @@
 		GLOBAL $conn;    
 				if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -554,7 +583,7 @@
 		GLOBAL $conn;
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -581,7 +610,7 @@
 				GLOBAL $conn;
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -617,7 +646,7 @@
 		GLOBAL $conn;
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {
@@ -643,7 +672,7 @@
 		GLOBAL $conn;
 		if ($conn === null) {
 			// Thực hiện kết nối đến cơ sở dữ liệu
-			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini2");
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
 			
 			// Kiểm tra kết nối
 			if (!$conn) {

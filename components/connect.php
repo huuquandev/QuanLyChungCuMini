@@ -1,7 +1,7 @@
 <?php
 
 $db_host = 'localhost';
-$db_name = 'quanlychungcumini2';
+$db_name = 'quanlychungcumini';
 $db_user = 'root';
 $db_password = '';
 

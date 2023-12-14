@@ -677,15 +677,15 @@
 </main>
 <script>
   $(document).ready(function () {
-          function formatNumberInput(selector) {
-          $(selector).on('input', function(e) {
-              let value = e.target.value.replace(/[^\d]/g, ""); // Loại bỏ tất cả ký tự không phải số
-              if (!isNaN(value)) {
-                  let formattedValue = new Intl.NumberFormat('vi-VN').format(value);
-                  let finalValue = formattedValue.replace(/\./g, ",");
-                  $(this).val(finalValue);
-              }
-          });
+      function formatNumberInput(selector) {
+            $(selector).on('input', function(e) {
+                let value = e.target.value.replace(/[^\d]/g, ""); // Loại bỏ tất cả ký tự không phải số
+                if (!isNaN(value)) {
+                    let formattedValue = new Intl.NumberFormat('vi-VN').format(value);
+                    let finalValue = formattedValue.replace(/\./g, ",");
+                    $(this).val(finalValue);
+                }
+            });
       }
       function validateInput(input) {
           var smallElement = input.closest('.form-group').find('small.text-danger');
