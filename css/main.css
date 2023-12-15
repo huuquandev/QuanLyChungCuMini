@@ -15852,6 +15852,32 @@ text-align:center;
   border: 1px solid #b3b3b3;
   background: #fff;
 }
+.wrapper .select-btn .vs__selected{
+  color: #fff;
+  font-size: .9rem;
+  border-radius: 3px;
+  padding: 0 0.6em;
+  background-color: #248f55;
+  border: 0 solid rgba(60,60,60,.26);
+  margin: 4px 2px 0 2px;
+  display: flex;
+  align-items: center;
+  line-height: 1.8;
+  z-index: 0;
+}
+.wrapper .select-btn .vs__selected .vs__deselect{
+  cursor: pointer;
+  color: inherit;
+  margin-left: 4px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: none;
+  text-shadow: 0 1px 0 #fff;
+  display: inline-flex;
+  appearance: none;
+  fill: rgba(60,60,60,.5);
+}
 .wrapper.active .select-btn i{
   transform: rotate(180deg);
 }
@@ -15902,6 +15928,12 @@ text-align:center;
 }
 .statustoanha.active .search-option {
   width: 470px;
+  display: block;
+  z-index: 10;
+  position: absolute;
+}
+.nguoithuchienOption1.active .search-option {
+  width: 765px;
   display: block;
   z-index: 10;
   position: absolute;

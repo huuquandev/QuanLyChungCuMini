@@ -267,7 +267,7 @@
                                       <fieldset class="form-group" id="__BVID__759">
                                         <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__759__BV_label_">Tiêu đề</legend>
                                         <div>
-                                          <input id="task-title" type="text" placeholder="Sửa sự cố internet" class="form-control">
+                                          <input id="tieude1" type="text" placeholder="Sửa sự cố internet" class="form-control">
                                           <div class="invalid-feedback"></div>
                                           <!---->
                                           <!---->
@@ -279,7 +279,7 @@
                                       <fieldset class="form-group" id="__BVID__762">
                                         <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__762__BV_label_">Mô tả</legend>
                                         <div>
-                                          <textarea rows="3" wrap="soft" class="form-control" id="__BVID__763"></textarea>
+                                          <textarea rows="3" wrap="soft" class="form-control" id="mota1"></textarea>
                                           <div class="invalid-feedback"></div>
                                           <!---->
                                           <!---->
@@ -294,19 +294,12 @@
                                             <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__765__BV_label_"> Loại công việc
                                               <!---->
                                             </legend>
-                                            <div class="wrapper phongOption1">
-                                                <div class="select-btn">
-                                                <span>Loại công việc</span>
-                                                <input type="hidden" id="phongInput1">
-                                                <i class="fas fa-angle-down"></i>
-                                                </div>
-                                                <div class="search-option">
-                                                <div class="search">
-                                                    <input type="text" placeholder="Search" id="phongSearch1">
-                                                </div>
-                                                <ul class="options" id="phong1">                              
-                                                </ul>
-                                                </div>
+                                            <div>
+                                                <input id="loaicongviec" type="text" placeholder="Sửa chữa" class="form-control">
+                                                <div class="invalid-feedback"></div>
+                                                <!---->
+                                                <!---->
+                                                <!---->
                                             </div>
                                           </fieldset>
                                           <!---->
@@ -317,17 +310,17 @@
                                           <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__773__BV_label_"> Mức độ ưu tiên
                                             <!---->
                                           </legend>
-                                          <div class="wrapper phongOption1">
+                                          <div class="wrapper levelOption1">
                                                 <div class="select-btn">
                                                 <span>Mức độ ưu tiên</span>
-                                                <input type="hidden" id="phongInput1">
+                                                <input type="hidden" id="levelInput1">
                                                 <i class="fas fa-angle-down"></i>
                                                 </div>
                                                 <div class="search-option">
                                                 <div class="search">
-                                                    <input type="text" placeholder="Search" id="phongSearch1">
+                                                    <input type="text" placeholder="Search" id="levelSearch1">
                                                 </div>
-                                                <ul class="options" id="phong1">                              
+                                                <ul class="options" id="level1">                              
                                                 </ul>
                                                 </div>
                                             </div>
@@ -355,19 +348,19 @@
                                           <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__782__BV_label_"> Người thực hiện
                                             <!---->
                                           </legend>
-                                          <div class="wrapper phongOption1">
-                                                <div class="select-btn">
-                                                <span>Chọn người thực hiện</span>
-                                                <input type="hidden" id="phongInput1">
-                                                <i class="fas fa-angle-down"></i>
-                                                </div>
-                                                <div class="search-option">
-                                                <div class="search">
-                                                    <input type="text" placeholder="Search" id="phongSearch1">
-                                                </div>
-                                                <ul class="options" id="phong1">                              
-                                                </ul>
-                                                </div>
+                                            <div class="wrapper nguoithuchienOption1">
+                                                  <div class="select-btn">
+                                                    <span>Chọn người thực hiện</span>   
+                                                    <input type="hidden" id="nguoithuchienInput1">
+                                                    <i class="fas fa-angle-down"></i>
+                                                  </div>
+                                                  <div class="search-option">
+                                                  <div class="search">
+                                                      <input type="text" placeholder="Search" id="nguoithuchienSearch1">
+                                                  </div>
+                                                  <ul class="options" id="nguoithuchien1">    
+                                                  </ul>
+                                              </div>
                                             </div>
                                         </fieldset>
                                       </div>
@@ -478,62 +471,62 @@
                               <!---->
                         </div>
             </div>
-  <div data-v-38625d2e="" class="col">
-    <div data-v-38625d2e="">
-    <fieldset class="form-group" id="__BVID__428">
-                    <!---->
-                    <div class="table_search">
-                      <div class="wrapper toannhaOptionselect">
-                                        <div class="select-btn">
-                                          <span>Phòng</span>
-                                          <input type="hidden" id="toannhaInputSearch">
-                                          <i class="fas fa-angle-down"></i>
-                                        </div>
-                                        <div class="search-option">
-                                          <div class="search">
-                                            <input type="text" placeholder="Search" id="toannhaSearch2">
-                                          </div>
-                                          <ul class="options" id="toannhaOptionSearch">                              
-                                          </ul>
-                                        </div>
-                         </div>
-                    </div>
+            <div data-v-38625d2e="" class="col">
+              <div data-v-38625d2e="">
+              <fieldset class="form-group" id="__BVID__428">
+                              <!---->
+                              <div class="table_search">
+                                <div class="wrapper toannhaOptionselect">
+                                                  <div class="select-btn">
+                                                    <span>Phòng</span>
+                                                    <input type="hidden" id="toannhaInputSearch">
+                                                    <i class="fas fa-angle-down"></i>
+                                                  </div>
+                                                  <div class="search-option">
+                                                    <div class="search">
+                                                      <input type="text" placeholder="Search" id="toannhaSearch2">
+                                                    </div>
+                                                    <ul class="options" id="toannhaOptionSearch">                              
+                                                    </ul>
+                                                  </div>
+                                  </div>
+                              </div>
 
-                  </fieldset>
-      <!---->
-    </div>
-  </div>
-</div>
-<div data-v-38625d2e="" class="row">
+                            </fieldset>
+                <!---->
+              </div>
+            </div>
+          </div>
+          <div data-v-38625d2e="" class="row">
 
-  <div data-v-38625d2e="" class="col">
-    <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1011">
-      <!---->
-      <div>
-        <input type="text" data-input="true" id="startDate" placeholder="Ngày bắt đầu" class="form-control flatpickr-input">
-        <small class="text-danger"></small>
-        <!---->
-        <!---->
-        <!---->
-      </div>
-    </fieldset>
-  </div>
-  <div data-v-38625d2e="" class="col">
-    <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1014">
-      <!---->
-      <div>
-        <input type="text" data-input="true" id="overdate" placeholder="Ngày kết thúc" class="form-control flatpickr-input">
-        <small class="text-danger"></small>
-        <!---->
-        <!---->
-        <!---->
-      </div>
-    </fieldset>
-  </div>
-  <div data-v-38625d2e="" class="col">
-    <input data-v-38625d2e="" type="text" placeholder="Tìm kiếm" class="form-control" id="__BVID__1016">
-  </div>
-</div>
+            <div data-v-38625d2e="" class="col">
+              <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1011">
+                <!---->
+                <div>
+                  <input type="text" data-input="true" id="startDate" placeholder="Ngày bắt đầu" class="form-control flatpickr-input">
+                  <small class="text-danger"></small>
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </fieldset>
+            </div>
+            <div data-v-38625d2e="" class="col">
+              <fieldset data-v-38625d2e="" class="form-group" id="__BVID__1014">
+                <!---->
+                <div>
+                  <input type="text" data-input="true" id="overdate" placeholder="Ngày kết thúc" class="form-control flatpickr-input">
+                  <small class="text-danger"></small>
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </fieldset>
+            </div>
+            <div data-v-38625d2e="" class="col">
+              <input data-v-38625d2e="" type="text" placeholder="Tìm kiếm" class="form-control" id="__BVID__1016">
+            </div>
+          </div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
               id="sampleTable">
               <thead>
@@ -658,6 +651,11 @@
           form.trigger('reset');
           files = []; 
           showImages(files);
+          $('#modal-default').modal('show');
+          initializeDropdownsToanha_Phong_baotri_suachua(".toannhaOption1","toannhaInput1", "toannhaSearch1", "toannha1",
+                                                        ".phongoption1","phongInput1","phongSearch1", "phong1", 
+                                                        ".nguoithuchienoption1","nguoithuchienInput1","nguoithuchienSearch1", "nguoithuchien1", 
+                                                        ".leveloption1","levelInput1","levelSearch1", "level1");
           $('#modal-default').modal('show');
       });
 </script>

@@ -311,8 +311,7 @@ function updateforcanho(selectedLi, input, arrayName, citisId, inputValue, Selec
     let selectInput = document.getElementById(inputValue);
     selectInputSearch.value = "";
     let name = arrayName;
-    let dataArray = JSON.parse(name);
-
+    let dataArray = JSON.parse(name);   
     SelectW.classList.remove('active');
     selectBtnSearch.firstElementChild.innerText = selectedLi.innerText;
     selectInput.value = selectedLi.innerText;
@@ -332,7 +331,7 @@ function updateforcanho(selectedLi, input, arrayName, citisId, inputValue, Selec
     var event = new Event('change');
     selectInput.dispatchEvent(event);  
 }
-function initializeDropdownsToanha(btnSelectbuilding, inputbuilding, searchbuilding, idbuilding, 
+function initializeDropdownsToanha_Tang(btnSelectbuilding, inputbuilding, searchbuilding, idbuilding, 
                     btnSelectfloor, inputfloor, searchfloor, idfloor, buildingValue, floorValue) {
     const optionSelectbuilding = document.querySelector(btnSelectbuilding);
     const optionSelectfloor = document.querySelector(btnSelectfloor);
@@ -439,7 +438,7 @@ function initializeDropdownsToanha(btnSelectbuilding, inputbuilding, searchbuild
         }
     });
 }
-function initializeDropdownsTaiSan(btnSelectbuilding, inputbuilding, searchbuilding, idbuilding, 
+function initializeDropdownsToanha_Phong_Taisan(btnSelectbuilding, inputbuilding, searchbuilding, idbuilding, 
     btnSelectfloor, inputfloor, searchfloor, idfloor, btnSelectDepot, inputDepot, searchDepot, idDepot, buildingValue, floorValue, DepotValue) {
     const optionSelectbuilding = document.querySelector(btnSelectbuilding);
     const optionSelectfloor = document.querySelector(btnSelectfloor);
@@ -577,6 +576,251 @@ function initializeDropdownsTaiSan(btnSelectbuilding, inputbuilding, searchbuild
             optionSelectfloor.classList.remove('active');
         }if (!isClickkho) {
             optionSelectDepot.classList.remove('active');
+        }
+    });
+}
+function addforUser(arrayName, citisId, searchId, inputValue, Select, selectedValue, arraySelected) {
+    let citis = document.getElementById(citisId);
+    let selectInput = document.getElementById(inputValue);
+    const SelectW = document.querySelector(Select);
+    selectBtnSearch = SelectW.querySelector('.select-btn');
+    citis.innerHTML = "";
+    let name = arrayName;
+    let jsonString = JSON.stringify(name);
+    let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+    let selectedUser = arraySelected;
+    let jsonStringUser = JSON.stringify(selectedUser);
+    let escapedJsonStringUser = jsonStringUser.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+    name.forEach(data => {
+        if (data.ten == selectedValue) {
+            selectBtnSearch.firstElementChild.innerText = data.ten;
+            selectInput.value = data.id;
+        }
+        var isSelected = data.ten == selectedValue ? "selected" : "";
+
+        let li = `<li onclick="updateforUser(this, '${searchId}', '${escapedJsonString}', '${citisId}', '${inputValue}', '${Select}', '${escapedJsonStringUser}')" class="${isSelected}">${data.ten}</li>`;
+        citis.insertAdjacentHTML("beforeend", li);
+    });
+}
+
+function updateforUser(selectedLi, input, arrayName, citisId, inputValue, Select, arraySelected) {
+    const SelectW = document.querySelector(Select);
+    selectBtnSearch = SelectW.querySelector('.select-btn');
+    let selectInputSearch = document.getElementById(input);
+    let selectInput = document.getElementById(inputValue);
+    selectInputSearch.value = "";
+    let name = arrayName;
+    let dataArray = JSON.parse(name);   
+    SelectW.classList.remove('active');
+    let SelectedUser = arraySelected;
+    let dataArrayUser = JSON.parse(SelectedUser);   
+    dataArrayUser.push(selectedLi.innerText);
+    selectInput.value = selectedLi.innerText;
+    selectBtnSearch.classList.add('active');
+    selectBtnSearch.classList.remove('is-invalid');
+    var closestFormGroup = selectBtnSearch.closest('.form-group'); 
+
+    if (closestFormGroup) {
+        var textDangerElement = closestFormGroup.querySelector('small.text-danger'); 
+
+        if (textDangerElement) {
+            textDangerElement.textContent = ''; 
+            textDangerElement.style.display = 'none'; 
+        }
+    }
+    addforUser(dataArray, citisId, input, inputValue, Select, selectedLi.innerText, dataArrayUser);
+    var event = new Event('change');
+    selectInput.dispatchEvent(event);  
+
+    // Tạo các phần tử span và button
+    let span = document.createElement('span');
+    span.classList.add('vs__selected');
+    span.innerText = selectedLi.innerText;
+
+    let button = document.createElement('button');
+    button.setAttribute('type', 'button');
+    button.setAttribute('title', `Bỏ chọn ${selectedLi.innerText}`);
+    button.setAttribute('aria-label', `Bỏ chọn ${selectedLi.innerText}`);
+    button.classList.add('vs__deselect');
+
+    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svg.setAttribute('width', '14px');
+    svg.setAttribute('height', '14px');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.classList.add('feather', 'feather-x');
+
+    let line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line1.setAttribute('x1', '18');
+    line1.setAttribute('y1', '6');
+    line1.setAttribute('x2', '6');
+    line1.setAttribute('y2', '18');
+
+    let line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line2.setAttribute('x1', '6');
+    line2.setAttribute('y1', '6');
+    line2.setAttribute('x2', '18');
+    line2.setAttribute('y2', '18');
+
+    svg.appendChild(line1);
+    svg.appendChild(line2);
+    button.appendChild(svg);
+
+    span.appendChild(button);
+
+    selectBtnSearch.appendChild(span);
+}
+
+function initializeDropdownsToanha_Phong_baotri_suachua(btnSelectbuilding, inputbuilding, searchbuilding, idbuilding, 
+    btnSelectfloor, inputfloor, searchfloor, idfloor, btnSelectUser, inputUser, searchUser, 
+    idUser, btnSelectLevel, inputLevel, searchLevel, idLevel, buildingValue, floorValue, UserValue, LevelValue) {
+    const optionSelectbuilding = document.querySelector(btnSelectbuilding);
+    const optionSelectfloor = document.querySelector(btnSelectfloor);
+    const optionSelectUser = document.querySelector(btnSelectUser);
+    const optionSelectLevel = document.querySelector(btnSelectLevel);
+
+    building = optionSelectbuilding.querySelector(".select-btn");
+    floor = optionSelectfloor.querySelector(".select-btn");
+    User = optionSelectUser.querySelector(".select-btn");
+    var buildingId = document.getElementById(idbuilding);
+    var buildinginput = document.getElementById(inputbuilding);
+    var buildingSearch = document.getElementById(searchbuilding);
+
+    var floorId = document.getElementById(idfloor);
+    var floorinput = document.getElementById(inputfloor);
+    var floorSearch = document.getElementById(searchfloor);
+
+    var UserId = document.getElementById(idUser);
+    var Userinput = document.getElementById(inputUser);
+    var UserSearch = document.getElementById(searchUser);
+
+    var LevelId = document.getElementById(idLevel);
+    var Levelinput = document.getElementById(inputLevel);
+    var LevelSearch = document.getElementById(searchLevel);
+
+    $.ajax({
+        url: "doc/main/commons/lay_all_toanha.php",
+        type: "post",
+        dataType: "json", 
+        }).done(function(toanha){
+        let arrayName = [];
+        for (const b of toanha) {
+            arrayName.push({ id: b.id_toanha, ten: b.ten_toanha });
+        }
+        addforcanho(arrayName, idbuilding, searchbuilding, inputbuilding, btnSelectbuilding, buildingValue);     
+        buildingSearch.addEventListener('keyup', () => {
+                let searchedVal = buildingSearch.value.toLowerCase();
+
+                let filteredResults = arrayName.filter(databuilding => {
+                    return databuilding.ten.toLowerCase().includes(searchedVal);
+                });
+                let arr = filteredResults.map(databuilding => `<li onclick="updateforcanho(this, '${buildingSearch}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${databuilding.ten}</li>`).join("");
+
+                buildingId.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
+            });        
+    });
+
+    building.addEventListener('click', () =>{
+        optionSelectbuilding.classList.add('active');    
+    });  
+    buildinginput.addEventListener('change', function() {
+        $.ajax({
+        url: "doc/main/commons/lay_phong_by_toanha.php",
+        type: "post",
+        dataType: "json", 
+        data: { idtoanha: buildinginput.value },
+        }).done(function(tang) {
+            let arrayName = [];
+            for (const b of tang) {
+                arrayName.push({ id: b.id_canho_phong, ten: b.ten_canho_phong });
+            }
+            console.log(tang);
+            addforcanho(arrayName, idfloor, searchfloor, inputfloor, btnSelectfloor, floorValue);
+            floor.addEventListener('click', () => {
+                optionSelectfloor.classList.add('active');  
+                floorSearch.addEventListener('keyup', () => {
+                    let searchedVal = floorSearch.value.toLowerCase();
+
+                    let filteredResults = arrayName.filter(datafloor => {
+                        return datafloor.ten.toLowerCase().includes(searchedVal);
+                    });
+                    let arr = filteredResults.map(datafloor => `<li onclick="updateName(this, '${searchfloor}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${datafloor.ten}</li>`).join("");
+
+                    floorId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
+                });        
+            });  
+        floor.firstElementChild.innerText = "Chọn phòng";
+        floor.classList.remove('active');
+    });
+    });
+    if (buildingValue !== null && buildingValue !== '') {
+        $.ajax({
+        url: "doc/main/commons/lay_phong_by_toanha.php",
+        type: "post",
+        dataType: "json", 
+        data: { idtoanha: buildinginput.value },
+        }).done(function(tang) {
+            let arrayName = [];
+            for (const b of tang) {
+                arrayName.push({ id: b.id_tang, ten: b.ten_tang });
+            }
+            addforcanho(arrayName, idfloor, searchfloor, inputfloor, btnSelectfloor, floorValue);
+            floor.addEventListener('click', () => {
+            optionSelectfloor.classList.add('active');    
+            floorSearch.addEventListener('keyup', () => {
+                let searchedVal = floorSearch.value.toLowerCase();
+
+                let filteredResults = arrayName.filter(datafloor => {
+                    return datafloor.ten.toLowerCase().includes(searchedVal);
+                });
+                let arr = filteredResults.map(datafloor => `<li onclick="updateName(this, '${searchfloor}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${datafloor.ten}</li>`).join("");
+
+                floorId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
+            });        
+        });  
+    });
+    }
+    $.ajax({
+        url: "doc/main/commons/lay_nguoi_dung.php",
+        type: "post",
+        dataType: "json", 
+        }).done(function(nguoidung){
+        let arrayName = [];
+        for (const b of nguoidung) {
+            arrayName.push({ id: b.id_taikhoan, ten: b.ten_hien_thi });
+        }
+        var arraySelected = [];
+        addforUser(arrayName, idUser, searchUser, inputUser, btnSelectUser, UserValue, arraySelected);     
+        UserSearch.addEventListener('keyup', () => {
+                let searchedVal = UserSearch.value.toLowerCase();
+
+                let filteredResults = arrayName.filter(dataUser => {
+                    return dataUser.ten.toLowerCase().includes(searchedVal);
+                });
+                let arr = filteredResults.map(dataUser => `<li onclick="updateforUser(this, '${UserSearch}', '${arrayName}', '${idUser}', '${inputUser}', '${btnSelectUser}')">${dataUser.ten}</li>`).join("");
+
+                UserId.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
+            });        
+    });
+    User.addEventListener('click', () =>{
+        optionSelectUser.classList.add('active');    
+    });  
+    $(document).on('click', function (event) {
+        const isClicktoanha = optionSelectbuilding.contains(event.target);
+        const isClicktang = optionSelectfloor.contains(event.target);
+        const isClickUser = optionSelectUser.contains(event.target);
+
+        if (!isClicktoanha) {
+            optionSelectbuilding.classList.remove('active');   
+        }if (!isClicktang) {
+            optionSelectfloor.classList.remove('active');
+        }if (!isClickUser) {
+            optionSelectUser.classList.remove('active');
         }
     });
 }

@@ -727,7 +727,7 @@
             form.trigger('reset');
             $('#modal-default').modal('show');
             formatNumberInput('#tiencoc1, #tienthue1');
-            initializeDropdownsToanha(".toannhaOption","toannhaInput", "toannhaSearch", "toannha", ".tangoption","tangInput", "tangSearch", "tang");
+            initializeDropdownsToanha_Tang(".toannhaOption","toannhaInput", "toannhaSearch", "toannha", ".tangoption","tangInput", "tangSearch", "tang");
         });
         $('body').on('click', '#btnAdd', function () {  
         
@@ -888,7 +888,7 @@
                 } else {
                     $('#trangthai2').prop('checked', false);
                 }
-                initializeDropdownsToanha(".toannhaOption2","toannhaInput2", "toannhaSearch2", "toannha2", ".tangoption2","tangInput2", "tangSearch2", "tang2", decodedData.ten_toanha, "Tầng " + decodedData.ten_tang);
+                initializeDropdownsToanha_Tang(".toannhaOption2","toannhaInput2", "toannhaSearch2", "toannha2", ".tangoption2","tangInput2", "tangSearch2", "tang2", decodedData.ten_toanha, "Tầng " + decodedData.ten_tang);
             });
 
         });

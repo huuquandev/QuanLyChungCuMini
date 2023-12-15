@@ -688,7 +688,7 @@
           form.trigger('reset');
           files = []; 
           showImages(files);
-          initializeDropdownsTaiSan(".toannhaOption1","toannhaInput1", "toannhaSearch1", "toannha1", ".phongoption1","phongInput1",
+          initializeDropdownsToanha_Phong_Taisan(".toannhaOption1","toannhaInput1", "toannhaSearch1", "toannha1", ".phongoption1","phongInput1",
                                   "phongSearch1", "phong1", ".khooption1","khoInput1", "khoSearch1", "kho1");
           $('#modal-default').modal('show');
       });

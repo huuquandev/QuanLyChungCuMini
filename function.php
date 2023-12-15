@@ -272,6 +272,22 @@
         return $kho;
         
     }
+    function lay_all_nguoi_dung(){
+        GLOBAL $conn;
+    
+        $sql = "SELECT * FROM tb_taikhoan";
+
+        $query = mysqli_query($conn, $sql);
+
+        $nguoidung = array();
+    
+        while ($row = mysqli_fetch_array($query)) {
+            $nguoidung[] = $row;
+        }
+    
+        return $nguoidung;
+        
+    }
     function lay_soluong_tang(){
         GLOBAL $conn;
 
