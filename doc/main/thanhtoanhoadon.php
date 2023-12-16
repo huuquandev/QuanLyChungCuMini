@@ -44,9 +44,8 @@ document.addEventListener("DOMContentLoaded", function() {
           <div class="tile">
             <div class="tile-body">
               <div class="row element-button">
-                
-				<div class="col-sm-4 text-right">
-					<form action="" method="post">
+                <div class="col-sm-12 d-flex  text-right">
+					<form action="" method="post" class="mr-2">
 						<div class="input-group">
 							<input type="search" class="form-control form-control-sm" id="searchInput" name="searchInput" placeholder="Tìm kiếm hóa đơn theo ID tên, mã phòng">
 							<div class="input-group-append">
@@ -54,31 +53,26 @@ document.addEventListener("DOMContentLoaded", function() {
 							</div>
 						</div>
 					</form>
-				<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="doc/main/xulythanhtoanmomo.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
+					<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="xulythanhtoanmomo.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>" class="mr-2">
 						<div class="input-group">
-								<?php if(!empty($data)){ ?>
-								<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAll" name="btnThanhToanAll" value="Thanh toán tất cả bằng QR.">
-								<?php } ?>
-								
-							</div>
+							<?php if(!empty($data)){ ?>
+							<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAll" name="btnThanhToanAll" value="Thanh toán tất cả bằng QR.">
+							<?php } ?>
 						</div>
 					</form>
-					<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="doc/main/xulythanhtoanmomoatm.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
+					<form class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="xulythanhtoanmomoatm.php?id_phong=<?php echo $phong; ?>&amount=<?php echo $amount; ?>">
 						<div class="input-group">
-								<?php if(!empty($data)){ ?>
-								<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAllAtm" name="btnThanhToanAllAtm" value="Thanh toán tất cả bằng ATM.">
-								<?php } ?>
-								
-							</div>
+							<?php if(!empty($data)){ ?>
+							<input type="submit" class="form-control form-control-sm btn-success" id="btnThanhToanAllAtm" name="btnThanhToanAllAtm" value="Thanh toán tất cả bằng ATM.">
+							<?php } ?>
 						</div>
 					</form>
-				</div></div>
+				</div>
               <table class="table table-hover table-bordered" id="">
                 <thead>
                   <tr>
                     <th width="10"><input type="checkbox" id="all"></th>
                     <th>Id hóa đơn</th>
-					<th>Loại </th>
                     <th>Ngày tạo</th>
                     <th>Ngày hết hạn</th>
                     <th>Ngày thanh toán</th>
@@ -96,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function() {
 				<tr>
                     <td width="10"><input type="checkbox" name="check1" value="<?php echo $value['id_hoadon']; ?>"></td>
                     <td><?php echo $value['id_hoadon']; ?></td>
-                    <td><?php echo $value['loai']; ?></td>
                     <td><?php echo $value['ngaytao']; ?></td>
 					<td><?php echo $value['ngayhethan']; ?></td>
                     <td><?php echo $value['ngaythanhtoan']; ?></td>

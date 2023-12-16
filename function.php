@@ -324,9 +324,9 @@
     // Quang làm
     function GetListHoaDon(){
 		GLOBAL $conn;
-		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong
+		$sql = "select hoadon.id as id_hoadon, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.ten_dichvu as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong
 		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
-		where hoadon.id_DV = dichvu.id
+		where hoadon.id_DV = dichvu.id_dichvu
 		and hoadon.id_hopdong = hopdong.id
 		and hopdong.id_canho_phong = phong.id_canho_phong";
         $query = mysqli_query($conn, $sql);
@@ -386,11 +386,11 @@
 		}
 		return $data;
 	}
-	function CreateHoaDon($dichVu, $hopDong, $loai, $ngayHetHan, $gia, $tinhTrang) {
+	function CreateHoaDon($dichVu, $hopDong, $ngayHetHan, $gia, $tinhTrang) {
 		// Kết nối tới cơ sở dữ liệu
 		GLOBAL $conn;    
 		// Chuẩn bị câu truy vấn INSERT
-		$sql = "insert into tb_hoadon (id_DV, id_hopdong, loai, ngay_het_han, gia, tinhtrang, ngay_tao) VALUES ('$dichVu', '$hopDong', '$loai', '$ngayHetHan', '$gia', '$tinhTrang', now())";
+		$sql = "insert into tb_hoadon (id_DV, id_hopdong,  ngay_het_han, gia, tinhtrang, ngay_tao) VALUES ('$dichVu', '$hopDong', '$ngayHetHan', '$gia', '$tinhTrang', now())";
 		// Thực thi câu truy vấn
 		if (mysqli_query($conn, $sql)) {
 			return true;
@@ -579,12 +579,12 @@
 
 	function GetListHoaDonByIdHoaDonHoacIDPhong($keyword){
 		GLOBAL $conn;
-		$sql = "SELECT hoadon.id AS id_hoadon, hoadon.loai AS loai, hoadon.ngay_tao AS ngaytao, hoadon.ngay_het_han AS ngayhethan, hoadon.ngay_thanh_toan AS ngaythanhtoan, hoadon.gia AS gia, hoadon.tinhtrang AS tinhtrang, dichvu.TenDV AS tendv, phong.ten_canho_phong AS tenphong, phong.ma_canho_phong AS maphong
+		$sql = "SELECT hoadon.id AS id_hoadon, hoadon.ngay_tao AS ngaytao, hoadon.ngay_het_han AS ngayhethan, hoadon.ngay_thanh_toan AS ngaythanhtoan, hoadon.gia AS gia, hoadon.tinhtrang AS tinhtrang, dichvu.ten_dichvu AS tendv, phong.ten_canho_phong AS tenphong, phong.ma_canho_phong AS maphong
         FROM tb_hoadon AS hoadon
         INNER JOIN tb_hopdong AS hopdong ON hoadon.id_hopdong = hopdong.id
-        INNER JOIN tb_dichvu AS dichvu ON hoadon.id_DV = dichvu.id
+        INNER JOIN tb_dichvu AS dichvu ON hoadon.id_DV = dichvu.id_dichvu
         INNER JOIN tb_canho_phong AS phong ON hopdong.id_canho_phong = phong.id_canho_phong
-        WHERE hoadon.id = '$keyword' OR phong.id_canho_phong = '$keyword' OR phong.ten_canho_phong LIKE '%$keyword%' OR phong.ma_canho_phong LIKE '%$keyword%'";
+        WHERE phong.ten_canho_phong LIKE '%$keyword%' OR phong.ma_canho_phong LIKE '%$keyword%'";
 
         $query = mysqli_query($conn, $sql);
 		$data = array();
@@ -606,9 +606,9 @@
 				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
 			}
 		}
-		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong, phong.id_canho_phong as id_phong
+		$sql = "select hoadon.id as id_hoadon,  hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.ten_dichvu as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong, phong.id_canho_phong as id_phong
 		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
-		where hoadon.id_DV = dichvu.id
+		where hoadon.id_DV = dichvu.id_dichvu
 		and hoadon.id_hopdong = hopdong.id
 		and hopdong.id_canho_phong = phong.id_canho_phong
 		and hoadon.tinhtrang = 'Chưa thanh toán'
@@ -640,16 +640,16 @@
 		}
 		return false;
 	}
-	function UpdateHoaDon($id, $id_DV, $id_hopdong, $loai, $ngay_het_han, $ngay_tao, $gia){
+	function UpdateHoaDon($id, $id_DV, $id_hopdong, $ngay_het_han, $ngay_tao, $ngay_thanh_toan, $gia, $tinhtrang){
 		GLOBAL $conn;
 		
 		// Validate các trường thông tin
-		if(empty($id) || empty($id_DV) || empty($id_hopdong) || empty($loai) || empty($ngay_het_han) || empty($ngay_tao) || empty($gia)){
+		if(empty($id) || empty($id_DV) || empty($id_hopdong) || empty($ngay_het_han) || empty($ngay_tao) || empty($gia) || empty($ngay_thanh_toan) || empty($tinhtrang)){
 			return false; // Trả về false nếu có trường thông tin trống
 		}
 		
 		// Thực hiện cập nhật vào cơ sở dữ liệu
-		$sql = "UPDATE tb_hoadon SET id_DV = '$id_DV', id_hopdong = '$id_hopdong', loai = '$loai', ngay_het_han = '$ngay_het_han', ngay_tao = '$ngay_tao', gia = '$gia' WHERE id = $id";
+		$sql = "UPDATE tb_hoadon SET id_DV = '$id_DV', id_hopdong = '$id_hopdong', ngay_het_han = '$ngay_het_han', ngay_tao = '$ngay_tao', gia = '$gia', tinhtrang = '$tinhtrang', ngay_thanh_toan = '$ngay_thanh_toan' WHERE id = $id";
 		$query = mysqli_query($conn, $sql);
 		if($query){
 			return true; // Trả về true nếu cập nhật thành công
@@ -695,9 +695,9 @@
 				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
 			}
 		}
-		$sql = "select hoadon.id as id_hoadon, hoadon.loai as loai, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.TenDV as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong, phong.id_canho_phong as id_phong, dichvu.id as id_dichvu, hopdong.id as id_hopdong
+		$sql = "select hoadon.id as id_hoadon, hoadon.ngay_tao as ngaytao, hoadon.ngay_het_han as ngayhethan, hoadon.ngay_thanh_toan as ngaythanhtoan, hoadon.gia as gia, hoadon.tinhtrang as tinhtrang, dichvu.ten_dichvu as tendv, phong.ten_canho_phong as tenphong, phong.ma_canho_phong as maphong, phong.id_canho_phong as id_phong, dichvu.id_dichvu as id_dichvu, hopdong.id as id_hopdong
 		from tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dichvu as dichvu, tb_canho_phong as phong
-		where hoadon.id_DV = dichvu.id
+		where hoadon.id_DV = dichvu.id_dichvu
 		and hoadon.id_hopdong = hopdong.id
 		and hopdong.id_canho_phong = phong.id_canho_phong
 		and hoadon.id= '$id'" ;
@@ -710,6 +710,80 @@
 		}
 		return $data;
 	}
+	
+	    function GetEmailForSent(){
+		GLOBAL $conn;
+		if ($conn === null) {
+			// Thực hiện kết nối đến cơ sở dữ liệu
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			
+			// Kiểm tra kết nối
+			if (!$conn) {
+				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+			}
+		}
+		$sql = "SELECT DISTINCT dancu.email as email
+			FROM tb_hoadon as hoadon, tb_hopdong as hopdong, tb_dancu as dancu
+			WHERE hoadon.id_hopdong = hopdong.id
+			AND hopdong.id_dancu = dancu.id_dancu
+			AND hoadon.tinhtrang = 'Chưa thanh toán'" ;
+		$query = mysqli_query($conn, $sql);
+		$data = array();
+        if(mysqli_num_rows($query) > 0){
+			while($row = mysqli_fetch_assoc($query)){
+				$data[] = $row;
+			}
+		}
+		return $data;
+	}
+	
+	require 'phpmailer/src/Exception.php';
+	require 'phpmailer/src/PHPMailer.php';	
+	require 'phpmailer/src/SMTP.php';
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
+	function SentEmailDoiNo($emailTo){
+		$mail = new PHPMailer(true);
+		
+		$mail->isSMTP();
+		$mail->Host = 'smtp.gmail.com';
+		$mail->SMTPAuth = true;
+		$mail->Username = 'hnueschoolapp@gmail.com';
+		$mail->Password = 'omxvkhrwlbyyselg';
+		$mail->SMTPSecure = 'ssl';
+		$mail->Port = 465;
+		
+		$mail->setFrom('hnueschoolapp@gmail.com');
+		$mail->addAddress($emailTo);
+		$mail->Subject = "Email thong bao hoa don.";
+		$mail->Body = "Bạn có hóa đơn chưa thanh toán.
+				Vui lòng gặp ban quản lý để thanh toán hóa đơn.";
+		$mail->send();
+	}
+	
+	function cleanInput($input) {
+		GLOBAL $conn;
+		if ($conn === null) {
+			// Thực hiện kết nối đến cơ sở dữ liệu
+			$conn = mysqli_connect("localhost", "root", "", "quanlychungcumini");
+			
+			// Kiểm tra kết nối
+			if (!$conn) {
+				die("Kết nối đến cơ sở dữ liệu thất bại: " . mysqli_connect_error());
+			}
+		}
+    // Loại bỏ các ký tự không an toàn
+    $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+    
+    // Loại bỏ các ký tự đặc biệt trong SQL
+    $input = stripslashes($input);
+    $input = mysqli_real_escape_string($conn, $input); // Thay 'connection' bằng biến kết nối CSDL của bạn
+    
+    // Kiểm tra và loại bỏ các ký tự đặc biệt trong XSS
+    $input = strip_tags($input);
+    
+    return $input;
+}
 
        //Quyến làm
     function xoa_dan_cu($id_dan_cu){

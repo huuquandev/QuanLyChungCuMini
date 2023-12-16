@@ -1,11 +1,18 @@
 <?php 
-    include_once 'function.php';
-    $data = GetListHoaDon();
-	$hoadon = $data;
+	include_once 'function.php';
+        $data = GetListHoaDon();
+	$hoadon = array();
+	if(empty($hoadon)){
+		$hoadon = $data;
+	}
+	
 	//print_r($khoanthuphi);
 	$dataDoanhThu = [];
+	$flagSearch = false;
 	if(isset($_POST['btnSearch'])){
+		$flagSearch = true;
 		$keyword = trim($_POST['searchInput']);
+		$keyword = cleanInput($keyword);
 		if(empty($keyword)){
 			header("Refresh:0");
 		}
@@ -19,12 +26,21 @@
 		if($filter == "all"){
 			$data = GetListHoaDon();
 			$hoadon = $data;
-		}else if($filter == "tt"){
-			$data = GetListHoaDonDaThanhToan();
-			$hoadon = $data;
-		}else if($filter == "ctt"){
-			$data = GetListHoaDonChuaThanhToan();
-			$hoadon = $data;
+		}
+		else if($filter == "tt"){
+			/*
+			$filteredHoadon = array();
+			foreach ($hoadon as $value){
+				if($value['tinhtrang']=="Đã thanh toán"){
+					$filteredHoadon[] = $value;
+					print_r($value);
+				}		
+			}
+			$hoadon = $filteredHoadon;
+			*/
+		}
+		else if($filter == "ctt"){
+			
 		}
 	}
 	
@@ -51,7 +67,7 @@
 		$excel->getActiveSheet()->setTitle('demo ghi dữ liệu');
 		// Dat kich thuoc cho cac cot
 		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
-		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+		//$excel->getActiveSheet()->getColumnDimension('B')->setWidth(10);
 		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
 		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
 		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
@@ -63,7 +79,7 @@
 		
 		$excel->getActiveSheet()->getStyle('A1:J1')->getFont()->setBold(true);
 		$excel->getActiveSheet()->setCellValue('A1', 'IdHD');
-		$excel->getActiveSheet()->setCellValue('B1', 'Loại');
+		//$excel->getActiveSheet()->setCellValue('B1', 'Loại');
 		$excel->getActiveSheet()->setCellValue('C1', 'Tên dịch vụ');
 		$excel->getActiveSheet()->setCellValue('D1', 'Tên phòng');
 		$excel->getActiveSheet()->setCellValue('E1', 'Mã phòng');
@@ -76,7 +92,7 @@
 		$numRow = 2;
 		foreach ($hoadon as $row) {
 			$excel->getActiveSheet()->setCellValue('A' . $numRow, $row['id_hoadon']);
-			$excel->getActiveSheet()->setCellValue('B' . $numRow, $row['loai']);
+			//$excel->getActiveSheet()->setCellValue('B' . $numRow, $row['loai']);
 			$excel->getActiveSheet()->setCellValue('C' . $numRow, $row['tendv']);
 			$excel->getActiveSheet()->setCellValue('D' . $numRow, $row['tenphong']);
 			$excel->getActiveSheet()->setCellValue('E' . $numRow, $row['maphong']);
@@ -136,6 +152,13 @@
 //		echo '<pre>';
 //		var_dump($data);
 	}
+	if(isset($_POST['thongbao'])){
+		$dataEmail = GetEmailForSent();
+		foreach ($dataEmail as $email){
+			SentEmailDoiNo($email['email']);
+		}
+		echo "<script>alert('Đã gửi hết các email.') </script>";
+	}
 ?>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -149,6 +172,29 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+function boloc() {
+    var selectedValue = document.getElementById("selectFilter").value;
+    var table = document.getElementById("sampleTable");
+    var tr = table.getElementsByTagName("tr");
+    for (var i = 0; i < tr.length; i++) {
+        var td = tr[i].getElementsByTagName("td")[9];
+        if (td) {
+            var txtValue = td.textContent || td.innerText;
+            if (selectedValue === "all") {
+                tr[i].style.display = "";
+            } else if (selectedValue === "tt" && td.innerText === "Đã thanh toán") {
+                tr[i].style.display = "";
+            } 
+			else if (selectedValue === "ctt" && td.innerText === "Chưa thanh toán") {
+                tr[i].style.display = "";
+            } 
+			else {
+                tr[i].style.display = "none";
+            }
+        }       
+    }
+}
 </script>
 <main class="app-content">
       <div class="app-title">
@@ -175,11 +221,14 @@ document.addEventListener("DOMContentLoaded", function() {
 					<input id="xuatExcel" name="xuatExcel" class="btn btn-delete btn-sm nhap-tu-file" type="submit" value="Xuất Excel">
 				</form>
                 </div>
-                <div class="col-sm-4">
-                  <form method="POST" enctype="multipart/form-data">
-					<label for="nhapExcel" class="btn btn-delete btn-sm nhap-tu-file">Nhập Excel</label>
-					<input id="nhapExcel" name="nhapExcel" class="btn btn-delete btn-sm nhap-tu-file" type="file" hidden>
-					<input id="xacnhan" name="xacnhan" class="btn btn-delete btn-sm nhap-tu-file" type="submit">
+				<div class="col-sm-2">
+				<form method="POST">
+					<input id="xuatExcel" name="xuatExcel" class="btn btn-delete btn-sm nhap-tu-file" type="submit" value="Xuất Excel">
+				</form>
+                </div>
+				<div class="col-sm-2">
+                  <form method="POST" >
+					<input id="thongbao" name="thongbao" class="btn btn-delete btn-sm nhap-tu-file" type="submit" value="Giục đóng tiền">
 				</form>
                 </div>
 				<div class="col-sm-4 text-right">
@@ -189,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							<div class="input-group-append">
 								<input type="submit" class="btn btn-outline-secondary" id="btnSearch" name="btnSearch" value="Tìm kiếm">
 							</div>
-							<select id="selectFilter" name="selectFilter">
+							<select id="selectFilter" name="selectFilter" onchange="boloc()">
 								<option value="all">Xem tất cả</option>
 								<option value="tt">Đã thanh toán</option>
 								<option value="ctt">Chưa thanh toán</option>
@@ -204,7 +253,6 @@ document.addEventListener("DOMContentLoaded", function() {
                   <tr>
                     <th width="10"><input type="checkbox" id="all"></th>
                     <th>Id hóa đơn</th>
-					<th>Loại </th>
 					<th>Tên dịch vụ</th>
 					<th>Tên phòng</th>
 					<th>Mã phòng</th>
@@ -223,7 +271,6 @@ document.addEventListener("DOMContentLoaded", function() {
 				<tr>
                     <td width="10"><input type="checkbox" name="check1" value="<?php echo $value['id_hoadon']; ?>"></td>
                     <td><?php echo $value['id_hoadon']; ?></td>
-                    <td><?php echo $value['loai']; ?></td>
                     <td><?php echo $value['tendv']; ?></td>
 					<td><?php echo $value['tenphong']; ?></td>
 					<td><?php echo $value['maphong']; ?></td>
