@@ -364,9 +364,9 @@
                           ?>
                         </td>
                         <td class="table-td-center">
-                          <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" data-id="<?php echo $row['id_toanha']  ?>"><i class="fas fa-trash-alt"></i>
+                          <button class="btn btn-danger btn-sm" type="button" title="Xóa" id="btn-delete" data-id="<?php echo $row['id_toanha']  ?>"><i class="fas fa-trash-alt"></i>
                           </button>
-                          <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
+                          <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
                             data-toggle="modal" data-target="#ModalUP" data-id="<?php echo $row['id_toanha']?>"><i class="fas fa-edit"></i>
                           </button>
                         </td>
@@ -381,6 +381,30 @@
                   </tbody>
                 </table>
               </div>
+              <div class="footer-table">
+              <div class="items-controller">
+                <div data-v-38625d2e="" class="d-flex align-items-center mb-0 mt-1">
+                    <span data-v-38625d2e="" class="text-nowrap"> Hiển thị tối đa </span>
+                    <select data-v-38625d2e="" class="mx-1 custom-select" id="itemperpage">
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                    </select>
+                    <span data-v-38625d2e="" class="text-nowrap alldata"></span>
+                  </div>
+              </div>
+              <div class="bottom-field">
+                <ul class="pagination">
+                  <li class="prev"><a href="#" id="prev">&#139;</a></li>
+                  <!-- <li class="list">1</li>
+                  <li class="list">2</li>
+                  <li class="list">3</li> -->
+                  <li class="next"><a href="#" id="next">&#155;</a></li>
+                </ul>
+              </div>
+          </div>
               <div class="modal fade bd-example-modal-lg" id="modal-default2">
                         <div class="modal-dialog modal-lg">
                           <div class="modal-content">
@@ -551,7 +575,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
 
 <script>
+      var totalRows = $('tbody tr').length;
+
+  $('.alldata').text('trên tổng số ' + totalRows + ' kết quả');
     $(document).ready(function () {
+
       function validateInput(input) {
           var smallElement = input.closest('.form-group').find('small.text-danger');
           if (!input.val().trim()) {
@@ -649,10 +677,10 @@
                         <span class="badge ${classStatus}" style="font-size: 13px;"><b class="span_pending">${response.trangthai}</b></span>
                         </td>
                         <td class="table-td-center">
-                          <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" 
+                          <button class="btn btn-danger btn-sm" type="button" title="Xóa" id="btn-delete" 
                               data-id="${response.id}"><i class="fas fa-trash-alt"></i>
                           </button>
-                          <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
+                          <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
                             data-toggle="modal" data-target="#ModalUP" data-id="${response.id}"><i class="fas fa-edit"></i>
                           </button>
                         </td>

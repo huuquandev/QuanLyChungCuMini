@@ -475,10 +475,10 @@
                       ?>                  
                   </td>               
                   <td class="table-td-center">
-                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" 
+                    <button class="btn btn-danger btn-sm" type="button" title="Xóa" id="btn-delete" 
                     data-id="<?php echo $row['id_canho_phong']  ?>"><i class="fas fa-trash-alt"></i>
                     </button>
-                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
+                    <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
                       data-toggle="modal" data-target="#ModalUP" data-id="<?= $row['id_canho_phong'] ?>"><i class="fas fa-edit"></i>
                     </button>
                   </td>             
@@ -492,6 +492,30 @@
                     
               </tbody>
             </table>
+          </div>
+          <div class="footer-table">
+              <div class="items-controller">
+                <div data-v-38625d2e="" class="d-flex align-items-center mb-0 mt-1">
+                    <span data-v-38625d2e="" class="text-nowrap"> Hiển thị tối đa </span>
+                    <select data-v-38625d2e="" class="mx-1 custom-select" id="itemperpage">
+                      <option value="2">2</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                    </select>
+                    <span data-v-38625d2e="" class="text-nowrap alldata"></span>
+                  </div>
+              </div>
+              <div class="bottom-field">
+                <ul class="pagination">
+                  <li class="prev"><a href="#" id="prev">&#139;</a></li>
+                  <!-- <li class="list">1</li>
+                  <li class="list">2</li>
+                  <li class="list">3</li> -->
+                  <li class="next"><a href="#" id="next">&#155;</a></li>
+                </ul>
+              </div>
           </div>
           <div class="modal fade bd-example-modal-lg" id="modal-default2">
                   <div class="modal-dialog modal-lg">
@@ -676,42 +700,46 @@
     </div>
 </main>
 <script>
-  $(document).ready(function () {
-      function formatNumberInput(selector) {
-            $(selector).on('input', function(e) {
-                let value = e.target.value.replace(/[^\d]/g, ""); // Loại bỏ tất cả ký tự không phải số
-                if (!isNaN(value)) {
-                    let formattedValue = new Intl.NumberFormat('vi-VN').format(value);
-                    let finalValue = formattedValue.replace(/\./g, ",");
-                    $(this).val(finalValue);
-                }
-            });
-      }
-      function validateInput(input) {
-          var smallElement = input.closest('.form-group').find('small.text-danger');
-          if (!input.val().trim()) {
-              input.addClass('is-invalid');
-              smallElement.text('Thông tin bắt buộc').show();
-          } else {
-              input.removeClass('is-invalid');
-              smallElement.text('').hide();
-          }
-      }
-      function validateSelect(input) {
-          var smallElement = input.closest('.form-group').find('small.text-danger');
-          if (!input.val().trim()) {
-            selectElement.addClass('is-invalid');
-          } else {
-            selectElement.removeClass('is-invalid');
-          }
-      }
-        $('#tienthue1, #tiencoc1, #dientich1, #soluongnguoio1, #tienthue2,#tiencoc2, #dientich2, #soluongnguoio2').on('keypress', function(event) {
-            var keyCode = event.which;
+      var totalRows = $('tbody tr').length;
 
-            if ((keyCode < 48 || keyCode > 57) && (keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40)) {
-                event.preventDefault(); // Ngăn chặn ký tự được nhập
+      $('.alldata').text('trên tổng số ' + totalRows + ' kết quả');
+  $(document).ready(function () {
+
+        function formatNumberInput(selector) {
+              $(selector).on('input', function(e) {
+                  let value = e.target.value.replace(/[^\d]/g, ""); // Loại bỏ tất cả ký tự không phải số
+                  if (!isNaN(value)) {
+                      let formattedValue = new Intl.NumberFormat('vi-VN').format(value);
+                      let finalValue = formattedValue.replace(/\./g, ",");
+                      $(this).val(finalValue);
+                  }
+              });
+        }
+        function validateInput(input) {
+            var smallElement = input.closest('.form-group').find('small.text-danger');
+            if (!input.val().trim()) {
+                input.addClass('is-invalid');
+                smallElement.text('Thông tin bắt buộc').show();
+            } else {
+                input.removeClass('is-invalid');
+                smallElement.text('').hide();
             }
-      });
+        }
+        function validateSelect(input) {
+            var smallElement = input.closest('.form-group').find('small.text-danger');
+            if (!input.val().trim()) {
+              selectElement.addClass('is-invalid');
+            } else {
+              selectElement.removeClass('is-invalid');
+            }
+        }
+          $('#tienthue1, #tiencoc1, #dientich1, #soluongnguoio1, #tienthue2,#tiencoc2, #dientich2, #soluongnguoio2').on('keypress', function(event) {
+              var keyCode = event.which;
+
+              if ((keyCode < 48 || keyCode > 57) && (keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40)) {
+                  event.preventDefault(); // Ngăn chặn ký tự được nhập
+              }
+        });
         $('.formadd input[required], .formedit input[required]').on('blur', function() {
             validateInput($(this));
         });
@@ -730,7 +758,6 @@
             initializeDropdownsToanha_Tang(".toannhaOption","toannhaInput", "toannhaSearch", "toannha", ".tangoption","tangInput", "tangSearch", "tang");
         });
         $('body').on('click', '#btnAdd', function () {  
-        
           let isValid = true;
 
           $('.formadd input[required]').each(function() {
@@ -782,7 +809,6 @@
                 success: function (response) {
                     if (response.success) {  
                         var classStatus;
-                        var ClassDanger = "bg-danger"
                         if(response.iDtrangthai == 1){
                           classStatus = "bg-success"
                         }else{
@@ -813,10 +839,10 @@
                           <span class="badge ${classStatus}" style="font-size: 13px;"><b class="span_pending">${response.trangthaihoatdong}</b></span>
                         </td>
                         <td class="table-td-center">
-                          <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" 
+                          <button class="btn btn-danger btn-sm" type="button" title="Xóa" id="btn-delete" 
                               data-id="${response.id}"><i class="fas fa-trash-alt"></i>
                           </button>
-                          <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="btn-edit"
+                          <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
                             data-toggle="modal" data-target="#ModalUP" data-id="${response.id}"><i class="fas fa-edit"></i>
                           </button>
                         </td>
@@ -862,7 +888,6 @@
         });
         $('body').on('click', '#btn-edit', function () { 
             var id = $(this).data("id");
-            $('#modal-default2').modal('show');
             formatNumberInput('#tiencoc2, #tienthue2');
 
             $.ajax({
@@ -890,6 +915,7 @@
                 }
                 initializeDropdownsToanha_Tang(".toannhaOption2","toannhaInput2", "toannhaSearch2", "toannha2", ".tangoption2","tangInput2", "tangSearch2", "tang2", decodedData.ten_toanha, "Tầng " + decodedData.ten_tang);
             });
+            $('#modal-default2').modal('show');
 
         });
         $('body').on('click', '.btnSave', function () {

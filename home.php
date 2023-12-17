@@ -84,7 +84,7 @@
   
   <!-- Data table plugin-->
   <script type="text/javascript">
-    flatpickr("#startDate, #overdate, #date1", {});
+    flatpickr("#startDate, #overdate, #date1, #date2", {});
 
     var data = {
       labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
