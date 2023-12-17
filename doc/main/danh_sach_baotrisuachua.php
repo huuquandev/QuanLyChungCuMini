@@ -612,7 +612,7 @@
                     <?php 
                         if ($row['trang_thai'] != 3 || $row['trang_thai'] != 4) {
                             echo '<button class="btn btn-primary btn-sm" type="button" title="Hoàn thành" id="btn-done" 
-                            data-id="' . $row['id_baotri_suachua'] . '" data-status="2"><i class="fas fa-thumbs-up"></i>
+                            data-id="' . $row['id_baotri_suachua'] . '" data-status="2" data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-thumbs-up"></i>
                             </button>';
                         }
                         if ($row['trang_thai'] == 0) {
@@ -886,6 +886,84 @@
                     </div>
               </div>
         </div>
+        <div class="modal fade bd-example-modal-lg" id="modal-default4">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Hoàn thành công việc</h4>
+                            </div>
+                            <div class="modal-body">
+                            <span>
+                              <div role="alert" aria-live="polite" aria-atomic="true" class="alert-form alert-primary">
+                                <!---->
+                                <div class="alert-body">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-star">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                  </svg>
+                                  <span class="ml-25 namecongviec">Bạn đang tiến hành xác nhận hoàn thành công việc: <strong>đá</strong>. </span>
+                                </div>
+                              </div>
+                              <form class="">
+                                <div class="row">
+                                  <div class="col-12">
+                                    <fieldset class="form-group" value="19-12-2023 03:00" id="__BVID__458">
+                                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__458__BV_label_"> Thời gian hoàn thành
+                                        <!---->
+                                      </legend>
+                                      <div>
+                                        <input type="text" data-input="true" class="form-control flatpickr-input" readonly="readonly" id="datedone">
+                                        <small class="text-danger"></small>
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                      </div>
+                                    </fieldset>
+                                  </div>
+                                  <div class="col"></div>
+                                </div>
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__461">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__461__BV_label_">Mô tả</legend>
+                                    <div>
+                                      <textarea rows="3" wrap="soft" class="form-control" id="__BVID__462"></textarea>
+                                      <div class="invalid-feedback"></div>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                                <div data-v-0f357511="" value="">
+                                  <span data-v-0f357511=""> Đính kèm </span>
+                                  <div data-v-0f357511="" class="row match-height mt-1">
+                                    <div data-v-0f357511="" class="col-md-2 col-4">
+                                      <div data-v-0f357511="" class="image-container" style="width: 100%; height: 100%;">
+                                        <label data-v-0f357511="" for="file-input-done" style="width: 100%; height: 100%;">
+                                          <div data-v-0f357511="" class="empty-img thumbnail">
+                                            <svg data-v-0f357511="" xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" for="file-input-done" variant="primary" class="feather feather-plus">
+                                              <line data-v-0f357511="" x1="12" y1="5" x2="12" y2="19"></line>
+                                              <line data-v-0f357511="" x1="5" y1="12" x2="19" y2="12"></line>
+                                            </svg>
+                                          </div>
+                                        </label>
+                                        <input data-v-0f357511="" id="file-input-done" type="file" name="file-input-done" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/pdf,image/png,image/jpeg,audio/mpeg,video/mp4,video/mpeg" multiple="multiple" class="d-none">
+                                      </div>
+                                    </div>
+                                    <div class="containerImages match-height mt-1">
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </span>
+                            </div>
+                            <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                                  <button type="button" class="btn btn-primary btnSave" data-dismiss="modal">Lưu</button>
+                          </div>
+                        </div>
+                    </div>
+              </div>
+        </div>
       </div>
     </div>
 </main>
@@ -928,7 +1006,7 @@
                               </div>`
                 
               });
-              container.innerHTML = images;
+              document.querySelector('.containerImages').innerHTML = images;
             }
             const delImage = (index) =>{
               files.splice(index, 1);
@@ -1356,5 +1434,58 @@
               });         
         });
     });
+    $('#file-input-done').on('change', function() {
+          let file = $(this)[0].files;
+          for (let i = 0; i < file.length; i++) {
+            files.push(file[i]); 
+          }
+          showImagesDone(files);
+          $(this).val('');
+        });
+      const showImagesDone = (array) =>{
+              let images = '';
+              array.forEach((e, i) => {
+                images += `<div data-v-0f357511="" class="col-md-2 col-4">
+                                  <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
+                                        <div data-v-1f5e929c="" class="position-relative image-container mb-2">
+                                          <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
+                                    <img data-v-1f5e929c="" src="${URL.createObjectURL(e)}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">        
+                                    <div data-v-1f5e929c="" class="control-btns" onclick="delnewDone(${i})">
+                                      <button data-v-1f5e929c="" type="button">
+                                        <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                          <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
+                                          <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                      </button>
+                                    </div>
+                                    <!---->
+                                  </div>
+                                </div>
+                                </div>
+                              </div>`
+                
+              });
+              $('.containerImages').html(images);
+            }
+          const delnewDone = (index) =>{
+              files.splice(index, 1);
+              showImagesDone(files);       
+          }
+    $('body').on('click', '#btn-done', function () {    
+      files = []; 
+      showImages(files); 
+      var id = $(this).data("id");
+      var status = $(this).data("status");
+      var name = $(this).data("name");
+      var currentDate = new Date();
+      var formattedDate = currentDate.getFullYear() + '-' +
+                          ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
+                          ('0' + currentDate.getDate()).slice(-2);
 
+      // Thiết lập giá trị cho trường input
+      $('#datedone').val(formattedDate);
+
+      $('.alert-body .namecongviec strong').text(name);
+      $('#modal-default4').modal('show');
+    });
 </script>

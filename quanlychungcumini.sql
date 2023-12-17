@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 05, 2023 lúc 07:59 AM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Thời gian đã tạo: Th12 17, 2023 lúc 09:48 PM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,7 +64,14 @@ CREATE TABLE `tb_baotri_suachua` (
 --
 
 INSERT INTO `tb_baotri_suachua` (`id_baotri_suachua`, `id_toanha`, `id_phong`, `ma_baotri_suachua`, `tieude_baotri_suachua`, `mota_baotri_suachua`, `loai_cong_viec`, `mucdo_uutien`, `ngay_batdau`, `ngay_ketthuc`, `id_taikhoan`, `trang_thai`) VALUES
-(1, 72, 13, 'BT056985', 'Sửa máy lạnh', 'Thay pin, vệ sinh lại máy lạnh', 'Sửa chữa', 2, '2023-11-01', '2023-11-09', 1, 1);
+(1, 1, 13, 'BT056985', 'Lắp đặt wifi', 'Lắp đặt wifi để cư dân sử dụng wifi', 'Lắp đặt', 1, '2023-11-01', '2023-12-20', 1, 1),
+(19, 29, 20, 'BT448883', 'eqwe', 'qưeqw', 'eqweq', 1, '2023-12-17', '2023-12-06', 1, 1),
+(20, 1, 13, 'BT863561', 'eqwe', 'qưeq', 'eqw', 1, '2023-12-17', '2023-12-21', 1, 0),
+(21, 1, 18, 'BT381658', 'dsacxzeeqw', 'ceqweqw', 'eqw', 3, '2023-12-17', '2023-12-26', 1, 0),
+(22, 1, 13, 'BT922733', 'eqwe', 'qưeqwe', 'eqwe', 1, '2023-12-17', '2023-12-04', 1, 0),
+(23, 1, 13, 'BT968511', 'eqwe', 'qưe21312', '21312', 2, '2023-12-17', '2023-12-20', 1, 0),
+(24, 1, 13, 'BT432075', 'qưeqw', 'eqwe', 'eqwe', 0, '2023-12-17', '2023-12-13', 1, 0),
+(25, 1, 18, 'BT163321', 'qưeqwe', 'ưeqwe', 'qưeqweqw', 1, '2023-12-17', '2023-12-20', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -92,7 +99,9 @@ CREATE TABLE `tb_canho_phong` (
 
 INSERT INTO `tb_canho_phong` (`id_canho_phong`, `ten_canho_phong`, `ma_canho_phong`, `id_toanha`, `so_nguoi_o`, `tienthue_canho_phong`, `tiencoc_canho_phong`, `dientich_canho_phong`, `trangthai_canho_phong`, `tinhtrang_canho_phong`, `id_tang`) VALUES
 (13, 'P-101', 'P015693', 1, 5, 4000000, 4000000, 100, 1, 1, 40),
-(18, '312', 'P096400', 1, 12, 400000, 4000000, 100, 0, 1, 39);
+(18, '312', 'P096400', 1, 12, 400000, 4000000, 100, 0, 1, 39),
+(20, 'eqweqw', 'P826292', 29, 1, 400000, 4000000, 100, 0, 1, 44),
+(21, 'eqweqwe', 'P991560', 29, 12, 321321, 3213, 21321, 0, 0, 51);
 
 -- --------------------------------------------------------
 
@@ -118,22 +127,37 @@ CREATE TABLE `tb_dancu` (
 --
 
 CREATE TABLE `tb_dichvu` (
-  `id` int(11) NOT NULL,
-  `loaiDV` int(11) NOT NULL,
-  `MoTa` text NOT NULL,
-  `TenDV` varchar(255) NOT NULL,
-  `TinhTrangSuDung` int(11) NOT NULL,
-  `DonViGia` varchar(255) NOT NULL,
-  `Gia` decimal(10,0) NOT NULL
+  `id_dichvu` int(11) NOT NULL,
+  `ma_dichvu` varchar(50) NOT NULL,
+  `loai_dichvu` varchar(50) NOT NULL,
+  `mota_dichvu` text NOT NULL,
+  `ten_dichvu` varchar(255) NOT NULL,
+  `tinhtrang_dichvu` int(11) NOT NULL,
+  `donvigia_dichvu` int(11) NOT NULL,
+  `gia_dichvu` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Đang đổ dữ liệu cho bảng `tb_dichvu`
+-- Cấu trúc bảng cho bảng `tb_hinhanh`
 --
 
-INSERT INTO `tb_dichvu` (`id`, `loaiDV`, `MoTa`, `TenDV`, `TinhTrangSuDung`, `DonViGia`, `Gia`) VALUES
-(1, 1, 'De xe', 'De xe', 1, 'd', 100000),
-(2, 2, 'Bao ve', 'Bao ve', 1, 'd', 100000);
+CREATE TABLE `tb_hinhanh` (
+  `id_hinhanh` int(11) NOT NULL,
+  `id_loaihinhanh` int(11) NOT NULL,
+  `type_hinhanh` varchar(50) NOT NULL,
+  `url_hinhanh` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tb_hinhanh`
+--
+
+INSERT INTO `tb_hinhanh` (`id_hinhanh`, `id_loaihinhanh`, `type_hinhanh`, `url_hinhanh`) VALUES
+(17, 1, 'Bảo trì sửa chữa', 'images_baotrisuachua1528273646_ktqd5.jpg'),
+(27, 1, 'Bảo trì sửa chữa', 'img_657ed5eff2e03.jpg'),
+(28, 21, 'Bảo trì sửa chữa', 'img_657f0f073dbeb.jpg');
 
 -- --------------------------------------------------------
 
@@ -189,7 +213,8 @@ CREATE TABLE `tb_kho` (
 --
 
 INSERT INTO `tb_kho` (`id_kho`, `ma_kho`, `ten_kho`, `diachi_kho`) VALUES
-(1, 'MK023256', 'Kho hàng vật liệu', 'Hà nội');
+(1, 'MK023256', 'Kho hàng vật liệu', 'Hà nội'),
+(2, 'MK024216', 'Kho đồ gia dụng', 'Tòa 1');
 
 -- --------------------------------------------------------
 
@@ -227,7 +252,7 @@ CREATE TABLE `tb_taikhoan` (
 --
 
 INSERT INTO `tb_taikhoan` (`id_taikhoan`, `tai_khoan`, `mat_khau`, `ten_hien_thi`, `so_dien_thoai`, `gioi_tinh`, `hinh_anh`, `quyen_han`) VALUES
-(1, 'huylohb123', 'huylohb123', 'Phạm Hữu Quân', 378452231, 1, '', 2);
+(1, 'huylohb123', 'huylohb123', 'Phạm Hữu Quân', 378452231, 1, '4dc94d35aa38369639dfb276a1619673.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -239,14 +264,18 @@ CREATE TABLE `tb_taisan` (
   `id_taisan` int(11) NOT NULL,
   `ten_taisan` varchar(50) NOT NULL,
   `ma_taisan` varchar(50) NOT NULL,
-  `thuong_hieu` varchar(50) NOT NULL,
-  `mau_sac` varchar(50) NOT NULL,
-  `nam_sanxuat` int(11) NOT NULL,
-  `gia_tri` decimal(10,0) NOT NULL,
-  `tinh_trang` varchar(50) NOT NULL,
+  `thuong_hieu` varchar(50) DEFAULT NULL,
+  `mau_sac` varchar(50) DEFAULT NULL,
+  `nam_sanxuat` int(11) DEFAULT NULL,
+  `xuat_xu` varchar(255) DEFAULT NULL,
+  `gia_tri` decimal(10,0) DEFAULT NULL,
+  `so_luong` int(11) NOT NULL,
+  `tinh_trang` varchar(50) DEFAULT NULL,
+  `thoihanbaohanh` date DEFAULT NULL,
   `id_kho` int(11) DEFAULT NULL,
   `id_toanha` int(11) DEFAULT NULL,
   `id_canho_phong` int(11) DEFAULT NULL,
+  `id_tang` int(11) DEFAULT NULL,
   `vi_tri` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -254,8 +283,10 @@ CREATE TABLE `tb_taisan` (
 -- Đang đổ dữ liệu cho bảng `tb_taisan`
 --
 
-INSERT INTO `tb_taisan` (`id_taisan`, `ten_taisan`, `ma_taisan`, `thuong_hieu`, `mau_sac`, `nam_sanxuat`, `gia_tri`, `tinh_trang`, `id_kho`, `id_toanha`, `id_canho_phong`, `vi_tri`) VALUES
-(1, 'Ghế', 'TS012459', 'Nike', 'Đỏ', 2020, 265000, 'Mới', 1, 72, NULL, 'Phòng ngủ');
+INSERT INTO `tb_taisan` (`id_taisan`, `ten_taisan`, `ma_taisan`, `thuong_hieu`, `mau_sac`, `nam_sanxuat`, `xuat_xu`, `gia_tri`, `so_luong`, `tinh_trang`, `thoihanbaohanh`, `id_kho`, `id_toanha`, `id_canho_phong`, `id_tang`, `vi_tri`) VALUES
+(3, 'Ghế', 'TS012459', 'Nike', 'Xanh', 2020, 'Việt nam', 145000, 12, 'Mới', '2023-12-30', 1, 72, 18, 39, 'Phòng ngủ'),
+(4, 'Bàn học', 'TS011894', 'Nike', 'Đỏ', 2015, 'Trung quốc', 265000, 20, 'Cũ', '2027-12-23', 1, 72, 13, 40, 'Phòng làm việc'),
+(5, 'Bàn học', 'TS011894', 'Nike', 'Xanh', 2015, 'Mỹ', 432000, 3, 'Mới', '2023-12-12', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -351,7 +382,13 @@ ALTER TABLE `tb_dancu`
 -- Chỉ mục cho bảng `tb_dichvu`
 --
 ALTER TABLE `tb_dichvu`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_dichvu`);
+
+--
+-- Chỉ mục cho bảng `tb_hinhanh`
+--
+ALTER TABLE `tb_hinhanh`
+  ADD PRIMARY KEY (`id_hinhanh`);
 
 --
 -- Chỉ mục cho bảng `tb_hoadon`
@@ -396,7 +433,8 @@ ALTER TABLE `tb_taisan`
   ADD PRIMARY KEY (`id_taisan`),
   ADD KEY `taisan_kho` (`id_kho`),
   ADD KEY `taisan_canhophong` (`id_canho_phong`),
-  ADD KEY `taisan_toanha` (`id_toanha`);
+  ADD KEY `taisan_toanha` (`id_toanha`),
+  ADD KEY `taisan_tang` (`id_tang`);
 
 --
 -- Chỉ mục cho bảng `tb_tang`
@@ -425,13 +463,13 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT cho bảng `tb_baotri_suachua`
 --
 ALTER TABLE `tb_baotri_suachua`
-  MODIFY `id_baotri_suachua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_baotri_suachua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_canho_phong`
 --
 ALTER TABLE `tb_canho_phong`
-  MODIFY `id_canho_phong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_canho_phong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_dancu`
@@ -443,7 +481,13 @@ ALTER TABLE `tb_dancu`
 -- AUTO_INCREMENT cho bảng `tb_dichvu`
 --
 ALTER TABLE `tb_dichvu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_dichvu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `tb_hinhanh`
+--
+ALTER TABLE `tb_hinhanh`
+  MODIFY `id_hinhanh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_hoadon`
@@ -461,7 +505,7 @@ ALTER TABLE `tb_hopdong`
 -- AUTO_INCREMENT cho bảng `tb_kho`
 --
 ALTER TABLE `tb_kho`
-  MODIFY `id_kho` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kho` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_sudungdichvu`
@@ -479,7 +523,7 @@ ALTER TABLE `tb_taikhoan`
 -- AUTO_INCREMENT cho bảng `tb_taisan`
 --
 ALTER TABLE `tb_taisan`
-  MODIFY `id_taisan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_taisan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_tang`
@@ -516,7 +560,7 @@ ALTER TABLE `tb_canho_phong`
 -- Các ràng buộc cho bảng `tb_hoadon`
 --
 ALTER TABLE `tb_hoadon`
-  ADD CONSTRAINT `hoadon_dichvu` FOREIGN KEY (`id_DV`) REFERENCES `tb_dichvu` (`id`),
+  ADD CONSTRAINT `hoadon_dichvu` FOREIGN KEY (`id_DV`) REFERENCES `tb_dichvu` (`id_dichvu`),
   ADD CONSTRAINT `hoadon_hopdong` FOREIGN KEY (`id_hopdong`) REFERENCES `tb_hoadon` (`id`);
 
 --
@@ -531,7 +575,7 @@ ALTER TABLE `tb_hopdong`
 --
 ALTER TABLE `tb_sudungdichvu`
   ADD CONSTRAINT `sudung_canhophong` FOREIGN KEY (`id_canho_phong`) REFERENCES `tb_canho_phong` (`id_canho_phong`),
-  ADD CONSTRAINT `sudung_dichvu` FOREIGN KEY (`id_DV`) REFERENCES `tb_dichvu` (`id`);
+  ADD CONSTRAINT `sudung_dichvu` FOREIGN KEY (`id_DV`) REFERENCES `tb_dichvu` (`id_dichvu`);
 
 --
 -- Các ràng buộc cho bảng `tb_taisan`
@@ -539,6 +583,7 @@ ALTER TABLE `tb_sudungdichvu`
 ALTER TABLE `tb_taisan`
   ADD CONSTRAINT `taisan_canhophong` FOREIGN KEY (`id_canho_phong`) REFERENCES `tb_canho_phong` (`id_canho_phong`) ON DELETE SET NULL,
   ADD CONSTRAINT `taisan_kho` FOREIGN KEY (`id_kho`) REFERENCES `tb_kho` (`id_kho`) ON DELETE SET NULL,
+  ADD CONSTRAINT `taisan_tang` FOREIGN KEY (`id_tang`) REFERENCES `tb_tang` (`id_tang`) ON DELETE SET NULL,
   ADD CONSTRAINT `taisan_toanha` FOREIGN KEY (`id_toanha`) REFERENCES `tb_toanha` (`id_toanha`) ON DELETE SET NULL;
 
 --

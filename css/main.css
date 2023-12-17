@@ -16023,5 +16023,19 @@ text-align:center;
   display: block;
   font-family: sans-serif;
 }
+.alert-form{
+  padding: 10px;
+  background-color: #b1ffb5;
+  color: #006906;
+  border-radius: 0.357rem;
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 1rem;
+}
+.alert-form .alert-body i, .alert-form .alert-body svg{
+  position: relative;
+  top: 1px;
+  margin-right: 0.25rem!important;
+}
 
 
