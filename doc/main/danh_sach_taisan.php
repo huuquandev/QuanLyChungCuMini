@@ -178,25 +178,25 @@
       <div class="col-md-12">
         <div class="tile">
           <div class="tile-body">
-
             <div class="row element-button">
-              <div class="col-sm-2">
+            <h4 data-v-38625d2e="" class="card-title">Tài sản</h4>
 
-                <a class="btn btn-add btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i>
-                  Thêm tài sản</a>
-              </div>
-              <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
-                    class="fas fa-file-upload"></i> Nhập dữ liệu</a>
-              </div>
+            <div class="card_body">
+            <div class="col-sm-2">       
+                <a class="btn btn-add btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i></a>
+                </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
+                      class="fas fa-file-upload"></i></a>
+                </div>
 
-              <div class="col-sm-2">
-                <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất dữ liệu</a>
-              </div>
-              <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                    class="fas fa-trash-alt"></i> Xóa tất cả </a>
-              </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i></a>
+                </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
+                      class="fas fa-trash-alt"></i></a>
+                </div>
               <div class="modal fade bd-example-modal-lg" id="modal-default">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -473,6 +473,7 @@
                         </div>
                     </div>
               </div>
+            </div>
             </div>
             <div data-v-0fee43d8="" class="row">
               <div data-v-0fee43d8="" class="col">

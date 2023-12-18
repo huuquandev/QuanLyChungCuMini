@@ -314,14 +314,42 @@
             return false;
         }
     }
-    function Update_trangthai_congviec($id_baotrisuachua, $id_trangthai){
+    function Update_trangthai_congviec($id_baotrisuachua, $id_trangthai, $id_user, $mota, $ngay_hoanthanh, $Images){
         GLOBAL $conn;
         $filter_id_trangthai = mysqli_real_escape_string($conn, $id_trangthai);
         $filter_id_baotrisuachua = mysqli_real_escape_string($conn, $id_baotrisuachua);
-
-        $sql = "UPDATE tb_baotri_suachua SET trang_thai='$filter_id_trangthai' WHERE id_baotri_suachua='$filter_id_baotrisuachua'";
+        if($filter_id_trangthai == 1){
+            $filter_id_user = mysqli_real_escape_string($conn, $id_user);
+            $sql = "UPDATE tb_baotri_suachua SET trang_thai='$filter_id_trangthai', id_taikhoan='$filter_id_user', ngay_lam=NOW() WHERE id_baotri_suachua='$filter_id_baotrisuachua'";
+        }
+        if($filter_id_trangthai == 2){
+            $filter_mota = mysqli_real_escape_string($conn, $mota);
+            $filter_ngay_hoanthanh = mysqli_real_escape_string($conn, $ngay_hoanthanh);
+            $sql = "UPDATE tb_baotri_suachua SET trang_thai='$filter_id_trangthai', mota_hoanhthanh='$filter_mota', ngay_hoanthanh='$filter_ngay_hoanthanh' WHERE id_baotri_suachua='$filter_id_baotrisuachua'";
+            if (!empty($Images)) {
+                $upload_directory = '../../../images/images_baotrisuachua/';
+                foreach ($Images['tmp_name'] as $key => $tmp_name) {
+                    $image_name = $Images['name'][$key];
+                    $file_extension = pathinfo($image_name, PATHINFO_EXTENSION); // Lấy phần mở rộng của file
+            
+                    $unique_image_name = uniqid('img_') . '.' . $file_extension; // Thêm một đoạn duy nhất vào tên file ảnh
+                    $target_file = $upload_directory . basename($unique_image_name);
+            
+                    if (move_uploaded_file($tmp_name, $target_file)) {
+                        $url_hinhanh = mysqli_real_escape_string($conn, $target_file);
+                        $type_hinhanh = 'Bảo trì sửa chữa hoàn thành';
+        
+                        $insertImageQuery = "INSERT INTO tb_hinhanh (id_loaihinhanh, type_hinhanh, url_hinhanh)
+                                            VALUES ('$filter_id_trangthai', '$type_hinhanh', '$unique_image_name')";
+            
+                        mysqli_query($conn, $insertImageQuery);
+                    }
+                }
+            }
+        }
         $query = mysqli_query($conn, $sql);
         if ($query) {        
+            
             return true;
         } else {
             return false;

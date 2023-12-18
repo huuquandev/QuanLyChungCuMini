@@ -3,10 +3,13 @@
     include_once '../../../components/connect.php';
     $id_baotrisuachua = $_POST['id_baotrisuachua'];
     $id_trangthai = $_POST['id_trangthai'];
-
+    $id_user = isset($_POST['id_user']) ? $_POST['id_user'] : null;
+    $mota = isset($_POST['ngay_hoanthanh']) ? $_POST['ngay_hoanthanh'] : null;
+    $ngay_hoanthanh = isset($_POST['ngay_hoanthanh']) ? $_POST['ngay_hoanthanh'] : null;
+    $images = isset($_FILES['image']) ? $_FILES['image'] : null;
 
     $response = array();
-    $result = Update_trangthai_congviec($id_baotrisuachua, $id_trangthai);
+    $result = Update_trangthai_congviec($id_baotrisuachua, $id_trangthai, $id_user, $mota, $ngay_hoanthanh, $images);
 
     if ($result == true) {
         $response['success'] = true;

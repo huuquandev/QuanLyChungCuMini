@@ -12,7 +12,7 @@ $uu_tien = $_POST['uu_tien'];
 $han_hoanthanh = $_POST['han_hoanthanh'];
 $ten_toanha = $_POST['ten_toanha'];
 $ten_phong = $_POST['ten_phong'];
-$ten_user = $_POST['ten_user'];
+$ten_user = isset($_POST['ten_user']) ? $_POST['ten_user'] : null;
 $images = isset($_FILES['image']) ? $_FILES['image'] : null;
 
 $response = array();

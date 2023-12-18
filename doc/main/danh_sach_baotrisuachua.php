@@ -70,7 +70,7 @@
           <h2 class="mb-25 font-weight-bolder text-warning"> <?php echo $count1['COUNT(*)'] ?> </h2>
           <span class="text-warning">Đang làm</span>
         </div>
-        <span class="b-avatar badge-light-warning rounded-circle" style="width: 45px; height: 45px;">
+        <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
           <span class="b-avatar-custom">
             <svg xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tool">
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -94,7 +94,7 @@
           <h2 class="mb-25 font-weight-bolder text-primary"> <?php echo $count2['COUNT(*)']?> </h2>
           <span class="text-primary">Chờ duyệt</span>
         </div>
-        <span class="b-avatar badge-light-primary rounded-circle" style="width: 45px; height: 45px;">
+        <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
           <span class="b-avatar-custom">
             <svg xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tool">
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -118,7 +118,7 @@
           <h2 class="mb-25 font-weight-bolder text-success"> <?php echo $count3['COUNT(*)']?>  </h2>
           <span class="text-success">Đã duyệt</span>
         </div>
-        <span class="b-avatar badge-light-success rounded-circle" style="width: 45px; height: 45px;">
+        <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
           <span class="b-avatar-custom">
             <svg xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tool">
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -142,7 +142,7 @@
           <h2 class="mb-25 font-weight-bolder text-info"> <?php echo $count4['COUNT(*)']?>  </h2>
           <span class="text-info">Không đạt</span>
         </div>
-        <span class="b-avatar badge-light-info rounded-circle" style="width: 45px; height: 45px;">
+        <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
           <span class="b-avatar-custom">
             <svg xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tool">
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -166,7 +166,7 @@
           <h2 class="mb-25 font-weight-bolder text-danger"> <?php echo $count5['COUNT(*)']?>  </h2>
           <span class="text-danger">Quá hạn</span>
         </div>
-        <span class="b-avatar badge-light-danger rounded-circle" style="width: 45px; height: 45px;">
+        <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
           <span class="b-avatar-custom">
             <svg xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tool">
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -186,24 +186,24 @@
           <div class="tile-body">
 
             <div class="row element-button">
-              <div class="col-sm-2">
+            <h4 data-v-38625d2e="" class="card-title">Công việc</h4>
+              <div class="card_body">
+                <div class="col-sm-2">       
+                <a class="btn btn-add btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i></a>
+                </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
+                      class="fas fa-file-upload"></i></a>
+                </div>
 
-              <a class="btn btn-add btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i>
-                  Thêm bảo trì/sửa chữa</a>
-              </div>
-              <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
-                    class="fas fa-file-upload"></i> Nhập dữ liệu</a>
-              </div>
-
-              <div class="col-sm-2">
-                <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất dữ liệu</a>
-              </div>
-              <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                    class="fas fa-trash-alt"></i> Xóa tất cả </a>
-              </div>
-              <div class="modal fade bd-example-modal-lg" id="modal-default">
+                <div class="col-sm-2">
+                  <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i></a>
+                </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
+                      class="fas fa-trash-alt"></i></a>
+                </div>
+                <div class="modal fade bd-example-modal-lg" id="modal-default">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -344,7 +344,7 @@
                                             <!---->
                                           </legend>
                                           <div>
-                                            <input type="text" data-input="true" id="date1" class="form-control flatpickr-input" readonly="readonly" placeholder="2023-11-12">
+                                            <input type="text" data-input="true" id="date1" class="form-control flatpickr-input" readonly="readonly" placeholder="2023-12-20 12:00">
                                             <small class="text-danger"></small>
                                             <!---->
                                             <!---->
@@ -415,6 +415,8 @@
                         </div>
                     </div>
               </div>
+              </div>
+ 
             </div>
             <div data-v-38625d2e="" class="row">
               <div data-v-38625d2e="" class="col">
@@ -563,7 +565,7 @@
                     $sql = "SELECT tb_baotri_suachua.*, tb_toanha.ten_toanha, tb_taikhoan.ten_hien_thi, tb_canho_phong.ten_canho_phong 
                     FROM tb_baotri_suachua
                     JOIN tb_toanha ON tb_toanha.id_toanha = tb_baotri_suachua.id_toanha 
-                    JOIN tb_taikhoan ON tb_taikhoan.id_taikhoan = tb_baotri_suachua.id_taikhoan
+                    LEFT JOIN tb_taikhoan ON tb_taikhoan.id_taikhoan = tb_baotri_suachua.id_taikhoan
                     JOIN tb_canho_phong ON tb_canho_phong.id_canho_phong = tb_baotri_suachua.id_phong";
                       $query = mysqli_query($conn, $sql);
                       if(mysqli_num_rows($query) > 0){
@@ -583,7 +585,13 @@
                   <td class="ten_phong"><?php echo $row['ten_canho_phong']; ?></td>                 
                   <td class="loaicongivec"><span class="badge bg-warning" style="font-size: 13px;"><b class="span_pending"><?php echo $row['loai_cong_viec']; ?></b></span></td>       
                   <td class="tenhienthi"><?php echo $row['ten_hien_thi']; ?></td>               
-                  <td class="ngayketthuc"><?php echo $row['ngay_ketthuc']; ?></td>         
+                  <td class="ngayketthuc">
+                    <?php 
+                    $ngay_ketthuc = new DateTime($row['ngay_ketthuc']);
+                    $ngay_thang_nam_gio_phut = $ngay_ketthuc->format("Y-m-d H:i");
+                    echo $ngay_thang_nam_gio_phut;
+                    ?>
+                  </td>         
                   <td class="trangthaicongviec">
                   <?php 
                           if($row['trang_thai'] == 3){
@@ -610,15 +618,20 @@
                       data-toggle="modal" data-target="#ModalUP" data-id="<?= $row['id_baotri_suachua'];?>"><i class="fas fa-edit"></i>
                     </button>
                     <?php 
-                        if ($row['trang_thai'] != 3 || $row['trang_thai'] != 4) {
+                        if ($row['trang_thai'] != 3 && $row['trang_thai'] != 4 && $row['trang_thai'] != 2) {
                             echo '<button class="btn btn-primary btn-sm" type="button" title="Hoàn thành" id="btn-done" 
                             data-id="' . $row['id_baotri_suachua'] . '" data-status="2" data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-thumbs-up"></i>
                             </button>';
                         }
                         if ($row['trang_thai'] == 0) {
-                            echo '<button class="btn btn-secondary btn-sm" type="button" title="Nhận xử lý" 
-                            id="btn-addcase" data-id="' . $row['id_baotri_suachua'] . '" data-status="1"><i class="fas fa-briefcase"></i>
+                            echo ' <button class="btn btn-secondary btn-sm" type="button" title="Nhận xử lý" 
+                            id="btn-addcase" data-id="' . $row['id_baotri_suachua'] . '" data-status="1"  data-user="' . $_SESSION['id_taikhoan'] . '" data-name-user="' . $_SESSION['ten_hien_thi'] . '"><i class="fas fa-briefcase"></i>
                             </button>';
+                        }
+                        if ($row['trang_thai'] == 2) {
+                          echo ' <button class="btn btn-success btn-sm" type="button" title="Duyệt" 
+                          id="btn-approve" data-id="' . $row['id_baotri_suachua'] . '" data-status="3"  data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-briefcase"></i>
+                          </button>';
                         }
                     ?>                              
                  </td>
@@ -903,7 +916,7 @@
                                   <span class="ml-25 namecongviec">Bạn đang tiến hành xác nhận hoàn thành công việc: <strong>đá</strong>. </span>
                                 </div>
                               </div>
-                              <form class="">
+                              <form class="formhoanthanhcongviec">
                                 <div class="row">
                                   <div class="col-12">
                                     <fieldset class="form-group" value="19-12-2023 03:00" id="__BVID__458">
@@ -925,8 +938,10 @@
                                   <fieldset class="form-group" id="__BVID__461">
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__461__BV_label_">Mô tả</legend>
                                     <div>
-                                      <textarea rows="3" wrap="soft" class="form-control" id="__BVID__462"></textarea>
+                                      <textarea rows="3" wrap="soft" class="form-control" id="motadone" required></textarea>
                                       <div class="invalid-feedback"></div>
+                                      <small class="text-danger"></small>
+
                                       <!---->
                                       <!---->
                                       <!---->
@@ -958,7 +973,80 @@
                             </div>
                             <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
-                                  <button type="button" class="btn btn-primary btnSave" data-dismiss="modal">Lưu</button>
+                                  <button type="button" class="btn btn-primary btnDone" data-dismiss="modal">Lưu</button>
+                          </div>
+                        </div>
+                    </div>
+              </div>
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="modal-default5">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Hoàn thành công việc</h4>
+                            </div>
+                            <div class="modal-body">
+                            <span>
+                                <div role="alert" aria-live="polite" aria-atomic="true" class="alert alert-primary">
+                                  <!---->
+                                  <div class="alert-body">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-star">
+                                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                    </svg>
+                                    <span class="ml-25 namecongviec">Bạn đang tiến hành nghiệm thu công việc: <strong>eqwe</strong>. </span>
+                                  </div>
+                                </div>
+                                <form class="">
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <div class="card shadow-none border bg-light-secondary ">
+                                        <!---->
+                                        <!---->
+                                        <div class="card-header">
+                                          <h4 class="card-title">Đạt yêu cầu</h4>
+                                          <div class="custom-control-primary custom-control custom-radio">
+                                            <input type="radio" name="status" class="custom-control-input" value="true" id="__BVID__782">
+                                            <label class="custom-control-label" for="__BVID__782"></label>
+                                          </div>
+                                        </div>
+                                        <!---->
+                                        <!---->
+                                      </div>
+                                    </div>
+                                    <div class="col">
+                                      <div class="card shadow-none border bg-light-danger ">
+                                        <!---->
+                                        <!---->
+                                        <div class="card-header">
+                                          <h4 class="card-title">Không đạt</h4>
+                                          <div class="custom-control-danger custom-control custom-radio">
+                                            <input type="radio" name="status" class="custom-control-input" value="false" id="__BVID__783">
+                                            <label class="custom-control-label" for="__BVID__783"></label>
+                                          </div>
+                                        </div>
+                                        <!---->
+                                        <!---->
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <span>
+                                    <fieldset class="form-group" id="__BVID__798">
+                                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__798__BV_label_">Mô tả lý do chưa đạt</legend>
+                                      <div>
+                                        <textarea rows="3" wrap="soft" class="form-control" id="__BVID__799"></textarea>
+                                        <div class="invalid-feedback"></div>
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                      </div>
+                                    </fieldset>
+                                  </span>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                                  <button type="button" class="btn btn-primary btnDone" data-dismiss="modal">Lưu</button>
                           </div>
                         </div>
                     </div>
@@ -1030,14 +1118,13 @@
               selectElement.removeClass('is-invalid');
             }
         }          
-        $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formedit input[required]').on('blur', function() {
+        $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formeditbaotrisuachua input[required], .formeditbaotrisuachua textarea[required], .formhoanthanhcongviec textarea[required]').on('blur', function() {
             validateInput($(this));
         });
-        $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formedit input[required]').on('focus', function() {
+        $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formeditbaotrisuachua input[required], .formeditbaotrisuachua textarea[required], .formhoanthanhcongviec textarea[required]').on('focus', function() {
             $(this).removeClass('is-invalid');
             $(this).closest('.form-group').find('small.text-danger').text('').hide();
         });
-       
     ////////////////////////////////////////////////////////   
     $('body').on('click', '.btn-add', function () {       
           let form = $('.formaddbaotrisuachua')
@@ -1084,7 +1171,7 @@
               var formData = new FormData();
               let ten_toanha = document.querySelector(".toannhaOption1 .select-btn span").textContent;
               let ten_phong = document.querySelector(".phongoption1 .select-btn").textContent;
-              let ten_user = document.querySelector(".nguoithuchienOption1 .select-btn").textContent;
+              let ten_user = $('#nguoithuchienInput1').val() === "" ? "" : document.querySelector(".nguoithuchienOption1 .select-btn").textContent;
               formData.append('tieu_de', $('#tieude1').val());
               formData.append('id_toanha', $('#toannhaInput1').val());
               formData.append('id_phong', $('#phongInput1').val());
@@ -1102,6 +1189,7 @@
               for (const pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
               }
+
               $.ajax({
                   url: "doc/main/commons/them_baotri_suachua.php",
                   type: "post",
@@ -1377,16 +1465,19 @@
             }
     });
     $('body').on('click', '.btnClose', function () {
-            $('#modal-default2').modal('hide');
+            $('#modal-default2, #modal-default3, #modal-default4').modal('hide');
     });
     $('body').on('click', '#btn-addcase', function () {
         $('#modal-default3').modal('show');
         var id = $(this).data("id");
         var status = $(this).data("status");
-        var formData = new FormData();
-        formData.append("id_baotrisuachua", id);
-        formData.append("id_trangthai", status);
+        var id_user = $(this).data("user");
+        var name_user = $(this).data("name-user");
         $('body').on('click', '.btnUpdateStatus', function () {
+          var formData = new FormData();
+          formData.append("id_baotrisuachua", id);
+          formData.append("id_trangthai", status);
+          formData.append("id_user", id_user);
               $.ajax({
                   url: "doc/main/commons/update_trangthai_lamviec.php",
                   type: "post",
@@ -1399,32 +1490,10 @@
                       var row = $('#row_' + response.id);
                       row.find('.trangthaicongviec span b').text(response.trangthai);
                       row.find('.trangthaicongviec span').removeClass('badge bg-primary bg-danger bg-warning bg-success bg-secondary');
-
-                        if(response.id_trangthai == 1){    
-                            row.find('.trangthaicongviec span').addClass('badge bg-warning')    
-                            row.find('#btn-addcase').remove();                             
-                          }else if((response.id_trangthai == 2)){
-                            row.find('.trangthaicongviec span').addClass('badge bg-primary')
-                            row.find('#btn-addcase').remove();
-                                row.find('#btn-addcase').remove();
-                                row.find('#btn-done').remove();
-                                // Tạo button mới
-                                let newButton = $('<button/>', {
-                                    class: 'btn btn-success btn-sm',
-                                    type: 'button',
-                                    title: 'Duyệt',
-                                    id: 'btn-approve',
-                                    'data-id': response.id
-                                }).append($('<i/>', { class: 'fas fa-briefcase' }));
-
-                                // Thêm button vào DOM
-                                row.find('.optionbaotrisuachua').append(newButton);
-                          }else if(response.id_trangthai == 3){
-                            row.find('.trangthaicongviec span').addClass('badge bg-success')   
-                          }else{
-                            row.find('.trangthaicongviec span').addClass('badge bg-danger')
-                          }
-                        $('#modal-default3').modal('hide');            
+                      row.find('.tenhienthi').text(name_user);
+                      row.find('.trangthaicongviec span').addClass('badge bg-warning')    
+                      row.find('#btn-addcase').remove();    
+                      $('#modal-default3').modal('hide');            
                     }
                   },
                   error: function (xhr, status, error) {
@@ -1441,8 +1510,8 @@
           }
           showImagesDone(files);
           $(this).val('');
-        });
-      const showImagesDone = (array) =>{
+    });
+    const showImagesDone = (array) =>{
               let images = '';
               array.forEach((e, i) => {
                 images += `<div data-v-0f357511="" class="col-md-2 col-4">
@@ -1466,11 +1535,11 @@
                 
               });
               $('.containerImages').html(images);
-            }
-          const delnewDone = (index) =>{
+    }
+    const delnewDone = (index) =>{
               files.splice(index, 1);
               showImagesDone(files);       
-          }
+      }
     $('body').on('click', '#btn-done', function () {    
       files = []; 
       showImages(files); 
@@ -1479,13 +1548,126 @@
       var name = $(this).data("name");
       var currentDate = new Date();
       var formattedDate = currentDate.getFullYear() + '-' +
-                          ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
-                          ('0' + currentDate.getDate()).slice(-2);
-
-      // Thiết lập giá trị cho trường input
+        ('0' + (currentDate.getMonth() + 1)).slice(-2) + '-' +
+        ('0' + currentDate.getDate()).slice(-2) + ' ' +
+        ('0' + currentDate.getHours()).slice(-2) + ':' +
+        ('0' + currentDate.getMinutes()).slice(-2);
       $('#datedone').val(formattedDate);
-
       $('.alert-body .namecongviec strong').text(name);
       $('#modal-default4').modal('show');
+        $('body').on('click', '.btnDone', function () {
+            var formData = new FormData();
+            formData.append("id_baotrisuachua", id);
+            formData.append("id_trangthai", status);
+            formData.append("ngay_hoanthanh", $('#datedone').val());
+            formData.append("mota_hoanthanh", $('#motadone').val());
+            for (let i = 0; i < files.length; i++) {
+                        formData.append('image[]', files[i]); 
+            }
+            for (const pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+              }
+              $.ajax({
+                  url: "doc/main/commons/update_trangthai_lamviec.php",
+                  type: "post",
+                  dataType: "json",
+                  processData: false,
+                  contentType: false,
+                  data: formData,
+                  success: function (response) {
+                    if (response.success) {     
+                      var row = $('#row_' + response.id);
+                      row.find('.trangthaicongviec span b').text(response.trangthai);
+                      row.find('.trangthaicongviec span').removeClass('badge bg-primary bg-danger bg-warning bg-success bg-secondary');
+                      if((response.id_trangthai == 2)){
+                            row.find('.trangthaicongviec span').addClass('badge bg-primary')
+                            row.find('#btn-addcase').remove();
+                                row.find('#btn-addcase').remove();
+                                row.find('#btn-done').remove();
+                                // Tạo button mới
+                                let newButton = $('<button/>', {
+                                    class: 'btn btn-success btn-sm',
+                                    type: 'button',
+                                    title: 'Duyệt',
+                                    id: 'btn-approve',
+                                    'data-id': response.id
+                                }).append($('<i/>', { class: 'fas fa-briefcase' }));
+
+                                // Thêm button vào DOM
+                                row.find('.optionbaotrisuachua').append(newButton);
+                          }else if(response.id_trangthai == 3){
+                            row.find('.trangthaicongviec span').addClass('badge bg-success')   
+                          }else{
+                            row.find('.trangthaicongviec span').addClass('badge bg-danger')
+                          }
+                        $('#modal-default4').modal('hide');            
+                    }
+                  },
+                  error: function (xhr, status, error) {
+                      console.error(xhr.responseText);
+                      alert("Ajax request failed!");
+                  }
+              });         
+        });
     });
+    $('body').on('click', '#btn-approve', function () {    
+      files = []; 
+      showImages(files); 
+      var id = $(this).data("id");
+      var status = $(this).data("status");
+      var name = $(this).data("name");
+      $('.alert-body .namecongviec strong').text(name);
+
+      $('#modal-default5').modal('show');
+        // $('body').on('click', '.btnDone', function () {
+        //     var formData = new FormData();
+        //     formData.append("id_baotrisuachua", id);
+        //     formData.append("id_trangthai", status);
+        //     for (const pair of formData.entries()) {
+        //         console.log(pair[0] + ': ' + pair[1]);
+        //       }
+        //       // $.ajax({
+        //       //     url: "doc/main/commons/update_trangthai_lamviec.php",
+        //       //     type: "post",
+        //       //     dataType: "json",
+        //       //     processData: false,
+        //       //     contentType: false,
+        //       //     data: formData,
+        //       //     success: function (response) {
+        //       //       if (response.success) {     
+        //       //         var row = $('#row_' + response.id);
+        //       //         row.find('.trangthaicongviec span b').text(response.trangthai);
+        //       //         row.find('.trangthaicongviec span').removeClass('badge bg-primary bg-danger bg-warning bg-success bg-secondary');
+        //       //         if((response.id_trangthai == 2)){
+        //       //               row.find('.trangthaicongviec span').addClass('badge bg-primary')
+        //       //               row.find('#btn-addcase').remove();
+        //       //                   row.find('#btn-addcase').remove();
+        //       //                   row.find('#btn-done').remove();
+        //       //                   // Tạo button mới
+        //       //                   let newButton = $('<button/>', {
+        //       //                       class: 'btn btn-success btn-sm',
+        //       //                       type: 'button',
+        //       //                       title: 'Duyệt',
+        //       //                       id: 'btn-approve',
+        //       //                       'data-id': response.id
+        //       //                   }).append($('<i/>', { class: 'fas fa-briefcase' }));
+
+        //       //                   // Thêm button vào DOM
+        //       //                   row.find('.optionbaotrisuachua').append(newButton);
+        //       //             }else if(response.id_trangthai == 3){
+        //       //               row.find('.trangthaicongviec span').addClass('badge bg-success')   
+        //       //             }else{
+        //       //               row.find('.trangthaicongviec span').addClass('badge bg-danger')
+        //       //             }
+        //       //           $('#modal-default4').modal('hide');            
+        //       //       }
+        //       //     },
+        //       //     error: function (xhr, status, error) {
+        //       //         console.error(xhr.responseText);
+        //       //         alert("Ajax request failed!");
+        //       //     }
+        //       // });         
+        // });
+    });
+
 </script>
