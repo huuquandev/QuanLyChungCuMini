@@ -3804,12 +3804,6 @@ input[type="button"].btn-block {
   z-index: -1;
   opacity: 0;
 }
-
-.custom-control-input:checked ~ .custom-control-label::before {
-  color: #FFF;
-  background-color: rgb(0, 28, 64);
-}
-
 .custom-control-input:focus ~ .custom-control-label::before {
   -webkit-box-shadow: 0 0 0 1px #FFF, none;
           box-shadow: 0 0 0 1px #FFF, none;
@@ -3863,14 +3857,15 @@ input[type="button"].btn-block {
   background-color: rgba(0, 150, 136, 0.5);
 }
 
-.custom-radio .custom-control-label::before {
-  border-radius: .357rem;
-}
 
-.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: rgb(0, 28, 64);
+.custom-radio #formSuccess:checked ~ .custom-control-label::before {
+  border-color: #248f55;
+  background-color: #248f55;
 }
-
+.custom-radio #formFail:checked ~ .custom-control-label::before {
+  border-color: #ea5455;
+    background-color: #ea5455;
+}
 .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23FFF'/%3E%3C/svg%3E");
 }
@@ -6991,11 +6986,14 @@ button.bg-dark:focus {
 }
 
 .align-items-start {
+  margin-bottom: 1.5rem;
   -webkit-box-align: start !important;
-      -ms-flex-align: start !important;
-          align-items: flex-start !important;
+  -ms-flex-align: start !important;
+  align-items: flex-start !important;
 }
-
+.align-items-start .mr-75 {
+  margin-right: 0.75rem!important;
+}
 .align-items-end {
   -webkit-box-align: end !important;
       -ms-flex-align: end !important;
@@ -15894,6 +15892,9 @@ text-align:center;
   z-index: 10;
   position: absolute;
 }
+.wrapper.active .large .search-option{
+  width: 400px;
+}
 .search-option ul{
   padding: 0;
 }
@@ -15947,6 +15948,18 @@ text-align:center;
 }
 .table_search .wrapper.active .search-option {
   width: 181px;
+  display: block;
+  z-index: 10;
+  position: absolute;
+}
+.table_search_baotri .wrapper.active .search-option {
+  width: 375px;
+  display: block;
+  z-index: 10;
+  position: absolute;
+}
+.table_search_baotri_add .wrapper.active .search-option {
+  width: 368px;
   display: block;
   z-index: 10;
   position: absolute;
@@ -16045,4 +16058,33 @@ text-align:center;
 .card_body{
   display: flex;
 }
+.custom-radio input[type="radio"]{
+  display: none;
+}
+.custom-radio label::before{
+  content: "";
+  height: 30px;
+  width: 30px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  margin-right: 20px;
+  display: block;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.bg-light-danger {
+  background: rgba(234,84,85,.12)!important;
 
+}
+.bg-light-primary {
+  background: rgba(36,143,85,.12)!important;
+}
+.bg-light-secondary {
+  background: rgba(130,134,139,.12)!important;
+}
+.badge.badge-light-success{
+  background-color: rgba(40,199,111,.12);
+  color: #28c76f!important;
+}
+.badge-pill {
+  border-radius: 10rem;
+}

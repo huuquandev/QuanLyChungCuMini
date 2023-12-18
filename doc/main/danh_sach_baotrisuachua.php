@@ -219,19 +219,21 @@
                                             <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__747__BV_label_"> Tòa nhà
                                               <!---->
                                             </legend>
-                                            <div class="wrapper toannhaOption1">
-                                                <div class="select-btn">
-                                                <span>Chọn tòa nhà</span>
-                                                <input type="hidden" id="toannhaInput1" required>
-                                                <i class="fas fa-angle-down"></i>
-                                                </div>
-                                                <div class="search-option">
-                                                <div class="search">
-                                                    <input type="text" placeholder="Search" id="toannhaSearch1">
-                                                </div>
-                                                <ul class="options" id="toannha1">                              
-                                                </ul>
-                                                </div>
+                                            <div class="table_search_baotri_add">
+                                              <div class="wrapper toannhaOption1">
+                                                  <div class="select-btn">
+                                                  <span>Chọn tòa nhà</span>
+                                                  <input type="hidden" id="toannhaInput1" required>
+                                                  <i class="fas fa-angle-down"></i>
+                                                  </div>
+                                                  <div class="search-option">
+                                                  <div class="search">
+                                                      <input type="text" placeholder="Search" id="toannhaSearch1">
+                                                  </div>
+                                                  <ul class="options" id="toannha1">                              
+                                                  </ul>
+                                                  </div>
+                                              </div>
                                             </div>
                                             <small class="text-danger"></small>
 
@@ -245,20 +247,22 @@
                                             <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__753__BV_label_"> Phòng
                                               <!---->
                                             </legend>
-                                            <div class="wrapper phongOption1">
-                                                <div class="select-btn">
-                                                <span>Chọn phòng</span>
-                                                <input type="hidden" id="phongInput1" required>
-                                                <i class="fas fa-angle-down"></i>
-                                                </div>
-                                                <div class="search-option">
-                                                <div class="search">
-                                                    <input type="text" placeholder="Search" id="phongSearch1">
-                                                </div>
-                                                <ul class="options" id="phong1">                              
-                                                </ul>
-                                                </div>
+                                            <div class="table_search_baotri_add">
+                                              <div class="wrapper phongOption1">
+                                                  <div class="select-btn">
+                                                  <span>Chọn phòng</span>
+                                                  <input type="hidden" id="phongInput1" required>
+                                                  <i class="fas fa-angle-down"></i>
+                                                  </div>
+                                                  <div class="search-option">
+                                                  <div class="search">
+                                                      <input type="text" placeholder="Search" id="phongSearch1">
+                                                  </div>
+                                                  <ul class="options" id="phong1">                              
+                                                  </ul>
+                                                  </div>
                                             </div>
+                                            </div>                               
                                             <small class="text-danger"></small>
 
                                           </fieldset>
@@ -410,7 +414,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
-                                <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd">Thêm</button>
+                                <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd" data-name="<?= $_SESSION['id_taikhoan']?>">Thêm</button>
                             </div>
                         </div>
                     </div>
@@ -422,18 +426,18 @@
               <div data-v-38625d2e="" class="col">
               <fieldset class="form-group" id="__BVID__428">
                                 <!---->
-                                <div class="table_search">
-                                  <div class="wrapper toannhaOptionselect">
+                                <div class="table_search_baotri">
+                                  <div class="wrapper statusOptionselect">
                                                     <div class="select-btn">
                                                       <span>Trạng thái</span>
-                                                      <input type="hidden" id="toannhaInputSearch">
+                                                      <input type="hidden" id="statusInputSearch">
                                                       <i class="fas fa-angle-down"></i>
                                                     </div>
                                                     <div class="search-option">
                                                       <div class="search">
-                                                        <input type="text" placeholder="Search" id="toannhaSearch2">
+                                                        <input type="text" placeholder="Search" id="statusSearch">
                                                       </div>
-                                                      <ul class="options" id="toannhaOptionSearch">                              
+                                                      <ul class="options" id="statusOptionSearch">                              
                                                       </ul>
                                                     </div>
                                     </div>
@@ -441,37 +445,13 @@
 
                               </fieldset>
               </div>
-              <div data-v-38625d2e="" class="col">
-                <div data-v-38625d2e="">
-                <fieldset class="form-group" id="__BVID__428">
-                                <!---->
-                                <div class="table_search">
-                                  <div class="wrapper toannhaOptionselect">
-                                                    <div class="select-btn">
-                                                      <span>Loại công việc</span>
-                                                      <input type="hidden" id="toannhaInputSearch">
-                                                      <i class="fas fa-angle-down"></i>
-                                                    </div>
-                                                    <div class="search-option">
-                                                      <div class="search">
-                                                        <input type="text" placeholder="Search" id="toannhaSearch2">
-                                                      </div>
-                                                      <ul class="options" id="toannhaOptionSearch">                              
-                                                      </ul>
-                                                    </div>
-                                    </div>
-                                </div>
-
-                              </fieldset>
-                  <!---->
-                </div>
-              </div>
+  
                 <div data-v-38625d2e="" class="col">
                   <div data-v-38625d2e="">
                   <fieldset class="form-group" id="__BVID__428">
                                   <!---->
-                                  <div class="table_search">
-                                    <div class="wrapper toannhaOptionselect">
+                                  <div class="table_search_baotri">
+                                    <div class="wrapper toannhaOptionselect large">
                                                       <div class="select-btn">
                                                         <span>Tòa nhà</span>
                                                         <input type="hidden" id="toannhaInputSearch">
@@ -495,18 +475,18 @@
               <div data-v-38625d2e="">
               <fieldset class="form-group" id="__BVID__428">
                               <!---->
-                              <div class="table_search">
-                                <div class="wrapper toannhaOptionselect">
+                              <div class="table_search_baotri">
+                                <div class="wrapper phongOptionselect">
                                                   <div class="select-btn">
                                                     <span>Phòng</span>
-                                                    <input type="hidden" id="toannhaInputSearch">
+                                                    <input type="hidden" id="phongInputSearch">
                                                     <i class="fas fa-angle-down"></i>
                                                   </div>
                                                   <div class="search-option">
                                                     <div class="search">
-                                                      <input type="text" placeholder="Search" id="toannhaSearch2">
+                                                      <input type="text" placeholder="Search" id="phongSearch2">
                                                     </div>
-                                                    <ul class="options" id="toannhaOptionSearch">                              
+                                                    <ul class="options" id="phongOptionSearch">                              
                                                     </ul>
                                                   </div>
                                   </div>
@@ -612,14 +592,21 @@
       
                   <td class="table-td-center optionbaotrisuachua">
                     <button class="btn btn-danger btn-sm" type="button" title="Xóa"
-                      onclick="myFunction(this)" data-id="<?= $row['id_baotri_suachua'];?>" ><i class="fas fa-trash-alt"></i>
+                      onclick="myFunction(this)" id="btn-delete" data-id="<?= $row['id_baotri_suachua'];?>" ><i class="fas fa-trash-alt"></i>
                     </button>
-                    <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
-                      data-toggle="modal" data-target="#ModalUP" data-id="<?= $row['id_baotri_suachua'];?>"><i class="fas fa-edit"></i>
-                    </button>
-                    <?php 
+                    <?php             
+                      if ($row['trang_thai'] == 3 || $row['trang_thai'] == 4) {
+                        echo ' <button class="btn btn-warning btn-sm" type="button" title="Xem" 
+                        id="btn-show" data-id="' . $row['id_baotri_suachua'] . '"><i class="fa fa-eye"></i>
+                        </button>';
+                      }
+                        if($row['trang_thai'] != 3 && $row['trang_thai'] != 4){
+                          echo ' <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
+                          data-toggle="modal" data-target="#ModalUP" data-id="' .$row['id_baotri_suachua']. '"><i class="fas fa-edit"></i>
+                        </button>';
+                        }
                         if ($row['trang_thai'] != 3 && $row['trang_thai'] != 4 && $row['trang_thai'] != 2) {
-                            echo '<button class="btn btn-primary btn-sm" type="button" title="Hoàn thành" id="btn-done" 
+                            echo ' <button class="btn btn-primary btn-sm" type="button" title="Hoàn thành" id="btn-done" 
                             data-id="' . $row['id_baotri_suachua'] . '" data-status="2" data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-thumbs-up"></i>
                             </button>';
                         }
@@ -630,7 +617,7 @@
                         }
                         if ($row['trang_thai'] == 2) {
                           echo ' <button class="btn btn-success btn-sm" type="button" title="Duyệt" 
-                          id="btn-approve" data-id="' . $row['id_baotri_suachua'] . '" data-status="3"  data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-briefcase"></i>
+                          id="btn-approve" data-id="' . $row['id_baotri_suachua'] . '" data-status="3"  data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-check"></i>
                           </button>';
                         }
                     ?>                              
@@ -719,7 +706,7 @@
                                                 </div>
                                                 <div class="search-option">
                                                 <div class="search">
-                                                    <input type="text" placeholder="Search" id="phongSearch2">
+                                                    <input type="text" placeholder="Search" id="phongSearch3">
                                                 </div>
                                                 <ul class="options" id="phong2">                              
                                                 </ul>
@@ -893,7 +880,7 @@
                             </div>
                             <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
-                                  <button type="button" class="btn btn-primary btnUpdateStatus" data-dismiss="modal">Nhận</button>
+                                  <button type="button" class="btn btn-primary btnUpdateStatus" data-dismiss="modal" data-name="<?= $_SESSION['id_taikhoan'] ?>">Nhận</button>
                           </div>
                         </div>
                     </div>
@@ -913,7 +900,7 @@
                                   <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-star">
                                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                                   </svg>
-                                  <span class="ml-25 namecongviec">Bạn đang tiến hành xác nhận hoàn thành công việc: <strong>đá</strong>. </span>
+                                  <span class="ml-25 namecongviec">Bạn đang tiến hành xác nhận hoàn thành công việc: <strong></strong>. </span>
                                 </div>
                               </div>
                               <form class="formhoanthanhcongviec">
@@ -973,7 +960,7 @@
                             </div>
                             <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
-                                  <button type="button" class="btn btn-primary btnDone" data-dismiss="modal">Lưu</button>
+                                  <button type="button" class="btn btn-primary btnDone" data-dismiss="modal" data-name="<?= $_SESSION['id_taikhoan'] ?>">Lưu</button>
                           </div>
                         </div>
                     </div>
@@ -987,41 +974,39 @@
                             </div>
                             <div class="modal-body">
                             <span>
-                                <div role="alert" aria-live="polite" aria-atomic="true" class="alert alert-primary">
+                                <div role="alert" aria-live="polite" aria-atomic="true" class="alert-form alert-primary">
                                   <!---->
                                   <div class="alert-body">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-star">
                                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                                     </svg>
-                                    <span class="ml-25 namecongviec">Bạn đang tiến hành nghiệm thu công việc: <strong>eqwe</strong>. </span>
+                                    <span class="ml-25 namecongviecDone">Bạn đang tiến hành duyệt công việc: <strong></strong>. </span>
                                   </div>
                                 </div>
-                                <form class="">
+                                <form class="formduyetcongviec">
                                   <div class="row">
-                                    <div class="col-6">
-                                      <div class="card shadow-none border bg-light-secondary ">
+                                    <div class="col-6 Success">
+                                      <div class="card shadow-none border bg-light-primary">
                                         <!---->
                                         <!---->
-                                        <div class="card-header">
+                                        <div class="card-header d-flex justify-content-between">
                                           <h4 class="card-title">Đạt yêu cầu</h4>
                                           <div class="custom-control-primary custom-control custom-radio">
-                                            <input type="radio" name="status" class="custom-control-input" value="true" id="__BVID__782">
-                                            <label class="custom-control-label" for="__BVID__782"></label>
+                                            <input type="radio" name="status" class="custom-control-input" value="3" id="formSuccess" checked>
+                                            <label class="custom-control-label" for="formSuccess"></label>
                                           </div>
                                         </div>
                                         <!---->
                                         <!---->
                                       </div>
                                     </div>
-                                    <div class="col">
-                                      <div class="card shadow-none border bg-light-danger ">
-                                        <!---->
-                                        <!---->
-                                        <div class="card-header">
+                                    <div class="col-6 fail">
+                                      <div class="card shadow-none border bg-light-secondary">
+                                        <div class="card-header d-flex justify-content-between">
                                           <h4 class="card-title">Không đạt</h4>
-                                          <div class="custom-control-danger custom-control custom-radio">
-                                            <input type="radio" name="status" class="custom-control-input" value="false" id="__BVID__783">
-                                            <label class="custom-control-label" for="__BVID__783"></label>
+                                          <div class="custom-control-danger custom-control custom-radio" checked="checked">
+                                            <input type="radio" name="status" class="custom-control-input" value="4" id="formFail">
+                                            <label class="custom-control-label" for="formFail"></label>
                                           </div>
                                         </div>
                                         <!---->
@@ -1029,12 +1014,14 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <span>
+                                  <span class="motaformfail" style="display: none;">
                                     <fieldset class="form-group" id="__BVID__798">
                                       <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__798__BV_label_">Mô tả lý do chưa đạt</legend>
                                       <div>
-                                        <textarea rows="3" wrap="soft" class="form-control" id="__BVID__799"></textarea>
+                                        <textarea rows="3" wrap="soft" class="form-control" id="motalydochuadat" required></textarea>
                                         <div class="invalid-feedback"></div>
+                                        <small class="text-danger"></small>
+
                                         <!---->
                                         <!---->
                                         <!---->
@@ -1046,8 +1033,195 @@
                             </div>
                             <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
-                                  <button type="button" class="btn btn-primary btnDone" data-dismiss="modal">Lưu</button>
+                                  <button type="button" class="btn btn-primary btnApprove" data-dismiss="modal" data-name="<?= $_SESSION['id_taikhoan'] ?>">Lưu</button>
                           </div>
+                        </div>
+                    </div>
+              </div>
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="modal-default6">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Thông tin công việc</h4>
+                            </div>
+                            <div class="modal-body">
+                            <div>
+                                <div class="list-group">
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Tên công việc: </div>
+                                      <div class="col ten_congviec"></div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Nội dung công việc: </div>
+                                      <div class="col mota_congviec"></div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Đính kèm: </div>
+                                    </div>
+                                    <div data-v-0f357511="">
+                                      <!---->
+                                      <div data-v-0f357511="" class="row match-height mt-1" id="container-images1">
+                                        <!---->
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Loại công việc: </div>
+                                      <div class="col loai_congviec"></div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Ngày tạo: </div>
+                                      <div class="col ngaytao_congviec"></div>
+                                    </div>
+                                  </div>
+                                  <!---->
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Tòa nhà: </div>
+                                      <div class="col toanha_congviec"></div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Phòng: </div>
+                                      <div class="col phong_congviec"></div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Hạn hoàn thành: </div>
+                                      <div class="col hanhoanthanh_congviec"></div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Người thực hiện: </div>
+                                      <div class="col nguoinhan_congviec"></div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Trạng thái: </div>
+                                      <div class="col">
+                                        <span class="badge badge-light-success badge-pill trangthai_congviec"></span>
+                                        <!---->
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Hoàn thành lúc: </div>
+                                      <div class="col ngayhoanthanh_congviec"></div>
+                                    </div>
+                                  </div>
+                                  <div class="list-group-item">
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Kết quả xử lý: </div>
+                                      <div class="col motahoanthanh_congviec"></div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="font-weight-bolder col"> Hoàn thành lúc: </div>
+                                      <div class="col ngayhoanthanh_congviec"></div>
+                                    </div>
+                                    <div data-v-0f357511="">
+                                      <!---->
+                                      <div data-v-0f357511="" class="row match-height mt-1" id="container-images2">
+                                        <!---->
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!---->
+                                </div>
+                                <fieldset class="form-group mt-2" id="__BVID__481">
+                                  <!---->
+                                  <div>
+                                    <textarea placeholder="Thêm cập nhật, trao đổi" rows="3" wrap="soft" class="form-control" id="binhluan_congviec"></textarea>
+                                    <!---->
+                                    <!---->
+                                    <!---->
+                                  </div>
+                                </fieldset>
+                                <button type="button" class="btn btn-primary btn-sm"> Bình luận </button>
+                                <div class="d-flex align-items-start mt-2">
+                                  <span class="b-avatar mt-25 mr-75 badge-secondary rounded-circle" style="width: 34px; height: 34px;">
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="person fill" aria-hidden="true" alt="avatar" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-person-fill b-icon bi">
+                                      <g>
+                                        <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                                      </g>
+                                    </svg>
+                                    <!---->
+                                  </span>
+                                  <div class="profile-user-info w-100">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                      <h6 class="mb-0 nguoiduyet_congviec"></h6>
+                                      <small class="ngayduyet_congviec"></small>
+                                    </div>
+                                    <small>Chuyển trạng thái công việc từ Chờ duyệt sang Đã duyệt</small>
+                                  </div>
+                                </div>
+                                <div class="d-flex align-items-start mt-2">
+                                  <span class="b-avatar mt-25 mr-75 badge-secondary rounded-circle" style="width: 34px; height: 34px;">
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="person fill" aria-hidden="true" alt="avatar" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-person-fill b-icon bi">
+                                      <g>
+                                        <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                                      </g>
+                                    </svg>
+                                    <!---->
+                                  </span>
+                                  <div class="profile-user-info w-100">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                      <h6 class="mb-0 nguoihoanthanh_congviec"></h6>
+                                      <small class="ngayhoanthanh_congviec"></small>
+                                    </div>
+                                    <small>Chuyển trạng thái công việc từ Đang làm sang Chờ duyệt</small>
+                                  </div>
+                                </div>
+                                <div class="d-flex align-items-start mt-2">
+                                  <span class="b-avatar mt-25 mr-75 badge-secondary rounded-circle" style="width: 34px; height: 34px;">
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="person fill" aria-hidden="true" alt="avatar" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-person-fill b-icon bi">
+                                      <g>
+                                        <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                                      </g>
+                                    </svg>
+                                    <!---->
+                                  </span>
+                                  <div class="profile-user-info w-100">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                      <h6 class="mb-0 nguoinhan_congviec"></h6>
+                                      <small class="ngaynhan_congviec"></small>
+                                    </div>
+                                    <small>Chuyển trạng thái công việc từ Chưa làm sang Đang làm</small>
+                                  </div>
+                                </div>
+                                <div class="d-flex align-items-start mt-2">
+                                  <span class="b-avatar mt-25 mr-75 badge-secondary rounded-circle" style="width: 34px; height: 34px;">
+                                    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="person fill" aria-hidden="true" alt="avatar" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-person-fill b-icon bi">
+                                      <g>
+                                        <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                                      </g>
+                                    </svg>
+                                    <!---->
+                                  </span>
+                                  <div class="profile-user-info w-100">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                      <h6 class="mb-0 nguoitaocongviec"> </h6>
+                                      <small class="ngaytao_congviec"></small>
+                                    </div>
+                                    <small>Tạo mới công việc/sự cố</small>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+ 
                         </div>
                     </div>
               </div>
@@ -1121,7 +1295,7 @@
         $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formeditbaotrisuachua input[required], .formeditbaotrisuachua textarea[required], .formhoanthanhcongviec textarea[required]').on('blur', function() {
             validateInput($(this));
         });
-        $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formeditbaotrisuachua input[required], .formeditbaotrisuachua textarea[required], .formhoanthanhcongviec textarea[required]').on('focus', function() {
+        $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formeditbaotrisuachua input[required], .formeditbaotrisuachua textarea[required], .formhoanthanhcongviec textarea[required], .formduyetcongviec textarea[required]').on('focus', function() {
             $(this).removeClass('is-invalid');
             $(this).closest('.form-group').find('small.text-danger').text('').hide();
         });
@@ -1148,7 +1322,6 @@
                           $(this).addClass('is-invalid');
                           smallElement.text('Thông tin bắt buộc').show();
                           isValid = false;
-                          alert("false1");
                       } else {
                           $(this).removeClass('is-invalid');
                           smallElement.text('').hide();
@@ -1161,16 +1334,16 @@
                           selectElement.addClass('is-invalid');
                           smallElement.text('Thông tin bắt buộc').show();
                           isValid = false;
-                          alert("false2");
                       }else {
                           selectElement.removeClass('is-invalid');
                           smallElement.text('').hide();
                       }
           });
-            if(isValid){
+            if(isValid){              
               var formData = new FormData();
               let ten_toanha = document.querySelector(".toannhaOption1 .select-btn span").textContent;
               let ten_phong = document.querySelector(".phongoption1 .select-btn").textContent;
+              let id_nguoitao = $(this).data("name");;
               let ten_user = $('#nguoithuchienInput1').val() === "" ? "" : document.querySelector(".nguoithuchienOption1 .select-btn").textContent;
               formData.append('tieu_de', $('#tieude1').val());
               formData.append('id_toanha', $('#toannhaInput1').val());
@@ -1183,6 +1356,7 @@
               formData.append("ten_toanha", ten_toanha);   
               formData.append("ten_phong", ten_phong);
               formData.append("ten_user", ten_user);
+              formData.append("id_nguoitao", id_nguoitao);
               for (let i = 0; i < files.length; i++) {
                   formData.append('image[]', files[i]); 
               }
@@ -1360,7 +1534,7 @@
                                                         ".phongoption2","phongInput2","phongSearch2", "phong2", 
                                                         ".nguoithuchienoption2","nguoithuchienInput2","nguoithuchienSearch2", "nguoithuchien2", 
                                                         ".leveloption2","levelInput2","levelSearch2", "level2", 
-                                                        decodedData.ten_toanha, decodedData.ten_canho_phong, decodedData.ten_hien_thi, uutien);
+                                                        decodedData.ten_toanha, decodedData.ten_canho_phong, decodedData.ten_nguoi_nhan_viec, uutien);
             });
 
             $('#modal-default2').modal('show');
@@ -1556,18 +1730,35 @@
       $('.alert-body .namecongviec strong').text(name);
       $('#modal-default4').modal('show');
         $('body').on('click', '.btnDone', function () {
-            var formData = new FormData();
+          var id_nguoihoanthanh = $(this).data("name");
+
+          var isValid = true;
+          $('.formhoanthanhcongviec textarea[required]').each(function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+                  if (!$(this).val().trim()) {
+                          $(this).addClass('is-invalid');
+                          smallElement.text('Thông tin bắt buộc').show();
+                          isValid = false;
+                      } else {
+                          $(this).removeClass('is-invalid');
+                          smallElement.text('').hide();
+                      }
+          });
+          if(isValid){
+              var formData = new FormData();
             formData.append("id_baotrisuachua", id);
             formData.append("id_trangthai", status);
             formData.append("ngay_hoanthanh", $('#datedone').val());
             formData.append("mota_hoanthanh", $('#motadone').val());
+            formData.append("id_nguoihoanthanh", id_nguoihoanthanh);
+
             for (let i = 0; i < files.length; i++) {
                         formData.append('image[]', files[i]); 
             }
             for (const pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
               }
-              $.ajax({
+            $.ajax({
                   url: "doc/main/commons/update_trangthai_lamviec.php",
                   type: "post",
                   dataType: "json",
@@ -1591,8 +1782,7 @@
                                     title: 'Duyệt',
                                     id: 'btn-approve',
                                     'data-id': response.id
-                                }).append($('<i/>', { class: 'fas fa-briefcase' }));
-
+                                }).append($('<i/>', { class: 'fas fa-check' }));
                                 // Thêm button vào DOM
                                 row.find('.optionbaotrisuachua').append(newButton);
                           }else if(response.id_trangthai == 3){
@@ -1607,67 +1797,260 @@
                       console.error(xhr.responseText);
                       alert("Ajax request failed!");
                   }
-              });         
+            }); 
+          }        
         });
     });
     $('body').on('click', '#btn-approve', function () {    
-      files = []; 
-      showImages(files); 
+      $('.formduyetcongviec').trigger('reset');
+      $('.Success').children().first().removeClass('bg-light-secondary').addClass('bg-light-primary');
+      $('.fail').children().first().removeClass('bg-light-danger').addClass('bg-light-secondary');
+      var status = $('input[id="formSuccess"]').val();
+      $('input[id="formSuccess"]').change(function() {
+        if ($(this).is(':checked')) {
+          $('.Success').children().first().removeClass('bg-light-secondary').addClass('bg-light-primary');
+          $('.fail').children().first().removeClass('bg-light-danger').addClass('bg-light-secondary');
+          $('.motaformfail').css('display', 'none');
+        }
+        status = $(this).val();
+      });
+      $('input[id="formFail"]').change(function() {
+        if ($(this).is(':checked')) {
+          $('.Success').children().first().removeClass('bg-light-primary').addClass('bg-light-secondary');
+          $('.fail').children().first().removeClass('bg-light-secondary').addClass('bg-light-danger');
+          $('.motaformfail').css('display', 'block');
+        }
+        status = $(this).val();
+      });
       var id = $(this).data("id");
-      var status = $(this).data("status");
       var name = $(this).data("name");
-      $('.alert-body .namecongviec strong').text(name);
-
+      $('.alert-body .namecongviecDone strong').text(name);
       $('#modal-default5').modal('show');
-        // $('body').on('click', '.btnDone', function () {
-        //     var formData = new FormData();
-        //     formData.append("id_baotrisuachua", id);
-        //     formData.append("id_trangthai", status);
-        //     for (const pair of formData.entries()) {
-        //         console.log(pair[0] + ': ' + pair[1]);
-        //       }
-        //       // $.ajax({
-        //       //     url: "doc/main/commons/update_trangthai_lamviec.php",
-        //       //     type: "post",
-        //       //     dataType: "json",
-        //       //     processData: false,
-        //       //     contentType: false,
-        //       //     data: formData,
-        //       //     success: function (response) {
-        //       //       if (response.success) {     
-        //       //         var row = $('#row_' + response.id);
-        //       //         row.find('.trangthaicongviec span b').text(response.trangthai);
-        //       //         row.find('.trangthaicongviec span').removeClass('badge bg-primary bg-danger bg-warning bg-success bg-secondary');
-        //       //         if((response.id_trangthai == 2)){
-        //       //               row.find('.trangthaicongviec span').addClass('badge bg-primary')
-        //       //               row.find('#btn-addcase').remove();
-        //       //                   row.find('#btn-addcase').remove();
-        //       //                   row.find('#btn-done').remove();
-        //       //                   // Tạo button mới
-        //       //                   let newButton = $('<button/>', {
-        //       //                       class: 'btn btn-success btn-sm',
-        //       //                       type: 'button',
-        //       //                       title: 'Duyệt',
-        //       //                       id: 'btn-approve',
-        //       //                       'data-id': response.id
-        //       //                   }).append($('<i/>', { class: 'fas fa-briefcase' }));
-
-        //       //                   // Thêm button vào DOM
-        //       //                   row.find('.optionbaotrisuachua').append(newButton);
-        //       //             }else if(response.id_trangthai == 3){
-        //       //               row.find('.trangthaicongviec span').addClass('badge bg-success')   
-        //       //             }else{
-        //       //               row.find('.trangthaicongviec span').addClass('badge bg-danger')
-        //       //             }
-        //       //           $('#modal-default4').modal('hide');            
-        //       //       }
-        //       //     },
-        //       //     error: function (xhr, status, error) {
-        //       //         console.error(xhr.responseText);
-        //       //         alert("Ajax request failed!");
-        //       //     }
-        //       // });         
-        // });
+        $('body').on('click', '.btnApprove', function () {
+          var id_nguoiduyet = $(this).data("name");
+          var isValid = true;
+          if($('input[id="formFail"]').is(':checked')){
+            $('.formduyetcongviec textarea[required]').each(function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+                  if (!$(this).val().trim()) {
+                          $(this).addClass('is-invalid');
+                          smallElement.text('Thông tin bắt buộc').show();
+                          isValid = false;
+                      } else {
+                          $(this).removeClass('is-invalid');
+                          smallElement.text('').hide();
+                      }
+            });
+          }
+          if(isValid){
+            var formData = new FormData();
+            formData.append("id_baotrisuachua", id);
+            formData.append("id_trangthai", status);
+            formData.append("mota_khongdat", $('#motalydochuadat').val());
+            formData.append("id_nguoiduyet", id_nguoiduyet);
+            for (const pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+              }
+              $.ajax({
+                  url: "doc/main/commons/update_trangthai_lamviec.php",
+                  type: "post",
+                  dataType: "json",
+                  processData: false,
+                  contentType: false,
+                  data: formData,
+                  success: function (response) {
+                    if (response.success) {     
+                      var row = $('#row_' + response.id);
+                      row.find('.trangthaicongviec span b').text(response.trangthai);
+                      row.find('.trangthaicongviec span').removeClass('badge bg-primary bg-danger bg-warning bg-success bg-secondary');
+                      row.find('#btn-approve').remove(); 
+                      row.find('#btn-edit').remove();   
+                      // Tạo button mới
+                      let newButton = $('<button/>', {
+                                    class: 'btn btn-warning btn-sm',
+                                    type: 'button',
+                                    title: 'Xem',
+                                    id: 'btn-show',
+                                    'data-id': response.id
+                                }).append($('<i/>', { class: 'fa fa-eye' }));
+                                // Thêm button vào DOM
+                        row.find('.optionbaotrisuachua').append(newButton);
+                      if(response.id_trangthai == 3){
+                            row.find('.trangthaicongviec span').addClass('badge bg-success')   
+                          }else{
+                            row.find('.trangthaicongviec span').addClass('badge bg-danger')
+                          }
+                        $('#modal-default5').modal('hide');            
+                    }
+                  },
+                  error: function (xhr, status, error) {
+                      console.error(xhr.responseText);
+                      alert("Ajax request failed!");
+                  }
+              });    
+          }
+                
+        });
     });
+    const showImages3 = (array, container) =>{
+              let images = '';
+              array.forEach((e, i) => {
+                images += `         <div data-v-0f357511="" attachment="" class="col-md-2 col-4">
+                                          <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
+                                            <div data-v-1f5e929c="" class="position-relative image-container mb-2">
+                                              <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
+                                                <img data-v-1f5e929c="" src="../../images/images_baotrisuachua/${e}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">
+                                                <!---->
+                                                <!---->
+                                                <!---->
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>`
+                
+              });
+              document.querySelector(container).innerHTML = images;
+            }
+    $('body').on('click', '#btn-show', function () {    
+      var id = $(this).data("id");
+            $.ajax({
+                url: "doc/main/commons/lay_baotrisuachua.php", 
+                type: "post",
+                dataType: "html",          
+                data: { id_baotrisuachua: id },
+              }).done(function(baotrisuachua){
+                var decodedData = JSON.parse(decodeURIComponent(baotrisuachua));
+                console.log(decodedData);
+                $('.ten_congviec').text(decodedData.tieude_baotri_suachua);
+                $('.mota_congviec').text(decodedData.mota_baotri_suachua);
+                $('.loai_congviec').text(decodedData.loai_cong_viec);
+                $('.ngaytao_congviec').text(decodedData.ngay_batdau);
+                $('.toanha_congviec').text(decodedData.ten_toanha);
+                $('.phong_congviec').text(decodedData.ten_canho_phong);
+                $('.hanhoanthanh_congviec').text(decodedData.ngay_ketthuc);
+                $('.motahoanthanh_congviec').text(decodedData.mota_hoanhthanh);      
+                $('.nguoinhan_congviec').text(decodedData.ten_nguoi_nhan_viec);   
+                $('.trangthai_congviec').removeClass('badge-light-success badge-light-danger');
+                if(decodedData.trang_thai == 3){
+                  $('.trangthai_congviec').text("đã duyệt");
+                  $('.trangthai_congviec').addClass('badge-light-success');
+                }else if(decodedData.trang_thai == 4){
+                  $('.trangthai_congviec').text("Không đạt");
+                  $('.trangthai_congviec').addClass('badge-light-danger');
+                }
+                $('.ngayhoanthanh_congviec').text(decodedData.ngay_hoanthanh);
+                $('.nguoiduyet_congviec').text(decodedData.ten_nguoi_duyet_viec);  
+                $('.ngayduyet_congviec').text(decodedData.ngay_duyet);    
+                $('.ngaynhan_congviec').text(decodedData.ngay_lam);    
+                $('.nguoihoanthanh_congviec').text(decodedData.ten_nguoi_hoan_thanh_viec);    
+                $('.nguoitaocongviec').text(decodedData.ten_nguoi_tao_viec);    
+                showImages3(decodedData.images1, '#container-images1');
+                showImages3(decodedData.images2, '#container-images2');
+            });
+      $('#modal-default6').modal('show');
+    });
+    $('body').on('click', '#btn-delete', function () {
+            let text = "Bạn có chắc muốn xóa.";
+            var $id_baotrisuachua = $(this).data("id");
+            if (confirm(text) == true) {
+              $.ajax({
+                url: "doc/main/commons/xoa_baotrisuachua.php", 
+                type: "post",
+                dataType: "json",          
+                data: { id_baotrisuachua: $id_baotrisuachua },
+                success: function (response) {
+                    if (response.success) {              
+                        var row = $('#row_' + response.id);
+                        row.remove();
+                        swal({
+                          title: "Thông báo",
+                          text: response.message,
+                          icon: "success",
+                          close: true,
+                          button: "Đóng",
+                        });
+                        
+                    } else {
+                      swal({
+                          title: "Lỗi",
+                          text: response.message,
+                          icon: "error",
+                          close: true,
+                          button: "Thử lại",
+                        });                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Ajax request failed!");
+                }
+              })
+            } 
+    });
+    const toannhaSelect = $('.toannhaOptionselect');  
+      const toannhaSelectBtn = $('.toannhaOptionselect .select-btn');
+      const toannhaInput = $('#toannhaInputSearch');
+        toannhaSelectBtn.on('click', function () {
+          $.ajax({
+                      url: "doc/main/commons/lay_all_toanha.php",
+                      type: "post",
+                      dataType: "json", 
+                  }).done(function(toanha){
+                    let arrayName = [];
+                    arrayName.push({ id: "", ten: "Tất cả" });
+                        for (const b of toanha) {
+                            arrayName.push({ id: b.id_toanha, ten: b.ten_toanha });
+                        }
+                      addforcanho(arrayName, 'toannhaOptionSearch', 'toannhaSearch2', 'toannhaInputSearch', '.toannhaOptionselect');
+                      toannhaSelect.toggleClass('active');
+                      let Search = $('#toannhaSearch2');
+
+                      Search.on('keyup', () => {
+                          let toanha = $('#toannhaOptionSearch');
+                          let searchedVal = Search.val().toLowerCase(); 
+                          
+                          let filteredResults = arrayName.filter(data => {
+                              return data.toLowerCase().includes(searchedVal);
+                          });
+                          let arr = filteredResults.map(data => `<li onclick="updateName(this, 'toannhaSearch2', '${arrayName}', 'toannhaOptionSearch', 'toannhaInputSearch', '.toannhaOptionselect')">${data}</li>`).join("");
+
+                          toanha.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                      });       
+                  });
+
+        });
+        toannhaInput.on('change', function () {
+          const phongSelect = $('.phongOptionselect');         
+          const phongSelectBtn = $('.phongOptionselect .select-btn');
+          $.ajax({
+                        url: "doc/main/commons/lay_phong_by_toanha.php",
+                        type: "post",
+                        dataType: "json", 
+                        data: { idtoanha: toannhaInput.val() },
+                    }).done(function(phong){
+                      let arrayName = [];
+                      arrayName.push({ id: "", ten: "Tất cả" });
+
+                            for (const b of phong) {
+                                arrayName.push({ id: b.id_canho_phong, ten: b.ten_canho_phong });
+                            }
+                            addforcanho(arrayName, 'phongOptionSearch', 'phongSearch3', 'phongInputSearch', '.phongOptionselect');
+                        let Search = $('#phongSearch3');
+
+                        Search.on('keyup', () => {
+                            let phong = $('#phongOptionSearch');
+                            let searchedVal = Search.val().toLowerCase(); 
+                            
+                            let filteredResults = arrayName.filter(data => {
+                                return data.toLowerCase().includes(searchedVal);
+                            });
+                            let arr = filteredResults.map(data => `<li onclick="updateName(this, 'phongSearch3', '${arrayName}', 'phongOptionSearch', 'phongInputSearch', '.phongOptionselect')">${data}</li>`).join("");
+
+                            phong.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                        });       
+            });
+          phongSelectBtn.on('click', function () {
+            phongSelect.toggleClass('active');
+          });
+        });
 
 </script>

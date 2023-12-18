@@ -4,12 +4,15 @@
     $id_baotrisuachua = $_POST['id_baotrisuachua'];
     $id_trangthai = $_POST['id_trangthai'];
     $id_user = isset($_POST['id_user']) ? $_POST['id_user'] : null;
-    $mota = isset($_POST['ngay_hoanthanh']) ? $_POST['ngay_hoanthanh'] : null;
+    $id_nguoiduyet = isset($_POST['id_nguoiduyet']) ? $_POST['id_nguoiduyet'] : null;
+    $id_nguoihoanthanh = isset($_POST['id_nguoihoanthanh']) ? $_POST['id_nguoihoanthanh'] : null;
+
+    $mota = isset($_POST['mota_hoanthanh']) ? $_POST['mota_hoanthanh'] : null;
     $ngay_hoanthanh = isset($_POST['ngay_hoanthanh']) ? $_POST['ngay_hoanthanh'] : null;
     $images = isset($_FILES['image']) ? $_FILES['image'] : null;
-
+    $mota_lydokhongdat = isset($_POST['mota_khongdat']) ? $_POST['mota_khongdat'] : null;
     $response = array();
-    $result = Update_trangthai_congviec($id_baotrisuachua, $id_trangthai, $id_user, $mota, $ngay_hoanthanh, $images);
+    $result = Update_trangthai_congviec($id_baotrisuachua, $id_trangthai, $id_user, $mota, $ngay_hoanthanh, $images, $mota_lydokhongdat, $id_nguoiduyet, $id_nguoihoanthanh);
 
     if ($result == true) {
         $response['success'] = true;

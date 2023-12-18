@@ -6,6 +6,7 @@ $tieu_de = $_POST['tieu_de'];
 $id_toanha = $_POST['id_toanha'];
 $id_phong = $_POST['id_phong'];
 $id_user = $_POST['id_user'];
+$id_nguoitao = $_POST['id_nguoitao'];
 $mo_ta = $_POST['mo_ta'];
 $loai_congviec = $_POST['loai_congviec'];
 $uu_tien = $_POST['uu_tien'];
@@ -22,7 +23,7 @@ $maBaotri_Suachua = "BT".$random;
 while (!isMaCanHo_PhongUnique($conn, $maBaotri_Suachua)) {
     $maBaotri_Suachua = generateRandomCode();
 }
-$newBaotriSuachuaId = ThemBaotri_Suachua($tieu_de, $maBaotri_Suachua, $id_toanha, $id_phong, $id_user, $mo_ta, $loai_congviec, $uu_tien, $han_hoanthanh, $images);
+$newBaotriSuachuaId = ThemBaotri_Suachua($tieu_de, $maBaotri_Suachua, $id_toanha, $id_phong, $id_user, $mo_ta, $loai_congviec, $uu_tien, $han_hoanthanh, $images, $id_nguoitao);
 
 if ($newBaotriSuachuaId) {
     $response['success'] = true;
