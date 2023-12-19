@@ -2,14 +2,10 @@
    include_once './function.php';
 
    $sqlcount = "SELECT * FROM tb_taisan;";
-   $sqlcountToanha= "SELECT tb_toanha.id_toanha, COUNT(tb_taisan.id_taisan) AS taisan_toanha
-   FROM tb_toanha
-   INNER JOIN tb_taisan ON tb_toanha.id_toanha = tb_taisan.id_toanha
-   GROUP BY tb_toanha.id_toanha;";
-   $sqlcountKho = "SELECT tb_kho.id_kho, COUNT(tb_taisan.id_taisan) AS taisan_kho
-   FROM tb_kho
-   INNER JOIN tb_taisan ON tb_kho.id_kho = tb_taisan.id_kho
-   GROUP BY tb_kho.id_kho;";
+   $sqlcountToanha= "SELECT * FROM tb_taisan 
+   JOIN tb_toanha ON tb_taisan.id_toanha = tb_toanha.id_toanha";
+   $sqlcountKho = "SELECT * FROM tb_taisan 
+   JOIN tb_kho ON tb_taisan.id_kho = tb_kho.id_kho";
    $sqlcountNot = "SELECT tb_taisan.*
    FROM tb_taisan
    LEFT JOIN tb_kho ON tb_taisan.id_kho = tb_kho.id_kho
@@ -73,7 +69,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo $countcountKho['taisan_kho'] ?> </h2>
+          <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo mysqli_num_rows($querycountKho)?> </h2>
           <span class="text-secondary">Trong kho</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -100,7 +96,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo $countcountToanha['taisan_toanha'] ?> </h2>
+          <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo mysqli_num_rows($querycountToanha)?> </h2>
           <span class="text-secondary">Trong tòa nhà</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -318,7 +314,7 @@
                                         <!---->
                                         </legend>
                                         <div>
-                                        <input type="thoihanbaohanh1" placeholder="2025-11-12" data-input="true" id="date3" class="form-control flatpickr-input">
+                                        <input type="text" placeholder="2025-11-12" data-input="true" id="date3" class="form-control flatpickr-input">
                                         <small class="text-danger"></small>
                                         <!---->
                                         <!---->
@@ -353,6 +349,33 @@
                                         </div>
                                       </span>
                                     </div>
+                                    <div class="col-md-4">
+                                      <span>
+                                        <div>
+                                        <fieldset class="form-group" id="__BVID__605">
+                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tầng </span>
+                                            </legend>
+                                            <div class="wrapper tangOption1">
+                                                <div class="select-btn">
+                                                <span>Chọn tầng</span>
+                                                <input type="hidden" id="tangInput1">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="tangSearch1">
+                                                </div>
+                                                <ul class="options" id="tang1">                              
+                                                </ul>
+                                                </div>
+                                            </div>
+                                            <small class="text-danger"></small>
+
+                                            </fieldset>
+                                        <!---->
+                                        </div>
+                                      </span>
+                                    </div>  
                                     <div class="col-md-4">
                                       <span>
                                         <div>
@@ -594,7 +617,7 @@
                   <th width="110">Tính năng</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="tbhtml">
                   <?php 
                       $sql = "SELECT tb_taisan.*, tb_toanha.ten_toanha, tb_kho.ten_kho, tb_canho_phong.ten_canho_phong, tb_tang.ten_tang
                       FROM tb_taisan
@@ -731,8 +754,10 @@
           form.trigger('reset');
           files = []; 
           showImages(files);
-          initializeDropdownsToanha_Phong_Taisan(".toannhaOption1","toannhaInput1", "toannhaSearch1", "toannha1", ".phongoption1","phongInput1",
-                                  "phongSearch1", "phong1", ".khooption1","khoInput1", "khoSearch1", "kho1");
+          initializeDropdownsToanha_Phong_Taisan(".toannhaOption1","toannhaInput1", "toannhaSearch1", "toannha1",
+                                                ".tangOption1","tangInput1", "tangSearch1", "tang1",
+                                                ".phongOption1","phongInput1", "phongSearch1", "phong1",
+                                                ".khoOption1","khoInput1", "khoSearch1", "kho1");
           $('#modal-default').modal('show');
       });
       $('body').on('click', '#btnAdd', function () { 
@@ -750,11 +775,22 @@
           });
             if(isValid){              
               var formData = new FormData();
-              let ten_toanha = document.querySelector(".toannhaOption1 .select-btn span").textContent;
-              let ten_phong = document.querySelector(".phongOption1 .select-btn span").textContent;
-              let ten_kho = document.querySelector(".khoOption1 .select-btn span").textContent;
+              let ten_toanha = "";
+              let ten_tang = "";
+              let ten_phong =  "";
+              let ten_kho = "";
+              if($('#toannhaInput1').val() !== ""){
+                ten_toanha = document.querySelector(".toannhaOption1 .select-btn span").textContent;
+              } if($('#tangInput1').val() !== ""){
+                ten_tang = document.querySelector(".tangOption1 .select-btn span").textContent;
+              } if($('#phongInput1').val() !== ""){
+                ten_phong = document.querySelector(".phongOption1 .select-btn span").textContent;
+              } if($('#khoInput1').val() !== ""){
+                let ten_kho = document.querySelector(".khoOption1 .select-btn span").textContent;
+              }
               formData.append('ten_taisan', $('#tentaisan1').val());
               formData.append('id_toanha', $('#toannhaInput1').val());
+              formData.append('id_tang', $('#tangInput1').val());
               formData.append('id_phong', $('#phongInput1').val());
               formData.append('id_kho', $('#khoInput1').val());
               formData.append('thuong_hieu', $('#thuonghieu1').val());
@@ -764,10 +800,13 @@
               formData.append("gia_tri", $('#giatri1').val());   
               formData.append("so_luong", $('#soluong1').val());   
               formData.append("tinh_trang", $('#tinhtrang1').val());   
-              formData.append("han_baohanh", $('#thoihanbaohanh1').val());   
+              formData.append("han_baohanh", $('#date3').val());   
               formData.append("ten_toanha", ten_toanha);   
+              formData.append("ten_tang", ten_tang);   
               formData.append("ten_phong", ten_phong);
               formData.append("ten_kho", ten_kho);
+              formData.append("vi_tri", $('#vitri1').val());
+              formData.append("ghi_chu", $('#ghichu1').val());
 
               for (let i = 0; i < files.length; i++) {
                   formData.append('image[]', files[i]); 
@@ -775,7 +814,6 @@
               for (const pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
               }
-
               $.ajax({
                   url: "doc/main/commons/them_taisan.php",
                   type: "post",
@@ -785,8 +823,37 @@
                   data: formData,
                   success: function (response) {              
                       if (response.success) { 
-                                    
-                      $('#tbhtml').append(str);                  
+                        response.Data.forEach(value => {
+                        let gia_tri = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value.gia_tri).replace(/\./g, ",");
+                        var str = "";
+
+                        str += `<tr id="row_${value.id}">
+                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                            <td class="ma_taisan">${value.ma_Taisan}</td>
+                            <td class="ten_taisan">${value.ten_taisan}</td>
+                            <td class="ten_kho">${value.ten_kho}</td>
+                            <td class="ten_toanha">
+                                ${value.ten_toanha}
+                                <br>
+                                <span class="text-muted ten_phong">${value.ten_phong}</span>
+                                <br>
+                                <span class="text-muted ten_tang">${value.ten_tang}</span>
+                            </td>
+                            <td class="tinh_trang">${value.tinh_trang}</td>
+                            <td class="gia_tri">${gia_tri}</td>
+                            <td class="table-td-center">
+                                <button class="btn btn-danger btn-sm" type="button" title="Xóa" id="btn-delete" 
+                                    data-id="${value.id}"><i class="fas fa-trash-alt"></i>
+                                </button>
+                                <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
+                                    data-toggle="modal" data-target="#ModalUP" data-id="${value.id}"><i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+
+                        $('#tbhtml').append(str);
+                    });
+
                           swal({
                             title: "Thông báo",
                             text: response.message,

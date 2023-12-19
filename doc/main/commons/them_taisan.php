@@ -5,10 +5,10 @@ include_once '../../../components/connect.php';
 $ten_taisan = $_POST['ten_taisan'];
 $id_toanha = $_POST['id_toanha'];
 $id_phong = $_POST['id_phong'];
+$id_tang = $_POST['id_tang'];
 $id_kho = $_POST['id_kho'];
 $thuong_hieu = $_POST['thuong_hieu'];
 $mau_sac = $_POST['mau_sac'];
-$mo_ta = $_POST['mo_ta'];
 $nam_sanxuat = $_POST['nam_sanxuat'];
 $xuat_xu = $_POST['xuat_xu'];
 $gia_tri = $_POST['gia_tri'];
@@ -18,33 +18,47 @@ $han_baohanh = $_POST['han_baohanh'];
 $ten_phong = $_POST['ten_phong'];
 $ten_toanha = $_POST['ten_toanha'];
 $ten_kho = $_POST['ten_kho'];
+$ten_tang = $_POST['ten_tang'];
+$vi_tri = $_POST['vi_tri'];
+$ghi_chu = $_POST['ghi_chu'];
+
 $images = isset($_FILES['image']) ? $_FILES['image'] : null;
 
+$success = true;
+$message = 'Thêm thành công';
+
 $response = array();
-$random = generateRandomCode();
-$ma_Taisan = "TS".$random;
+$response['Data'] = array(); 
+for ($i = 0; $i < $so_luong; $i++) {
+    $random = generateRandomCode();
+    $ma_Taisan = "TS".$random;
 
-while (!isMaCanHo_PhongUnique($conn, $ma_Taisan)) {
-    $ma_Taisan = generateRandomCode();
+    while (!isMaCanHo_PhongUnique($conn, $ma_Taisan)) {
+        $ma_Taisan = generateRandomCode();
+    }
+    $newTaisanId = Them_TaiSan($ten_taisan, $ma_Taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $images, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang);
+
+    $object = array(); 
+
+    if ($newTaisanId) {
+        $object['id'] = $newTaisanId;
+        $object['ma_Taisan'] = $ma_Taisan;
+        $object['ten_phong'] = $ten_phong;
+        $object['ten_toanha'] = $ten_toanha;
+        $object['ten_taisan'] = $ten_taisan;
+        $object['ten_tang'] = $ten_tang;
+        $object['ten_kho'] = $ten_kho;
+        $object['tinh_trang'] = $tinh_trang;
+        $object['gia_tri'] = $gia_tri;
+        $response['Data'][] = $object;
+    } else {
+        $success = false;
+        $message = 'Thêm không thành công';
+        break; 
+    }
 }
-$newTaisanId = Them_TaiSan($ten_taisan, $ma_Taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $so_luong, $thoihanbaohanh, $images, $id_kho, $id_toanha, $id_phong);
-
-if ($newTaisanId) {
-    $response['success'] = true;
-    $response['id'] = $newBaotriSuachuaId;
-    $response['ma_Taisan'] = $ma_Taisan;
-    $response['ten_phong'] = $ten_phong;
-    $response['ten_toanha'] = $ten_toanha;
-    $response['ten_taisan'] = $ten_taisan;
-    $response['ten_kho'] = $ten_kho;
-    $response['tinh_trang'] = $tinh_trang;
-    $response['gia_tri'] = $gia_tri;
-
-    $response['message'] = 'Thêm thành công';
-}else {
-    $response['success'] = false;
-    $response['message'] = 'Thêm không thành công';
-}
+$response['success'] = $success;
+$response['message'] = $message;
 
 header('Content-Type: application/json');
 echo json_encode($response);
