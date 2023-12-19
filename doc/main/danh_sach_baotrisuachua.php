@@ -454,7 +454,7 @@
                                     <div class="wrapper toannhaOptionselect large">
                                                       <div class="select-btn">
                                                         <span>Tòa nhà</span>
-                                                        <input type="hidden" id="toannhaInputSearch">
+                                                        <input type="hidden" id="toannhaInputSearch" value="">
                                                         <i class="fas fa-angle-down"></i>
                                                       </div>
                                                       <div class="search-option">
@@ -479,12 +479,12 @@
                                 <div class="wrapper phongOptionselect">
                                                   <div class="select-btn">
                                                     <span>Phòng</span>
-                                                    <input type="hidden" id="phongInputSearch">
+                                                    <input type="hidden" id="phongInputSearch" value="">
                                                     <i class="fas fa-angle-down"></i>
                                                   </div>
                                                   <div class="search-option">
                                                     <div class="search">
-                                                      <input type="text" placeholder="Search" id="phongSearch2">
+                                                      <input type="text" placeholder="Search" id="phongSearch3">
                                                     </div>
                                                     <ul class="options" id="phongOptionSearch">                              
                                                     </ul>
@@ -521,7 +521,7 @@
               </fieldset>
             </div>
             <div data-v-38625d2e="" class="col">
-              <input data-v-38625d2e="" type="text" placeholder="Tìm kiếm" class="form-control" id="__BVID__1016">
+              <input data-v-38625d2e="" type="text" placeholder="Tìm kiếm" class="form-control" id="search-input-apartment">
             </div>
           </div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
@@ -566,6 +566,7 @@
                   <td class="loaicongivec"><span class="badge bg-warning" style="font-size: 13px;"><b class="span_pending"><?php echo $row['loai_cong_viec']; ?></b></span></td>       
                   <td class="tenhienthi"><?php echo $row['ten_hien_thi']; ?></td>               
                   <td class="ngayketthuc">
+                    <input type="hidden" value="<?php echo $row['ngay_batdau']; ?>" class="ngaybatdau">
                     <?php 
                     $ngay_ketthuc = new DateTime($row['ngay_ketthuc']);
                     $ngay_thang_nam_gio_phut = $ngay_ketthuc->format("Y-m-d H:i");
@@ -706,7 +707,7 @@
                                                 </div>
                                                 <div class="search-option">
                                                 <div class="search">
-                                                    <input type="text" placeholder="Search" id="phongSearch3">
+                                                    <input type="text" placeholder="Search" id="phongSearch2">
                                                 </div>
                                                 <ul class="options" id="phong2">                              
                                                 </ul>
@@ -1986,7 +1987,7 @@
               })
             } 
     });
-    const toannhaSelect = $('.toannhaOptionselect');  
+      const toannhaSelect = $('.toannhaOptionselect');  
       const toannhaSelectBtn = $('.toannhaOptionselect .select-btn');
       const toannhaInput = $('#toannhaInputSearch');
         toannhaSelectBtn.on('click', function () {
@@ -2009,18 +2010,20 @@
                           let searchedVal = Search.val().toLowerCase(); 
                           
                           let filteredResults = arrayName.filter(data => {
-                              return data.toLowerCase().includes(searchedVal);
+                              return data.ten.toLowerCase().includes(searchedVal);
                           });
-                          let arr = filteredResults.map(data => `<li onclick="updateName(this, 'toannhaSearch2', '${arrayName}', 'toannhaOptionSearch', 'toannhaInputSearch', '.toannhaOptionselect')">${data}</li>`).join("");
+                          let arr = filteredResults.map(data => `<li onclick="updateforcanho(this, 'toannhaSearch2', '${arrayName}', 'toannhaOptionSearch', 'toannhaInputSearch', '.toannhaOptionselect')">${data.ten}</li>`).join("");
 
                           toanha.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
                       });       
                   });
 
         });
+        const phongSelect = $('.phongOptionselect');         
+        const phongSelectBtn = $('.phongOptionselect .select-btn');
+        const phongInput = $('#phongInputSearch');
+
         toannhaInput.on('change', function () {
-          const phongSelect = $('.phongOptionselect');         
-          const phongSelectBtn = $('.phongOptionselect .select-btn');
           $.ajax({
                         url: "doc/main/commons/lay_phong_by_toanha.php",
                         type: "post",
@@ -2041,9 +2044,9 @@
                             let searchedVal = Search.val().toLowerCase(); 
                             
                             let filteredResults = arrayName.filter(data => {
-                                return data.toLowerCase().includes(searchedVal);
+                                return data.ten.toLowerCase().includes(searchedVal);
                             });
-                            let arr = filteredResults.map(data => `<li onclick="updateName(this, 'phongSearch3', '${arrayName}', 'phongOptionSearch', 'phongInputSearch', '.phongOptionselect')">${data}</li>`).join("");
+                            let arr = filteredResults.map(data => `<li onclick="updateforcanho(this, 'phongSearch3', '${arrayName}', 'phongOptionSearch', 'phongInputSearch', '.phongOptionselect')">${data.ten}</li>`).join("");
 
                             phong.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
                         });       
@@ -2052,5 +2055,56 @@
             phongSelect.toggleClass('active');
           });
         });
+        const statusSelect = $('.statusOptionselect');         
+        const statusSelectBtn = $('.statusOptionselect .select-btn');
+        const statusInput = $('#statusInputSearch');
+
+        statusSelectBtn.on('click', function () {
+          let arrayName = ["Tất cả", "Chưa làm", "Đang làm", "Chờ duyệt", "Đã duyệt", "Không đạt", "Quá Hạn"];
+                      addcounty(arrayName, 'statusOptionSearch', 'statusSearch', 'statusInputSearch', '.statusOptionselect');
+                      statusSelect.toggleClass('active');
+                      let Search = $('#statusSearch');
+
+                      Search.on('keyup', () => {
+                          let status = $('#statusOptionSearch');
+                          let searchedVal = Search.val().toLowerCase(); 
+                          
+                          let filteredResults = arrayName.filter(data => {
+                              return data.toLowerCase().includes(searchedVal);
+                          });
+                          let arr = filteredResults.map(data => `<li onclick="updateName(this, 'statusSearch', '${arrayName}', 'statusOptionSearch', 'statusInputSearch', '.statusOptionselect')">${data}</li>`).join("");
+
+                          status.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                      }); 
+        });
+        $(document).on('click', function (event) {
+            const isClicktoanha = toannhaSelect.is(event.target) || toannhaSelect.has(event.target).length > 0 ;
+            const isClickphong = phongSelect.is(event.target) || phongSelect.has(event.target).length > 0 ;
+            const isClickStatus = statusSelect.is(event.target) || statusSelect.has(event.target).length > 0 ;
+
+            if (!isClicktoanha) {
+                toannhaSelect.removeClass('active');
+            }if (!isClickphong) {
+              phongSelect.removeClass('active');
+            }if (!isClickStatus) {
+              statusSelect.removeClass('active');
+            }
+        });
+
+        $(document).ready(function () {
+          let searchapartment = document.getElementById("search-input-apartment");
+          let searchstartDate = document.getElementById("startDate");
+          let searchoverdate = document.getElementById("overdate");
+          let searchtoanha = document.querySelector(".toannhaOptionselect .select-btn input");
+          let searchphong = document.querySelector(".phongOptionselect .select-btn input");
+          let searchstatus = document.querySelector(".statusOptionselect .select-btn input");
+          searchapartment.addEventListener('input', searchTable_tb_baotri_suachua);
+          searchtoanha.addEventListener('change', searchTable_tb_baotri_suachua);
+          searchphong.addEventListener('change', searchTable_tb_baotri_suachua);
+          searchstatus.addEventListener('change', searchTable_tb_baotri_suachua);
+          searchstartDate.addEventListener('input', searchTable_tb_baotri_suachua);
+          searchoverdate.addEventListener('input', searchTable_tb_baotri_suachua);
+      });
+
 
 </script>

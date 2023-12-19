@@ -205,7 +205,7 @@
                             </div>
                             <div class="modal-body">
                                 <input type="hidden" id="txtOrderId" value="0" />
-                                <form class="" id="formaddtaisan">
+                                <form class="formaddtaisan">
                                 <div class="row">
                                     <div class="col-md-4">
                                     <span>
@@ -213,8 +213,10 @@
                                         <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__656__BV_label_"> Tên tài sản <span class="text-danger"> (*) </span>
                                         </legend>
                                         <div>
-                                            <input id="tentaisan1" placeholder="Tủ lạnh" type="text" class="form-control">
+                                            <input id="tentaisan1" placeholder="Tủ lạnh" type="text" class="form-control" required>
                                             <div class="invalid-feedback"></div>
+                                            <small class="text-danger"></small>
+
                                             <!---->
                                             <!---->
                                             <!---->
@@ -290,7 +292,7 @@
                                         <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__671__BV_label_"> Số lượng <span class="text-danger"> (*) </span>
                                         </legend>
                                         <div>
-                                            <input type="text" placeholder="13" id="soluong1" class="form-control">
+                                            <input type="text" placeholder="13" id="soluong1" class="form-control" required>
                                             <small class="text-danger"></small>
                                             <!---->
                                             <!---->
@@ -316,7 +318,7 @@
                                         <!---->
                                         </legend>
                                         <div>
-                                        <input type="thoihanbaohanh1" placeholder="11-12-2025" data-input="true" id="" class="form-control flatpickr-input">
+                                        <input type="thoihanbaohanh1" placeholder="2025-11-12" data-input="true" id="date3" class="form-control flatpickr-input">
                                         <small class="text-danger"></small>
                                         <!---->
                                         <!---->
@@ -377,7 +379,7 @@
                                         <!---->
                                         </div>
                                       </span>
-                                    </div>
+                                    </div>  
                                     <div class="col-md-4">
                                       <span>
                                         <div>
@@ -421,7 +423,7 @@
                                                   </svg>
                                                 </div>
                                               </div>
-                                              <input id="vitri1" type="text" placeholder="Phòng khách" class="form-control" name="vitri1" required>
+                                              <input id="vitri1" type="text" placeholder="Phòng khách" class="form-control" name="vitri1">
                                               <!---->
                                             </div>
                                             <small class="text-danger"></small>
@@ -467,8 +469,8 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Hủy</button>
-                                <button type="button" class="btn btn-primary" id="btnSave">Lưu</button>
+                                <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                                <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd" data-name="<?= $_SESSION['id_taikhoan']?>">Thêm</button>
                             </div>
                         </div>
                     </div>
@@ -711,9 +713,21 @@
               console.log(files);
               showImages(files);
             }
-
+            function validateInput(input) {
+            var smallElement = input.closest('.form-group').find('small.text-danger');
+            if (!input.val().trim()) {
+                input.addClass('is-invalid');
+                smallElement.text('Thông tin bắt buộc').show();
+            } else {
+                input.removeClass('is-invalid');
+                smallElement.text('').hide();
+            }
+        }
+        $('.formaddtaisan input[required]').on('blur', function() {
+            validateInput($(this));
+        });
      $('body').on('click', '.btn-add', function () {       
-          let form = $('#formaddtaisan')
+          let form = $('.formaddtaisan')
           form.trigger('reset');
           files = []; 
           showImages(files);
@@ -721,4 +735,84 @@
                                   "phongSearch1", "phong1", ".khooption1","khoInput1", "khoSearch1", "kho1");
           $('#modal-default').modal('show');
       });
+      $('body').on('click', '#btnAdd', function () { 
+          let isValid = true;
+          $('.formaddtaisan input[required]').each(function() {
+            var smallElement = $(this).closest('.form-group').find('small.text-danger');
+                  if (!$(this).val().trim()) {
+                          $(this).addClass('is-invalid');
+                          smallElement.text('Thông tin bắt buộc').show();
+                          isValid = false;
+                      } else {
+                          $(this).removeClass('is-invalid');
+                          smallElement.text('').hide();
+                      }
+          });
+            if(isValid){              
+              var formData = new FormData();
+              let ten_toanha = document.querySelector(".toannhaOption1 .select-btn span").textContent;
+              let ten_phong = document.querySelector(".phongOption1 .select-btn span").textContent;
+              let ten_kho = document.querySelector(".khoOption1 .select-btn span").textContent;
+              formData.append('ten_taisan', $('#tentaisan1').val());
+              formData.append('id_toanha', $('#toannhaInput1').val());
+              formData.append('id_phong', $('#phongInput1').val());
+              formData.append('id_kho', $('#khoInput1').val());
+              formData.append('thuong_hieu', $('#thuonghieu1').val());
+              formData.append('mau_sac', $('#mausac1').val());
+              formData.append('nam_sanxuat', $('#namsanxuat1').val());
+              formData.append("xuat_xu", $('#xuatxu1').val());   
+              formData.append("gia_tri", $('#giatri1').val());   
+              formData.append("so_luong", $('#soluong1').val());   
+              formData.append("tinh_trang", $('#tinhtrang1').val());   
+              formData.append("han_baohanh", $('#thoihanbaohanh1').val());   
+              formData.append("ten_toanha", ten_toanha);   
+              formData.append("ten_phong", ten_phong);
+              formData.append("ten_kho", ten_kho);
+
+              for (let i = 0; i < files.length; i++) {
+                  formData.append('image[]', files[i]); 
+              }
+              for (const pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+              }
+
+              $.ajax({
+                  url: "doc/main/commons/them_taisan.php",
+                  type: "post",
+                  dataType: "json",
+                  processData: false,
+                  contentType: false,
+                  data: formData,
+                  success: function (response) {              
+                      if (response.success) { 
+                                    
+                      $('#tbhtml').append(str);                  
+                          swal({
+                            title: "Thông báo",
+                            text: response.message,
+                            icon: "success",
+                            close: true,
+                            button: "Đóng",
+                          });
+
+                          $('#modal-default').modal('hide');    
+
+                      } else {
+                        swal({
+                            title: "Lỗi",
+                            text: response.message,
+                            icon: "error",
+                            close: true,
+                            button: "Thử lại",
+                          });   
+                      }
+                  },
+                  error: function (xhr, status, error) {
+                      console.error(xhr.responseText);
+                      alert("Ajax request failed!");
+                  }
+              });
+            }
+
+    });
 </script>

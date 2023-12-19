@@ -212,6 +212,56 @@ function searchTable_tb_can_phong() {
     pageGenerator(itemParPage); // Tạo lại phân trang
     getElement(itemParPage); // Lấy lại các phần tử trong trang
 }
+function searchTable_tb_baotri_suachua() {
+  const searchapartment = document.getElementById("search-input-apartment");
+  const tb_baotri_suachua_selectedtoanha = document.querySelector(".toannhaOptionselect .select-btn input");
+  const tb_baotri_suachua_selectedphong  = document.querySelector(".phongOptionselect .select-btn input");
+  const tb_baotri_suachua_selectedtoanha_text = document.querySelector(".toannhaOptionselect .select-btn span");
+  const tb_baotri_suachua_selectedphong_text  = document.querySelector(".phongOptionselect .select-btn span");
+  const tb_baotri_suachua_selectedstatus = document.querySelector(".statusOptionselect .select-btn input");
+  const tb_baotri_suachua_searchstartDate = document.getElementById("startDate");
+  const tb_baotri_suachua_searchoverdate = document.getElementById("overdate");
+
+  table_rows.forEach((row, i) => {    
+    if(tb_baotri_suachua_selectedstatus.value == "Tất cả"){
+      tb_baotri_suachua_selectedstatus.value = "";      
+    }
+      let table_data = row.textContent.toLowerCase();
+      let search_data = searchapartment.value.toLowerCase();
+      let toanha_data = tb_baotri_suachua_selectedtoanha.value;
+      let phong_data = tb_baotri_suachua_selectedphong.value;
+      let status_data = tb_baotri_suachua_selectedstatus.value.toLowerCase();
+      let start_date = tb_baotri_suachua_searchstartDate.value;
+      let over_date = tb_baotri_suachua_searchoverdate.value;
+      console.log(phong_data);
+      if(toanha_data !== ""){
+        toanha_data = tb_baotri_suachua_selectedtoanha_text.textContent.toLocaleLowerCase();
+      }else{
+        toanha_data = "";
+      }
+      if(phong_data !== ""){
+        phong_data = tb_baotri_suachua_selectedphong_text.textContent.toLocaleLowerCase();     
+      }else{
+        phong_data = "";
+      }
+      let ngaybatdauText = row.querySelector(".ngayketthuc .ngaybatdau").value;
+      let ngaybatdau = ngaybatdauText.split(" ")[0]; // Lấy phần ngày
+      let ngayketthucText = row.querySelector(".ngayketthuc").textContent.trim();
+      let ngaykethuc = ngayketthucText.split(" ")[0]; // Lấy phần ngày
+      // Kiểm tra xem dòng có chứa cả search_data và status_data hay không
+      let shouldHide = table_data.indexOf(search_data) < 0 ||
+      (toanha_data !== "" && row.querySelector(".ten_toanha").textContent.toLowerCase() !== toanha_data) ||
+      (phong_data !== "" && row.querySelector(".ten_phong").textContent.toLowerCase() !== phong_data) ||
+      (start_date !== "" && ngaybatdau !== start_date) ||
+      (over_date !== "" && ngaykethuc !== over_date);
+      row.classList.toggle('hide', shouldHide);
+      row.style.setProperty('--delay', i / 25 + 's');
+  });
+
+  document.querySelectorAll('tbody tr:not(.hide)').forEach((visible_row, i) => {
+      visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
+  });
+}
 
 var tbody = document.querySelector('tbody');
 var pageUl = document.querySelector('.pagination');

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 18, 2023 lúc 11:23 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Thời gian đã tạo: Th12 19, 2023 lúc 11:45 AM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -72,7 +72,11 @@ CREATE TABLE `tb_baotri_suachua` (
 --
 
 INSERT INTO `tb_baotri_suachua` (`id_baotri_suachua`, `id_toanha`, `id_phong`, `ma_baotri_suachua`, `tieude_baotri_suachua`, `mota_baotri_suachua`, `loai_cong_viec`, `mucdo_uutien`, `ngay_batdau`, `ngay_ketthuc`, `id_taikhoan`, `trang_thai`, `ngay_lam`, `ngay_hoanthanh`, `ngay_duyet`, `mota_hoanhthanh`, `mota_lydokhongdat`, `id_nguoiduyet`, `id_nguoitao`, `id_nguoihoanthanh`) VALUES
-(41, 1, 13, 'BT272657', 'eqweqw', 'eqwe', 'eqw', 1, '2023-12-19 03:41:04', '2023-12-28 12:00:00', 1, 3, '2023-12-19 03:49:46', '2023-12-19 03:49:00', '2023-12-19 03:49:52', 'eqwe', NULL, 1, 1, 1);
+(41, 1, 13, 'BT272657', 'eqweqw', 'eqwe', 'eqw', 1, '2023-12-28 03:41:04', '2023-12-31 12:00:00', 1, 3, '2023-12-19 03:49:46', '2023-12-19 03:49:00', '2023-12-19 03:49:52', 'eqwe', NULL, 1, 1, 1),
+(43, 29, 20, 'BT262692', 'eqwe', 'qưeqw', 'eqweqw', 1, '2023-12-19 14:28:30', '2023-12-21 12:00:00', 1, 1, '2023-12-19 14:29:36', '2023-12-19 14:30:00', NULL, 'eqweqw', NULL, NULL, 1, 0),
+(44, 29, 20, 'BT854654', 'eqwe', 'qưeqw', 'eqwe', 1, '2023-12-19 14:28:46', '2023-12-27 12:00:00', 1, 4, '2023-12-19 14:29:36', '2023-12-19 14:29:00', '2023-12-19 14:30:21', 'eqweqw', 'eqweqwe', 1, 1, 1),
+(45, 29, 20, 'BT991275', 'eqweqw', 'eqw', 'eqweqw', 0, '2023-12-19 14:29:06', '2023-12-13 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
+(46, 1, 18, 'BT315120', 'eqwe', '312312', '213123', 1, '2023-12-19 14:29:58', '2023-12-13 12:00:00', 1, 2, '2023-12-19 14:30:42', '2023-12-19 14:30:00', NULL, 'eqweqw', NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -484,7 +488,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT cho bảng `tb_baotri_suachua`
 --
 ALTER TABLE `tb_baotri_suachua`
-  MODIFY `id_baotri_suachua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_baotri_suachua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_canho_phong`

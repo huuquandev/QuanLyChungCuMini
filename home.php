@@ -84,11 +84,11 @@
   
   <!-- Data table plugin-->
   <script type="text/javascript">
-    flatpickr("#startDate, #overdate, #date1, #date2 ,#datedone", {
+    flatpickr("#date1, #date2 ,#datedone", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
       });
-
+      flatpickr("#startDate, #overdate, #date3", {});
     var data = {
       labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
       datasets: [{

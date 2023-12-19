@@ -379,6 +379,56 @@
             return false;
         }
     }
+    function Them_TaiSan($tieu_de, $maBaotri_Suachua, $id_toanha, $id_phong, $id_user, $mo_ta, $loai_congviec, $uu_tien, $han_hoanthanh, $Images, $id_nguoitao) {
+        GLOBAL $conn;
+        $filter_tieude = mysqli_real_escape_string($conn, $tieu_de);
+        $filter_mabaotrisuachua = mysqli_real_escape_string($conn, $maBaotri_Suachua);
+        $filter_toanha = mysqli_real_escape_string($conn, $id_toanha);
+        $filter_phong = mysqli_real_escape_string($conn, $id_phong);
+        $filter_user = mysqli_real_escape_string($conn, $id_user);
+        $filter_mota = mysqli_real_escape_string($conn, $mo_ta);
+        $filter_loaicongviec = mysqli_real_escape_string($conn, $loai_congviec);
+        $filter_uutien = mysqli_real_escape_string($conn, $uu_tien);
+        $filter_hanhoanthanh = mysqli_real_escape_string($conn, $han_hoanthanh);
+        $filter_id_nguoitao = mysqli_real_escape_string($conn, $id_nguoitao);
+
+        $sql = "INSERT INTO tb_baotri_suachua (id_toanha, id_phong, ma_baotri_suachua, tieude_baotri_suachua, mota_baotri_suachua,
+            loai_cong_viec, mucdo_uutien, ngay_batdau, ngay_ketthuc, id_taikhoan, trang_thai, id_nguoitao) 
+                    VALUES ('$filter_toanha', '$filter_phong', '$filter_mabaotrisuachua', '$filter_tieude', '$filter_mota',
+                     '$filter_loaicongviec', '$filter_uutien', NOW(), '$filter_hanhoanthanh', '$filter_user', 0, '$filter_id_nguoitao')";
+        
+            $query = mysqli_query($conn, $sql);
+            if ($query) {
+                $lastInsertedId = mysqli_insert_id($conn);         
+                // Kiểm tra nếu có hình mới để thêm vào bảng tb_hinhanh
+                if (!empty($Images)) {
+                    $upload_directory = '../../../images/images_baotrisuachua/';
+                
+                    foreach ($Images['tmp_name'] as $key => $tmp_name) {
+                        $image_name = $Images['name'][$key];
+                        $file_extension = pathinfo($image_name, PATHINFO_EXTENSION); // Lấy phần mở rộng của file
+                
+                        $unique_image_name = uniqid('img_') . '.' . $file_extension; // Thêm một đoạn duy nhất vào tên file ảnh
+                        $target_file = $upload_directory . basename($unique_image_name);
+                
+                        if (move_uploaded_file($tmp_name, $target_file)) {
+                            $url_hinhanh = mysqli_real_escape_string($conn, $target_file);
+                            $type_hinhanh = 'Bảo trì sửa chữa';
+                
+                            $insertImageQuery = "INSERT INTO tb_hinhanh (id_loaihinhanh, type_hinhanh, url_hinhanh)
+                                                VALUES ('$lastInsertedId', '$type_hinhanh', '$unique_image_name')";
+                
+                            mysqli_query($conn, $insertImageQuery);
+                        }
+                    }
+                }
+                
+                return $lastInsertedId;
+            } else {
+                return false;
+            }
+
+    }
     function laytangbytoanha($id_toanha) {
         GLOBAL $conn;
     

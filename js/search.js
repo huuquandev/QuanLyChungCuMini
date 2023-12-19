@@ -479,7 +479,7 @@ function initializeDropdownsToanha_Phong_Taisan(btnSelectbuilding, inputbuilding
         }).done(function(kho){
         let arrayName = [];
         for (const b of kho) {
-            arrayName.push({ id: b.kho, ten: b.ten_kho });
+            arrayName.push({ id: b.id_kho, ten: b.ten_kho });
         }
         addforcanho(arrayName, idDepot, searchDepot, inputDepot, btnSelectDepot, DepotValue);     
         DepotSearch.addEventListener('keyup', () => {
