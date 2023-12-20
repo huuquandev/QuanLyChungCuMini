@@ -650,9 +650,6 @@
               <div class="bottom-field">
                 <ul class="pagination">
                   <li class="prev"><a href="#" id="prev">&#139;</a></li>
-                  <!-- <li class="list">1</li>
-                  <li class="list">2</li>
-                  <li class="list">3</li> -->
                   <li class="next"><a href="#" id="next">&#155;</a></li>
                 </ul>
               </div>
@@ -906,20 +903,21 @@
                               </div>
                               <form class="formhoanthanhcongviec">
                                 <div class="row">
-                                  <div class="col-12">
-                                    <fieldset class="form-group" value="19-12-2023 03:00" id="__BVID__458">
-                                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__458__BV_label_"> Thời gian hoàn thành
-                                        <!---->
-                                      </legend>
-                                      <div>
-                                        <input type="text" data-input="true" class="form-control flatpickr-input" readonly="readonly" id="datedone">
-                                        <small class="text-danger"></small>
-                                        <!---->
-                                        <!---->
-                                        <!---->
+                                <div class="col-12">
+                                        <fieldset class="form-group" value="" id="">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__779__BV_label_"> Thời gian hoàn thành
+                                            <!---->
+                                          </legend>
+                                          <div>
+                                          <input type="text" data-input="true" id="datedone" class="form-control flatpickr-input" readonly="readonly" placeholder="2023-11-12">
+                                            <small class="text-danger"></small>
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                          </div>
+
+                                        </fieldset>
                                       </div>
-                                    </fieldset>
-                                  </div>
                                   <div class="col"></div>
                                 </div>
                                 <span>
@@ -1293,14 +1291,136 @@
               selectElement.removeClass('is-invalid');
             }
         }          
-        $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formeditbaotrisuachua input[required], .formeditbaotrisuachua textarea[required], .formhoanthanhcongviec textarea[required]').on('blur', function() {
+    $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formeditbaotrisuachua input[required], .formeditbaotrisuachua textarea[required], .formhoanthanhcongviec textarea[required]').on('blur', function() {
             validateInput($(this));
-        });
-        $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formeditbaotrisuachua input[required], .formeditbaotrisuachua textarea[required], .formhoanthanhcongviec textarea[required], .formduyetcongviec textarea[required]').on('focus', function() {
+    });
+    $('.formaddbaotrisuachua input[required], .formaddbaotrisuachua textarea[required], .formeditbaotrisuachua input[required], .formeditbaotrisuachua textarea[required], .formhoanthanhcongviec textarea[required], .formduyetcongviec textarea[required]').on('focus', function() {
             $(this).removeClass('is-invalid');
             $(this).closest('.form-group').find('small.text-danger').text('').hide();
-        });
+    });
+    var files2 = [];
+    var newimages = [];
+    $('#file-input2').on('change', function() {
+      let file = $(this)[0].files;
+      for (let i = 0; i < file.length; i++) {
+        newimages.push(file[i]); 
+      }
+      showImages2(files2, newimages);
+      $(this).val('');
+  });
+    const showImages2 = (oldimages, newimages) =>{
+                  let images = '';
+                  oldimages.forEach((e, i) => {
+                    images += `
+                      <div data-v-0f357511="" class="col-md-2 col-4">
+                          <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
+                              <div data-v-1f5e929c="" class="position-relative image-container mb-2">
+                                  <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
+                                      <img data-v-1f5e929c="" src="../../images/images_baotrisuachua/${e}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">
+                                      <div data-v-1f5e929c="" class="control-btns" onclick="delImage2(${i}, '${oldimages}')">
+                                          <button data-v-1f5e929c="" type="button">
+                                              <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                                  <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
+                                                  <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
+                                              </svg>
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>`;                    
+                  });
+                  newimages.forEach((e, i) => {
+                    images += `
+                      <div data-v-0f357511="" class="col-md-2 col-4">
+                          <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
+                              <div data-v-1f5e929c="" class="position-relative image-container mb-2">
+                                  <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
+                                      <img data-v-1f5e929c="" src="${URL.createObjectURL(e)}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">
+                                      <div data-v-1f5e929c="" class="control-btns" onclick="delnewImage(${i})">
+                                          <button data-v-1f5e929c="" type="button">
+                                              <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                                  <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
+                                                  <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
+                                              </svg>
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>`;                    
+                  });
+                  $('.containerImages').html(images);
+    }
+                const delImage2 = (index, array) =>{
+                  ConvertArray = array.split(",");
+                  ConvertArray.splice(index, 1);
+                  files2 = ConvertArray;
+                  showImages2(ConvertArray, newimages);       
+                }
+                const delnewImage = (index) =>{
+                  newimages.splice(index, 1);
+                  showImages2(files2, newimages);       
+                }
+    $('#file-input-done').on('change', function() {
+          let file = $(this)[0].files;
+          for (let i = 0; i < file.length; i++) {
+            files.push(file[i]); 
+          }
+          showImagesDone(files);
+          $(this).val('');
+    });
+    const showImagesDone = (array) =>{
+              let images = '';
+              array.forEach((e, i) => {
+                images += `<div data-v-0f357511="" class="col-md-2 col-4">
+                                  <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
+                                        <div data-v-1f5e929c="" class="position-relative image-container mb-2">
+                                          <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
+                                    <img data-v-1f5e929c="" src="${URL.createObjectURL(e)}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">        
+                                    <div data-v-1f5e929c="" class="control-btns" onclick="delnewDone(${i})">
+                                      <button data-v-1f5e929c="" type="button">
+                                        <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                          <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
+                                          <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                      </button>
+                                    </div>
+                                    <!---->
+                                  </div>
+                                </div>
+                                </div>
+                              </div>`
+                
+              });
+              $('.containerImages').html(images);
+    }
+    const delnewDone = (index) =>{
+              files.splice(index, 1);
+              showImagesDone(files);       
+      }
+    const showImages3 = (array, container) =>{
+              let images = '';
+              array.forEach((e, i) => {
+                images += `         <div data-v-0f357511="" attachment="" class="col-md-2 col-4">
+                                          <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
+                                            <div data-v-1f5e929c="" class="position-relative image-container mb-2">
+                                              <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
+                                                <img data-v-1f5e929c="" src="../../images/images_baotrisuachua/${e}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">
+                                                <!---->
+                                                <!---->
+                                                <!---->
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>`
+                
+            });
+              document.querySelector(container).innerHTML = images;
+    }
     ////////////////////////////////////////////////////////   
+
+        $(document).ready(function () {
     $('body').on('click', '.btn-add', function () {       
           let form = $('.formaddbaotrisuachua')
           form.trigger('reset');
@@ -1447,70 +1567,6 @@
     $('body').on('click', '.btnClose', function () {
             $('#modal-default').modal('hide');        
     });
-    var files2 = [];
-    var newimages = [];
-    $('#file-input2').on('change', function() {
-      let file = $(this)[0].files;
-      for (let i = 0; i < file.length; i++) {
-        newimages.push(file[i]); 
-      }
-      showImages2(files2, newimages);
-      $(this).val('');
-  });
-    const showImages2 = (oldimages, newimages) =>{
-                  let images = '';
-                  oldimages.forEach((e, i) => {
-                    images += `
-                      <div data-v-0f357511="" class="col-md-2 col-4">
-                          <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
-                              <div data-v-1f5e929c="" class="position-relative image-container mb-2">
-                                  <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
-                                      <img data-v-1f5e929c="" src="../../images/images_baotrisuachua/${e}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">
-                                      <div data-v-1f5e929c="" class="control-btns" onclick="delImage2(${i}, '${oldimages}')">
-                                          <button data-v-1f5e929c="" type="button">
-                                              <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                  <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
-                                                  <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
-                                              </svg>
-                                          </button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>`;                    
-                  });
-                  newimages.forEach((e, i) => {
-                    images += `
-                      <div data-v-0f357511="" class="col-md-2 col-4">
-                          <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
-                              <div data-v-1f5e929c="" class="position-relative image-container mb-2">
-                                  <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
-                                      <img data-v-1f5e929c="" src="${URL.createObjectURL(e)}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">
-                                      <div data-v-1f5e929c="" class="control-btns" onclick="delnewImage(${i})">
-                                          <button data-v-1f5e929c="" type="button">
-                                              <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                  <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
-                                                  <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
-                                              </svg>
-                                          </button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>`;                    
-                  });
-                  $('.containerImages').html(images);
-    }
-                const delImage2 = (index, array) =>{
-                  ConvertArray = array.split(",");
-                  ConvertArray.splice(index, 1);
-                  files2 = ConvertArray;
-                  showImages2(ConvertArray, newimages);       
-                }
-                const delnewImage = (index) =>{
-                  newimages.splice(index, 1);
-                  showImages2(files2, newimages);       
-                }
     $('body').on('click', '#btn-edit', function () { 
             var id = $(this).data("id");
             $.ajax({
@@ -1527,15 +1583,17 @@
                 $('#loaicongviec2').val(decodedData.loai_cong_viec)
                 $('#date2').val(decodedData.ngay_ketthuc)
                 var uutien = decodedData.mucdo_uutien == 1 ? 'Thấp' : (decodedData.mucdo_uutien == 2 ? 'Bình thường' : "Gấp");
-                files2 = decodedData.images;
-                newimages = [];
-                showImages2(files2, newimages);
-
+                $('#toannhaInput2').val(decodedData.id_toanha);
+                $('#phongInput2').val(decodedData.id_phong);
+                
                 initializeDropdownsToanha_Phong_baotri_suachua(".toannhaOption2","toannhaInput2", "toannhaSearch2", "toannha2",
                                                         ".phongoption2","phongInput2","phongSearch2", "phong2", 
                                                         ".nguoithuchienoption2","nguoithuchienInput2","nguoithuchienSearch2", "nguoithuchien2", 
                                                         ".leveloption2","levelInput2","levelSearch2", "level2", 
                                                         decodedData.ten_toanha, decodedData.ten_canho_phong, decodedData.ten_nguoi_nhan_viec, uutien);
+                files2 = decodedData.images1;
+                newimages = [];
+                showImages2(files2, newimages);
             });
 
             $('#modal-default2').modal('show');
@@ -1577,7 +1635,7 @@
               for (let i = 0; i < files2.length; i++) {
                   formData.append('imageOld[]', files2[i]); 
               }
-              for (let i = 0; i < files2.length; i++) {
+              for (let i = 0; i < newimages.length; i++) {
                   formData.append('newImage[]', newimages[i]); 
               }
               for (const pair of formData.entries()) {
@@ -1678,46 +1736,9 @@
               });         
         });
     });
-    $('#file-input-done').on('change', function() {
-          let file = $(this)[0].files;
-          for (let i = 0; i < file.length; i++) {
-            files.push(file[i]); 
-          }
-          showImagesDone(files);
-          $(this).val('');
-    });
-    const showImagesDone = (array) =>{
-              let images = '';
-              array.forEach((e, i) => {
-                images += `<div data-v-0f357511="" class="col-md-2 col-4">
-                                  <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
-                                        <div data-v-1f5e929c="" class="position-relative image-container mb-2">
-                                          <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
-                                    <img data-v-1f5e929c="" src="${URL.createObjectURL(e)}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">        
-                                    <div data-v-1f5e929c="" class="control-btns" onclick="delnewDone(${i})">
-                                      <button data-v-1f5e929c="" type="button">
-                                        <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                          <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
-                                          <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
-                                        </svg>
-                                      </button>
-                                    </div>
-                                    <!---->
-                                  </div>
-                                </div>
-                                </div>
-                              </div>`
-                
-              });
-              $('.containerImages').html(images);
-    }
-    const delnewDone = (index) =>{
-              files.splice(index, 1);
-              showImagesDone(files);       
-      }
     $('body').on('click', '#btn-done', function () {    
       files = []; 
-      showImages(files); 
+      showImagesDone(files); 
       var id = $(this).data("id");
       var status = $(this).data("status");
       var name = $(this).data("name");
@@ -1792,7 +1813,15 @@
                             row.find('.trangthaicongviec span').addClass('badge bg-danger')
                           }
                         $('#modal-default4').modal('hide');            
-                    }
+                    }else {
+                        swal({
+                            title: "Lỗi",
+                            text: response.message,
+                            icon: "error",
+                            close: true,
+                            button: "Thử lại",
+                          });                    
+                        }
                   },
                   error: function (xhr, status, error) {
                       console.error(xhr.responseText);
@@ -1893,25 +1922,6 @@
                 
         });
     });
-    const showImages3 = (array, container) =>{
-              let images = '';
-              array.forEach((e, i) => {
-                images += `         <div data-v-0f357511="" attachment="" class="col-md-2 col-4">
-                                          <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
-                                            <div data-v-1f5e929c="" class="position-relative image-container mb-2">
-                                              <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
-                                                <img data-v-1f5e929c="" src="../../images/images_baotrisuachua/${e}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">
-                                                <!---->
-                                                <!---->
-                                                <!---->
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>`
-                
-              });
-              document.querySelector(container).innerHTML = images;
-            }
     $('body').on('click', '#btn-show', function () {    
       var id = $(this).data("id");
             $.ajax({
@@ -2091,7 +2101,6 @@
             }
         });
 
-        $(document).ready(function () {
           let searchapartment = document.getElementById("search-input-apartment");
           let searchstartDate = document.getElementById("startDate");
           let searchoverdate = document.getElementById("overdate");

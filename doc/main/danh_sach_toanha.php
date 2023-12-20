@@ -399,9 +399,6 @@
               <div class="bottom-field">
                 <ul class="pagination">
                   <li class="prev"><a href="#" id="prev">&#139;</a></li>
-                  <!-- <li class="list">1</li>
-                  <li class="list">2</li>
-                  <li class="list">3</li> -->
                   <li class="next"><a href="#" id="next">&#155;</a></li>
                 </ul>
               </div>

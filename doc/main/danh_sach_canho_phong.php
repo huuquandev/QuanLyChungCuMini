@@ -499,7 +499,7 @@
                 <div data-v-38625d2e="" class="d-flex align-items-center mb-0 mt-1">
                     <span data-v-38625d2e="" class="text-nowrap"> Hiển thị tối đa </span>
                     <select data-v-38625d2e="" class="mx-1 custom-select" id="itemperpage">
-                      <option value="2">2</option>
+                      <option value="5">5</option>
                       <option value="10">10</option>
                       <option value="15">15</option>
                       <option value="25">25</option>
@@ -511,9 +511,7 @@
               <div class="bottom-field">
                 <ul class="pagination">
                   <li class="prev"><a href="#" id="prev">&#139;</a></li>
-                  <!-- <li class="list">1</li>
-                  <li class="list">2</li>
-                  <li class="list">3</li> -->
+      
                   <li class="next"><a href="#" id="next">&#155;</a></li>
                 </ul>
               </div>
@@ -908,6 +906,8 @@
                 $('#soluongnguoio2').val(decodedData.so_nguoi_o)
                 $('#trangthai2').val(decodedData.tinhtrang_canho_phong)
                 $('#trangthaithue2').val(decodedData.trangthai_canho_phong)
+                $('#toannhaInput2').val(decodedData.id_toanha)
+                $('#tangInput2').val(decodedData.id_tang)
 
                 if (decodedData.tinhtrang_canho_phong	== 1) {
                     $('#trangthai2').prop('checked', true);

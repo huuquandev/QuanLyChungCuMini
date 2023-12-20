@@ -23,40 +23,84 @@ $vi_tri = $_POST['vi_tri'];
 $ghi_chu = $_POST['ghi_chu'];
 
 $images = isset($_FILES['image']) ? $_FILES['image'] : null;
-
 $success = true;
 $message = 'Thêm thành công';
 
 $response = array();
 $response['Data'] = array(); 
-for ($i = 0; $i < $so_luong; $i++) {
-    $random = generateRandomCode();
-    $ma_Taisan = "TS".$random;
 
-    while (!isMaCanHo_PhongUnique($conn, $ma_Taisan)) {
-        $ma_Taisan = generateRandomCode();
+
+if ($images) {
+    $allowedFormats = array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF); 
+    foreach ($images['tmp_name'] as $tmp_name) {
+        if (in_array(exif_imagetype($tmp_name), $allowedFormats)) {
+            for ($i = 0; $i < $so_luong; $i++) {
+                $random = generateRandomCode();
+                $ma_Taisan = "TS".$random;
+        
+                while (!isMaCanHo_PhongUnique($conn, $ma_Taisan)) {
+                    $ma_Taisan = generateRandomCode();
+                }
+        
+                $newTaisanId = Them_TaiSan($ten_taisan, $ma_Taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $images, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang);
+        
+                $object = array(); 
+        
+                if ($newTaisanId) {
+                    $object['id'] = $newTaisanId;
+                    $object['ma_Taisan'] = $ma_Taisan;
+                    $object['ten_phong'] = $ten_phong;
+                    $object['ten_toanha'] = $ten_toanha;
+                    $object['ten_taisan'] = $ten_taisan;
+                    $object['ten_tang'] = $ten_tang;
+                    $object['ten_kho'] = $ten_kho;
+                    $object['tinh_trang'] = $tinh_trang;
+                    $object['gia_tri'] = $gia_tri;
+                    $response['Data'][] = $object;
+                } else {
+                    $success = false;
+                    $message = 'Thêm không thành công';
+                    break; 
+                }
+            }
+        } else {
+            $success = false;
+            $message = 'Một hoặc nhiều file không phải là hình ảnh hợp lệ';
+            break; 
+        }
     }
-    $newTaisanId = Them_TaiSan($ten_taisan, $ma_Taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $images, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang);
+} else{
+    for ($i = 0; $i < $so_luong; $i++) {
+        $random = generateRandomCode();
+        $ma_Taisan = "TS".$random;
 
-    $object = array(); 
+        while (!isMaCanHo_PhongUnique($conn, $ma_Taisan)) {
+            $ma_Taisan = generateRandomCode();
+        }
 
-    if ($newTaisanId) {
-        $object['id'] = $newTaisanId;
-        $object['ma_Taisan'] = $ma_Taisan;
-        $object['ten_phong'] = $ten_phong;
-        $object['ten_toanha'] = $ten_toanha;
-        $object['ten_taisan'] = $ten_taisan;
-        $object['ten_tang'] = $ten_tang;
-        $object['ten_kho'] = $ten_kho;
-        $object['tinh_trang'] = $tinh_trang;
-        $object['gia_tri'] = $gia_tri;
-        $response['Data'][] = $object;
-    } else {
-        $success = false;
-        $message = 'Thêm không thành công';
-        break; 
+        $newTaisanId = Them_TaiSan($ten_taisan, $ma_Taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, null, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang);
+
+        $object = array(); 
+
+        if ($newTaisanId) {
+            $object['id'] = $newTaisanId;
+            $object['ma_Taisan'] = $ma_Taisan;
+            $object['ten_phong'] = $ten_phong;
+            $object['ten_toanha'] = $ten_toanha;
+            $object['ten_taisan'] = $ten_taisan;
+            $object['ten_tang'] = $ten_tang;
+            $object['ten_kho'] = $ten_kho;
+            $object['tinh_trang'] = $tinh_trang;
+            $object['gia_tri'] = $gia_tri;
+            $response['Data'][] = $object;
+        } else {
+            $success = false;
+            $message = 'Thêm không thành công';
+            break; 
+        }
     }
 }
+
 $response['success'] = $success;
 $response['message'] = $message;
 

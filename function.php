@@ -369,11 +369,32 @@
     }
     function XoaBaotri_Suachua($id_baotrisuachua){
         GLOBAL $conn;
+        $filter_id_baotrisuachua = mysqli_real_escape_string($conn, $id_baotrisuachua);
 
-        $sql = "DELETE FROM tb_baotri_suachua WHERE tb_baotri_suachua.id_baotri_suachua= $id_baotrisuachua";
+        $sql = "DELETE FROM tb_baotri_suachua WHERE tb_baotri_suachua.id_baotri_suachua= $filter_id_baotrisuachua";
 
         $query = mysqli_query($conn, $sql);
         if ($query) {
+            // Lấy danh sách ảnh hiện tại từ cơ sở dữ liệu
+            $currentImagesSQL = "SELECT url_hinhanh FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_baotrisuachua' AND (type_hinhanh='Bảo trì sửa chữa' OR type_hinhanh='Bảo trì sửa chữa hoàn thành')";
+            $result = mysqli_query($conn, $currentImagesSQL);
+            $existingImages = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $existingImages[] = $row['url_hinhanh'];
+            }
+
+            foreach ($existingImages as $image) {
+                $filteredImage = mysqli_real_escape_string($conn, $image);
+                // Xóa ảnh từ cơ sở dữ liệu
+                $deleteImageSQL = "DELETE FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_baotrisuachua' AND url_hinhanh='$filteredImage' AND (type_hinhanh='Bảo trì sửa chữa' OR type_hinhanh='Bảo trì sửa chữa hoàn thành')";
+                mysqli_query($conn, $deleteImageSQL);
+
+                // Xóa ảnh từ thư mục
+                $imagePath = "../../../images/images_baotrisuachua/" . $filteredImage; 
+                if (file_exists($imagePath)) {
+                    unlink($imagePath); 
+                }
+            }
             return true;
         } else {
             return false;
@@ -400,7 +421,7 @@
         $sql = "INSERT INTO tb_taisan (ten_taisan, ma_taisan, thuong_hieu, mau_sac, nam_sanxuat,
             	xuat_xu, gia_tri, tinh_trang, thoihanbaohanh, id_kho, id_toanha, id_canho_phong, id_tang, vi_tri, ghi_chu) 
                     VALUES ('$filter_ten_taisan', '$filter_ma_Taisan', '$filter_thuong_hieu', '$filter_mau_sac', '$filter_nam_sanxuat',
-                     '$filter_xuat_xu', '$filter_tinh_trang', '$filter_gia_tri', '$filter_thoihanbaohanh', '$filter_kho', '$filter_toanha', '$filter_phong', '$filter_tang', '$filter_vi_tri', '$filter_ghi_chu')";
+                     '$filter_xuat_xu', '$filter_gia_tri', '$filter_tinh_trang', '$filter_thoihanbaohanh', '$filter_kho', '$filter_toanha', '$filter_phong', '$filter_tang', '$filter_vi_tri', '$filter_ghi_chu')";
         
             $query = mysqli_query($conn, $sql);
             if ($query) {
@@ -433,6 +454,80 @@
                 return false;
             }
 
+    }
+    function Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang, $newImages, $id_taisan){
+        GLOBAL $conn;
+        $filter_ten_taisan = mysqli_real_escape_string($conn, $ten_taisan);
+        $filter_toanha = mysqli_real_escape_string($conn, $id_toanha);
+        $filter_phong = mysqli_real_escape_string($conn, $id_phong);
+        $filter_tang = mysqli_real_escape_string($conn, $id_tang);
+        $filter_kho = mysqli_real_escape_string($conn, $id_kho);
+        $filter_thuong_hieu = mysqli_real_escape_string($conn, $thuong_hieu);
+        $filter_mau_sac = mysqli_real_escape_string($conn, $mau_sac);
+        $filter_nam_sanxuat = mysqli_real_escape_string($conn, $nam_sanxuat);
+        $filter_xuat_xu = mysqli_real_escape_string($conn, $xuat_xu);
+        $filter_gia_tri = mysqli_real_escape_string($conn, $gia_tri);
+        $filter_thoihanbaohanh = mysqli_real_escape_string($conn, $han_baohanh);
+        $filter_vi_tri = mysqli_real_escape_string($conn, $vi_tri);
+        $filter_ghi_chu = mysqli_real_escape_string($conn, $ghi_chu);
+        $filter_tinh_trang = mysqli_real_escape_string($conn, $tinh_trang);
+        $filter_id_taisan = mysqli_real_escape_string($conn, $id_taisan);
+
+        $sql = "UPDATE tb_taisan SET ten_taisan='$filter_ten_taisan', thuong_hieu='$filter_thuong_hieu', mau_sac='$filter_mau_sac', 
+                	nam_sanxuat='$filter_nam_sanxuat', xuat_xu='$filter_xuat_xu', gia_tri='$filter_gia_tri', tinh_trang='$filter_tinh_trang', 
+                    thoihanbaohanh='$filter_thoihanbaohanh', id_kho='$filter_kho', id_toanha='$filter_toanha', id_canho_phong='$filter_phong', id_tang='$filter_tang', 
+                    vi_tri='$filter_vi_tri', ghi_chu='$filter_ghi_chu' WHERE id_taisan='$filter_id_taisan'";
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+           // Lấy danh sách ảnh hiện tại từ cơ sở dữ liệu
+            $currentImagesSQL = "SELECT url_hinhanh FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_taisan' AND type_hinhanh='Tài sản'";
+            $result = mysqli_query($conn, $currentImagesSQL);
+            $existingImages = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $existingImages[] = $row['url_hinhanh'];
+            }
+
+            // Loại bỏ các ảnh đã được xóa từ danh sách ảnh cũ trong cơ sở dữ liệu và thư mục
+            $imagesToRemove = array_diff($existingImages, $imageOld);
+            foreach ($imagesToRemove as $image) {
+                $filteredImage = mysqli_real_escape_string($conn, $image);
+
+                // Xóa ảnh từ cơ sở dữ liệu
+                $deleteImageSQL = "DELETE FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_taisan' AND url_hinhanh='$filteredImage' AND type_hinhanh='Tài sản'";
+                mysqli_query($conn, $deleteImageSQL);
+
+                // Xóa ảnh từ thư mục
+                $imagePath = "../../../images/images_taisan/" . $filteredImage; 
+                if (file_exists($imagePath)) {
+                    unlink($imagePath); 
+                }
+            }
+
+            if (!empty($newImages)) {
+                $upload_directory = '../../../images/images_taisan/';
+            
+                foreach ($newImages['tmp_name'] as $key => $tmp_name) {
+                    $image_name = $newImages['name'][$key];
+                    $file_extension = pathinfo($image_name, PATHINFO_EXTENSION); // Lấy phần mở rộng của file
+            
+                    $unique_image_name = uniqid('img_') . '.' . $file_extension; // Thêm một đoạn duy nhất vào tên file ảnh
+                    $target_file = $upload_directory . basename($unique_image_name);
+            
+                    if (move_uploaded_file($tmp_name, $target_file)) {
+                        $url_hinhanh = mysqli_real_escape_string($conn, $target_file);
+                        $type_hinhanh = 'Tài sản';
+            
+                        $insertImageQuery = "INSERT INTO tb_hinhanh (id_loaihinhanh, type_hinhanh, url_hinhanh)
+                                            VALUES ('$filter_id_taisan', '$type_hinhanh', '$unique_image_name')";
+            
+                        mysqli_query($conn, $insertImageQuery);
+                    }
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
     function laytangbytoanha($id_toanha) {
         GLOBAL $conn;
@@ -612,23 +707,57 @@
             $images1[] = $image_row['url_hinhanh'];
         }
      // Lấy danh sách hình ảnh
-     $sqlimage2 = "SELECT tb_hinhanh.url_hinhanh
-                FROM tb_hinhanh 
-                WHERE tb_hinhanh.id_loaihinhanh = $id_baotri_suachua AND tb_hinhanh.type_hinhanh = 'Bảo trì sửa chữa hoàn thành'";
-    $queryimage2 = mysqli_query($conn, $sqlimage2);
+        $sqlimage2 = "SELECT tb_hinhanh.url_hinhanh
+                    FROM tb_hinhanh 
+                    WHERE tb_hinhanh.id_loaihinhanh = $id_baotri_suachua AND tb_hinhanh.type_hinhanh = 'Bảo trì sửa chữa hoàn thành'";
+        $queryimage2 = mysqli_query($conn, $sqlimage2);
 
-    $images2 = array();
-    while ($image_row = mysqli_fetch_assoc($queryimage2)) {
-    $images2[] = $image_row['url_hinhanh'];
+        $images2 = array();
+        while ($image_row = mysqli_fetch_assoc($queryimage2)) {
+        $images2[] = $image_row['url_hinhanh'];
+        }
+
+            // Thêm mảng hình ảnh vào mảng kết quả trả về
+            $row['images1'] = $images1;
+            $row['images2'] = $images2;
+
+            return $row;
     }
+    function laytaisan($id_taisan) {
+        GLOBAL $conn;
+    
+        GLOBAL $conn;
+    
+        $sql = "SELECT tb_taisan.*, tb_toanha.ten_toanha, tb_tang.ten_tang, tb_canho_phong.ten_canho_phong, tb_kho.ten_kho 
+                FROM tb_taisan 
+                JOIN tb_toanha ON tb_taisan.id_toanha = tb_toanha.id_toanha
+                JOIN tb_tang ON tb_taisan.id_tang = tb_tang.id_tang
+                JOIN tb_canho_phong ON tb_taisan.id_canho_phong = tb_canho_phong.id_canho_phong
+                JOIN tb_kho ON tb_taisan.id_kho = tb_kho.id_kho
+                WHERE tb_taisan.id_taisan = $id_taisan";
+    
+        $query = mysqli_query($conn, $sql);
 
+        $row = mysqli_fetch_array($query);
+    
+        $query = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($query);
+    
+        // Lấy danh sách hình ảnh
+        $sqlimage1 = "SELECT tb_hinhanh.url_hinhanh
+                     FROM tb_hinhanh 
+                     WHERE tb_hinhanh.id_loaihinhanh = $id_taisan AND tb_hinhanh.type_hinhanh = 'Tài sản'";
+        $queryimage1 = mysqli_query($conn, $sqlimage1);
+    
+        $images1 = array();
+        while ($image_row = mysqli_fetch_assoc($queryimage1)) {
+            $images1[] = $image_row['url_hinhanh'];
+        }
         // Thêm mảng hình ảnh vào mảng kết quả trả về
         $row['images1'] = $images1;
-        $row['images2'] = $images2;
 
         return $row;
     }
-     
     // Quang làm
     function GetListHoaDon(){
 		GLOBAL $conn;

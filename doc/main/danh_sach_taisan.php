@@ -314,7 +314,7 @@
                                         <!---->
                                         </legend>
                                         <div>
-                                        <input type="text" placeholder="2025-11-12" data-input="true" id="date3" class="form-control flatpickr-input">
+                                        <input type="text" placeholder="2025-11-12" data-input="true" id="date4" class="form-control flatpickr-input">
                                         <small class="text-danger"></small>
                                         <!---->
                                         <!---->
@@ -645,10 +645,10 @@
                   <td><?php echo convertToVietnameseCurrency($row['gia_tri']);?>đ</td>
                   <td class="table-td-center">
                     <button class="btn btn-danger btn-sm" type="button" title="Xóa"
-                      onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                      onclick="myFunction(this)" data-id="<?php echo $row['id_taisan']; ?>" id="btn-delete"><i class="fas fa-trash-alt"></i>
                     </button>
-                    <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="show-emp"
-                      data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
+                    <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
+                      data-toggle="modal" data-target="#ModalUP" data-id="<?php echo $row['id_taisan']; ?>"><i class="fas fa-edit"></i>
                     </button>
                   </td>
                 </tr>
@@ -678,13 +678,300 @@
               <div class="bottom-field">
                 <ul class="pagination">
                   <li class="prev"><a href="#" id="prev">&#139;</a></li>
-                  <!-- <li class="list">1</li>
-                  <li class="list">2</li>
-                  <li class="list">3</li> -->
                   <li class="next"><a href="#" id="next">&#155;</a></li>
                 </ul>
               </div>
           </div>
+          <div class="modal fade bd-example-modal-lg" id="modal-default2">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Tài sản</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="idtaisan" value="0" />
+                                <form class="formedittaisan">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                    <span>
+                                        <fieldset class="form-group" id="__BVID__656">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__656__BV_label_"> Tên tài sản <span class="text-danger"> (*) </span>
+                                        </legend>
+                                        <div>
+                                            <input id="tentaisan2" placeholder="Tủ lạnh" type="text" class="form-control" required>
+                                            <div class="invalid-feedback"></div>
+                                            <small class="text-danger"></small>
+
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                        </div>
+                                        </fieldset>
+                                    </span>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <fieldset class="form-group" id="__BVID__658">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__658__BV_label_">Thương hiệu</legend>
+                                        <div>
+                                        <input id="thuonghieu2" placeholder="Panasonic" type="text" class="form-control">
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        </div>
+                                    </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <fieldset class="form-group" id="__BVID__660">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__660__BV_label_">Màu sắc</legend>
+                                        <div>
+                                        <input id="mausac2" placeholder="Đen" type="text" class="form-control">
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        </div>
+                                    </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                    <fieldset class="form-group" id="__BVID__662">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__662__BV_label_">Model/Năm sản xuất</legend>
+                                        <div>
+                                        <input id="namsanxuat2" placeholder="2019" type="text" class="form-control">
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        </div>
+                                    </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <fieldset class="form-group" id="__BVID__664">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__664__BV_label_">Xuất xứ</legend>
+                                        <div>
+                                        <input id="xuatxu2" placeholder="Việt nam" type="text" class="form-control">
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        </div>
+                                    </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <fieldset class="form-group" value="0" id="__BVID__667">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__667__BV_label_"> Giá trị
+                                        <!---->
+                                        </legend>
+                                        <div>
+                                        <input type="text" placeholder="9,000,000" value="" id="giatri2" class="form-control">
+                                        <small class="text-danger"></small>
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        </div>
+                                    </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                    <fieldset class="form-group" id="__BVID__673">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__673__BV_label_">Tình trạng</legend>
+                                        <div>
+                                        <input id="tinhtrang2" placeholder="Mới" type="text" class="form-control">
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        </div>
+                                    </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <fieldset class="form-group" value="2025-11-07T13:46:29.484Z" id="__BVID__676">
+                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__676__BV_label_"> Thời hạn bảo hành
+                                        <!---->
+                                        </legend>
+                                        <div>
+                                        <input type="text" placeholder="2025-11-12" data-input="true" id="date4" class="form-control flatpickr-input">
+                                        <small class="text-danger"></small>
+                                        <!---->
+                                        <!---->
+                                        <!---->
+                                        </div>
+                                    </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <span>
+                                        <div>
+                                        <fieldset class="form-group" id="__BVID__605">
+                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tòa nhà </span>
+                                            </legend>
+                                            <div class="wrapper toannhaOption2">
+                                                <div class="select-btn">
+                                                <span>Chọn tòa nhà</span>
+                                                <input type="hidden" id="toannhaInput2">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="toannhaSearch2">
+                                                </div>
+                                                <ul class="options" id="toannha2">                              
+                                                </ul>
+                                                </div>
+                                            </div>
+                                            <small class="text-danger"></small>
+
+                                            </fieldset>
+                                        <!---->
+                                        </div>
+                                      </span>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <span>
+                                        <div>
+                                        <fieldset class="form-group" id="__BVID__605">
+                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tầng </span>
+                                            </legend>
+                                            <div class="wrapper tangOption2">
+                                                <div class="select-btn">
+                                                <span>Chọn tầng</span>
+                                                <input type="hidden" id="tangInput2">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="tangSearch2">
+                                                </div>
+                                                <ul class="options" id="tang2">                              
+                                                </ul>
+                                                </div>
+                                            </div>
+                                            <small class="text-danger"></small>
+
+                                            </fieldset>
+                                        <!---->
+                                        </div>
+                                      </span>
+                                    </div>  
+                                    <div class="col-md-4">
+                                      <span>
+                                        <div>
+                                        <fieldset class="form-group" id="__BVID__605">
+                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Căn hộ/Phòng </span>
+                                            </legend>
+                                            <div class="wrapper phongOption2">
+                                                <div class="select-btn">
+                                                <span>Chọn phòng</span>
+                                                <input type="hidden" id="phongInput2">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="phongSearch2">
+                                                </div>
+                                                <ul class="options" id="phong2">                              
+                                                </ul>
+                                                </div>
+                                            </div>
+                                            <small class="text-danger"></small>
+
+                                            </fieldset>
+                                        <!---->
+                                        </div>
+                                      </span>
+                                    </div>  
+                                    <div class="col-md-4">
+                                      <span>
+                                        <div>
+                                        <fieldset class="form-group" id="__BVID__605">
+                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Kho </span>
+                                            </legend>
+                                            <div class="wrapper khoOption2">
+                                                <div class="select-btn">
+                                                <span>Chọn kho</span>
+                                                <input type="hidden" id="khoInput2">
+                                                <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="search-option">
+                                                <div class="search">
+                                                    <input type="text" placeholder="Search" id="khoSearch2">
+                                                </div>
+                                                <ul class="options" id="kho2">                              
+                                                </ul>
+                                                </div>
+                                            </div>
+                                            <small class="text-danger"></small>
+
+                                            </fieldset>
+                                        <!---->
+                                          </div>
+                                      </span>
+                                    </div>                                   
+                                    <div class="col-md-12">
+                                    <span>
+                                        <fieldset class="form-group" id="__BVID__1001">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Vị trí </span>
+                                          </legend>
+                                          <div>
+                                            <div role="group" class="input-group">
+                                              <!---->
+                                              <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
+                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                                    <circle cx="12" cy="10" r="3"></circle>
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                              <input id="vitri2" type="text" placeholder="Phòng khách" class="form-control" name="vitri1">
+                                              <!---->
+                                            </div>
+                                            <small class="text-danger"></small>
+                                            <!---->
+                                            <!---->
+                                            <!---->
+                                          </div>
+                                        </fieldset>
+                                      </span>
+                                    </div>
+                                </div>
+                                <div class="row"></div>
+                                <fieldset class="form-group" id="__BVID__728">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__728__BV_label_">Ghi chú</legend>
+                                    <div>
+                                    <textarea id="ghichu2" placeholder="Ghi chú" rows="3" wrap="soft" class="form-control"></textarea>
+                                    <!---->
+                                    <!---->
+                                    <!---->
+                                    </div>
+                                </fieldset>
+                                <div class="d-flex justify-space-between font-small-4 font-weight-bolder text-uppercase text-primary pb-1"> Hình ảnh tài sản </div>
+                                  <div data-v-0f357511="">
+                                    <!---->
+                                    <div data-v-0f357511="" class="row match-height mt-1">
+                                      <div data-v-0f357511="" class="col-md-2 col-4">
+                                          <div data-v-0f357511="" class="image-container" style="width: 100%; height: 100%;">
+                                            <label data-v-0f357511="" for="file-input2" style="width: 100%; height: 100%;">
+                                                <div data-v-0f357511="" class="empty-img thumbnail">
+                                                  <svg data-v-0f357511="" xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" for="file-input2" variant="primary" class="feather feather-plus">
+                                                      <line data-v-0f357511="" x1="12" y1="5" x2="12" y2="19"></line>
+                                                      <line data-v-0f357511="" x1="5" y1="12" x2="19" y2="12"></line>
+                                                  </svg>
+                                                </div>
+                                            </label>
+                                            <input data-v-0f357511="" id="file-input2" type="file" name="file-input-2" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/pdf,image/png,image/jpeg,audio/mpeg,video/mp4,video/mpeg" multiple="multiple" class="d-none">
+                                          </div>
+                                      </div>
+                                      <div class="containerImages match-height mt-1">
+                                      </div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                                  <button type="button" class="btn btn-primary btnSave" data-dismiss="modal">Lưu</button>
+                          </div>
+                        </div>
+                    </div>
+              </div>
         </div>
       </div>
     </div>
@@ -746,124 +1033,363 @@
                 smallElement.text('').hide();
             }
         }
-        $('.formaddtaisan input[required]').on('blur', function() {
-            validateInput($(this));
-        });
-     $('body').on('click', '.btn-add', function () {       
-          let form = $('.formaddtaisan')
-          form.trigger('reset');
-          files = []; 
-          showImages(files);
-          initializeDropdownsToanha_Phong_Taisan(".toannhaOption1","toannhaInput1", "toannhaSearch1", "toannha1",
-                                                ".tangOption1","tangInput1", "tangSearch1", "tang1",
-                                                ".phongOption1","phongInput1", "phongSearch1", "phong1",
-                                                ".khoOption1","khoInput1", "khoSearch1", "kho1");
-          $('#modal-default').modal('show');
+        var files2 = [];
+      var newimages = [];
+      $('#file-input2').on('change', function() {
+        let file = $(this)[0].files;
+        for (let i = 0; i < file.length; i++) {
+          newimages.push(file[i]); 
+        }
+        showImages2(files2, newimages);
+        $(this).val('');
       });
-      $('body').on('click', '#btnAdd', function () { 
+        const showImages2 = (oldimages, newimages) =>{
+                  let images = '';
+                  oldimages.forEach((e, i) => {
+                    images += `
+                      <div data-v-0f357511="" class="col-md-2 col-4">
+                          <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
+                              <div data-v-1f5e929c="" class="position-relative image-container mb-2">
+                                  <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
+                                      <img data-v-1f5e929c="" src="../../images/images_taisan/${e}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">
+                                      <div data-v-1f5e929c="" class="control-btns" onclick="delImage2(${i}, '${oldimages}')">
+                                          <button data-v-1f5e929c="" type="button">
+                                              <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                                  <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
+                                                  <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
+                                              </svg>
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>`;                    
+                  });
+                  newimages.forEach((e, i) => {
+                    images += `
+                      <div data-v-0f357511="" class="col-md-2 col-4">
+                          <div data-v-1f5e929c="" data-v-0f357511="" class="d-flex flex-column mb-1">
+                              <div data-v-1f5e929c="" class="position-relative image-container mb-2">
+                                  <div data-v-1f5e929c="" class="b-overlay-wrap position-relative d-inline-block">
+                                      <img data-v-1f5e929c="" src="${URL.createObjectURL(e)}" alt="Image" class="bg-white thumbnail img-fluid w-100 m1" blank="true" style="width: 100% !important; height: 100% !important; min-width: 80px; min-height: 80px;">
+                                      <div data-v-1f5e929c="" class="control-btns" onclick="delnewImage(${i})">
+                                          <button data-v-1f5e929c="" type="button">
+                                              <svg data-v-1f5e929c="" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                                  <line data-v-1f5e929c="" x1="18" y1="6" x2="6" y2="18"></line>
+                                                  <line data-v-1f5e929c="" x1="6" y1="6" x2="18" y2="18"></line>
+                                              </svg>
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>`;                    
+                  });
+                  $('.containerImages').html(images);
+    }
+    const delImage2 = (index, array) =>{
+                  ConvertArray = array.split(",");
+                  ConvertArray.splice(index, 1);
+                  files2 = ConvertArray;
+                  showImages2(ConvertArray, newimages);       
+    }
+    const delnewImage = (index) =>{
+                  newimages.splice(index, 1);
+                  showImages2(files2, newimages);       
+    }
+    $(document).ready(function () {
+      function formatNumberInput(selector) {
+              $(selector).on('input', function(e) {
+                  let value = e.target.value.replace(/[^\d]/g, ""); // Loại bỏ tất cả ký tự không phải số
+                  if (!isNaN(value)) {
+                      let formattedValue = new Intl.NumberFormat('vi-VN').format(value);
+                      let finalValue = formattedValue.replace(/\./g, ",");
+                      $(this).val(finalValue);
+                  }
+              });
+      }
+        $('.formaddtaisan input[required]').on('blur', function() {
+              validateInput($(this));
+        });
+        $('body').on('click', '.btn-add', function () {       
+            let form = $('.formaddtaisan')
+            form.trigger('reset');
+            files = []; 
+            showImages(files);
+            formatNumberInput('#giatri1');
+            initializeDropdownsToanha_Phong_Taisan(".toannhaOption1","toannhaInput1", "toannhaSearch1", "toannha1",
+                                                  ".tangOption1","tangInput1", "tangSearch1", "tang1",
+                                                  ".phongOption1","phongInput1", "phongSearch1", "phong1",
+                                                  ".khoOption1","khoInput1", "khoSearch1", "kho1");
+            $('#modal-default').modal('show');
+        });
+        $('body').on('click', '#btnAdd', function () { 
+            let isValid = true;
+            $('.formaddtaisan input[required]').each(function() {
+              var smallElement = $(this).closest('.form-group').find('small.text-danger');
+                    if (!$(this).val().trim()) {
+                            $(this).addClass('is-invalid');
+                            smallElement.text('Thông tin bắt buộc').show();
+                            isValid = false;
+                        } else {
+                            $(this).removeClass('is-invalid');
+                            smallElement.text('').hide();
+                        }
+            });
+              if(isValid){              
+                var formData = new FormData();
+                let ten_toanha = "";
+                let ten_tang = "";
+                let ten_phong =  "";
+                let ten_kho = "";
+                if($('#toannhaInput1').val() !== ""){
+                  ten_toanha = document.querySelector(".toannhaOption1 .select-btn span").textContent;
+                } if($('#tangInput1').val() !== ""){
+                  ten_tang = document.querySelector(".tangOption1 .select-btn span").textContent;
+                } if($('#phongInput1').val() !== ""){
+                  ten_phong = document.querySelector(".phongOption1 .select-btn span").textContent;
+                } if($('#khoInput1').val() !== ""){
+                  ten_kho = document.querySelector(".khoOption1 .select-btn span").textContent;
+                }
+                formData.append('ten_taisan', $('#tentaisan1').val());
+                formData.append('id_toanha', $('#toannhaInput1').val());
+                formData.append('id_tang', $('#tangInput1').val());
+                formData.append('id_phong', $('#phongInput1').val());
+                formData.append('id_kho', $('#khoInput1').val());
+                formData.append('thuong_hieu', $('#thuonghieu1').val());
+                formData.append('mau_sac', $('#mausac1').val());
+                formData.append('nam_sanxuat', $('#namsanxuat1').val());
+                formData.append("xuat_xu", $('#xuatxu1').val());   
+                formData.append("gia_tri", $('#giatri1').val().replace(/,/g, "")); 
+                formData.append("so_luong", $('#soluong1').val());   
+                formData.append("tinh_trang", $('#tinhtrang1').val());   
+                formData.append("han_baohanh", $('#date3').val());   
+                formData.append("ten_toanha", ten_toanha);   
+                formData.append("ten_tang", ten_tang);   
+                formData.append("ten_phong", ten_phong);
+                formData.append("ten_kho", ten_kho);
+                formData.append("vi_tri", $('#vitri1').val());
+                formData.append("ghi_chu", $('#ghichu1').val());
+
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('image[]', files[i]); 
+                }
+                for (const pair of formData.entries()) {
+                  console.log(pair[0] + ': ' + pair[1]);
+                }
+                $.ajax({
+                    url: "doc/main/commons/them_taisan.php",
+                    type: "post",
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (response) { 
+                      console.log(response);          
+                        if (response.success) { 
+                          response.Data.forEach(value => {
+                          let gia_tri = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value.gia_tri).replace(/\./g, ",");
+                          var str = "";
+
+                          str += `<tr id="row_${value.id}">
+                              <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                              <td class="ma_taisan">${value.ma_Taisan}</td>
+                              <td class="ten_taisan">${value.ten_taisan}</td>
+                              <td class="ten_kho">${value.ten_kho}</td>
+                              <td class="ten_toanha">
+                                  ${value.ten_toanha}
+                                  <br>
+                                  <span class="text-muted ten_phong">${value.ten_phong}</span>
+                                  <br>
+                                  <span class="text-muted ten_tang">${value.ten_tang}</span>
+                              </td>
+                              <td class="tinh_trang">${value.tinh_trang}</td>
+                              <td class="gia_tri">${gia_tri}</td>
+                              <td class="table-td-center">
+                                  <button class="btn btn-danger btn-sm" type="button" title="Xóa" id="btn-delete" 
+                                      data-id="${value.id}"><i class="fas fa-trash-alt"></i>
+                                  </button>
+                                  <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
+                                      data-toggle="modal" data-target="#ModalUP" data-id="${value.id}"><i class="fas fa-edit"></i>
+                                  </button>
+                              </td>
+                          </tr>`;
+
+                          $('#tbhtml').append(str);
+                      });
+
+                            swal({
+                              title: "Thông báo",
+                              text: response.message,
+                              icon: "success",
+                              close: true,
+                              button: "Đóng",
+                            });
+
+                            $('#modal-default').modal('hide');    
+
+                        } else {
+                          swal({
+                              title: "Lỗi",
+                              text: response.message,
+                              icon: "error",
+                              close: true,
+                              button: "Thử lại",
+                            });   
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert("Ajax request failed!");
+                    }
+                });
+              }
+
+        });
+        $('body').on('click', '.btnClose', function () {
+            $('#modal-default').modal('hide');        
+        });
+      $('body').on('click', '#btn-edit', function () { 
+          formatNumberInput('#giatri2');
+              var id = $(this).data("id");
+              $.ajax({
+                  url: "doc/main/commons/lay_taisan.php", 
+                  type: "post",
+                  dataType: "html",          
+                  data: { id_taisan: id },
+                }).done(function(taisan){
+                  var decodedData = JSON.parse(decodeURIComponent(taisan));
+                  let giatri = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(decodedData.gia_tri).replace(/\./g, ",").replace("₫", "");
+
+                  $('#idtaisan').val(decodedData.id_taisan);
+
+                  $('#tentaisan2').val(decodedData.ten_taisan);
+                  $('#thuonghieu2').val(decodedData.thuong_hieu);
+                  $('#mausac2').val(decodedData.mau_sac);
+                  $('#namsanxuat2').val(decodedData.nam_sanxuat);
+                  $('#xuatxu2').val(decodedData.xuat_xu);
+                  $('#giatri2').val(giatri); 
+                  $('#tinhtrang2').val(decodedData.tinh_trang);
+                  $('#date4').val(decodedData.thoihanbaohanh);
+                  $('#vitri2').val(decodedData.vi_tri);
+                  $('#ghichu2').val(decodedData.ghi_chu);
+                  $('#toannhaInput2').val(decodedData.id_toanha);
+                  $('#tangInput2').val(decodedData.id_tang);
+                  $('#phongInput2').val(decodedData.id_canho_phong);
+                  $('#khoInput2').val(decodedData.id_kho);
+                  files2 = decodedData.images1;
+                  newimages = [];
+                  showImages2(files2, newimages);
+
+                  initializeDropdownsToanha_Phong_Taisan(".toannhaOption2","toannhaInput2", "toannhaSearch2", "toannha2",
+                                                    ".tangOption2","tangInput2", "tangSearch2", "tang2",
+                                                    ".phongOption2","phongInput2", "phongSearch1", "phong2",
+                                                    ".khoOption2","khoInput2", "khoSearch2", "kho2",
+                                                    decodedData.ten_toanha, "Tầng " + decodedData.ten_tang, decodedData.ten_canho_phong, decodedData.ten_kho);
+              });
+
+              $('#modal-default2').modal('show');
+      });
+      $('body').on('click', '.btnSave', function () {
           let isValid = true;
-          $('.formaddtaisan input[required]').each(function() {
+          $('.formedittaisan input[required]').each(function() {
             var smallElement = $(this).closest('.form-group').find('small.text-danger');
                   if (!$(this).val().trim()) {
                           $(this).addClass('is-invalid');
                           smallElement.text('Thông tin bắt buộc').show();
+                          isValid = false;
+                      }else if(!$(this).val() > 0){
+                        $(this).addClass('is-invalid');
+                          smallElement.text('Thông tin không hợp lệ').show();
                           isValid = false;
                       } else {
                           $(this).removeClass('is-invalid');
                           smallElement.text('').hide();
                       }
           });
-            if(isValid){              
+            if(isValid){
               var formData = new FormData();
-              let ten_toanha = "";
-              let ten_tang = "";
-              let ten_phong =  "";
-              let ten_kho = "";
-              if($('#toannhaInput1').val() !== ""){
-                ten_toanha = document.querySelector(".toannhaOption1 .select-btn span").textContent;
-              } if($('#tangInput1').val() !== ""){
-                ten_tang = document.querySelector(".tangOption1 .select-btn span").textContent;
-              } if($('#phongInput1').val() !== ""){
-                ten_phong = document.querySelector(".phongOption1 .select-btn span").textContent;
-              } if($('#khoInput1').val() !== ""){
-                let ten_kho = document.querySelector(".khoOption1 .select-btn span").textContent;
-              }
-              formData.append('ten_taisan', $('#tentaisan1').val());
-              formData.append('id_toanha', $('#toannhaInput1').val());
-              formData.append('id_tang', $('#tangInput1').val());
-              formData.append('id_phong', $('#phongInput1').val());
-              formData.append('id_kho', $('#khoInput1').val());
-              formData.append('thuong_hieu', $('#thuonghieu1').val());
-              formData.append('mau_sac', $('#mausac1').val());
-              formData.append('nam_sanxuat', $('#namsanxuat1').val());
-              formData.append("xuat_xu", $('#xuatxu1').val());   
-              formData.append("gia_tri", $('#giatri1').val());   
-              formData.append("so_luong", $('#soluong1').val());   
-              formData.append("tinh_trang", $('#tinhtrang1').val());   
-              formData.append("han_baohanh", $('#date3').val());   
-              formData.append("ten_toanha", ten_toanha);   
-              formData.append("ten_tang", ten_tang);   
-              formData.append("ten_phong", ten_phong);
-              formData.append("ten_kho", ten_kho);
-              formData.append("vi_tri", $('#vitri1').val());
-              formData.append("ghi_chu", $('#ghichu1').val());
-
-              for (let i = 0; i < files.length; i++) {
-                  formData.append('image[]', files[i]); 
-              }
-              for (const pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-              }
+                let ten_toanha = "";
+                let ten_tang = "";
+                let ten_phong =  "";
+                let ten_kho = "";
+                if($('#toannhaInput2').val() !== ""){
+                  ten_toanha = document.querySelector(".toannhaOption2 .select-btn span").textContent;
+                } if($('#tangInput2').val() !== ""){
+                  ten_tang = document.querySelector(".tangOption2 .select-btn span").textContent;
+                } if($('#phongInput2').val() !== ""){
+                  ten_phong = document.querySelector(".phongOption2 .select-btn span").textContent;
+                } if($('#khoInput2').val() !== ""){
+                  ten_kho = document.querySelector(".khoOption2 .select-btn span").textContent;
+                }
+                formData.append('id_taisan', $('#idtaisan').val());
+                formData.append('ten_taisan', $('#tentaisan2').val());
+                formData.append('id_toanha', $('#toannhaInput2').val());
+                formData.append('id_tang', $('#tangInput2').val());
+                formData.append('id_phong', $('#phongInput2').val());
+                formData.append('id_kho', $('#khoInput2').val());
+                formData.append('thuong_hieu', $('#thuonghieu2').val());
+                formData.append('mau_sac', $('#mausac2').val());
+                formData.append('nam_sanxuat', $('#namsanxuat2').val());
+                formData.append("xuat_xu", $('#xuatxu2').val());   
+                formData.append("gia_tri", $('#giatri2').val().replace(/,/g, "")); 
+                formData.append("so_luong", $('#soluong2').val());   
+                formData.append("tinh_trang", $('#tinhtrang2').val());   
+                formData.append("han_baohanh", $('#date4').val());   
+                formData.append("ten_toanha", ten_toanha);   
+                formData.append("ten_tang", ten_tang);   
+                formData.append("ten_phong", ten_phong);
+                formData.append("ten_kho", ten_kho);
+                formData.append("vi_tri", $('#vitri2').val());
+                formData.append("ghi_chu", $('#ghichu2').val());
+                for (let i = 0; i < files2.length; i++) {
+                  formData.append('imageOld[]', files2[i]); 
+                }
+                for (let i = 0; i < newimages.length; i++) {
+                    formData.append('newImage[]', newimages[i]); 
+                }
+                for (const pair of formData.entries()) {
+                  console.log(pair[0] + ': ' + pair[1]);
+                }
               $.ajax({
-                  url: "doc/main/commons/them_taisan.php",
+                  url: "doc/main/commons/sua_taisan.php",
                   type: "post",
                   dataType: "json",
                   processData: false,
                   contentType: false,
                   data: formData,
-                  success: function (response) {              
-                      if (response.success) { 
-                        response.Data.forEach(value => {
-                        let gia_tri = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value.gia_tri).replace(/\./g, ",");
-                        var str = "";
-
-                        str += `<tr id="row_${value.id}">
-                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                            <td class="ma_taisan">${value.ma_Taisan}</td>
-                            <td class="ten_taisan">${value.ten_taisan}</td>
-                            <td class="ten_kho">${value.ten_kho}</td>
-                            <td class="ten_toanha">
-                                ${value.ten_toanha}
-                                <br>
-                                <span class="text-muted ten_phong">${value.ten_phong}</span>
-                                <br>
-                                <span class="text-muted ten_tang">${value.ten_tang}</span>
-                            </td>
-                            <td class="tinh_trang">${value.tinh_trang}</td>
-                            <td class="gia_tri">${gia_tri}</td>
-                            <td class="table-td-center">
-                                <button class="btn btn-danger btn-sm" type="button" title="Xóa" id="btn-delete" 
-                                    data-id="${value.id}"><i class="fas fa-trash-alt"></i>
-                                </button>
-                                <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
-                                    data-toggle="modal" data-target="#ModalUP" data-id="${value.id}"><i class="fas fa-edit"></i>
-                                </button>
-                            </td>
-                        </tr>`;
-
-                        $('#tbhtml').append(str);
-                    });
-
+                  success: function (response) {
+                      if (response.success) {     
+                          var row = $('#row_' + response.id);
+                          row.find('.tieude').text(response.tieude_baotri_suachua);
+                          row.find('.tieude .mota').text(response.mo_ta);
+                          row.find('.tieude .uutien').text(response.uu_tien);
+                          row.find('.ten_toanha').text(response.ten_toanha);
+                          row.find('.ten_phong').text(response.ten_phong);
+                          row.find('.loaicongivec span b').text(response.loai_congviec);
+                          row.find('.tenhienthi').text(response.ten_user);
+                          row.find('.ngayketthuc').text(response.han_hoanthanh);
+                          if(response.iD_uu_tien == 1){
+                            row.find('.tieude .uutien').removeClass('badge bg-primary')
+                            row.find('.tieude .uutien').removeClass('badge bg-danger')
+                            row.find('.tieude .uutien').addClass('badge bg-success')                     
+                          }else if((response.iD_uu_tien == 2)){
+                            row.find('.tieude .uutien').removeClass('badge bg-success')
+                            row.find('.tieude .uutien').removeClass('badge bg-danger')
+                            row.find('.tieude .uutien').addClass('badge bg-primary')
+                          }else if(response.iD_uu_tien == 3){
+                            row.find('.tieude .uutien').removeClass('badge bg-primary')
+                            row.find('.tieude .uutien').removeClass('badge bg-success')
+                            row.find('.tieude .uutien').addClass('badge bg-danger')
+                          }
                           swal({
                             title: "Thông báo",
                             text: response.message,
                             icon: "success",
                             close: true,
                             button: "Đóng",
-                          });
-
-                          $('#modal-default').modal('hide');    
-
+                          });                 
+                          $('#modal-default2').modal('hide');                     
                       } else {
                         swal({
                             title: "Lỗi",
@@ -871,8 +1397,8 @@
                             icon: "error",
                             close: true,
                             button: "Thử lại",
-                          });   
-                      }
+                          });                    
+                        }
                   },
                   error: function (xhr, status, error) {
                       console.error(xhr.responseText);
@@ -880,6 +1406,6 @@
                   }
               });
             }
-
     });
+    });   
 </script>

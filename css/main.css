@@ -16020,6 +16020,7 @@ text-align:center;
 
 }
 .footer-table .bottom-field .pagination li{
+  cursor: pointer;
   list-style: none;
   margin: 5px;
   flex-shrink: 0;
