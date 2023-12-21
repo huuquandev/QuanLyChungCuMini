@@ -258,6 +258,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
 <script>
+  $('body').on('click', '.btnClose', function () {
+    window.location.href = "home.php?title=hopdong";
+});
+
     function tinhTongThang(startId, totalMonthsId, endId) {
         var ngayBatDau = new Date(document.getElementById(startId).value);
         var ngayKetThuc = new Date(document.getElementById(endId).value);

@@ -91,7 +91,7 @@
               <div class="col-sm-2">
 
                 <a class="btn btn-add btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i>
-                  Thêm tòa nhà</a>
+                  Thêm hợp đồng</a>
               </div>
               <div class="col-sm-2">
                 <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
@@ -110,7 +110,7 @@
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Dự án/Tòa nhà</h4>
+                        <h4 class="modal-title">Hợp đồng</h4>
                     </div>
                     <form action="" method="post" enctype="multipart/form-data">
                       <div class="modal-body">
@@ -215,10 +215,8 @@
                                     <div>
                                       <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
                                         <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
-                                          <div class="vs__selected-options">
-                                          <input id="ngaybatdau" type="date" class="form-control" name="ngaybatdau" required>
+                                        <input id="ngaybatdau" type="date" class="form-control" name="ngaybatdau" required>
 
-                                          </div>
                                         </div>
                                         <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
                                       </div>
@@ -238,10 +236,8 @@
                                     <div>
                                       <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
                                         <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
-                                          <div class="vs__selected-options">
-                                          <input id="ngayketthuc" type="date" class="form-control" name="ngayketthuc" required>
+                                        <input id="ngayketthuc" type="date" class="form-control" name="ngayketthuc" required>
 
-                                          </div>
                                         </div>
                                         <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
                                       </div>

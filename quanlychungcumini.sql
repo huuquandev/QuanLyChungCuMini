@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 21, 2023 lúc 06:00 AM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Thời gian đã tạo: Th12 21, 2023 lúc 08:37 PM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -73,10 +73,11 @@ CREATE TABLE `tb_baotri_suachua` (
 
 INSERT INTO `tb_baotri_suachua` (`id_baotri_suachua`, `id_toanha`, `id_phong`, `ma_baotri_suachua`, `tieude_baotri_suachua`, `mota_baotri_suachua`, `loai_cong_viec`, `mucdo_uutien`, `ngay_batdau`, `ngay_ketthuc`, `id_taikhoan`, `trang_thai`, `ngay_lam`, `ngay_hoanthanh`, `ngay_duyet`, `mota_hoanhthanh`, `mota_lydokhongdat`, `id_nguoiduyet`, `id_nguoitao`, `id_nguoihoanthanh`) VALUES
 (41, 1, 13, 'BT272657', 'eqweqw', 'eqwe', 'eqw', 1, '2023-12-28 03:41:04', '2023-12-31 12:00:00', 1, 3, '2023-12-19 03:49:46', '2023-12-19 03:49:00', '2023-12-19 03:49:52', 'eqwe', NULL, 1, 1, 1),
-(47, 1, 13, 'BT631567', 'eqwe', 'qưeq', 'eqw', 1, '2023-12-20 19:15:09', '2023-12-12 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
-(48, 1, 13, 'BT797452', 'eqwe', 'qưeqw', 'eqwe', 1, '2023-12-21 10:22:24', '2023-12-20 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
-(52, 1, 13, 'BT607408', 'ưeqw', 'eqweq', 'eqwe', 1, '2023-12-21 10:39:56', '2023-12-20 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
-(53, 1, 13, 'BT974866', 'eqwe', 'qưeq', 'eqwe', 1, '2023-12-21 10:45:42', '2023-12-20 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
+(47, 1, 13, 'BT631567', 'eqwe', 'qưeq', 'eqw', 1, '2023-12-20 19:15:09', '2023-12-12 12:00:00', 1, 3, '2023-12-21 14:27:52', '2023-12-21 14:28:00', '2023-12-21 14:33:17', 'eqweqw', NULL, 1, 1, 1),
+(48, 1, 13, 'BT797452', 'eqwe', 'qưeqw', 'eqwe', 1, '2023-12-21 10:22:24', '2023-12-20 12:00:00', 1, 3, '2023-12-21 14:28:13', '2023-12-21 14:28:00', '2023-12-21 14:33:37', 'eqweqwe', NULL, 1, 1, 1),
+(52, 1, 13, 'BT607408', 'ưeqw', 'eqweq', 'eqwe', 1, '2023-12-21 10:39:56', '2023-12-20 12:00:00', 1, 3, '2023-12-21 14:28:15', '2023-12-21 14:28:00', '2023-12-21 14:38:06', 'eqweqw', NULL, 1, 1, 1),
+(53, 1, 13, 'BT974866', 'eqwe', 'qưeq', 'eqwe', 1, '2023-12-21 10:45:42', '2023-12-20 12:00:00', 1, 4, '2023-12-21 14:28:18', '2023-12-21 14:28:00', '2023-12-21 14:38:11', 'eqweqw', '2eqwe', 1, 1, 1),
+(54, 1, 13, 'BT214478', 'eqwe', 'eqwe', '1eqw', 1, '2023-12-22 01:48:06', '2023-12-05 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -117,13 +118,21 @@ INSERT INTO `tb_canho_phong` (`id_canho_phong`, `ten_canho_phong`, `ma_canho_pho
 CREATE TABLE `tb_dancu` (
   `id_dancu` int(11) NOT NULL,
   `ho_ten` varchar(100) NOT NULL,
-  `so_dien_thoai` int(11) NOT NULL,
-  `cccd` int(20) NOT NULL,
+  `so_dien_thoai` varchar(20) NOT NULL,
+  `cccd` varchar(50) NOT NULL,
   `gioi_tinh` int(11) NOT NULL,
   `dia_chi` varchar(255) NOT NULL,
   `ngay_sinh` date NOT NULL,
-  `hinh_anh` text NOT NULL
+  `hinh_anh` text NOT NULL,
+  `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tb_dancu`
+--
+
+INSERT INTO `tb_dancu` (`id_dancu`, `ho_ten`, `so_dien_thoai`, `cccd`, `gioi_tinh`, `dia_chi`, `ngay_sinh`, `hinh_anh`, `email`) VALUES
+(1, 'wqeqwe', '0654654432', '04324324', 1, 'eqwewqe', '2023-12-06', 'ewqeqw', '');
 
 -- --------------------------------------------------------
 
@@ -141,6 +150,14 @@ CREATE TABLE `tb_dichvu` (
   `donvigia_dichvu` int(11) NOT NULL,
   `gia_dichvu` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tb_dichvu`
+--
+
+INSERT INTO `tb_dichvu` (`id_dichvu`, `ma_dichvu`, `loai_dichvu`, `mota_dichvu`, `ten_dichvu`, `tinhtrang_dichvu`, `donvigia_dichvu`, `gia_dichvu`) VALUES
+(1, '', '1', 'De xe', 'De xe', 1, 0, 100000),
+(2, '', '2', 'Bao ve', 'Bao ve', 1, 0, 100000);
 
 -- --------------------------------------------------------
 
@@ -202,6 +219,13 @@ CREATE TABLE `tb_hoadon` (
   `tinhtrang` varchar(20) NOT NULL DEFAULT 'Chưa thanh toán'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `tb_hoadon`
+--
+
+INSERT INTO `tb_hoadon` (`id`, `id_DV`, `id_hopdong`, `loai`, `ngay_het_han`, `ngay_tao`, `ngay_thanh_toan`, `gia`, `tinhtrang`) VALUES
+(8, 2, 3, 0, '2023-12-07 02:34:00', '2023-12-22 02:33:29', NULL, 2313, 'Đã thanh toán');
+
 -- --------------------------------------------------------
 
 --
@@ -219,6 +243,13 @@ CREATE TABLE `tb_hopdong` (
   `tong` int(11) NOT NULL,
   `filehopdong` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tb_hopdong`
+--
+
+INSERT INTO `tb_hopdong` (`id`, `id_canho_phong`, `id_dancu`, `ngay_batdau`, `ngay_ketthuc`, `thoi_han_hop_dong`, `gia`, `tong`, `filehopdong`) VALUES
+(3, 20, 1, '2023-12-06 00:00:00', '2024-10-05 00:00:00', '10', 400000, 4000000, 'file/hop_dong/65848e85b2461_1.pdf');
 
 -- --------------------------------------------------------
 
@@ -303,6 +334,15 @@ CREATE TABLE `tb_taisan` (
   `vi_tri` varchar(50) DEFAULT NULL,
   `ghi_chu` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tb_taisan`
+--
+
+INSERT INTO `tb_taisan` (`id_taisan`, `ten_taisan`, `ma_taisan`, `thuong_hieu`, `mau_sac`, `nam_sanxuat`, `xuat_xu`, `gia_tri`, `tinh_trang`, `thoihanbaohanh`, `id_kho`, `id_toanha`, `id_canho_phong`, `id_tang`, `vi_tri`, `ghi_chu`) VALUES
+(38, 'eqweqw', 'TS530012', '', 'ewqewq', 0, '', 0, '', '0000-00-00', 1, 1, 18, 39, '', ''),
+(39, 'eqwe', 'TS470301', '', '', 0, '', 0, '', '0000-00-00', 1, 1, 18, 39, '', ''),
+(40, 'eqwe', 'TS616381', '', '', 0, '', 0, '', '0000-00-00', 1, 1, 18, 39, '', '');
 
 -- --------------------------------------------------------
 
@@ -487,7 +527,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT cho bảng `tb_baotri_suachua`
 --
 ALTER TABLE `tb_baotri_suachua`
-  MODIFY `id_baotri_suachua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_baotri_suachua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_canho_phong`
@@ -499,7 +539,7 @@ ALTER TABLE `tb_canho_phong`
 -- AUTO_INCREMENT cho bảng `tb_dancu`
 --
 ALTER TABLE `tb_dancu`
-  MODIFY `id_dancu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dancu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_dichvu`
@@ -523,13 +563,13 @@ ALTER TABLE `tb_hinhanh`
 -- AUTO_INCREMENT cho bảng `tb_hoadon`
 --
 ALTER TABLE `tb_hoadon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_hopdong`
 --
 ALTER TABLE `tb_hopdong`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_kho`
@@ -553,7 +593,7 @@ ALTER TABLE `tb_taikhoan`
 -- AUTO_INCREMENT cho bảng `tb_taisan`
 --
 ALTER TABLE `tb_taisan`
-  MODIFY `id_taisan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_taisan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_tang`
@@ -597,7 +637,7 @@ ALTER TABLE `tb_dichvu_canhophong`
 --
 ALTER TABLE `tb_hoadon`
   ADD CONSTRAINT `hoadon_dichvu` FOREIGN KEY (`id_DV`) REFERENCES `tb_dichvu` (`id_dichvu`),
-  ADD CONSTRAINT `hoadon_hopdong` FOREIGN KEY (`id_hopdong`) REFERENCES `tb_hoadon` (`id`);
+  ADD CONSTRAINT `hoadon_hopdong` FOREIGN KEY (`id_hopdong`) REFERENCES `tb_hopdong` (`id`);
 
 --
 -- Các ràng buộc cho bảng `tb_hopdong`
