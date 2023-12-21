@@ -128,9 +128,8 @@
                                     <div>
                                       <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="district">
                                         <div id="vs34__combobox" role="combobox" aria-expanded="false" aria-owns="vs34__listbox" aria-label="Search for option" class="" height="70%">
-                                          <div class="vs__selected-options">
-                                          <input id="sdt" type="number" placeholder="0912345678" class="form-control" name="sdt" required>
-                                          </div>
+                                        <input id="sdt" type="text" placeholder="0912345678" class="form-control" name="sdt" required>
+
 
                                         </div>
                                         <ul id="vs34__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
@@ -151,9 +150,8 @@
                                     <div>
                                       <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
                                         <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
-                                          <div class="vs__selected-options">
-                                          <input id="ngaysinh" type="date" class="form-control" name="ngaysinh" required>
-                                          </div>
+                                        <input id="ngaysinh" type="date" class="form-control" name="ngaysinh" required>
+
                                         </div>
                                         <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
                                       </div>
@@ -257,24 +255,47 @@
                   </div>
                 </div>
               </div>
+              <div class="col-4" style="margin-left: 67%;">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__1001">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Tìm Kiếm
+                                    </legend>
+                                    <div>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                          <svg xmlns="http://www.w3.org/2000/svg" height="14px" width="14px" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                                          </div>
+                                        </div>
+                                        <input id="searchInput1" type="text" placeholder="Nhập thông tin muốn tìm" class="form-control" name="search" >
+                                        <!---->
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
-              id="sampleTable">
+              id="sampleTable1">
               <thead>
-                <tr>
                 <tr>
                   <th width="10"><input type="checkbox" id="all"></th>
                   <th width="10">STT</th>
                   <th width="30">Ảnh dân cư</th>
-                  <th width="20">Hộ chiếu/ CCCD</th>
-                  <th width="50">Tên dân cư</th>
-                  <th width="20">SĐT</th>
+                  <th width="20" >Hộ chiếu/ CCCD</th>
+                  <th width="50" >Tên dân cư</th>
+                  <th width="20" >SĐT</th>
                   <th width="20"> Giới tính</th>
                   <th>Địa chỉ</th>
                   <th width="100">Ngày sinh</th>
                   <th width="100">Chỉnh sửa</th></tr>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="">
                   <?php 
                   $i=1;
                     $sql = "select * from `tb_dancu` ORDER BY `cccd` DESC";
@@ -292,9 +313,10 @@
                       height: 100px;
                       border-radius: 20%;
                       " src="./<?php echo $row['hinh_anh']; ?>" alt=""></td>
-                      <td><?php echo $row['cccd']; ?></td>
-                      <td><?php echo $row['ho_ten']; ?></td>
-                      <td><?php echo $row['so_dien_thoai']; ?></td>
+<td class="search_td"><?php echo $row['cccd']; ?></td>
+<td class="search_td"><?php echo $row['ho_ten']; ?></td>
+<td class="search_td"><?php echo $row['so_dien_thoai']; ?></td>
+
                       <td><?php 
                                 $gioitinh='chưa xác định';
                                   if($row['gioi_tinh']==0){
@@ -325,6 +347,8 @@
                     ?>
                   </tbody>
             </table>
+            <div id="noResultsMessage" style="display: block;margin: 0 auto;text-align: center;">There is no person with this name</div>
+            </div>
           </div>
         </div>
       </div>
@@ -332,6 +356,7 @@
   </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
+
 <script>
     $(document).ready(function () {
         $('body').on('click', '.btn-add', function () {          
@@ -401,10 +426,11 @@
     });
 
 </script>
+
 <script>
 document.getElementById("cccd").addEventListener("input", function() {
   var inputValue = this.value.trim();
-  var minLength = 9;
+  var minLength = 10;
   var maxLength = 15;
 
   if (inputValue.length < minLength) {
@@ -418,7 +444,7 @@ document.getElementById("cccd").addEventListener("input", function() {
 document.getElementById("sdt").addEventListener("input", function() {
   var inputValue = this.value.trim();
   var minLength = 9;
-  var maxLength = 15;
+  var maxLength = 10;
 
   if (inputValue.length < minLength) {
     this.setCustomValidity("Độ dài phải ít nhất " + minLength + " ký tự");
@@ -428,6 +454,45 @@ document.getElementById("sdt").addEventListener("input", function() {
     this.setCustomValidity("");
   }
 });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var searchInput = document.getElementById("searchInput1");
+    var tbody = document.querySelector("table[id='sampleTable1'] tbody");
+    var noResultsMessage = document.getElementById("noResultsMessage");
 
+    searchInput.addEventListener("input", function () {
+        var searchValue = searchInput.value.toLowerCase();
+
+        var rows = tbody.getElementsByTagName("tr");
+        var found = false;
+
+        for (var i = 0; i < rows.length; i++) {
+            var cccdCell = rows[i].querySelector("td.search_td:nth-child(4)");
+            var hoTenCell = rows[i].querySelector("td.search_td:nth-child(5)");
+            var soDienThoaiCell = rows[i].querySelector("td.search_td:nth-child(6)");
+
+            if (cccdCell && hoTenCell && soDienThoaiCell) {
+                var cccd = cccdCell.innerText.toLowerCase();
+                var hoTen = hoTenCell.innerText.toLowerCase();
+                var soDienThoai = soDienThoaiCell.innerText.toLowerCase();
+
+                if (cccd.indexOf(searchValue) !== -1 || hoTen.indexOf(searchValue) !== -1 || soDienThoai.indexOf(searchValue) !== -1) {
+                    rows[i].style.display = "";
+                    found = true;
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+        if (!found) {
+            noResultsMessage.style.display = "block";
+        } else {
+            noResultsMessage.style.display = "none";
+        }
+    });
+});
 
 </script>
+

@@ -16086,6 +16086,10 @@ text-align:center;
   background-color: rgba(40,199,111,.12);
   color: #28c76f!important;
 }
+.badge.badge-light-danger{
+  background-color: #f9c9cd !important;
+    color: #a90312 !important;
+}
 .badge-pill {
   border-radius: 10rem;
 }

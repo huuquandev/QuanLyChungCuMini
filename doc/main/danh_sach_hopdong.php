@@ -10,11 +10,13 @@
       $ngayketthuc=$_POST['ngayketthuc'];
       $tongthang=$_POST['tongthang'];
       $filehopdong=$_FILES['filehopdong'];
-      ThemHopDong($name_dan_cu,
-      $name_can_ho,
-      $ngaybatdau,
-      $ngayketthuc,
-      $tongthang,$filehopdong);
+      echo $name_dan_cu."//".
+      $name_can_ho."//".
+      $ngaybatdau."//".
+      $ngayketthuc."//".
+      $tongthang."//";
+      // print_r($filehopdong);
+      echo ThemHopDong($name_dan_cu, $name_can_ho, $ngaybatdau, $ngayketthuc, $tongthang,$filehopdong);
   }  
 ?>
 <main class="app-content">
@@ -24,63 +26,69 @@
           <div class="tile-body">
             <div class="card-body">
 
-                          <div class="modal-body">
-                              <h5>Tìm kiểm các hợp đồng </h5>
-                              <div class="row">
+<div class="modal-body">
+    <h5>Tìm kiểm các hợp đồng </h5>
+    <div class="row">
+        <div class="col-md-5">
+            <span>
+                <fieldset class="form-group">
+                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0"> Ngày bắt đầu</legend>
+                    <div>
+                        <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
+                            <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
+                                <div class="vs__selected-options">
+                                    <input id="Tngaybatdau" type="date" class="form-control" name="Tngaybatdau">
+                                </div>
+                            </div>
+                            <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                        </div>
+                        <small class="text-danger"></small>
+                    </div>
+                </fieldset>
+            </span>
+        </div>
+        <div class="col-md-6">
+            <span>
+                <fieldset class="form-group">
+                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0">Ngày kết thúc</legend>
+                    <div>
+                        <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
+                            <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
+                                <div class="vs__selected-options">
+                                    <input id="Tngayketthuc" type="date" class="form-control" name="Tngayketthuc">
+                                </div>
+                            </div>
+                            <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                        </div>
+                        <small class="text-danger"></small>
+                    </div>
+                </fieldset>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btnSearch" data-dismiss="modal">Tìm</button>
+</div>
 
-                                  <div class="col-md-5">
-                                    <span>
-                                      <fieldset class="form-group" id="__BVID__995">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_"> Ngày bắt đầu
-                                        </legend>
-                                        <div>
-                                          <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
-                                            <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
-                                              <div class="vs__selected-options">
-                                              <input id="Tngaybatdau" type="date" class="form-control" name="Tngaybatdau">
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var btnSearch = document.querySelector(".btnSearch");
 
-                                              </div>
-                                            </div>
-                                            <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-                                          </div>
-                                          <small class="text-danger"></small>
-                                          <!---->
-                                          <!---->
-                                          <!---->
-                                        </div>
-                                      </fieldset>
-                                    </span>
-                                  </div>                              
-                                  <div class="col-md-6">
-                                    <span>
-                                      <fieldset class="form-group" id="__BVID__995">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_">Ngày kết thức
-                                        </legend>
-                                        <div>
-                                          <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
-                                            <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
-                                              <div class="vs__selected-options">
-                                              <input id="Tngayketthuc" type="date" class="form-control" name="Tngayketthuc">
+        btnSearch.addEventListener("click", function () {
+            var startDateFilter = document.getElementById("Tngaybatdau").value;
+            var endDateFilter = document.getElementById("Tngayketthuc").value;
 
-                                              </div>
-                                            </div>
-                                            <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
-                                          </div>
-                                          <small class="text-danger"></small>
-                                          <!---->
-                                          <!---->
-                                          <!---->
-                                        </div>
-                                      </fieldset>
-                                    </span>
-                                  </div>
-                
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary btnSearch" data-dismiss="modal">Tìm</button>
-                          </div>
-              
-            </div>
+            // You can use startDateFilter and endDateFilter for your date filtering logic
+            console.log("Start Date:", startDateFilter);
+            console.log("End Date:", endDateFilter);
+
+            // Implement your logic to filter contracts based on dates
+            // Example: You might want to trigger an AJAX request here to fetch filtered data
+        });
+    });
+</script>
+
             <div class="row element-button">
               <div class="col-sm-2">
 
@@ -314,8 +322,32 @@
               </div>
               
             </div>
+            <div class="col-4" style="margin-left: 67%;">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__1001">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Tìm Kiếm
+                                    </legend>
+                                    <div>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                          <svg xmlns="http://www.w3.org/2000/svg" height="14px" width="14px" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                                          </div>
+                                        </div>
+                                        <input id="searchInput1" type="text" placeholder="Nhập thông tin muốn tìm" class="form-control" name="search" >
+                                        <!---->
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
             <div class="card-body">
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0" id="sampleTable">                    
+            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0" id="sampleTable1">                    
               <thead>
                       <tr>
                         <th width="10"><input type="checkbox" id="all"></th>
@@ -344,11 +376,11 @@
                     <tr>
                       <td width="10"><input type="checkbox" name="check1" value="1"></td>
                       <td><?php echo $row['id']; ?></td>
-                      <td><?php echo $row['ho_ten']; ?></td>
+                      <td class="search_td"><?php echo $row['ho_ten']; ?></td>
                       <td class="text-center"><?php echo $row['ten_canho_phong']; ?></td>
-                      <td><?php $batdau=date("d-m-Y", strtotime($row['ngay_batdau']));
+                      <td class="start-date"><?php $batdau=date("d/m/Y", strtotime($row['ngay_batdau']));
                       echo $batdau;?></td>
-                      <td><?php $ketthuc=date("d-m-Y", strtotime($row['ngay_ketthuc']));
+                      <td class="end-date"><?php $ketthuc=date("d/m/Y", strtotime($row['ngay_ketthuc']));
                       echo $ketthuc;?></td>
                       <td><?php echo $row['gia'];?> VND</td>
                       <td><?php echo $row['tong'];?> VND</td>
@@ -491,30 +523,6 @@
               })
             } 
         });
-        $('body').on('click', '#btnSearch', function () {
-    var startDate = document.getElementById('Tngaybatdau').value;
-    var endDate = document.getElementById('Tngayketthuc').value;
-
-    var table = document.getElementById('sampleTable');
-    var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-
-    for (var i = 0; i < rows.length; i++) {
-        var cells = rows[i].getElementsByTagName('td');
-
-        // Assuming start date is in the fifth cell (index 4) and end date is in the sixth cell (index 5)
-        var startTime = new Date(cells[4].innerText).getTime();
-        var endTime = new Date(cells[5].innerText).getTime();
-
-        var filterStartDate = new Date(startDate).getTime();
-        var filterEndDate = new Date(endDate).getTime();
-
-        if (startTime >= filterStartDate && endTime <= filterEndDate) {
-            rows[i].style.display = '';
-        } else {
-            rows[i].style.display = 'none';
-        }
-    }
-});
 
 
     });
@@ -523,3 +531,75 @@
     }
 
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var btnSearch = document.querySelector(".btnSearch");
+
+    btnSearch.addEventListener("click", function () {
+      var startDateFilter = document.getElementById("Tngaybatdau").value;
+      var endDateFilter = document.getElementById("Tngayketthuc").value;
+
+      // Loop through the rows in the table
+      var tableRows = document.querySelectorAll("table[id='sampleTable1'] tbody tr");
+      for (var i = 0; i < tableRows.length; i++) {
+        var startDateCell = tableRows[i].querySelector(".start-date");
+        var endDateCell = tableRows[i].querySelector(".end-date");
+
+        // Format contract dates as "dd/mm/YYYY"
+        var startDate = formatDate(startDateCell.textContent.trim());
+        var endDate = formatDate(endDateCell.textContent.trim());
+
+        // Check if the contract dates are within the specified range
+        var showRow = true;
+        if (startDateFilter && startDate < startDateFilter) {
+          showRow = false;
+        }
+        if (endDateFilter && endDate > endDateFilter) {
+          showRow = false;
+        }
+
+        // Update the display property based on the filter
+        tableRows[i].style.display = showRow ? "" : "none";
+      }
+    });
+
+    // Function to format dates as "DD/MM/YYYY"
+    function formatDate(dateString) {
+      var parts = dateString.split("/");
+      return parts[2] + "-" + parts[1] + "-" + parts[0];
+    }
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var searchInput = document.getElementById("searchInput1");
+    var tbody = document.querySelector("table[id='sampleTable1'] tbody");
+    var noResultsMessage = document.getElementById("noResultsMessage");
+
+    searchInput.addEventListener("input", function () {
+        var searchValue = searchInput.value.toLowerCase();
+
+        var rows = tbody.getElementsByTagName("tr");
+        var found = false;
+
+        for (var i = 0; i < rows.length; i++) {
+            var cccdCell = rows[i].querySelector("td.search_td:nth-child(3)");
+
+            if (cccdCell ) {
+                var cccd = cccdCell.innerText.toLowerCase();
+
+
+                if (cccd.indexOf(searchValue) !== -1) {
+                    rows[i].style.display = "";
+                    found = true;
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+    });
+});
+
+</script>
+

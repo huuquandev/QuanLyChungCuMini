@@ -43,7 +43,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-secondary"> <?php echo $count0['COUNT(*)']?> </h2>
+          <h2 class="mb-25 font-weight-bolder text-secondary" id="trangthaichualam"> <?php echo $count0['COUNT(*)']?> </h2>
           <span class="text-secondary">Chưa làm</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -67,7 +67,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-warning"> <?php echo $count1['COUNT(*)'] ?> </h2>
+          <h2 class="mb-25 font-weight-bolder text-warning" id="trangthaidanglam"> <?php echo $count1['COUNT(*)'] ?> </h2>
           <span class="text-warning">Đang làm</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -91,7 +91,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-primary"> <?php echo $count2['COUNT(*)']?> </h2>
+          <h2 class="mb-25 font-weight-bolder text-primary" id="trangthaichoduyet"> <?php echo $count2['COUNT(*)']?> </h2>
           <span class="text-primary">Chờ duyệt</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -115,7 +115,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-success"> <?php echo $count3['COUNT(*)']?>  </h2>
+          <h2 class="mb-25 font-weight-bolder text-success" id="trangthaidaduyet"> <?php echo $count3['COUNT(*)']?>  </h2>
           <span class="text-success">Đã duyệt</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -139,7 +139,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-info"> <?php echo $count4['COUNT(*)']?>  </h2>
+          <h2 class="mb-25 font-weight-bolder text-info" id="trangthaikhongdat"> <?php echo $count4['COUNT(*)']?>  </h2>
           <span class="text-info">Không đạt</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -163,7 +163,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-danger"> <?php echo $count5['COUNT(*)']?>  </h2>
+          <h2 class="mb-25 font-weight-bolder text-danger" id="trangthaiquahan"> <?php echo $count5['COUNT(*)']?>  </h2>
           <span class="text-danger">Quá hạn</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -1500,6 +1500,9 @@
                         }else{
                           classStatus = "bg-danger"
                         }
+                        var trangthaichualam = parseInt($("#trangthaichualam").text());
+                        $("#trangthaichualam").text(trangthaichualam + 1); 
+
                         var str = "";
 
                         str += `<tr id="row_${response.id}">
@@ -1704,9 +1707,21 @@
         var status = $(this).data("status");
         var id_user = $(this).data("user");
         var name_user = $(this).data("name-user");
-        $('body').on('click', '.btnUpdateStatus', function () {
+        $('.btnUpdateStatus').data('id', id);
+        $('.btnUpdateStatus').data('user', id_user);
+        $('.btnUpdateStatus').data('status', status);
+        $('.btnUpdateStatus').data('name-user', name_user);
+
+    });
+    $('body').on('click', '.btnUpdateStatus', function () {
           var formData = new FormData();
-          formData.append("id_baotrisuachua", id);
+          var idbaotrisuachua = $(this).data("id");
+          var id_user = $(this).data("user");
+          var status = $(this).data("status");
+          var name_user = $(this).data("name-user");
+
+          console.log(idbaotrisuachua);
+          formData.append("id_baotrisuachua", idbaotrisuachua);
           formData.append("id_trangthai", status);
           formData.append("id_user", id_user);
               $.ajax({
@@ -1723,6 +1738,12 @@
                       row.find('.trangthaicongviec span').removeClass('badge bg-primary bg-danger bg-warning bg-success bg-secondary');
                       row.find('.tenhienthi').text(name_user);
                       row.find('.trangthaicongviec span').addClass('badge bg-warning')    
+                      var trangthaichualam = parseInt($("#trangthaichualam").text());
+
+                      $("#trangthaichualam").text(trangthaichualam - 1); 
+                      var trangthaidanglam = parseInt($("#trangthaidanglam").text());
+
+                      $("#trangthaidanglam").text(trangthaidanglam + 1); 
                       row.find('#btn-addcase').remove();    
                       $('#modal-default3').modal('hide');            
                     }
@@ -1733,8 +1754,9 @@
                   }
               });         
         });
-    });
     $('body').on('click', '#btn-done', function () {    
+      let form = $('.formhoanthanhcongviec')
+          form.trigger('reset');
       files = []; 
       showImagesDone(files); 
       var id = $(this).data("id");
@@ -1749,9 +1771,14 @@
       $('#datedone').val(formattedDate);
       $('.alert-body .namecongviec strong').text(name);
       $('#modal-default4').modal('show');
+      $('.btnDone').data('id', id);
+      $('.btnDone').data('status', status);
+    });
         $('body').on('click', '.btnDone', function () {
-          var id_nguoihoanthanh = $(this).data("name");
 
+          var id_nguoihoanthanh = $(this).data("name");
+          var id = $(this).data("id");
+          var status = $(this).data("status");
           var isValid = true;
           $('.formhoanthanhcongviec textarea[required]').each(function() {
             var smallElement = $(this).closest('.form-group').find('small.text-danger');
@@ -1805,11 +1832,11 @@
                                 }).append($('<i/>', { class: 'fas fa-check' }));
                                 // Thêm button vào DOM
                                 row.find('.optionbaotrisuachua').append(newButton);
-                          }else if(response.id_trangthai == 3){
-                            row.find('.trangthaicongviec span').addClass('badge bg-success')   
-                          }else{
-                            row.find('.trangthaicongviec span').addClass('badge bg-danger')
                           }
+                        var trangthaidanglam = parseInt($("#trangthaidanglam").text());
+                        $("#trangthaidanglam").text(trangthaidanglam - 1); 
+                        var trangthaichoduyet = parseInt($("#trangthaichoduyet").text());
+                        $("#trangthaichoduyet").text(trangthaichoduyet + 1); 
                         $('#modal-default4').modal('hide');            
                     }else {
                         swal({
@@ -1828,12 +1855,13 @@
             }); 
           }        
         });
-    });
     $('body').on('click', '#btn-approve', function () {    
       $('.formduyetcongviec').trigger('reset');
       $('.Success').children().first().removeClass('bg-light-secondary').addClass('bg-light-primary');
       $('.fail').children().first().removeClass('bg-light-danger').addClass('bg-light-secondary');
       var status = $('input[id="formSuccess"]').val();
+      $('.btnApprove').data('status', status);
+
       $('input[id="formSuccess"]').change(function() {
         if ($(this).is(':checked')) {
           $('.Success').children().first().removeClass('bg-light-secondary').addClass('bg-light-primary');
@@ -1841,6 +1869,8 @@
           $('.motaformfail').css('display', 'none');
         }
         status = $(this).val();
+        $('.btnApprove').data('status', status);
+
       });
       $('input[id="formFail"]').change(function() {
         if ($(this).is(':checked')) {
@@ -1849,12 +1879,18 @@
           $('.motaformfail').css('display', 'block');
         }
         status = $(this).val();
+        $('.btnApprove').data('status', status);
+
       });
       var id = $(this).data("id");
       var name = $(this).data("name");
       $('.alert-body .namecongviecDone strong').text(name);
+      $('.btnApprove').data('id', id);
       $('#modal-default5').modal('show');
-        $('body').on('click', '.btnApprove', function () {
+    });
+    $('body').on('click', '.btnApprove', function () {
+          var id = $(this).data("id");
+          var status = $(this).data("status");
           var id_nguoiduyet = $(this).data("name");
           var isValid = true;
           if($('input[id="formFail"]').is(':checked')){
@@ -1904,8 +1940,16 @@
                                 // Thêm button vào DOM
                         row.find('.optionbaotrisuachua').append(newButton);
                       if(response.id_trangthai == 3){
+                          var trangthaichoduyet = parseInt($("#trangthaichoduyet").text());
+                          $("#trangthaichoduyet").text(trangthaichoduyet - 1); 
+                          var trangthaidaduyet = parseInt($("#trangthaidaduyet").text());
+                          $("#trangthaidaduyet").text(trangthaidaduyet + 1); 
                             row.find('.trangthaicongviec span').addClass('badge bg-success')   
-                          }else{
+                          }else if(response.id_trangthai == 4){
+                            var trangthaichoduyet = parseInt($("#trangthaichoduyet").text());
+                            $("#trangthaichoduyet").text(trangthaichoduyet - 1); 
+                            var trangthaikhongdat = parseInt($("#trangthaikhongdat").text());
+                            $("#trangthaikhongdat").text(trangthaikhongdat + 1); 
                             row.find('.trangthaicongviec span').addClass('badge bg-danger')
                           }
                         $('#modal-default5').modal('hide');            
@@ -1919,7 +1963,6 @@
           }
                 
         });
-    });
     $('body').on('click', '#btn-show', function () {    
       var id = $(this).data("id");
             $.ajax({

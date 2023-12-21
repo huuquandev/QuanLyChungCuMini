@@ -89,7 +89,7 @@
         <!---->
         <!---->
         <div class="truncate">
-          <h2 class="mb-25 font-weight-bolder text-secondary" id="tranthaitrong"> <?php echo $countOFF['COUNT(*)'] ?> </h2>
+          <h2 class="mb-25 font-weight-bolder text-secondary" id="trangthaitrong"> <?php echo $countOFF['COUNT(*)'] ?> </h2>
           <span class="text-secondary">Đang trống</span>
         </div>
         <span class="b-avatar badge-light-secondary rounded-circle" style="width: 45px; height: 45px;">
@@ -503,7 +503,7 @@
                       <option value="10">10</option>
                       <option value="15">15</option>
                       <option value="25">25</option>
-                      <option value="50">50</option>
+                      <option value="30">30</option>
                     </select>
                     <span data-v-38625d2e="" class="text-nowrap alldata"></span>
                   </div>
