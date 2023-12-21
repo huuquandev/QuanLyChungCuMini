@@ -16093,3 +16093,9 @@ text-align:center;
 .badge-pill {
   border-radius: 10rem;
 }
+.table_search_taisan .wrapper.active .search-option{
+  width: 215px;
+    display: block;
+    z-index: 10;
+    position: absolute;
+}

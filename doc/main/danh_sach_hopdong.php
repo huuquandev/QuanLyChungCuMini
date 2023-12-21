@@ -36,9 +36,7 @@
                     <div>
                         <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
                             <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
-                                <div class="vs__selected-options">
-                                    <input id="Tngaybatdau" type="date" class="form-control" name="Tngaybatdau">
-                                </div>
+                              <input id="Tngaybatdau" type="date" class="form-control" name="Tngaybatdau">
                             </div>
                             <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
                         </div>
@@ -54,9 +52,8 @@
                     <div>
                         <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
                             <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
-                                <div class="vs__selected-options">
-                                    <input id="Tngayketthuc" type="date" class="form-control" name="Tngayketthuc">
-                                </div>
+                            <input id="Tngayketthuc" type="date" class="form-control" name="Tngayketthuc">
+
                             </div>
                             <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
                         </div>
@@ -89,6 +86,7 @@
     });
 </script>
 
+            <div class="card_body">
             <div class="row element-button">
               <div class="col-sm-2">
 
@@ -321,6 +319,7 @@
                 </div>
               </div>
               
+            </div>
             </div>
             <div class="col-4" style="margin-left: 67%;">
                                 <span>

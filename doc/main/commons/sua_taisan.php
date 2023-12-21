@@ -23,17 +23,25 @@
     $ghi_chu = $_POST['ghi_chu'];
 
     $hasImages = false; 
-    $imageOld = $_POST['imageOld']; 
+    $imageOld = isset($_FILES['imageOld']) ? $_FILES['imageOld'] : null;
     $newImages = isset($_FILES['newImage']) ? $_FILES['newImage'] : null;
 
     $response = array();
     
     if ($newImages) {
-        $allowedFormats = array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF); 
-        foreach ($newImages['tmp_name'] as $tmp_name) {
-            if (in_array(exif_imagetype($tmp_name), $allowedFormats)) {
+        $arr = ["gif", "jpg", "png", "jpeg"];
+        foreach ($newImages['name'] as $tmp_name) {
+            $image = mysqli_real_escape_string($conn, $tmp_name);
+            $ext = pathinfo($image, PATHINFO_EXTENSION);
+            if (!in_array($ext, $arr)) {
                 $hasImages = true;
-                $result = Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang, $newImages, $id_taisan);
+                $response['success'] = false;
+                $response['message'] = 'Một hoặc nhiều file không phải là hình ảnh hợp lệ';
+                break; 
+            }
+        }
+        if(!$hasImages){
+            $result = Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang, $newImages, $id_taisan);
 
                 if ($result == true) {
                     $response['success'] = true;
@@ -50,11 +58,6 @@
                     $response['success'] = false;
                     $response['message'] = 'Cập nhật không thành công';
                 }
-            } else {
-                $success = false;
-                $message = 'Một hoặc nhiều file không phải là hình ảnh hợp lệ';
-                break; 
-            }
         }
     } 
     if (!$hasImages) {

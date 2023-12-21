@@ -208,8 +208,8 @@ function boloc() {
           <div class="tile">
             <div class="tile-body">
               <div class="row element-button">
-                <div class="col-sm-2">
-  
+                <div class="card_body">
+				<div class="col-sm-2">
                   <a class="btn btn-add btn-sm" href="../../home.php?title=addhoadon" title="Thêm"><i class="fas fa-plus"></i>
                     Tạo mới hóa đơn</a>
                 </div>
@@ -229,8 +229,9 @@ function boloc() {
 				<div class="col-sm-2">
                   <form method="POST" >
 					<input id="thongbao" name="thongbao" class="btn btn-delete btn-sm nhap-tu-file" type="submit" value="Giục đóng tiền">
-				</form>
-                </div>
+					</form>
+            	</div>
+				</div>
 				<div class="col-sm-4 text-right">
 					<form action="" method="post">
 						<div class="input-group">

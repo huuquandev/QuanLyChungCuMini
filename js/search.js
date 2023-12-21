@@ -69,6 +69,46 @@ function searchTable_tb_can_phong() {
         visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
     });
 }
+function searchTable_tb_tai_san() {
+    const searchapartment = document.getElementById("search-input-apartment");
+    const tb_toanha_selectedtoanha = document.querySelector(".toannhaOptionselect3 .select-btn input input");
+    const tb_toanha_selectedphong = document.querySelector(".phongOptionselect3 .select-btn input");
+    const tb_toanha_selectedtang = document.querySelector(".tangOptionselect3 .select-btn input");
+    const tb_toanha_selectedkho = document.querySelector(".khoOptionselect3 .select-btn input");
+
+    table_rows.forEach((row, i) => {    
+        if(tb_toanha_selectedtoanha.value == "Tất cả"){
+            tb_toanha_selectedtoanha.value = "";      
+        }
+        if(tb_toanha_selectedphong.value == "Tất cả"){
+            tb_toanha_selectedphong.value = "";      
+        }
+        if(tb_toanha_selectedtang.value == "Tất cả"){
+            tb_toanha_selectedtang.value = "";      
+        }
+        if(tb_toanha_selectedkho.value == "Tất cả"){
+            tb_toanha_selectedkho.value = "";      
+        }
+        let table_data = row.textContent.toLowerCase();
+        let search_data = searchapartment.value.toLowerCase();
+        let toanha_data = tb_toanha_selectedtoanha.value.toLowerCase();
+        let phong_data = tb_toanha_selectedphong.value.toLowerCase();
+        let tang_data = tb_toanha_selectedtang.value.toLowerCase();
+        let kho_data = tb_toanha_selectedkho.value.toLowerCase();
+        // Kiểm tra xem dòng có chứa cả search_data và status_data hay không
+        let shouldHide = table_data.indexOf(search_data) < 0 || 
+        (toanha_data !== "" && row.querySelector(".ten_can_phong .ten_toanha").textContent.toLowerCase() !== toanha_data) ||
+        (tang_data !== "" && row_tang_data !== tang_data) ||
+        (statusthue_data !== "" && row.querySelector(".trangthai_thue span b").textContent.toLowerCase() !== statusthue_data) ||
+        (statushoatdong_data !== "" && row.querySelector(".trangthai_hoatdong span b").textContent.toLowerCase() !== statushoatdong_data);
+        row.classList.toggle('hide', shouldHide);
+        row.style.setProperty('--delay', i / 25 + 's');
+    });
+
+    document.querySelectorAll('tbody tr:not(.hide)').forEach((visible_row, i) => {
+        visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
+    });
+}
 function searchTable_tb_baotri_suachua() {
   const searchapartment = document.getElementById("search-input-apartment");
   const tb_baotri_suachua_selectedtoanha = document.querySelector(".toannhaOptionselect .select-btn input");
@@ -119,7 +159,6 @@ function searchTable_tb_baotri_suachua() {
       visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
   });
 }
-
 function addcounty(citisName, citisId, searchId, inputValue, Select, selectedValue) {
     
     let citis = document.getElementById(citisId);
@@ -412,7 +451,9 @@ function initializeDropdownsToanha_Tang(btnSelectbuilding, inputbuilding, search
                         let filteredResults = arrayName.filter(databuilding => {
                             return databuilding.ten.toLowerCase().includes(searchedVal);
                         });
-                        let arr = filteredResults.map(databuilding => `<li onclick="updateforcanho(this, '${buildingSearch}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${databuilding.ten}</li>`).join("");
+                        let jsonString = JSON.stringify(arrayName);
+                        let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+                        let arr = filteredResults.map(databuilding => `<li onclick="updateforcanho(this, '${searchbuilding}', '${escapedJsonString}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${databuilding.ten}</li>`).join("");
             
                         buildingId.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
                     });        
@@ -442,7 +483,9 @@ function initializeDropdownsToanha_Tang(btnSelectbuilding, inputbuilding, search
                     let filteredResults = arrayName.filter(datafloor => {
                         return datafloor.ten.toLowerCase().includes(searchedVal);
                     });
-                    let arr = filteredResults.map(datafloor => `<li onclick="updateforcanho(this, '${searchfloor}', '${arrayName}', '${idfloor}', '${inputfloor}', '${btnSelectfloor}')">${datafloor.ten}</li>`).join("");
+                    let jsonString = JSON.stringify(arrayName);
+                    let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+                    let arr = filteredResults.map(datafloor => `<li onclick="updateforcanho(this, '${searchfloor}', '${escapedJsonString}', '${idfloor}', '${inputfloor}', '${btnSelectfloor}')">${datafloor.ten}</li>`).join("");
                 
                     floorId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
                 });        
@@ -464,17 +507,7 @@ function initializeDropdownsToanha_Tang(btnSelectbuilding, inputbuilding, search
             }
             addforcanho(arrayName, idfloor, searchfloor, inputfloor, btnSelectfloor, floorValue);
             floor.addEventListener('click', () => {
-                optionSelectfloor.classList.add('active');    
-                floorSearch.addEventListener('keyup', () => {
-                    let searchedVal = floorSearch.value.toLowerCase();
-                
-                    let filteredResults = arrayName.filter(datafloor => {
-                        return datafloor.ten.toLowerCase().includes(searchedVal);
-                    });
-                    let arr = filteredResults.map(datafloor => `<li onclick="updateforcanho(this, '${searchfloor}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${datafloor.ten}</li>`).join("");
-                
-                    floorId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
-                });        
+                optionSelectfloor.classList.add('active');         
             });  
         });
     }
@@ -520,7 +553,6 @@ function initializeDropdownsToanha_Phong_Taisan(btnSelectbuilding, inputbuilding
     var Depotinput = document.getElementById(inputDepot);
     var DepotSearch = document.getElementById(searchDepot);
 
-
     var arraybuilding = [];
     var arrayfloor = [];
     var arrayRoom = [];
@@ -539,7 +571,9 @@ function initializeDropdownsToanha_Phong_Taisan(btnSelectbuilding, inputbuilding
                 let filteredResults = arraybuilding.filter(databuilding => {
                     return databuilding.ten.toLowerCase().includes(searchedVal);
                 });
-                let arr = filteredResults.map(databuilding => `<li onclick="updateforcanho(this, '${buildingSearch}', '${arraybuilding}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${databuilding.ten}</li>`).join("");
+                let jsonString = JSON.stringify(arraybuilding);
+                let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+                let arr = filteredResults.map(databuilding => `<li onclick="updateforcanho(this, '${searchbuilding}', '${escapedJsonString}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${databuilding.ten}</li>`).join("");
 
                 buildingId.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
             });        
@@ -620,17 +654,7 @@ function initializeDropdownsToanha_Phong_Taisan(btnSelectbuilding, inputbuilding
             }
             addforcanho(arrayfloor, idfloor, searchfloor, inputfloor, btnSelectfloor, floorValue);
             floor.addEventListener('click', () => {
-                optionSelectfloor.classList.add('active');    
-                floorSearch.addEventListener('keyup', () => {
-                    let searchedVal = floorSearch.value.toLowerCase();
-                
-                    let filteredResults = arrayfloor.filter(datafloor => {
-                        return datafloor.ten.toLowerCase().includes(searchedVal);
-                    });
-                    let arr = filteredResults.map(datafloor => `<li onclick="updateforcanho(this, '${searchfloor}', '${arrayfloor}', '${idfloor}', '${inputfloor}', '${btnSelectfloor}')">${datafloor.ten}</li>`).join("");
-                
-                    floorId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
-                });        
+                optionSelectfloor.classList.add('active');      
             });  
         });
         if (floorValue !== null && floorValue !== '') {
@@ -645,18 +669,8 @@ function initializeDropdownsToanha_Phong_Taisan(btnSelectbuilding, inputbuilding
                 }
                 addforcanho(arrayRoom, idroom, searchroom, inputroom, btnSelectroom, roomValue);
                 room.addEventListener('click', () => {
-                    optionSelectroom.classList.add('active');  
-                    floorSearch.addEventListener('keyup', () => {
-                        let searchedVal = floorSearch.value.toLowerCase();
-                    
-                        let filteredResults = arrayName.filter(dataroom => {
-                            return dataroom.ten.toLowerCase().includes(searchedVal);
-                        });
-                        let arr = filteredResults.map(dataroom => `<li onclick="updateforcanho(this, '${searchroom}', '${arrayName}', '${idroom}', '${inputroom}', '${btnSelectroom}')">${dataroom.ten}</li>`).join("");
-                    
-                        roomId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
-                    });        
-                }); 
+                    optionSelectroom.classList.add('active');        
+                });  
             }); 
         }
     }else{
@@ -666,8 +680,7 @@ function initializeDropdownsToanha_Phong_Taisan(btnSelectbuilding, inputbuilding
         floor.classList.remove('active');
         room.firstElementChild.innerText = "Chọn phòng";
         room.classList.remove('active');           
-    }
-    
+    }    
     $.ajax({
         url: "doc/main/commons/lay_kho.php",
         type: "post",
@@ -756,7 +769,9 @@ function initializeDropdownsToanha_Phong_baotri_suachua(btnSelectbuilding, input
                 let filteredResults = arrayName.filter(databuilding => {
                     return databuilding.ten.toLowerCase().includes(searchedVal);
                 });
-                let arr = filteredResults.map(databuilding => `<li onclick="updateforcanho(this, '${buildingSearch}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${databuilding.ten}</li>`).join("");
+                let jsonString = JSON.stringify(arrayName);
+                let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+                let arr = filteredResults.map(databuilding => `<li onclick="updateforcanho(this, '${searchbuilding}', '${escapedJsonString}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${databuilding.ten}</li>`).join("");
 
                 buildingId.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
         });        
@@ -776,7 +791,6 @@ function initializeDropdownsToanha_Phong_baotri_suachua(btnSelectbuilding, input
             for (const b of tang) {
                 arrayName.push({ id: b.id_canho_phong, ten: b.ten_canho_phong });
             }
-            console.log(arrayName);
             addforcanho(arrayName, idfloor, searchfloor, inputfloor, btnSelectfloor, floorValue);
             floor.addEventListener('click', () => {
                 optionSelectfloor.classList.add('active');  
@@ -786,7 +800,9 @@ function initializeDropdownsToanha_Phong_baotri_suachua(btnSelectbuilding, input
                     let filteredResults = arrayName.filter(datafloor => {
                         return datafloor.ten.toLowerCase().includes(searchedVal);
                     });
-                    let arr = filteredResults.map(datafloor => `<li onclick="updateforcanho(this, '${searchfloor}', '${arrayName}', '${idfloor}', '${inputfloor}', '${btnSelectfloor}')">${datafloor.ten}</li>`).join("");
+                    let jsonString = JSON.stringify(arrayName);
+                    let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+                    let arr = filteredResults.map(datafloor => `<li onclick="updateforcanho(this, '${searchfloor}', '${escapedJsonString}', '${idfloor}', '${inputfloor}', '${btnSelectfloor}')">${datafloor.ten}</li>`).join("");
 
                     floorId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
                 });        
@@ -808,18 +824,8 @@ function initializeDropdownsToanha_Phong_baotri_suachua(btnSelectbuilding, input
             }
             addforcanho(arrayName, idfloor, searchfloor, inputfloor, btnSelectfloor, floorValue);
             floor.addEventListener('click', () => {
-            optionSelectfloor.classList.add('active');    
-            floorSearch.addEventListener('keyup', () => {
-                let searchedVal = floorSearch.value.toLowerCase();
-
-                let filteredResults = arrayName.filter(datafloor => {
-                    return datafloor.ten.toLowerCase().includes(searchedVal);
-                });
-                let arr = filteredResults.map(datafloor => `<li onclick="updateforcanho(this, '${searchfloor}', '${arrayName}', '${idbuilding}', '${inputbuilding}', '${btnSelectbuilding}')">${datafloor.ten}</li>`).join("");
-
-                floorId.innerHTML = arr ? arr : `<p class="text-center">Không có dữ liệu</p>`;
-            });        
-        });  
+            optionSelectfloor.classList.add('active');         
+            });  
     });
     }else{
         building.firstElementChild.innerText = "Chọn tòa nhà";
@@ -837,10 +843,12 @@ function initializeDropdownsToanha_Phong_baotri_suachua(btnSelectbuilding, input
     LevelSearch.addEventListener('keyup', () => {
         let searchedVal = LevelSearch.value.toLowerCase();
 
-        let filteredResults = arrayName.filter(dataLevel => {
+        let filteredResults = arrayNameLevel.filter(dataLevel => {
             return dataLevel.ten.toLowerCase().includes(searchedVal);
         });
-        let arr = filteredResults.map(dataLevel => `<li onclick="updateforcanho(this, '${LevelSearch}', '${arrayNameLevel}', '${idLevel}', '${inputLevel}', '${btnSelectLevel}')">${dataLevel.ten}</li>`).join("");
+        let jsonString = JSON.stringify(arrayNameLevel);
+        let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+        let arr = filteredResults.map(dataLevel => `<li onclick="updateforcanho(this, '${searchLevel}', '${escapedJsonString}', '${idLevel}', '${inputLevel}', '${btnSelectLevel}')">${dataLevel.ten}</li>`).join("");
 
         LevelId.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
     });    
@@ -863,7 +871,9 @@ function initializeDropdownsToanha_Phong_baotri_suachua(btnSelectbuilding, input
                 let filteredResults = arrayName.filter(dataUser => {
                     return dataUser.ten.toLowerCase().includes(searchedVal);
                 });
-                let arr = filteredResults.map(dataUser => `<li onclick="updateforcanho(this, '${UserSearch}', '${arrayName}', '${idUser}', '${inputUser}', '${btnSelectUser}')">${dataUser.ten}</li>`).join("");
+                let jsonString = JSON.stringify(arrayName);
+                let escapedJsonString = jsonString.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+                let arr = filteredResults.map(dataUser => `<li onclick="updateforcanho(this, '${searchUser}', '${escapedJsonString}', '${idUser}', '${inputUser}', '${btnSelectUser}')">${dataUser.ten}</li>`).join("");
 
                 UserId.innerHTML = arr ? arr: `<p class="text-center">Không có dữ liệu</p>`;
             });        

@@ -477,52 +477,54 @@
                     thoihanbaohanh='$filter_thoihanbaohanh', id_kho='$filter_kho', id_toanha='$filter_toanha', id_canho_phong='$filter_phong', id_tang='$filter_tang', 
                     vi_tri='$filter_vi_tri', ghi_chu='$filter_ghi_chu' WHERE id_taisan='$filter_id_taisan'";
         $query = mysqli_query($conn, $sql);
-        if ($query) {
-           // Lấy danh sách ảnh hiện tại từ cơ sở dữ liệu
-            $currentImagesSQL = "SELECT url_hinhanh FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_taisan' AND type_hinhanh='Tài sản'";
-            $result = mysqli_query($conn, $currentImagesSQL);
-            $existingImages = [];
-            while ($row = mysqli_fetch_assoc($result)) {
-                $existingImages[] = $row['url_hinhanh'];
-            }
-
-            // Loại bỏ các ảnh đã được xóa từ danh sách ảnh cũ trong cơ sở dữ liệu và thư mục
-            $imagesToRemove = array_diff($existingImages, $imageOld);
-            foreach ($imagesToRemove as $image) {
-                $filteredImage = mysqli_real_escape_string($conn, $image);
-
-                // Xóa ảnh từ cơ sở dữ liệu
-                $deleteImageSQL = "DELETE FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_taisan' AND url_hinhanh='$filteredImage' AND type_hinhanh='Tài sản'";
-                mysqli_query($conn, $deleteImageSQL);
-
-                // Xóa ảnh từ thư mục
-                $imagePath = "../../../images/images_taisan/" . $filteredImage; 
-                if (file_exists($imagePath)) {
-                    unlink($imagePath); 
-                }
-            }
-
-            if (!empty($newImages)) {
-                $upload_directory = '../../../images/images_taisan/';
-            
-                foreach ($newImages['tmp_name'] as $key => $tmp_name) {
-                    $image_name = $newImages['name'][$key];
-                    $file_extension = pathinfo($image_name, PATHINFO_EXTENSION); // Lấy phần mở rộng của file
-            
-                    $unique_image_name = uniqid('img_') . '.' . $file_extension; // Thêm một đoạn duy nhất vào tên file ảnh
-                    $target_file = $upload_directory . basename($unique_image_name);
-            
-                    if (move_uploaded_file($tmp_name, $target_file)) {
-                        $url_hinhanh = mysqli_real_escape_string($conn, $target_file);
-                        $type_hinhanh = 'Tài sản';
-            
-                        $insertImageQuery = "INSERT INTO tb_hinhanh (id_loaihinhanh, type_hinhanh, url_hinhanh)
-                                            VALUES ('$filter_id_taisan', '$type_hinhanh', '$unique_image_name')";
-            
-                        mysqli_query($conn, $insertImageQuery);
+             // Lấy danh sách ảnh hiện tại từ cơ sở dữ liệu
+             $currentImagesSQL = "SELECT url_hinhanh FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_taisan' AND type_hinhanh='Tài sản'";
+             $result = mysqli_query($conn, $currentImagesSQL);
+             $existingImages = [];
+             while ($row = mysqli_fetch_assoc($result)) {
+                 $existingImages[] = $row['url_hinhanh'];
+             }
+ 
+             // Loại bỏ các ảnh đã được xóa từ danh sách ảnh cũ trong cơ sở dữ liệu và thư mục
+             if($imageOld != null){
+                $imagesToRemove = array_diff($existingImages, $imageOld);
+                foreach ($imagesToRemove as $image) {
+                    $filteredImage = mysqli_real_escape_string($conn, $image);
+    
+                    // Xóa ảnh từ cơ sở dữ liệu
+                    $deleteImageSQL = "DELETE FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_taisan' AND url_hinhanh='$filteredImage' AND type_hinhanh='Tài sản'";
+                    mysqli_query($conn, $deleteImageSQL);
+    
+                    // Xóa ảnh từ thư mục
+                    $imagePath = "../../../images/images_taisan/" . $filteredImage; 
+                    if (file_exists($imagePath)) {
+                        unlink($imagePath); 
                     }
                 }
-            }
+             }
+ 
+             if (!empty($newImages)) {
+                 $upload_directory = '../../../images/images_taisan/';
+             
+                 foreach ($newImages['tmp_name'] as $key => $tmp_name) {
+                     $image_name = $newImages['name'][$key];
+                     $file_extension = pathinfo($image_name, PATHINFO_EXTENSION); // Lấy phần mở rộng của file
+             
+                     $unique_image_name = uniqid('img_') . '.' . $file_extension; // Thêm một đoạn duy nhất vào tên file ảnh
+                     $target_file = $upload_directory . basename($unique_image_name);
+             
+                     if (move_uploaded_file($tmp_name, $target_file)) {
+                         $url_hinhanh = mysqli_real_escape_string($conn, $target_file);
+                         $type_hinhanh = 'Tài sản';
+             
+                         $insertImageQuery = "INSERT INTO tb_hinhanh (id_loaihinhanh, type_hinhanh, url_hinhanh)
+                                             VALUES ('$filter_id_taisan', '$type_hinhanh', '$unique_image_name')";
+             
+                         mysqli_query($conn, $insertImageQuery);
+                     }
+                 }
+             }
+        if ($query) {    
             return true;
         } else {
             return false;

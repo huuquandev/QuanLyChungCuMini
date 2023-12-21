@@ -176,347 +176,346 @@
           <div class="tile-body">
             <div class="row element-button">
             <h4 data-v-38625d2e="" class="card-title">Tài sản</h4>
-
             <div class="card_body">
-            <div class="col-sm-2">       
-                <a class="btn btn-add btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i></a>
-                </div>
-                <div class="col-sm-2">
-                  <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
-                      class="fas fa-file-upload"></i></a>
-                </div>
+              <div class="col-sm-2">       
+                  <a class="btn btn-add btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i></a>
+                  </div>
+                  <div class="col-sm-2">
+                    <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
+                        class="fas fa-file-upload"></i></a>
+                  </div>
 
-                <div class="col-sm-2">
-                  <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i></a>
-                </div>
-                <div class="col-sm-2">
-                  <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                      class="fas fa-trash-alt"></i></a>
-                </div>
-              <div class="modal fade bd-example-modal-lg" id="modal-default">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Tài sản</h4>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" id="txtOrderId" value="0" />
-                                <form class="formaddtaisan">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                    <span>
-                                        <fieldset class="form-group" id="__BVID__656">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__656__BV_label_"> Tên tài sản <span class="text-danger"> (*) </span>
-                                        </legend>
-                                        <div>
-                                            <input id="tentaisan1" placeholder="Tủ lạnh" type="text" class="form-control" required>
-                                            <div class="invalid-feedback"></div>
-                                            <small class="text-danger"></small>
-
-                                            <!---->
-                                            <!---->
-                                            <!---->
-                                        </div>
-                                        </fieldset>
-                                    </span>
-                                    </div>
-                                    <div class="col-md-4">
-                                    <fieldset class="form-group" id="__BVID__658">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__658__BV_label_">Thương hiệu</legend>
-                                        <div>
-                                        <input id="thuonghieu1" placeholder="Panasonic" type="text" class="form-control">
-                                        <!---->
-                                        <!---->
-                                        <!---->
-                                        </div>
-                                    </fieldset>
-                                    </div>
-                                    <div class="col-md-4">
-                                    <fieldset class="form-group" id="__BVID__660">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__660__BV_label_">Màu sắc</legend>
-                                        <div>
-                                        <input id="mausac1" placeholder="Đen" type="text" class="form-control">
-                                        <!---->
-                                        <!---->
-                                        <!---->
-                                        </div>
-                                    </fieldset>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                    <fieldset class="form-group" id="__BVID__662">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__662__BV_label_">Model/Năm sản xuất</legend>
-                                        <div>
-                                        <input id="namsanxuat1" placeholder="2019" type="text" class="form-control">
-                                        <!---->
-                                        <!---->
-                                        <!---->
-                                        </div>
-                                    </fieldset>
-                                    </div>
-                                    <div class="col-md-4">
-                                    <fieldset class="form-group" id="__BVID__664">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__664__BV_label_">Xuất xứ</legend>
-                                        <div>
-                                        <input id="xuatxu1" placeholder="Việt nam" type="text" class="form-control">
-                                        <!---->
-                                        <!---->
-                                        <!---->
-                                        </div>
-                                    </fieldset>
-                                    </div>
-                                    <div class="col-md-4">
-                                    <fieldset class="form-group" value="0" id="__BVID__667">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__667__BV_label_"> Giá trị
-                                        <!---->
-                                        </legend>
-                                        <div>
-                                        <input type="text" placeholder="9,000,000" value="" id="giatri1" class="form-control">
-                                        <small class="text-danger"></small>
-                                        <!---->
-                                        <!---->
-                                        <!---->
-                                        </div>
-                                    </fieldset>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                    <span>
-                                        <fieldset class="form-group is-valid" value="0" id="__BVID__671">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__671__BV_label_"> Số lượng <span class="text-danger"> (*) </span>
-                                        </legend>
-                                        <div>
-                                            <input type="text" placeholder="13" id="soluong1" class="form-control" required>
-                                            <small class="text-danger"></small>
-                                            <!---->
-                                            <!---->
-                                            <!---->
-                                        </div>
-                                        </fieldset>
-                                    </span>
-                                    </div>
-                                    <div class="col-md-4">
-                                    <fieldset class="form-group" id="__BVID__673">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__673__BV_label_">Tình trạng</legend>
-                                        <div>
-                                        <input id="tinhtrang1" placeholder="Mới" type="text" class="form-control">
-                                        <!---->
-                                        <!---->
-                                        <!---->
-                                        </div>
-                                    </fieldset>
-                                    </div>
-                                    <div class="col-md-4">
-                                    <fieldset class="form-group" value="2025-11-07T13:46:29.484Z" id="__BVID__676">
-                                        <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__676__BV_label_"> Thời hạn bảo hành
-                                        <!---->
-                                        </legend>
-                                        <div>
-                                        <input type="text" placeholder="2025-11-12" data-input="true" id="date4" class="form-control flatpickr-input">
-                                        <small class="text-danger"></small>
-                                        <!---->
-                                        <!---->
-                                        <!---->
-                                        </div>
-                                    </fieldset>
-                                    </div>
-                                    <div class="col-md-4">
+                  <div class="col-sm-2">
+                    <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i></a>
+                  </div>
+                  <div class="col-sm-2">
+                    <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
+                        class="fas fa-trash-alt"></i></a>
+                  </div>
+                <div class="modal fade bd-example-modal-lg" id="modal-default">
+                      <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h4 class="modal-title">Tài sản</h4>
+                              </div>
+                              <div class="modal-body">
+                                  <input type="hidden" id="txtOrderId" value="0" />
+                                  <form class="formaddtaisan">
+                                  <div class="row">
+                                      <div class="col-md-4">
                                       <span>
-                                        <div>
-                                        <fieldset class="form-group" id="__BVID__605">
-                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tòa nhà </span>
-                                            </legend>
-                                            <div class="wrapper toannhaOption1">
-                                                <div class="select-btn">
-                                                <span>Chọn tòa nhà</span>
-                                                <input type="hidden" id="toannhaInput1">
-                                                <i class="fas fa-angle-down"></i>
-                                                </div>
-                                                <div class="search-option">
-                                                <div class="search">
-                                                    <input type="text" placeholder="Search" id="toannhaSearch1">
-                                                </div>
-                                                <ul class="options" id="toannha1">                              
-                                                </ul>
-                                                </div>
-                                            </div>
-                                            <small class="text-danger"></small>
-
-                                            </fieldset>
-                                        <!---->
-                                        </div>
-                                      </span>
-                                    </div>
-                                    <div class="col-md-4">
-                                      <span>
-                                        <div>
-                                        <fieldset class="form-group" id="__BVID__605">
-                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tầng </span>
-                                            </legend>
-                                            <div class="wrapper tangOption1">
-                                                <div class="select-btn">
-                                                <span>Chọn tầng</span>
-                                                <input type="hidden" id="tangInput1">
-                                                <i class="fas fa-angle-down"></i>
-                                                </div>
-                                                <div class="search-option">
-                                                <div class="search">
-                                                    <input type="text" placeholder="Search" id="tangSearch1">
-                                                </div>
-                                                <ul class="options" id="tang1">                              
-                                                </ul>
-                                                </div>
-                                            </div>
-                                            <small class="text-danger"></small>
-
-                                            </fieldset>
-                                        <!---->
-                                        </div>
-                                      </span>
-                                    </div>  
-                                    <div class="col-md-4">
-                                      <span>
-                                        <div>
-                                        <fieldset class="form-group" id="__BVID__605">
-                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Căn hộ/Phòng </span>
-                                            </legend>
-                                            <div class="wrapper phongOption1">
-                                                <div class="select-btn">
-                                                <span>Chọn phòng</span>
-                                                <input type="hidden" id="phongInput1">
-                                                <i class="fas fa-angle-down"></i>
-                                                </div>
-                                                <div class="search-option">
-                                                <div class="search">
-                                                    <input type="text" placeholder="Search" id="phongSearch1">
-                                                </div>
-                                                <ul class="options" id="phong1">                              
-                                                </ul>
-                                                </div>
-                                            </div>
-                                            <small class="text-danger"></small>
-
-                                            </fieldset>
-                                        <!---->
-                                        </div>
-                                      </span>
-                                    </div>  
-                                    <div class="col-md-4">
-                                      <span>
-                                        <div>
-                                        <fieldset class="form-group" id="__BVID__605">
-                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Kho </span>
-                                            </legend>
-                                            <div class="wrapper khoOption1">
-                                                <div class="select-btn">
-                                                <span>Chọn kho</span>
-                                                <input type="hidden" id="khoInput1">
-                                                <i class="fas fa-angle-down"></i>
-                                                </div>
-                                                <div class="search-option">
-                                                <div class="search">
-                                                    <input type="text" placeholder="Search" id="khoSearch1">
-                                                </div>
-                                                <ul class="options" id="kho1">                              
-                                                </ul>
-                                                </div>
-                                            </div>
-                                            <small class="text-danger"></small>
-
-                                            </fieldset>
-                                        <!---->
-                                          </div>
-                                      </span>
-                                    </div>                                   
-                                    <div class="col-md-12">
-                                    <span>
-                                        <fieldset class="form-group" id="__BVID__1001">
-                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Vị trí </span>
+                                          <fieldset class="form-group" id="__BVID__656">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__656__BV_label_"> Tên tài sản <span class="text-danger"> (*) </span>
                                           </legend>
                                           <div>
-                                            <div role="group" class="input-group">
+                                              <input id="tentaisan1" placeholder="Tủ lạnh" type="text" class="form-control" required>
+                                              <div class="invalid-feedback"></div>
+                                              <small class="text-danger"></small>
+
                                               <!---->
-                                              <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                  <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
-                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                                    <circle cx="12" cy="10" r="3"></circle>
-                                                  </svg>
-                                                </div>
+                                              <!---->
+                                              <!---->
+                                          </div>
+                                          </fieldset>
+                                      </span>
+                                      </div>
+                                      <div class="col-md-4">
+                                      <fieldset class="form-group" id="__BVID__658">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__658__BV_label_">Thương hiệu</legend>
+                                          <div>
+                                          <input id="thuonghieu1" placeholder="Panasonic" type="text" class="form-control">
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                          </div>
+                                      </fieldset>
+                                      </div>
+                                      <div class="col-md-4">
+                                      <fieldset class="form-group" id="__BVID__660">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__660__BV_label_">Màu sắc</legend>
+                                          <div>
+                                          <input id="mausac1" placeholder="Đen" type="text" class="form-control">
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                          </div>
+                                      </fieldset>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                      <fieldset class="form-group" id="__BVID__662">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__662__BV_label_">Model/Năm sản xuất</legend>
+                                          <div>
+                                          <input id="namsanxuat1" placeholder="2019" type="text" class="form-control">
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                          </div>
+                                      </fieldset>
+                                      </div>
+                                      <div class="col-md-4">
+                                      <fieldset class="form-group" id="__BVID__664">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__664__BV_label_">Xuất xứ</legend>
+                                          <div>
+                                          <input id="xuatxu1" placeholder="Việt nam" type="text" class="form-control">
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                          </div>
+                                      </fieldset>
+                                      </div>
+                                      <div class="col-md-4">
+                                      <fieldset class="form-group" value="0" id="__BVID__667">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__667__BV_label_"> Giá trị
+                                          <!---->
+                                          </legend>
+                                          <div>
+                                          <input type="text" placeholder="9,000,000" value="" id="giatri1" class="form-control">
+                                          <small class="text-danger"></small>
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                          </div>
+                                      </fieldset>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                      <span>
+                                          <fieldset class="form-group is-valid" value="0" id="__BVID__671">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__671__BV_label_"> Số lượng <span class="text-danger"> (*) </span>
+                                          </legend>
+                                          <div>
+                                              <input type="text" placeholder="13" id="soluong1" class="form-control" required>
+                                              <small class="text-danger"></small>
+                                              <!---->
+                                              <!---->
+                                              <!---->
+                                          </div>
+                                          </fieldset>
+                                      </span>
+                                      </div>
+                                      <div class="col-md-4">
+                                      <fieldset class="form-group" id="__BVID__673">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__673__BV_label_">Tình trạng</legend>
+                                          <div>
+                                          <input id="tinhtrang1" placeholder="Mới" type="text" class="form-control">
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                          </div>
+                                      </fieldset>
+                                      </div>
+                                      <div class="col-md-4">
+                                      <fieldset class="form-group" value="2025-11-07T13:46:29.484Z" id="__BVID__676">
+                                          <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__676__BV_label_"> Thời hạn bảo hành
+                                          <!---->
+                                          </legend>
+                                          <div>
+                                          <input type="text" placeholder="2025-11-12" data-input="true" id="date4" class="form-control flatpickr-input">
+                                          <small class="text-danger"></small>
+                                          <!---->
+                                          <!---->
+                                          <!---->
+                                          </div>
+                                      </fieldset>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <span>
+                                          <div>
+                                          <fieldset class="form-group" id="__BVID__605">
+                                              <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tòa nhà </span>
+                                              </legend>
+                                              <div class="wrapper toannhaOption1">
+                                                  <div class="select-btn">
+                                                  <span>Chọn tòa nhà</span>
+                                                  <input type="hidden" id="toannhaInput1">
+                                                  <i class="fas fa-angle-down"></i>
+                                                  </div>
+                                                  <div class="search-option">
+                                                  <div class="search">
+                                                      <input type="text" placeholder="Search" id="toannhaSearch1">
+                                                  </div>
+                                                  <ul class="options" id="toannha1">                              
+                                                  </ul>
+                                                  </div>
                                               </div>
-                                              <input id="vitri1" type="text" placeholder="Phòng khách" class="form-control" name="vitri1">
+                                              <small class="text-danger"></small>
+
+                                              </fieldset>
+                                          <!---->
+                                          </div>
+                                        </span>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <span>
+                                          <div>
+                                          <fieldset class="form-group" id="__BVID__605">
+                                              <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Tầng </span>
+                                              </legend>
+                                              <div class="wrapper tangOption1">
+                                                  <div class="select-btn">
+                                                  <span>Chọn tầng</span>
+                                                  <input type="hidden" id="tangInput1">
+                                                  <i class="fas fa-angle-down"></i>
+                                                  </div>
+                                                  <div class="search-option">
+                                                  <div class="search">
+                                                      <input type="text" placeholder="Search" id="tangSearch1">
+                                                  </div>
+                                                  <ul class="options" id="tang1">                              
+                                                  </ul>
+                                                  </div>
+                                              </div>
+                                              <small class="text-danger"></small>
+
+                                              </fieldset>
+                                          <!---->
+                                          </div>
+                                        </span>
+                                      </div>  
+                                      <div class="col-md-4">
+                                        <span>
+                                          <div>
+                                          <fieldset class="form-group" id="__BVID__605">
+                                              <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Căn hộ/Phòng </span>
+                                              </legend>
+                                              <div class="wrapper phongOption1">
+                                                  <div class="select-btn">
+                                                  <span>Chọn phòng</span>
+                                                  <input type="hidden" id="phongInput1">
+                                                  <i class="fas fa-angle-down"></i>
+                                                  </div>
+                                                  <div class="search-option">
+                                                  <div class="search">
+                                                      <input type="text" placeholder="Search" id="phongSearch1">
+                                                  </div>
+                                                  <ul class="options" id="phong1">                              
+                                                  </ul>
+                                                  </div>
+                                              </div>
+                                              <small class="text-danger"></small>
+
+                                              </fieldset>
+                                          <!---->
+                                          </div>
+                                        </span>
+                                      </div>  
+                                      <div class="col-md-4">
+                                        <span>
+                                          <div>
+                                          <fieldset class="form-group" id="__BVID__605">
+                                              <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__605__BV_label_"> Kho </span>
+                                              </legend>
+                                              <div class="wrapper khoOption1">
+                                                  <div class="select-btn">
+                                                  <span>Chọn kho</span>
+                                                  <input type="hidden" id="khoInput1">
+                                                  <i class="fas fa-angle-down"></i>
+                                                  </div>
+                                                  <div class="search-option">
+                                                  <div class="search">
+                                                      <input type="text" placeholder="Search" id="khoSearch1">
+                                                  </div>
+                                                  <ul class="options" id="kho1">                              
+                                                  </ul>
+                                                  </div>
+                                              </div>
+                                              <small class="text-danger"></small>
+
+                                              </fieldset>
+                                          <!---->
+                                            </div>
+                                        </span>
+                                      </div>                                   
+                                      <div class="col-md-12">
+                                      <span>
+                                          <fieldset class="form-group" id="__BVID__1001">
+                                            <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Vị trí </span>
+                                            </legend>
+                                            <div>
+                                              <div role="group" class="input-group">
+                                                <!---->
+                                                <div class="input-group-prepend">
+                                                  <div class="input-group-text">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
+                                                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                                      <circle cx="12" cy="10" r="3"></circle>
+                                                    </svg>
+                                                  </div>
+                                                </div>
+                                                <input id="vitri1" type="text" placeholder="Phòng khách" class="form-control" name="vitri1">
+                                                <!---->
+                                              </div>
+                                              <small class="text-danger"></small>
+                                              <!---->
+                                              <!---->
                                               <!---->
                                             </div>
-                                            <small class="text-danger"></small>
-                                            <!---->
-                                            <!---->
-                                            <!---->
-                                          </div>
-                                        </fieldset>
-                                      </span>
-                                    </div>
-                                </div>
-                                <div class="row"></div>
-                                <fieldset class="form-group" id="__BVID__728">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__728__BV_label_">Ghi chú</legend>
-                                    <div>
-                                    <textarea id="ghichu1" placeholder="Ghi chú" rows="3" wrap="soft" class="form-control"></textarea>
-                                    <!---->
-                                    <!---->
-                                    <!---->
-                                    </div>
-                                </fieldset>
-                                <div class="d-flex justify-space-between font-small-4 font-weight-bolder text-uppercase text-primary pb-1"> Hình ảnh tài sản </div>
-                                  <div data-v-0f357511="">
-                                    <!---->
-                                    <div data-v-0f357511="" class="row match-height mt-1">
-                                      <div data-v-0f357511="" class="col-md-2 col-4">
-                                          <div data-v-0f357511="" class="image-container" style="width: 100%; height: 100%;">
-                                            <label data-v-0f357511="" for="file-input" style="width: 100%; height: 100%;">
-                                                <div data-v-0f357511="" class="empty-img thumbnail">
-                                                  <svg data-v-0f357511="" xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" for="file-input" variant="primary" class="feather feather-plus">
-                                                      <line data-v-0f357511="" x1="12" y1="5" x2="12" y2="19"></line>
-                                                      <line data-v-0f357511="" x1="5" y1="12" x2="19" y2="12"></line>
-                                                  </svg>
-                                                </div>
-                                            </label>
-                                            <input data-v-0f357511="" id="file-input" type="file" name="file-input" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/pdf,image/png,image/jpeg,audio/mpeg,video/mp4,video/mpeg" multiple="multiple" class="d-none">
-                                          </div>
+                                          </fieldset>
+                                        </span>
                                       </div>
-                                      <div class="containerImages match-height mt-1">
+                                  </div>
+                                  <div class="row"></div>
+                                  <fieldset class="form-group" id="__BVID__728">
+                                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__728__BV_label_">Ghi chú</legend>
+                                      <div>
+                                      <textarea id="ghichu1" placeholder="Ghi chú" rows="3" wrap="soft" class="form-control"></textarea>
+                                      <!---->
+                                      <!---->
+                                      <!---->
                                       </div>
-                                    </div>
-                                </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
-                                <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd" data-name="<?= $_SESSION['id_taikhoan']?>">Thêm</button>
-                            </div>
-                        </div>
-                    </div>
+                                  </fieldset>
+                                  <div class="d-flex justify-space-between font-small-4 font-weight-bolder text-uppercase text-primary pb-1"> Hình ảnh tài sản </div>
+                                    <div data-v-0f357511="">
+                                      <!---->
+                                      <div data-v-0f357511="" class="row match-height mt-1">
+                                        <div data-v-0f357511="" class="col-md-2 col-4">
+                                            <div data-v-0f357511="" class="image-container" style="width: 100%; height: 100%;">
+                                              <label data-v-0f357511="" for="file-input" style="width: 100%; height: 100%;">
+                                                  <div data-v-0f357511="" class="empty-img thumbnail">
+                                                    <svg data-v-0f357511="" xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" for="file-input" variant="primary" class="feather feather-plus">
+                                                        <line data-v-0f357511="" x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line data-v-0f357511="" x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg>
+                                                  </div>
+                                              </label>
+                                              <input data-v-0f357511="" id="file-input" type="file" name="file-input" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/pdf,image/png,image/jpeg,audio/mpeg,video/mp4,video/mpeg" multiple="multiple" class="d-none">
+                                            </div>
+                                        </div>
+                                        <div class="containerImages match-height mt-1">
+                                        </div>
+                                      </div>
+                                  </div>
+                                  </form>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                                  <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd" data-name="<?= $_SESSION['id_taikhoan']?>">Thêm</button>
+                              </div>
+                          </div>
+                      </div>
+                </div>
               </div>
-            </div>
             </div>
             <div data-v-0fee43d8="" class="row">
               <div data-v-0fee43d8="" class="col">
                 <div data-v-0fee43d8="">
                 <fieldset class="form-group" id="__BVID__428">
                     <!---->
-                    <div class="table_search">
-                      <div class="wrapper toannhaOptionselect">
+                    <div class="table_search_taisan">
+                      <div class="wrapper toannhaOptionselect3">
                                         <div class="select-btn">
                                           <span>Tòa nhà</span>
-                                          <input type="hidden" id="toannhaInputSearch">
+                                          <input type="hidden" id="toannhaInputSearch3">
                                           <i class="fas fa-angle-down"></i>
                                         </div>
                                         <div class="search-option">
                                           <div class="search">
-                                            <input type="text" placeholder="Search" id="toannhaSearch2">
+                                            <input type="text" placeholder="Search" id="toannhaSearch3">
                                           </div>
-                                          <ul class="options" id="toannhaOptionSearch">                              
+                                          <ul class="options" id="toannhaOptionSearch3">                              
                                           </ul>
                                         </div>
                          </div>
@@ -530,18 +529,18 @@
                 <div data-v-0fee43d8="">
                 <fieldset class="form-group" id="__BVID__428">
                     <!---->
-                    <div class="table_search">
-                      <div class="wrapper toannhaOptionselect">
+                    <div class="table_search_taisan">
+                      <div class="wrapper phongOptionselect3">
                                         <div class="select-btn">
                                           <span>Phòng</span>
-                                          <input type="hidden" id="toannhaInputSearch">
+                                          <input type="hidden" id="phongInputSearch3">
                                           <i class="fas fa-angle-down"></i>
                                         </div>
                                         <div class="search-option">
                                           <div class="search">
-                                            <input type="text" placeholder="Search" id="toannhaSearch2">
+                                            <input type="text" placeholder="Search" id="phongSearch3">
                                           </div>
-                                          <ul class="options" id="toannhaOptionSearch">                              
+                                          <ul class="options" id="phongOptionSearch3">                              
                                           </ul>
                                         </div>
                          </div>
@@ -554,18 +553,18 @@
                 <div data-v-0fee43d8="">
                 <fieldset class="form-group" id="__BVID__428">
                     <!---->
-                    <div class="table_search">
-                      <div class="wrapper toannhaOptionselect">
+                    <div class="table_search_taisan">
+                      <div class="wrapper tangOptionselect3">
                                         <div class="select-btn">
                                           <span>Tầng</span>
-                                          <input type="hidden" id="toannhaInputSearch">
+                                          <input type="hidden" id="tangInputSearch3">
                                           <i class="fas fa-angle-down"></i>
                                         </div>
                                         <div class="search-option">
                                           <div class="search">
-                                            <input type="text" placeholder="Search" id="toannhaSearch2">
+                                            <input type="text" placeholder="Search" id="tangSearch3">
                                           </div>
-                                          <ul class="options" id="toannhaOptionSearch">                              
+                                          <ul class="options" id="tangOptionSearch3">                              
                                           </ul>
                                         </div>
                          </div>
@@ -578,18 +577,18 @@
                 <div data-v-0fee43d8="">
                   <fieldset class="form-group" id="__BVID__428">
                     <!---->
-                    <div class="table_search">
-                      <div class="wrapper toannhaOptionselect">
+                    <div class="table_search_taisan">
+                      <div class="wrapper khoOptionselect3">
                                         <div class="select-btn">
                                           <span>Kho</span>
-                                          <input type="hidden" id="toannhaInputSearch">
+                                          <input type="hidden" id="khoInputSearch3">
                                           <i class="fas fa-angle-down"></i>
                                         </div>
                                         <div class="search-option">
                                           <div class="search">
-                                            <input type="text" placeholder="Search" id="toannhaSearch2">
+                                            <input type="text" placeholder="Search" id="khoSearch3">
                                           </div>
-                                          <ul class="options" id="toannhaOptionSearch">                              
+                                          <ul class="options" id="khoOptionSearch3">                              
                                           </ul>
                                         </div>
                          </div>
@@ -600,7 +599,7 @@
                 </div>
               </div>
               <div data-v-0fee43d8="" class="col">
-                <input data-v-0fee43d8="" type="text" placeholder="Tìm kiếm" class="form-control" id="__BVID__377">
+                <input data-v-0fee43d8="" type="text" placeholder="Tìm kiếm" class="form-control" id="search-input-apartment">
               </div>
             </div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
@@ -1272,7 +1271,7 @@
                     $('#date4').val(decodedData.thoihanbaohanh);
                     $('#vitri2').val(decodedData.vi_tri);
                     $('#ghichu2').val(decodedData.ghi_chu);
-                    $('#toannhaInput2').val(decodedData.id_toanha);
+                    $('#toanhaInput2').val(decodedData.id_toanha);
                     $('#tangInput2').val(decodedData.id_tang);
                     $('#phongInput2').val(decodedData.id_canho_phong);
                     $('#khoInput2').val(decodedData.id_kho);
@@ -1280,9 +1279,9 @@
                     newimages = [];
                     showImages2(files2, newimages);
 
-                    initializeDropdownsToanha_Phong_Taisan(".toannhaOption2","toannhaInput2", "toannhaSearch2", "toannha2",
+                    initializeDropdownsToanha_Phong_Taisan(".toannhaOption2","toanhaInput2", "toannhaSearch2", "toannha2",
                                                       ".tangOption2","tangInput2", "tangSearch2", "tang2",
-                                                      ".phongOption2","phongInput2", "phongSearch1", "phong2",
+                                                      ".phongOption2","phongInput2", "phongSearch2", "phong2",
                                                       ".khoOption2","khoInput2", "khoSearch2", "kho2",
                                                       decodedData.ten_toanha, "Tầng " + decodedData.ten_tang, decodedData.ten_canho_phong, decodedData.ten_kho);
                 });
@@ -1323,7 +1322,7 @@
                   }
                   formData.append('id_taisan', $('#idtaisan').val());
                   formData.append('ten_taisan', $('#tentaisan2').val());
-                  formData.append('id_toanha', $('#toannhaInput2').val());
+                  formData.append('id_toanha', $('#toanhaInput2').val());
                   formData.append('id_tang', $('#tangInput2').val());
                   formData.append('id_phong', $('#phongInput2').val());
                   formData.append('id_kho', $('#khoInput2').val());
@@ -1433,6 +1432,147 @@
                 }
               })
             } 
-    });
+      });
+      const toannhaSelect = $('.toannhaOptionselect3');  
+      const toannhaSelectBtn = $('.toannhaOptionselect3 .select-btn');
+      const toannhaInput = $('#toannhaInputSearch3');
+        toannhaSelectBtn.on('click', function () {
+          $.ajax({
+                      url: "doc/main/commons/lay_all_toanha.php",
+                      type: "post",
+                      dataType: "json", 
+                  }).done(function(toanha){
+                    let arrayName = [];
+                    arrayName.push({ id: "", ten: "Tất cả" });
+                        for (const b of toanha) {
+                            arrayName.push({ id: b.id_toanha, ten: b.ten_toanha });
+                        }
+                      addforcanho(arrayName, 'toannhaOptionSearch3', 'toannhaSearch3', 'toannhaInputSearch3', '.toannhaOptionselect3');
+                      toannhaSelect.toggleClass('active');
+                      let Search = $('#toannhaSearch3');
+
+                      Search.on('keyup', () => {
+                          let toanha = $('#toannhaOptionSearch3');
+                          let searchedVal = Search.val().toLowerCase(); 
+                          
+                          let filteredResults = arrayName.filter(data => {
+                              return data.ten.toLowerCase().includes(searchedVal);
+                          });
+                          let arr = filteredResults.map(data => `<li onclick="updateforcanho(this, 'toannhaSearch3', '${arrayName}', 'toannhaOptionSearch3', 'toannhaInputSearch3', '.toannhaOptionselect3')">${data.ten}</li>`).join("");
+
+                          toanha.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                      });       
+                  });
+
+        });
+        const phongSelect = $('.phongOptionselect3');         
+        const phongSelectBtn = $('.phongOptionselect3 .select-btn');
+        const phongInput = $('#phongInputSearch3');
+        toannhaInput.on('change', function () {
+          $.ajax({
+                        url: "doc/main/commons/lay_phong_by_toanha.php",
+                        type: "post",
+                        dataType: "json", 
+                        data: { idtoanha: toannhaInput.val() },
+                    }).done(function(phong){
+                      let arrayName = [];
+                      arrayName.push({ id: "", ten: "Tất cả" });
+
+                            for (const b of phong) {
+                                arrayName.push({ id: b.id_canho_phong, ten: b.ten_canho_phong });
+                            }
+                            addforcanho(arrayName, 'phongOptionSearch3', 'phongSearch3', 'phongInputSearch3', '.phongOptionselect3');
+                        let Search = $('#phongSearch3');
+
+                        Search.on('keyup', () => {
+                            let phong = $('#phongOptionSearch3');
+                            let searchedVal = Search.val().toLowerCase(); 
+                            
+                            let filteredResults = arrayName.filter(data => {
+                                return data.ten.toLowerCase().includes(searchedVal);
+                            });
+                            let arr = filteredResults.map(data => `<li onclick="updateforcanho(this, 'phongSearch3', '${arrayName}', 'phongOptionSearch3', 'phongInputSearch3', '.phongOptionselect3')">${data.ten}</li>`).join("");
+
+                            phong.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                        });       
+            });
+          phongSelectBtn.on('click', function () {
+            phongSelect.toggleClass('active');
+          });
+        });
+        const tangSelect = $('.tangOptionselect3');         
+        const tangSelectBtn = $('.tangOptionselect3 .select-btn');
+        tangSelectBtn.on('click', function () {
+          $.ajax({
+                      url: "doc/main/commons/lay_soluong_tang.php",
+                      type: "post",
+                      dataType: "json", 
+                  }).done(function(tang){
+                    let arrayName = [];
+                    arrayName.push("Tất cả");
+                    for (const b of tang) {
+                      arrayName.push("Tầng " + b.ten_tang);
+                      }
+                      addcounty(arrayName, 'tangOptionSearch3', 'tangSearch3', 'tangInputSearch3', '.tangOptionselect3');
+                      tangSelect.toggleClass('active');
+                      let Search = $('#tangSearch3');
+
+                      Search.on('keyup', () => {
+                          let tang = $('#tangOptionSearch3');
+                          let searchedVal = Search.val().toLowerCase(); 
+                          
+                          let filteredResults = arrayName.filter(data => {
+                              return data.toLowerCase().includes(searchedVal);
+                          });
+                          let arr = filteredResults.map(data => `<li onclick="updateName(this, 'tangSearch3', '${arrayName}', 'tangOptionSearch', 'tangInputSearch3', '.tangOptionselect3')">${data}</li>`).join("");
+
+                          tang.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                      });       
+                  });
+
+        });
+        const khoSelect = $('.khoOptionselect3');         
+        const khoSelectBtn = $('.khoOptionselect3 .select-btn');
+        khoSelectBtn.on('click', function () {
+          $.ajax({
+            url: "doc/main/commons/lay_kho.php",
+            type: "post",
+            dataType: "json", 
+                  }).done(function(kho){
+                    let arrayName = [];
+                    arrayName.push("Tất cả");
+
+                    for (const b of kho) {
+                        arrayName.push(b.ten_kho);
+                    }
+                      addcounty(arrayName, 'khoOptionSearch3', 'khoSearch3', 'khoInputSearch3', '.khoOptionselect3');
+                      khoSelect.toggleClass('active');
+                      let Search = $('#khoSearch3');
+
+                      Search.on('keyup', () => {
+                          let kho = $('#khoOptionSearch3');
+                          let searchedVal = Search.val().toLowerCase(); 
+                          
+                          let filteredResults = arrayName.filter(data => {
+                              return data.toLowerCase().includes(searchedVal);
+                          });
+                          let arr = filteredResults.map(data => `<li onclick="updateName(this, 'khoSearch3', '${arrayName}', 'khoOptionSearch3', 'khoInputSearch3', '.khoOptionselect3')">${data}</li>`).join("");
+
+                          kho.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
+                      });       
+                  });
+
+        });
+          let searchapartment = document.getElementById("search-input-apartment");
+          let searchtoanha = document.querySelector(".toannhaOptionselect3 .select-btn input");
+          let searchphong = document.querySelector(".phongOptionselect3 .select-btn input");
+          let searchtang = document.querySelector(".tangOptionselect3 .select-btn input");
+          let searchkho = document.querySelector(".khoOptionselect3 .select-btn input");
+
+          searchapartment.addEventListener('input', searchTable_tb_tai_san);
+          searchtoanha.addEventListener('change', searchTable_tb_tai_san);
+          searchphong.addEventListener('change', searchTable_tb_tai_san);
+          searchtang.addEventListener('change', searchTable_tb_tai_san);
+          searchkho.addEventListener('change', searchTable_tb_tai_san);
     });   
 </script>

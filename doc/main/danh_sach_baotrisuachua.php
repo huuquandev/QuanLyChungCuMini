@@ -2073,7 +2073,6 @@
         const phongSelect = $('.phongOptionselect');         
         const phongSelectBtn = $('.phongOptionselect .select-btn');
         const phongInput = $('#phongInputSearch');
-
         toannhaInput.on('change', function () {
           $.ajax({
                         url: "doc/main/commons/lay_phong_by_toanha.php",

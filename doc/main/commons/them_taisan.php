@@ -29,8 +29,8 @@ $message = 'Thêm thành công';
 $response = array();
 $response['Data'] = array(); 
 
-
 if ($images) {
+    $hasImages = false;
     $arr = ["gif", "jpg", "png", "jpeg"];
     foreach ($images['name'] as $tmp_name) {
         $image = mysqli_real_escape_string($conn, $tmp_name);
