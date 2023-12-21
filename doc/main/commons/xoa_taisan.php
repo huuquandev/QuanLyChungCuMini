@@ -6,7 +6,7 @@
 
     $response = array();
 
-    if(XoaBaotri_Suachua($id_taisan)){
+    if(Xoa_TaiSan($id_taisan)){
         $response['success'] = true;
         $response['id'] = $id_taisan;
         $response['message'] = 'Xóa thành công';
