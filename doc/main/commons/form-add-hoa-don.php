@@ -24,7 +24,7 @@
 					<?php 
 						foreach($dataDV as $value){
 					?>
-					<option value="<?php echo $value['id']; ?>"><?php echo $value['TenDV']; ?></option>
+					<option value="<?php echo $value['id_dichvu']; ?>"><?php echo $value['ten_dichvu']; ?></option>
 					<?php 
 						}
 					?>
@@ -42,10 +42,6 @@
 					?>
 				  </select>
                 </div>               
-				<div class="form-group col-md-4">
-                  <label for="exampleSelect1" class="control-label">Loại</label>
-					<input class="form-control" type="number" id="loai" name="loai" required>
-                </div>
 				<div class="form-group col-md-4">
                   <label for="exampleSelect1" class="control-label">Ngày hết hạn</label>
 					<input class="form-control" type="datetime-local" id="ngayhethan" name="ngayhethan" required>
@@ -79,10 +75,10 @@
 					$errors[] = "Vui lòng chọn một hợp đồng";
 				}
 				// Lấy giá trị từ trường "Loại" và loại bỏ khoảng trắng
-				$loai = trim($_POST["loai"]);
-				if (empty($loai)) {
-					$errors[] = "Vui lòng nhập loại";
-				}
+				// $loai = trim($_POST["loai"]);
+				// if (empty($loai)) {
+				// 	$errors[] = "Vui lòng nhập loại";
+				// }
 				// Lấy giá trị từ trường "Ngày hết hạn" và loại bỏ khoảng trắng
 				$ngayHetHan = trim($_POST["ngayhethan"]);
 				if (empty($ngayHetHan)) {
@@ -100,11 +96,11 @@
 				}
 				// Kiểm tra nếu có lỗi, hiển thị thông báo lỗi
 				if (empty($errors)) {
-					if(CreateHoaDon($dichVu, $hopDong, $loai, $ngayHetHan, $gia, $tinhTrang)){
-						echo "<script>alert('ok!');</script>";
+					if(CreateHoaDon($dichVu, $hopDong, $ngayHetHan, $gia, $tinhTrang)){
+						echo "<script>alert('Thêm hóa đơn mới thành công!');</script>";
 					}
 					else{
-						echo "<script>alert('not ok!');</script>";
+						echo "<script>alert('Thêm hóa đơn mới không thành công. Vui lòng kiểm tra lại kết nối cơ sở dữ liệu!');</script>";
 					}
 				}
 			}
