@@ -1481,10 +1481,7 @@
               for (let i = 0; i < files.length; i++) {
                   formData.append('image[]', files[i]); 
               }
-              for (const pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
-              }
-
+  
               $.ajax({
                   url: "doc/main/commons/them_baotri_suachua.php",
                   type: "post",
@@ -1494,6 +1491,7 @@
                   data: formData,
                   success: function (response) {              
                       if (response.success) { 
+                        console.log(response);
                         var classStatus;
                         if(response.iD_uu_tien == 1){
                           classStatus = "bg-success"

@@ -438,7 +438,6 @@
                         $target_file = $upload_directory . basename($unique_image_name);
                 
                         if (move_uploaded_file($tmp_name, $target_file)) {
-                            $url_hinhanh = mysqli_real_escape_string($conn, $target_file);
                             $type_hinhanh = 'Tài sản';
                 
                             $insertImageQuery = "INSERT INTO tb_hinhanh (id_loaihinhanh, type_hinhanh, url_hinhanh)
@@ -522,6 +521,39 @@
             
                         mysqli_query($conn, $insertImageQuery);
                     }
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function Xoa_TaiSan($id_taisan){
+        GLOBAL $conn;
+        $filter_id_taisan = mysqli_real_escape_string($conn, $id_taisan);
+
+        $sql = "DELETE FROM tb_taisan WHERE tb_taisan.id_taisan = $filter_id_taisan";
+
+        $query = mysqli_query($conn, $sql);
+        if ($query) {
+            // Lấy danh sách ảnh hiện tại từ cơ sở dữ liệu
+            $currentImagesSQL = "SELECT url_hinhanh FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_taisan' AND type_hinhanh='Tài sản' ";
+            $result = mysqli_query($conn, $currentImagesSQL);
+            $existingImages = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $existingImages[] = $row['url_hinhanh'];
+            }
+
+            foreach ($existingImages as $image) {
+                $filteredImage = mysqli_real_escape_string($conn, $image);
+                // Xóa ảnh từ cơ sở dữ liệu
+                $deleteImageSQL = "DELETE FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_taisan' AND url_hinhanh='$filteredImage' AND type_hinhanh='Tài sản'";
+                mysqli_query($conn, $deleteImageSQL);
+
+                // Xóa ảnh từ thư mục
+                $imagePath = "../../../images/images_taisan/" . $filteredImage; 
+                if (file_exists($imagePath)) {
+                    unlink($imagePath); 
                 }
             }
             return true;
@@ -730,10 +762,10 @@
     
         $sql = "SELECT tb_taisan.*, tb_toanha.ten_toanha, tb_tang.ten_tang, tb_canho_phong.ten_canho_phong, tb_kho.ten_kho 
                 FROM tb_taisan 
-                JOIN tb_toanha ON tb_taisan.id_toanha = tb_toanha.id_toanha
-                JOIN tb_tang ON tb_taisan.id_tang = tb_tang.id_tang
-                JOIN tb_canho_phong ON tb_taisan.id_canho_phong = tb_canho_phong.id_canho_phong
-                JOIN tb_kho ON tb_taisan.id_kho = tb_kho.id_kho
+                LEFT JOIN tb_toanha ON tb_taisan.id_toanha = tb_toanha.id_toanha OR NULL
+                LEFT JOIN tb_tang ON tb_taisan.id_tang = tb_tang.id_tang OR NULL
+                LEFT JOIN tb_canho_phong ON tb_taisan.id_canho_phong = tb_canho_phong.id_canho_phong OR NULL
+                LEFT JOIN tb_kho ON tb_taisan.id_kho = tb_kho.id_kho OR NULL
                 WHERE tb_taisan.id_taisan = $id_taisan";
     
         $query = mysqli_query($conn, $sql);

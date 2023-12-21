@@ -37,14 +37,14 @@
 
                 if ($result == true) {
                     $response['success'] = true;
-                    $object['id'] = $id_taisan;
-                    $object['ten_phong'] = $ten_phong;
-                    $object['ten_toanha'] = $ten_toanha;
-                    $object['ten_taisan'] = $ten_taisan;
-                    $object['ten_tang'] = $ten_tang;
-                    $object['ten_kho'] = $ten_kho;
-                    $object['tinh_trang'] = $tinh_trang;
-                    $object['gia_tri'] = $gia_tri;
+                    $response['id'] = $id_taisan;
+                    $response['ten_phong'] = $ten_phong;
+                    $response['ten_toanha'] = $ten_toanha;
+                    $response['ten_taisan'] = $ten_taisan;
+                    $response['ten_tang'] = $ten_tang;
+                    $response['ten_kho'] = $ten_kho;
+                    $response['tinh_trang'] = $tinh_trang;
+                    $response['gia_tri'] = $gia_tri;
                     $response['message'] = 'Cập nhật thành công';
                 }else {
                     $response['success'] = false;
@@ -61,14 +61,14 @@
         $result = Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang, null, $id_taisan);
                 if ($result == true) {
                     $response['success'] = true;
-                    $object['id'] = $id_taisan;
-                    $object['ten_phong'] = $ten_phong;
-                    $object['ten_toanha'] = $ten_toanha;
-                    $object['ten_taisan'] = $ten_taisan;
-                    $object['ten_tang'] = $ten_tang;
-                    $object['ten_kho'] = $ten_kho;
-                    $object['tinh_trang'] = $tinh_trang;
-                    $object['gia_tri'] = $gia_tri;
+                    $response['id'] = $id_taisan;
+                    $response['ten_phong'] = $ten_phong;
+                    $response['ten_toanha'] = $ten_toanha;
+                    $response['ten_taisan'] = $ten_taisan;
+                    $response['ten_tang'] = $ten_tang;
+                    $response['ten_kho'] = $ten_kho;
+                    $response['tinh_trang'] = $tinh_trang;
+                    $response['gia_tri'] = $gia_tri;
                     $response['message'] = 'Cập nhật thành công';
                 }else {
                     $response['success'] = false;

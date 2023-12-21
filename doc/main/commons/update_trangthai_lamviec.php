@@ -15,11 +15,19 @@
     $hasImages = false; 
 
     if ($images) {
-        $allowedFormats = array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF); 
-        foreach ($images['tmp_name'] as $tmp_name) {
-            if (in_array(exif_imagetype($tmp_name), $allowedFormats)) {
+        $arr = ["gif", "jpg", "png", "jpeg"];
+        foreach ($images['name'] as $tmp_name) {
+            $image = mysqli_real_escape_string($conn, $tmp_name);
+            $ext = pathinfo($image, PATHINFO_EXTENSION);
+            if (!in_array($ext, $arr)) {
                 $hasImages = true;
-                $result = Update_trangthai_congviec($id_baotrisuachua, $id_trangthai, $id_user, $mota, $ngay_hoanthanh, $images, $mota_lydokhongdat, $id_nguoiduyet, $id_nguoihoanthanh);
+                $response['success'] = false;
+                $response['message'] = 'Một hoặc nhiều file không phải là hình ảnh hợp lệ';
+                break; 
+            }
+        }
+        if(!!$hasImages){
+            $result = Update_trangthai_congviec($id_baotrisuachua, $id_trangthai, $id_user, $mota, $ngay_hoanthanh, $images, $mota_lydokhongdat, $id_nguoiduyet, $id_nguoihoanthanh);
                 if ($result == true) {
                     $response['success'] = true;
                     $response['id'] = $id_baotrisuachua;
@@ -28,11 +36,6 @@
                 }else {
                     $response['success'] = false;
                 }
-            } else {
-                $response['success'] = false;
-                $response['message'] = 'Một hoặc nhiều file không phải là hình ảnh hợp lệ';
-                break; 
-            }
         }
     }else{
         $result = Update_trangthai_congviec($id_baotrisuachua, $id_trangthai, $id_user, $mota, $ngay_hoanthanh, null, $mota_lydokhongdat, $id_nguoiduyet, $id_nguoihoanthanh);

@@ -31,42 +31,46 @@ $response['Data'] = array();
 
 
 if ($images) {
-    $allowedFormats = array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF); 
-    foreach ($images['tmp_name'] as $tmp_name) {
-        if (in_array(exif_imagetype($tmp_name), $allowedFormats)) {
-            for ($i = 0; $i < $so_luong; $i++) {
-                $random = generateRandomCode();
-                $ma_Taisan = "TS".$random;
-        
-                while (!isMaCanHo_PhongUnique($conn, $ma_Taisan)) {
-                    $ma_Taisan = generateRandomCode();
-                }
-        
-                $newTaisanId = Them_TaiSan($ten_taisan, $ma_Taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $images, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang);
-        
-                $object = array(); 
-        
-                if ($newTaisanId) {
-                    $object['id'] = $newTaisanId;
-                    $object['ma_Taisan'] = $ma_Taisan;
-                    $object['ten_phong'] = $ten_phong;
-                    $object['ten_toanha'] = $ten_toanha;
-                    $object['ten_taisan'] = $ten_taisan;
-                    $object['ten_tang'] = $ten_tang;
-                    $object['ten_kho'] = $ten_kho;
-                    $object['tinh_trang'] = $tinh_trang;
-                    $object['gia_tri'] = $gia_tri;
-                    $response['Data'][] = $object;
-                } else {
-                    $success = false;
-                    $message = 'Thêm không thành công';
-                    break; 
-                }
-            }
-        } else {
-            $success = false;
-            $message = 'Một hoặc nhiều file không phải là hình ảnh hợp lệ';
+    $arr = ["gif", "jpg", "png", "jpeg"];
+    foreach ($images['name'] as $tmp_name) {
+        $image = mysqli_real_escape_string($conn, $tmp_name);
+        $ext = pathinfo($image, PATHINFO_EXTENSION);
+        if (!in_array($ext, $arr)) {
+            $hasImages = true;
+            $response['success'] = false;
+            $response['message'] = 'Một hoặc nhiều file không phải là hình ảnh hợp lệ';
             break; 
+        }
+    }
+    if(!$hasImages){
+        for ($i = 0; $i < $so_luong; $i++) {
+            $random = generateRandomCode();
+            $ma_Taisan = "TS".$random;
+    
+            while (!isMaCanHo_PhongUnique($conn, $ma_Taisan)) {
+                $ma_Taisan = generateRandomCode();
+            }
+    
+            $newTaisanId = Them_TaiSan($ten_taisan, $ma_Taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $images, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang);
+    
+            $object = array(); 
+    
+            if ($newTaisanId) {
+                $object['id'] = $newTaisanId;
+                $object['ma_Taisan'] = $ma_Taisan;
+                $object['ten_phong'] = $ten_phong;
+                $object['ten_toanha'] = $ten_toanha;
+                $object['ten_taisan'] = $ten_taisan;
+                $object['ten_tang'] = $ten_tang;
+                $object['ten_kho'] = $ten_kho;
+                $object['tinh_trang'] = $tinh_trang;
+                $object['gia_tri'] = $gia_tri;
+                $response['Data'][] = $object;
+            } else {
+                $success = false;
+                $message = 'Thêm không thành công';
+                break; 
+            }
         }
     }
 } else{

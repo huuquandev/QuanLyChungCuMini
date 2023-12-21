@@ -21,11 +21,19 @@
     $response = array();
     
     if ($newImages) {
-        $allowedFormats = array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF); 
-        foreach ($images['tmp_name'] as $tmp_name) {
-            if (in_array(exif_imagetype($tmp_name), $allowedFormats)) {
+        $arr = ["gif", "jpg", "png", "jpeg"];
+        foreach ($newImages['name'] as $tmp_name) {
+            $image = mysqli_real_escape_string($conn, $tmp_name);
+            $ext = pathinfo($image, PATHINFO_EXTENSION);
+            if (!in_array($ext, $arr)) {
                 $hasImages = true;
-                $result = SuaBaotri_Suachua($tieu_de, $id_toanha, $id_phong, $id_user, $mo_ta, $loai_congviec, $uu_tien, $han_hoanthanh, $imageOld, $newImages, $id_baotrisuachua);
+                $response['success'] = false;
+                $response['message'] = 'Một hoặc nhiều file không phải là hình ảnh hợp lệ';
+                break; 
+            }
+        }
+        if(!$hasImages){
+            $result = SuaBaotri_Suachua($tieu_de, $id_toanha, $id_phong, $id_user, $mo_ta, $loai_congviec, $uu_tien, $han_hoanthanh, $imageOld, $newImages, $id_baotrisuachua);
 
                 if ($result == true) {
                     $response['success'] = true;
@@ -44,14 +52,8 @@
                     $response['success'] = false;
                     $response['message'] = 'Cập nhật không thành công';
                 }
-            } else {
-                $success = false;
-                $message = 'Một hoặc nhiều file không phải là hình ảnh hợp lệ';
-                break; 
-            }
         }
-    } 
-    if (!$hasImages) {
+    }else{
         $result = SuaBaotri_Suachua($tieu_de, $id_toanha, $id_phong, $id_user, $mo_ta, $loai_congviec, $uu_tien, $han_hoanthanh, $imageOld, null, $id_baotrisuachua);
 
                 if ($result == true) {
@@ -72,6 +74,7 @@
                     $response['message'] = 'Cập nhật không thành công';
                 }
     }
+    
     header('Content-Type: application/json');
     echo json_encode($response);
     exit();

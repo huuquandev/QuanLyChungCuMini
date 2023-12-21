@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 20, 2023 lúc 06:35 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Thời gian đã tạo: Th12 21, 2023 lúc 06:00 AM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -73,7 +73,10 @@ CREATE TABLE `tb_baotri_suachua` (
 
 INSERT INTO `tb_baotri_suachua` (`id_baotri_suachua`, `id_toanha`, `id_phong`, `ma_baotri_suachua`, `tieude_baotri_suachua`, `mota_baotri_suachua`, `loai_cong_viec`, `mucdo_uutien`, `ngay_batdau`, `ngay_ketthuc`, `id_taikhoan`, `trang_thai`, `ngay_lam`, `ngay_hoanthanh`, `ngay_duyet`, `mota_hoanhthanh`, `mota_lydokhongdat`, `id_nguoiduyet`, `id_nguoitao`, `id_nguoihoanthanh`) VALUES
 (41, 1, 13, 'BT272657', 'eqweqw', 'eqwe', 'eqw', 1, '2023-12-28 03:41:04', '2023-12-31 12:00:00', 1, 3, '2023-12-19 03:49:46', '2023-12-19 03:49:00', '2023-12-19 03:49:52', 'eqwe', NULL, 1, 1, 1),
-(47, 1, 13, 'BT631567', 'eqwe', 'qưeq', 'eqw', 1, '2023-12-20 19:15:09', '2023-12-12 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
+(47, 1, 13, 'BT631567', 'eqwe', 'qưeq', 'eqw', 1, '2023-12-20 19:15:09', '2023-12-12 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
+(48, 1, 13, 'BT797452', 'eqwe', 'qưeqw', 'eqwe', 1, '2023-12-21 10:22:24', '2023-12-20 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
+(52, 1, 13, 'BT607408', 'ưeqw', 'eqweq', 'eqwe', 1, '2023-12-21 10:39:56', '2023-12-20 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0),
+(53, 1, 13, 'BT974866', 'eqwe', 'qưeq', 'eqwe', 1, '2023-12-21 10:45:42', '2023-12-20 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -172,8 +175,14 @@ INSERT INTO `tb_hinhanh` (`id_hinhanh`, `id_loaihinhanh`, `type_hinhanh`, `url_h
 (34, 41, 'Bảo trì sửa chữa hoàn thành', 'img_658021eca0f77.png'),
 (35, 41, 'Bảo trì sửa chữa hoàn thành', 'img_658021eca2024.png'),
 (36, 41, 'Bảo trì sửa chữa hoàn thành', 'img_658021eca2e9d.png'),
-(37, 7, 'Tài sản', 'img_6582d9a318c05.jpg'),
-(38, 47, 'Bảo trì sửa chữa', 'img_6582dacd4a415.jpg');
+(38, 47, 'Bảo trì sửa chữa', 'img_6582dacd4a415.jpg'),
+(54, 48, 'Bảo trì sửa chữa', 'img_6583af702d2d0.jpg'),
+(55, 48, 'Bảo trì sửa chữa', 'img_6583af702e0ad.png'),
+(56, 48, 'Bảo trì sửa chữa', 'img_6583af702ee9c.png'),
+(60, 52, 'Bảo trì sửa chữa', 'img_6583b38ce7e4d.jpg'),
+(61, 52, 'Bảo trì sửa chữa', 'img_6583b38ce8e9f.png'),
+(62, 52, 'Bảo trì sửa chữa', 'img_6583b38cea037.png'),
+(63, 53, 'Bảo trì sửa chữa', 'img_6583b4e622baa.png');
 
 -- --------------------------------------------------------
 
@@ -294,13 +303,6 @@ CREATE TABLE `tb_taisan` (
   `vi_tri` varchar(50) DEFAULT NULL,
   `ghi_chu` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `tb_taisan`
---
-
-INSERT INTO `tb_taisan` (`id_taisan`, `ten_taisan`, `ma_taisan`, `thuong_hieu`, `mau_sac`, `nam_sanxuat`, `xuat_xu`, `gia_tri`, `tinh_trang`, `thoihanbaohanh`, `id_kho`, `id_toanha`, `id_canho_phong`, `id_tang`, `vi_tri`, `ghi_chu`) VALUES
-(7, 'eqwe', 'TS817265', '', '', 0, '', 0, '', '0000-00-00', 0, 0, 0, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -485,7 +487,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT cho bảng `tb_baotri_suachua`
 --
 ALTER TABLE `tb_baotri_suachua`
-  MODIFY `id_baotri_suachua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id_baotri_suachua` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_canho_phong`
@@ -515,7 +517,7 @@ ALTER TABLE `tb_dichvu_canhophong`
 -- AUTO_INCREMENT cho bảng `tb_hinhanh`
 --
 ALTER TABLE `tb_hinhanh`
-  MODIFY `id_hinhanh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_hinhanh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_hoadon`
@@ -551,7 +553,7 @@ ALTER TABLE `tb_taikhoan`
 -- AUTO_INCREMENT cho bảng `tb_taisan`
 --
 ALTER TABLE `tb_taisan`
-  MODIFY `id_taisan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_taisan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_tang`

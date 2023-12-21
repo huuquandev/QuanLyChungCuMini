@@ -629,20 +629,20 @@
                       if(mysqli_num_rows($query) > 0){
                       while ($row = mysqli_fetch_array($query)) {
                     ?>
-                <tr>
+                <tr id="row_<?= $row['id_taisan'];  ?>">
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                  <td><?php echo $row['ma_taisan']; ?></td>
-                  <td><?php echo $row['ten_taisan']; ?></td>
-                  <td><?php if($row['ten_kho'] != null){echo $row['ten_kho']; }?></td>
-                  <td>
+                  <td class="mataisan"><?php echo $row['ma_taisan']; ?></td>
+                  <td class="tentaisan"><?php echo $row['ten_taisan']; ?></td>
+                  <td class="tenkho"><?php if($row['ten_kho'] != null){echo $row['ten_kho']; }?></td>
+                  <td class="tentoanha">
                     <?php if($row['ten_toanha'] != null){echo $row['ten_toanha'];}?>
                     <br>
-                    <span class="text-muted ten_toanha"><?php if($row['ten_canho_phong'] != null){echo $row['ten_canho_phong'];}?></span>
+                    <span class="text-muted tencanhophong"><?php if($row['ten_canho_phong'] != null){echo $row['ten_canho_phong'];}?></span>
                     <br>
-                    <span class="text-muted ten_toanha"><?php if($row['ten_tang'] != null){echo "Tầng ".$row['ten_tang'];}?></span>
+                    <span class="text-muted tentang"><?php if($row['ten_tang'] != null){echo "Tầng ".$row['ten_tang'];}?></span>
                   </td>
-                  <td><?php echo $row['tinh_trang']; ?></td>
-                  <td><?php echo convertToVietnameseCurrency($row['gia_tri']);?>đ</td>
+                  <td class="tinhtrang"><?php echo $row['tinh_trang']; ?></td>
+                  <td class="giatri"><?php echo convertToVietnameseCurrency($row['gia_tri']);?>đ</td>
                   <td class="table-td-center">
                     <button class="btn btn-danger btn-sm" type="button" title="Xóa"
                       onclick="myFunction(this)" data-id="<?php echo $row['id_taisan']; ?>" id="btn-delete"><i class="fas fa-trash-alt"></i>
@@ -670,7 +670,7 @@
                       <option value="10">10</option>
                       <option value="15">15</option>
                       <option value="25">25</option>
-                      <option value="50">50</option>
+                      <option value="30">30</option>
                     </select>
                     <span data-v-38625d2e="" class="text-nowrap alldata"></span>
                   </div>
@@ -805,7 +805,7 @@
                                             <div class="wrapper toannhaOption2">
                                                 <div class="select-btn">
                                                 <span>Chọn tòa nhà</span>
-                                                <input type="hidden" id="toannhaInput2">
+                                                <input type="hidden" id="toanhaInput2">
                                                 <i class="fas fa-angle-down"></i>
                                                 </div>
                                                 <div class="search-option">
@@ -1193,18 +1193,18 @@
 
                           str += `<tr id="row_${value.id}">
                               <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                              <td class="ma_taisan">${value.ma_Taisan}</td>
-                              <td class="ten_taisan">${value.ten_taisan}</td>
-                              <td class="ten_kho">${value.ten_kho}</td>
-                              <td class="ten_toanha">
+                              <td class="mataisan">${value.ma_Taisan}</td>
+                              <td class="tentaisan">${value.ten_taisan}</td>
+                              <td class="tenkho">${value.ten_kho}</td>
+                              <td class="tentoanha">
                                   ${value.ten_toanha}
                                   <br>
-                                  <span class="text-muted ten_phong">${value.ten_phong}</span>
+                                  <span class="text-muted tencanhophong">${value.ten_phong}</span>
                                   <br>
-                                  <span class="text-muted ten_tang">${value.ten_tang}</span>
+                                  <span class="text-muted tentang">${value.ten_tang}</span>
                               </td>
-                              <td class="tinh_trang">${value.tinh_trang}</td>
-                              <td class="gia_tri">${gia_tri}</td>
+                              <td class="tinhtrang">${value.tinh_trang}</td>
+                              <td class="giatri">${gia_tri}</td>
                               <td class="table-td-center">
                                   <button class="btn btn-danger btn-sm" type="button" title="Xóa" id="btn-delete" 
                                       data-id="${value.id}"><i class="fas fa-trash-alt"></i>
@@ -1249,163 +1249,190 @@
         $('body').on('click', '.btnClose', function () {
             $('#modal-default').modal('hide');        
         });
-      $('body').on('click', '#btn-edit', function () { 
-          formatNumberInput('#giatri2');
-              var id = $(this).data("id");
-              $.ajax({
-                  url: "doc/main/commons/lay_taisan.php", 
-                  type: "post",
-                  dataType: "html",          
-                  data: { id_taisan: id },
-                }).done(function(taisan){
-                  var decodedData = JSON.parse(decodeURIComponent(taisan));
-                  let giatri = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(decodedData.gia_tri).replace(/\./g, ",").replace("₫", "");
+        $('body').on('click', '#btn-edit', function () { 
+            formatNumberInput('#giatri2');
+                var id = $(this).data("id");
+                $.ajax({
+                    url: "doc/main/commons/lay_taisan.php", 
+                    type: "post",
+                    dataType: "html",          
+                    data: { id_taisan: id },
+                  }).done(function(taisan){
+                    var decodedData = JSON.parse(decodeURIComponent(taisan));
+                    let giatri = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(decodedData.gia_tri).replace(/\./g, ",").replace("₫", "");
 
-                  $('#idtaisan').val(decodedData.id_taisan);
+                    $('#idtaisan').val(decodedData.id_taisan);
+                    $('#tentaisan2').val(decodedData.ten_taisan);
+                    $('#thuonghieu2').val(decodedData.thuong_hieu);
+                    $('#mausac2').val(decodedData.mau_sac);
+                    $('#namsanxuat2').val(decodedData.nam_sanxuat);
+                    $('#xuatxu2').val(decodedData.xuat_xu);
+                    $('#giatri2').val(giatri); 
+                    $('#tinhtrang2').val(decodedData.tinh_trang);
+                    $('#date4').val(decodedData.thoihanbaohanh);
+                    $('#vitri2').val(decodedData.vi_tri);
+                    $('#ghichu2').val(decodedData.ghi_chu);
+                    $('#toannhaInput2').val(decodedData.id_toanha);
+                    $('#tangInput2').val(decodedData.id_tang);
+                    $('#phongInput2').val(decodedData.id_canho_phong);
+                    $('#khoInput2').val(decodedData.id_kho);
+                    files2 = decodedData.images1;
+                    newimages = [];
+                    showImages2(files2, newimages);
 
-                  $('#tentaisan2').val(decodedData.ten_taisan);
-                  $('#thuonghieu2').val(decodedData.thuong_hieu);
-                  $('#mausac2').val(decodedData.mau_sac);
-                  $('#namsanxuat2').val(decodedData.nam_sanxuat);
-                  $('#xuatxu2').val(decodedData.xuat_xu);
-                  $('#giatri2').val(giatri); 
-                  $('#tinhtrang2').val(decodedData.tinh_trang);
-                  $('#date4').val(decodedData.thoihanbaohanh);
-                  $('#vitri2').val(decodedData.vi_tri);
-                  $('#ghichu2').val(decodedData.ghi_chu);
-                  $('#toannhaInput2').val(decodedData.id_toanha);
-                  $('#tangInput2').val(decodedData.id_tang);
-                  $('#phongInput2').val(decodedData.id_canho_phong);
-                  $('#khoInput2').val(decodedData.id_kho);
-                  files2 = decodedData.images1;
-                  newimages = [];
-                  showImages2(files2, newimages);
+                    initializeDropdownsToanha_Phong_Taisan(".toannhaOption2","toannhaInput2", "toannhaSearch2", "toannha2",
+                                                      ".tangOption2","tangInput2", "tangSearch2", "tang2",
+                                                      ".phongOption2","phongInput2", "phongSearch1", "phong2",
+                                                      ".khoOption2","khoInput2", "khoSearch2", "kho2",
+                                                      decodedData.ten_toanha, "Tầng " + decodedData.ten_tang, decodedData.ten_canho_phong, decodedData.ten_kho);
+                });
 
-                  initializeDropdownsToanha_Phong_Taisan(".toannhaOption2","toannhaInput2", "toannhaSearch2", "toannha2",
-                                                    ".tangOption2","tangInput2", "tangSearch2", "tang2",
-                                                    ".phongOption2","phongInput2", "phongSearch1", "phong2",
-                                                    ".khoOption2","khoInput2", "khoSearch2", "kho2",
-                                                    decodedData.ten_toanha, "Tầng " + decodedData.ten_tang, decodedData.ten_canho_phong, decodedData.ten_kho);
-              });
-
-              $('#modal-default2').modal('show');
-      });
-      $('body').on('click', '.btnSave', function () {
-          let isValid = true;
-          $('.formedittaisan input[required]').each(function() {
-            var smallElement = $(this).closest('.form-group').find('small.text-danger');
-                  if (!$(this).val().trim()) {
+                $('#modal-default2').modal('show');
+        });
+        $('body').on('click', '.btnSave', function () {
+            let isValid = true;
+            $('.formedittaisan input[required]').each(function() {
+              var smallElement = $(this).closest('.form-group').find('small.text-danger');
+                    if (!$(this).val().trim()) {
+                            $(this).addClass('is-invalid');
+                            smallElement.text('Thông tin bắt buộc').show();
+                            isValid = false;
+                        }else if(!$(this).val() > 0){
                           $(this).addClass('is-invalid');
-                          smallElement.text('Thông tin bắt buộc').show();
-                          isValid = false;
-                      }else if(!$(this).val() > 0){
-                        $(this).addClass('is-invalid');
-                          smallElement.text('Thông tin không hợp lệ').show();
-                          isValid = false;
-                      } else {
-                          $(this).removeClass('is-invalid');
-                          smallElement.text('').hide();
-                      }
-          });
-            if(isValid){
-              var formData = new FormData();
-                let ten_toanha = "";
-                let ten_tang = "";
-                let ten_phong =  "";
-                let ten_kho = "";
-                if($('#toannhaInput2').val() !== ""){
-                  ten_toanha = document.querySelector(".toannhaOption2 .select-btn span").textContent;
-                } if($('#tangInput2').val() !== ""){
-                  ten_tang = document.querySelector(".tangOption2 .select-btn span").textContent;
-                } if($('#phongInput2').val() !== ""){
-                  ten_phong = document.querySelector(".phongOption2 .select-btn span").textContent;
-                } if($('#khoInput2').val() !== ""){
-                  ten_kho = document.querySelector(".khoOption2 .select-btn span").textContent;
-                }
-                formData.append('id_taisan', $('#idtaisan').val());
-                formData.append('ten_taisan', $('#tentaisan2').val());
-                formData.append('id_toanha', $('#toannhaInput2').val());
-                formData.append('id_tang', $('#tangInput2').val());
-                formData.append('id_phong', $('#phongInput2').val());
-                formData.append('id_kho', $('#khoInput2').val());
-                formData.append('thuong_hieu', $('#thuonghieu2').val());
-                formData.append('mau_sac', $('#mausac2').val());
-                formData.append('nam_sanxuat', $('#namsanxuat2').val());
-                formData.append("xuat_xu", $('#xuatxu2').val());   
-                formData.append("gia_tri", $('#giatri2').val().replace(/,/g, "")); 
-                formData.append("so_luong", $('#soluong2').val());   
-                formData.append("tinh_trang", $('#tinhtrang2').val());   
-                formData.append("han_baohanh", $('#date4').val());   
-                formData.append("ten_toanha", ten_toanha);   
-                formData.append("ten_tang", ten_tang);   
-                formData.append("ten_phong", ten_phong);
-                formData.append("ten_kho", ten_kho);
-                formData.append("vi_tri", $('#vitri2').val());
-                formData.append("ghi_chu", $('#ghichu2').val());
-                for (let i = 0; i < files2.length; i++) {
-                  formData.append('imageOld[]', files2[i]); 
-                }
-                for (let i = 0; i < newimages.length; i++) {
-                    formData.append('newImage[]', newimages[i]); 
-                }
-                for (const pair of formData.entries()) {
-                  console.log(pair[0] + ': ' + pair[1]);
-                }
-              $.ajax({
-                  url: "doc/main/commons/sua_taisan.php",
-                  type: "post",
-                  dataType: "json",
-                  processData: false,
-                  contentType: false,
-                  data: formData,
-                  success: function (response) {
-                      if (response.success) {     
-                          var row = $('#row_' + response.id);
-                          row.find('.tieude').text(response.tieude_baotri_suachua);
-                          row.find('.tieude .mota').text(response.mo_ta);
-                          row.find('.tieude .uutien').text(response.uu_tien);
-                          row.find('.ten_toanha').text(response.ten_toanha);
-                          row.find('.ten_phong').text(response.ten_phong);
-                          row.find('.loaicongivec span b').text(response.loai_congviec);
-                          row.find('.tenhienthi').text(response.ten_user);
-                          row.find('.ngayketthuc').text(response.han_hoanthanh);
-                          if(response.iD_uu_tien == 1){
-                            row.find('.tieude .uutien').removeClass('badge bg-primary')
-                            row.find('.tieude .uutien').removeClass('badge bg-danger')
-                            row.find('.tieude .uutien').addClass('badge bg-success')                     
-                          }else if((response.iD_uu_tien == 2)){
-                            row.find('.tieude .uutien').removeClass('badge bg-success')
-                            row.find('.tieude .uutien').removeClass('badge bg-danger')
-                            row.find('.tieude .uutien').addClass('badge bg-primary')
-                          }else if(response.iD_uu_tien == 3){
-                            row.find('.tieude .uutien').removeClass('badge bg-primary')
-                            row.find('.tieude .uutien').removeClass('badge bg-success')
-                            row.find('.tieude .uutien').addClass('badge bg-danger')
-                          }
-                          swal({
-                            title: "Thông báo",
-                            text: response.message,
-                            icon: "success",
-                            close: true,
-                            button: "Đóng",
-                          });                 
-                          $('#modal-default2').modal('hide');                     
-                      } else {
-                        swal({
-                            title: "Lỗi",
-                            text: response.message,
-                            icon: "error",
-                            close: true,
-                            button: "Thử lại",
-                          });                    
+                            smallElement.text('Thông tin không hợp lệ').show();
+                            isValid = false;
+                        } else {
+                            $(this).removeClass('is-invalid');
+                            smallElement.text('').hide();
                         }
-                  },
-                  error: function (xhr, status, error) {
-                      console.error(xhr.responseText);
-                      alert("Ajax request failed!");
+            });
+              if(isValid){
+                var formData = new FormData();
+                  let ten_toanha = "";
+                  let ten_tang = "";
+                  let ten_phong =  "";
+                  let ten_kho = "";
+                  if($('#toanhaInput2').val() != 0){
+                    ten_toanha = document.querySelector(".toannhaOption2 .select-btn span").textContent;
+                  } if($('#tangInput2').val() != 0){
+                    ten_tang = document.querySelector(".tangOption2 .select-btn span").textContent;
+                  } if($('#phongInput2').val() != 0){
+                    ten_phong = document.querySelector(".phongOption2 .select-btn span").textContent;
+                  } if($('#khoInput2').val() != 0){
+                    ten_kho = document.querySelector(".khoOption2 .select-btn span").textContent;
                   }
-              });
-            }
+                  formData.append('id_taisan', $('#idtaisan').val());
+                  formData.append('ten_taisan', $('#tentaisan2').val());
+                  formData.append('id_toanha', $('#toannhaInput2').val());
+                  formData.append('id_tang', $('#tangInput2').val());
+                  formData.append('id_phong', $('#phongInput2').val());
+                  formData.append('id_kho', $('#khoInput2').val());
+                  formData.append('thuong_hieu', $('#thuonghieu2').val());
+                  formData.append('mau_sac', $('#mausac2').val());
+                  formData.append('nam_sanxuat', $('#namsanxuat2').val());
+                  formData.append("xuat_xu", $('#xuatxu2').val());   
+                  formData.append("gia_tri", $('#giatri2').val().replace(/,/g, "")); 
+                  formData.append("so_luong", $('#soluong2').val());   
+                  formData.append("tinh_trang", $('#tinhtrang2').val());   
+                  formData.append("han_baohanh", $('#date4').val());   
+                  formData.append("ten_toanha", ten_toanha);   
+                  formData.append("ten_tang", ten_tang);   
+                  formData.append("ten_phong", ten_phong);
+                  formData.append("ten_kho", ten_kho);
+                  formData.append("vi_tri", $('#vitri2').val());
+                  formData.append("ghi_chu", $('#ghichu2').val());
+                  for (let i = 0; i < files2.length; i++) {
+                    formData.append('imageOld[]', files2[i]); 
+                  }
+                  for (let i = 0; i < newimages.length; i++) {
+                      formData.append('newImage[]', newimages[i]); 
+                  }
+                  for (const pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                  }
+                $.ajax({
+                    url: "doc/main/commons/sua_taisan.php",
+                    type: "post",
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {     
+                          let gia_tri = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.gia_tri).replace(/\./g, ",");
+
+                            var row = $('#row_' + response.id);
+                            row.find('.tentaisan').text(response.ten_taisan);
+                            row.find('.tenkho').text(response.ten_kho);
+                            row.find('.tentoanha').text(response.ten_toanha);
+                            row.find('.tentoanha .tencanhophong').text(response.ten_phong);
+                            row.find('.tentoanha .tentang').text(response.ten_tang);
+                            row.find('.tinhtrang').text(response.tinh_trang);
+                            row.find('.giatri').text(gia_tri);
+                            swal({
+                              title: "Thông báo",
+                              text: response.message,
+                              icon: "success",
+                              close: true,
+                              button: "Đóng",
+                            });                 
+                            $('#modal-default2').modal('hide');                     
+                        } else {
+                          swal({
+                              title: "Lỗi",
+                              text: response.message,
+                              icon: "error",
+                              close: true,
+                              button: "Thử lại",
+                            });                    
+                          }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert("Ajax request failed!");
+                    }
+                });
+              }
+        });
+        $('body').on('click', '.btnClose', function () {
+            $('#modal-default2').modal('hide');
+        });
+        $('body').on('click', '#btn-delete', function () {
+            let text = "Bạn có chắc muốn xóa.";
+            var $id_taisan = $(this).data("id");
+            if (confirm(text) == true) {
+              $.ajax({
+                url: "doc/main/commons/xoa_taisan.php", 
+                type: "post",
+                dataType: "json",          
+                data: { id_taisan: $id_taisan },
+                success: function (response) {
+                    if (response.success) {              
+                        var row = $('#row_' + response.id);
+                        row.remove();
+                        swal({
+                          title: "Thông báo",
+                          text: response.message,
+                          icon: "success",
+                          close: true,
+                          button: "Đóng",
+                        });
+                        
+                    } else {
+                      swal({
+                          title: "Lỗi",
+                          text: response.message,
+                          icon: "error",
+                          close: true,
+                          button: "Thử lại",
+                        });                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Ajax request failed!");
+                }
+              })
+            } 
     });
     });   
 </script>
