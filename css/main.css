@@ -16099,3 +16099,22 @@ text-align:center;
     z-index: 10;
     position: absolute;
 }
+.add{
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  height: 40px;
+  padding: 0 13px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.add a{
+  width: 100%;
+  color: #003c00;
+}
+.add:hover{
+  background: #9df99d;
+}
+.add a i{
+  padding-right: 5px;
+}

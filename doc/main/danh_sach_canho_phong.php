@@ -159,6 +159,9 @@
                                           <div class="search">
                                             <input type="text" placeholder="Search" id="toannhaSearch">
                                           </div>
+                                          <div class="add">
+                                            <a href=""><i class="fas fa-plus"></i> Thêm tòa nhà</a>
+                                          </div>
                                           <ul class="options" id="toannha">                              
                                           </ul>
                                         </div>
@@ -185,6 +188,9 @@
                                         <div class="search-option">
                                           <div class="search">
                                             <input type="text" placeholder="Search" id="tangSearch">
+                                          </div>
+                                          <div class="add">
+                                            <a href=""><i class="fas fa-plus"></i> Thêm tầng</a>
                                           </div>
                                           <ul class="options" id="tang">                                
                                           </ul>
