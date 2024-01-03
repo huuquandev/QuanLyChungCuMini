@@ -67,22 +67,19 @@
         return $row['count'] == 0;
     }
     
-    function ThemToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhanh, $quanhuyen, $phuongxa, $matToaNha) {
+    function ThemToaNha($tentoanha, $diachi, $trangthai, $so_tang, $matToaNha) {
         GLOBAL $conn;
         $filter_tentoanha = mysqli_real_escape_string($conn, $tentoanha);
         $filter_diachi = mysqli_real_escape_string($conn, $diachi);
         $filter_trangthai = mysqli_real_escape_string($conn, $trangthai);
         $filter_so_tang = mysqli_real_escape_string($conn, $so_tang);
-        $filter_tinhanh = mysqli_real_escape_string($conn, $tinhanh);
-        $filter_quanhuyen = mysqli_real_escape_string($conn, $quanhuyen);
-        $filter_phuongxa = mysqli_real_escape_string($conn, $phuongxa);
         $sql = "SELECT * FROM tb_toanha WHERE tb_toanha.ten_toanha = '".$filter_tentoanha."'";
         $query = mysqli_query($conn, $sql);
         if (mysqli_num_rows($query) > 0) {     
             return 2;
         } else {
-            $sql = "INSERT INTO tb_toanha (ten_toanha, ma_toanha, so_tang, trangthai_toanha, diachi_chitiet, tinhthanh, quanhuyen, phuongxa) 
-            VALUES ('$filter_tentoanha', '$matToaNha', '$filter_so_tang', '$filter_trangthai', '$filter_diachi', '$filter_tinhanh', '$filter_quanhuyen', '$filter_phuongxa')";
+            $sql = "INSERT INTO tb_toanha (ten_toanha, ma_toanha, so_tang, trangthai_toanha, diachi_chitiet) 
+            VALUES ('$filter_tentoanha', '$matToaNha', '$filter_so_tang', '$filter_trangthai', '$filter_diachi')";
             $query = mysqli_query($conn, $sql);
             if($query){
                 // Lấy giá trị ID của tòa nhà vừa thêm
@@ -93,23 +90,19 @@
             }
         }
     }
-    function SuaToaNha($tentoanha, $diachi, $trangthai, $so_tang, $tinhanh, $quanhuyen, $phuongxa, $id_toanha){
+    function SuaToaNha($tentoanha, $diachi, $trangthai, $so_tang, $id_toanha){
         GLOBAL $conn;
         $filter_tentoanha = mysqli_real_escape_string($conn, $tentoanha);
         $filter_diachi = mysqli_real_escape_string($conn, $diachi);
         $filter_trangthai = mysqli_real_escape_string($conn, $trangthai);
         $filter_so_tang = mysqli_real_escape_string($conn, $so_tang);
-        $filter_tinhanh = mysqli_real_escape_string($conn, $tinhanh);
-        $filter_quanhuyen = mysqli_real_escape_string($conn, $quanhuyen);
-        $filter_phuongxa = mysqli_real_escape_string($conn, $phuongxa);
         $filter_id_toanha = mysqli_real_escape_string($conn, $id_toanha);
         $sql = "SELECT * FROM tb_toanha WHERE tb_toanha.ten_toanha = '$filter_tentoanha' AND tb_toanha.id_toanha != '$filter_id_toanha'";
         $query = mysqli_query($conn, $sql);
         if (mysqli_num_rows($query) > 0) {     
             return 2;
         } else {
-            $sql = "UPDATE tb_toanha SET ten_toanha='$filter_tentoanha', so_tang='$filter_so_tang', trangthai_toanha='$filter_trangthai', diachi_chitiet='$filter_diachi', 
-            tinhthanh='$filter_tinhanh', quanhuyen='$filter_quanhuyen', phuongxa='$filter_phuongxa' WHERE id_toanha='$filter_id_toanha'";
+            $sql = "UPDATE tb_toanha SET ten_toanha='$filter_tentoanha', so_tang='$filter_so_tang', trangthai_toanha='$filter_trangthai', diachi_chitiet='$filter_diachi' WHERE id_toanha='$filter_id_toanha'";
             $query = mysqli_query($conn, $sql);
             if($query){
                 return true;
@@ -130,7 +123,7 @@
             return false;
         }
     }
-    function ThemCanho_Phong($ten_canho_phong, $ma_canho_phong, $id_toanha, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $id_tang) {
+    function ThemCanho_Phong($ten_canho_phong, $ma_canho_phong, $id_toanha, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $id_tang, $taisan) {
         GLOBAL $conn;
         $filter_ten_canho_phong = mysqli_real_escape_string($conn, $ten_canho_phong);
         $filter_ma_canho_phong = mysqli_real_escape_string($conn, $ma_canho_phong);
@@ -153,7 +146,14 @@
         
             $query = mysqli_query($conn, $sql);
             if ($query) {
-                $lastInsertedId = mysqli_insert_id($conn);
+                $lastInsertedId = mysqli_insert_id($conn);         
+                if (!empty($taisan)) {
+                    foreach ($taisan as $key => $id_taisan) {
+                        $insertImageQuery = "INSERT INTO tb_taisan_canhophong (id_taisan, id_canho_phong)
+                                                VALUES ('$id_taisan', '$lastInsertedId')";
+                        mysqli_query($conn, $insertImageQuery);
+                    }
+                }
                 return $lastInsertedId;
             } else {
                 return false;
@@ -192,9 +192,10 @@
         GLOBAL $conn;
 
         $sql = "DELETE FROM tb_canho_phong WHERE tb_canho_phong.id_canho_phong = $id_canho_phong";
-
         $query = mysqli_query($conn, $sql);
         if ($query) {
+            $sql = "DELETE FROM tb_taisan_canhophong WHERE tb_taisan_canhophong.id_canho_phong = $id_canho_phong";
+            $query = mysqli_query($conn, $sql);
             return true;
         } else {
             return false;
@@ -400,28 +401,23 @@
             return false;
         }
     }
-    function Them_TaiSan($ten_taisan, $ma_Taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $thoihanbaohanh, $Images, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang) {
+    function Them_TaiSan($ten_taisan, $ma_Taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $thoihanbaohanh, $Images, $ghi_chu, $tinh_trang, $so_luong) {
         GLOBAL $conn;
         $filter_ten_taisan = mysqli_real_escape_string($conn, $ten_taisan);
         $filter_ma_Taisan = mysqli_real_escape_string($conn, $ma_Taisan);
-        $filter_toanha = mysqli_real_escape_string($conn, $id_toanha);
-        $filter_phong = mysqli_real_escape_string($conn, $id_phong);
-        $filter_tang = mysqli_real_escape_string($conn, $id_tang);
-        $filter_kho = mysqli_real_escape_string($conn, $id_kho);
         $filter_thuong_hieu = mysqli_real_escape_string($conn, $thuong_hieu);
         $filter_mau_sac = mysqli_real_escape_string($conn, $mau_sac);
         $filter_nam_sanxuat = mysqli_real_escape_string($conn, $nam_sanxuat);
         $filter_xuat_xu = mysqli_real_escape_string($conn, $xuat_xu);
         $filter_gia_tri = mysqli_real_escape_string($conn, $gia_tri);
         $filter_thoihanbaohanh = mysqli_real_escape_string($conn, $thoihanbaohanh);
-        $filter_vi_tri = mysqli_real_escape_string($conn, $vi_tri);
         $filter_ghi_chu = mysqli_real_escape_string($conn, $ghi_chu);
         $filter_tinh_trang = mysqli_real_escape_string($conn, $tinh_trang);
 
         $sql = "INSERT INTO tb_taisan (ten_taisan, ma_taisan, thuong_hieu, mau_sac, nam_sanxuat,
-            	xuat_xu, gia_tri, tinh_trang, thoihanbaohanh, id_kho, id_toanha, id_canho_phong, id_tang, vi_tri, ghi_chu) 
+            	xuat_xu, gia_tri, tinh_trang, thoihanbaohanh, ghi_chu, so_luong) 
                     VALUES ('$filter_ten_taisan', '$filter_ma_Taisan', '$filter_thuong_hieu', '$filter_mau_sac', '$filter_nam_sanxuat',
-                     '$filter_xuat_xu', '$filter_gia_tri', '$filter_tinh_trang', '$filter_thoihanbaohanh', '$filter_kho', '$filter_toanha', '$filter_phong', '$filter_tang', '$filter_vi_tri', '$filter_ghi_chu')";
+                     '$filter_xuat_xu', '$filter_gia_tri', '$filter_tinh_trang', '$filter_thoihanbaohanh', '$filter_ghi_chu', '$so_luong')";
         
             $query = mysqli_query($conn, $sql);
             if ($query) {
@@ -454,28 +450,23 @@
             }
 
     }
-    function Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang, $newImages, $id_taisan){
+    function Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $ghi_chu, $tinh_trang, $newImages, $id_taisan, $so_luong){
         GLOBAL $conn;
         $filter_ten_taisan = mysqli_real_escape_string($conn, $ten_taisan);
-        $filter_toanha = mysqli_real_escape_string($conn, $id_toanha);
-        $filter_phong = mysqli_real_escape_string($conn, $id_phong);
-        $filter_tang = mysqli_real_escape_string($conn, $id_tang);
-        $filter_kho = mysqli_real_escape_string($conn, $id_kho);
         $filter_thuong_hieu = mysqli_real_escape_string($conn, $thuong_hieu);
         $filter_mau_sac = mysqli_real_escape_string($conn, $mau_sac);
         $filter_nam_sanxuat = mysqli_real_escape_string($conn, $nam_sanxuat);
         $filter_xuat_xu = mysqli_real_escape_string($conn, $xuat_xu);
         $filter_gia_tri = mysqli_real_escape_string($conn, $gia_tri);
         $filter_thoihanbaohanh = mysqli_real_escape_string($conn, $han_baohanh);
-        $filter_vi_tri = mysqli_real_escape_string($conn, $vi_tri);
         $filter_ghi_chu = mysqli_real_escape_string($conn, $ghi_chu);
         $filter_tinh_trang = mysqli_real_escape_string($conn, $tinh_trang);
         $filter_id_taisan = mysqli_real_escape_string($conn, $id_taisan);
+        $filter_so_luong = mysqli_real_escape_string($conn, $so_luong);
 
         $sql = "UPDATE tb_taisan SET ten_taisan='$filter_ten_taisan', thuong_hieu='$filter_thuong_hieu', mau_sac='$filter_mau_sac', 
                 	nam_sanxuat='$filter_nam_sanxuat', xuat_xu='$filter_xuat_xu', gia_tri='$filter_gia_tri', tinh_trang='$filter_tinh_trang', 
-                    thoihanbaohanh='$filter_thoihanbaohanh', id_kho='$filter_kho', id_toanha='$filter_toanha', id_canho_phong='$filter_phong', id_tang='$filter_tang', 
-                    vi_tri='$filter_vi_tri', ghi_chu='$filter_ghi_chu' WHERE id_taisan='$filter_id_taisan'";
+                    thoihanbaohanh='$filter_thoihanbaohanh', ghi_chu='$filter_ghi_chu', so_luong='$filter_so_luong' WHERE id_taisan='$filter_id_taisan'";
         $query = mysqli_query($conn, $sql);
              // Lấy danh sách ảnh hiện tại từ cơ sở dữ liệu
              $currentImagesSQL = "SELECT url_hinhanh FROM tb_hinhanh WHERE id_loaihinhanh='$filter_id_taisan' AND type_hinhanh='Tài sản'";
@@ -692,9 +683,23 @@
                 WHERE tb_canho_phong.id_canho_phong = $id_canhophong";
     
         $query = mysqli_query($conn, $sql);
-
         $row = mysqli_fetch_array($query);
 
+        $sql_taisan = "SELECT tb_taisan_canhophong.*, tb_taisan.* 
+        FROM tb_taisan_canhophong 
+        JOIN tb_taisan ON tb_taisan.id_taisan = tb_taisan_canhophong.id_taisan
+        WHERE tb_taisan_canhophong.id_canho_phong = $id_canhophong";
+        $query_taisan = mysqli_query($conn, $sql_taisan);
+        $taisan_list = array(); 
+        while ($image_row = mysqli_fetch_assoc($query_taisan)) {
+            $taisan = array(); 
+            $taisan['id_taisan'] = $image_row['id_taisan'];
+            $taisan['ten_taisan'] = $image_row['ten_taisan'];
+            $taisan['tinh_trang'] = $image_row['tinh_trang'];
+            $taisan['gia_tri'] = $image_row['gia_tri'];
+            $taisan_list[] = $taisan;
+        }
+        $row['taisan'] = $taisan_list;
         return $row;
     }
     function laybaotrisuachua($id_baotri_suachua) {
@@ -750,7 +755,6 @@
         while ($image_row = mysqli_fetch_assoc($queryimage2)) {
         $images2[] = $image_row['url_hinhanh'];
         }
-
             // Thêm mảng hình ảnh vào mảng kết quả trả về
             $row['images1'] = $images1;
             $row['images2'] = $images2;
@@ -762,13 +766,7 @@
     
         GLOBAL $conn;
     
-        $sql = "SELECT tb_taisan.*, tb_toanha.ten_toanha, tb_tang.ten_tang, tb_canho_phong.ten_canho_phong, tb_kho.ten_kho 
-                FROM tb_taisan 
-                LEFT JOIN tb_toanha ON tb_taisan.id_toanha = tb_toanha.id_toanha OR NULL
-                LEFT JOIN tb_tang ON tb_taisan.id_tang = tb_tang.id_tang OR NULL
-                LEFT JOIN tb_canho_phong ON tb_taisan.id_canho_phong = tb_canho_phong.id_canho_phong OR NULL
-                LEFT JOIN tb_kho ON tb_taisan.id_kho = tb_kho.id_kho OR NULL
-                WHERE tb_taisan.id_taisan = $id_taisan";
+        $sql = "SELECT tb_taisan.* FROM tb_taisan WHERE tb_taisan.id_taisan = $id_taisan";
     
         $query = mysqli_query($conn, $sql);
 

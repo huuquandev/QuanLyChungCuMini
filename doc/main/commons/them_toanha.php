@@ -6,9 +6,6 @@ $tentoanha = $_POST['tentoanha'];
 $dia_chi = $_POST['diachi'];
 $trangthai = $_POST['trangthai'];
 $sotang = $_POST['sotang'];
-$tinhthanh = $_POST['tinhthanh'];
-$quanhuyen = $_POST['quanhuyen'];
-$phuongxa = $_POST['phuongxa'];
 
 $response = array();
 
@@ -19,7 +16,7 @@ while (!isMaCanHo_PhongUnique($conn, $maToaNha)) {
     $matToaNha = generateRandomCode();
 }
 
-$newToaNhaId = ThemToaNha($tentoanha, $dia_chi, $trangthai, $sotang, $tinhthanh, $quanhuyen, $phuongxa, $maToaNha);
+$newToaNhaId = ThemToaNha($tentoanha, $dia_chi, $trangthai, $sotang, $maToaNha);
 
 if ($newToaNhaId && $newToaNhaId != 2) {
     $response['success'] = true;
@@ -27,23 +24,7 @@ if ($newToaNhaId && $newToaNhaId != 2) {
     $response['matToaNha'] = $maToaNha;
     $response['ten_toanha'] = $tentoanha;
     $response['sotang'] = $sotang;
-
-    $showaddress = array();
-    if (!empty($dia_chi)) {
-        $showaddress[] = $dia_chi;
-    }
-    if (!empty($tinhthanh)) {
-        $showaddress[] = $tinhthanh;
-    }
-    if (!empty($quanhuyen)) {
-        $showaddress[] = $quanhuyen;
-    }
-    if (!empty($phuongxa)) {
-        $showaddress[] = $phuongxa;
-    }
-    $show_address = implode(', ', $showaddress);
-
-    $response['diachi'] = $show_address;
+    $response['diachi'] = $dia_chi;
     $response['trangthai'] = ($trangthai == 1) ? 'Hoạt động' : 'Không hoạt động';
     $response['iDtrangthai'] = $trangthai;
     $response['message'] = 'Thêm thành công';

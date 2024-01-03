@@ -13,6 +13,8 @@ $trang_thai = $_POST['trang_thai'];
 $ten_toanha = $_POST['ten_toanha'];
 $ten_tang = $_POST['ten_tang'];
 
+$taisan = isset($_POST['taisan']) ? $_POST['taisan'] : null;
+
 
 $response = array();
 $random = generateRandomCode();
@@ -22,7 +24,7 @@ while (!isMaCanHo_PhongUnique($conn, $maPhong)) {
     $maPhong = generateRandomCode();
 }
 
-$newPhongId = ThemCanho_Phong($ten_phong, $maPhong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang);
+$newPhongId = ThemCanho_Phong($ten_phong, $maPhong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang, $taisan);
 
 if ($newPhongId && $newPhongId != 2) {
     $response['success'] = true;

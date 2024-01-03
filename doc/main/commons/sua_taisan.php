@@ -3,10 +3,6 @@
     include_once '../../../components/connect.php';
     $id_taisan = $_POST['id_taisan'];
     $ten_taisan = $_POST['ten_taisan'];
-    $id_toanha = $_POST['id_toanha'];
-    $id_phong = $_POST['id_phong'];
-    $id_tang = $_POST['id_tang'];
-    $id_kho = $_POST['id_kho'];
     $thuong_hieu = $_POST['thuong_hieu'];
     $mau_sac = $_POST['mau_sac'];
     $nam_sanxuat = $_POST['nam_sanxuat'];
@@ -15,12 +11,8 @@
     $so_luong = $_POST['so_luong'];
     $tinh_trang = $_POST['tinh_trang'];
     $han_baohanh = $_POST['han_baohanh'];
-    $ten_phong = $_POST['ten_phong'];
-    $ten_toanha = $_POST['ten_toanha'];
-    $ten_kho = $_POST['ten_kho'];
-    $ten_tang = $_POST['ten_tang'];
-    $vi_tri = $_POST['vi_tri'];
     $ghi_chu = $_POST['ghi_chu'];
+    $so_luong = $_POST['so_luong'];
 
     $hasImages = false; 
     $imageOld = isset($_FILES['imageOld']) ? $_FILES['imageOld'] : null;
@@ -41,16 +33,14 @@
             }
         }
         if(!$hasImages){
-            $result = Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang, $newImages, $id_taisan);
+            $result = Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $ghi_chu, $tinh_trang, $newImages, $id_taisan, $so_luong);
 
                 if ($result == true) {
                     $response['success'] = true;
                     $response['id'] = $id_taisan;
-                    $response['ten_phong'] = $ten_phong;
-                    $response['ten_toanha'] = $ten_toanha;
                     $response['ten_taisan'] = $ten_taisan;
-                    $response['ten_tang'] = $ten_tang;
-                    $response['ten_kho'] = $ten_kho;
+                    $response['ghi_chu'] = $ghi_chu;
+                    $response['so_luong'] = $so_luong;
                     $response['tinh_trang'] = $tinh_trang;
                     $response['gia_tri'] = $gia_tri;
                     $response['message'] = 'Cập nhật thành công';
@@ -61,15 +51,13 @@
         }
     } 
     if (!$hasImages) {
-        $result = Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $id_kho, $id_toanha, $id_tang, $id_phong, $vi_tri, $ghi_chu, $tinh_trang, null, $id_taisan);
+        $result = Sua_Taisan($ten_taisan, $thuong_hieu, $mau_sac, $nam_sanxuat, $xuat_xu, $gia_tri, $han_baohanh, $imageOld, $ghi_chu, $tinh_trang, null, $id_taisan, $so_luong);
                 if ($result == true) {
                     $response['success'] = true;
                     $response['id'] = $id_taisan;
-                    $response['ten_phong'] = $ten_phong;
-                    $response['ten_toanha'] = $ten_toanha;
                     $response['ten_taisan'] = $ten_taisan;
-                    $response['ten_tang'] = $ten_tang;
-                    $response['ten_kho'] = $ten_kho;
+                    $response['ghi_chu'] = $ghi_chu;
+                    $response['so_luong'] = $so_luong;
                     $response['tinh_trang'] = $tinh_trang;
                     $response['gia_tri'] = $gia_tri;
                     $response['message'] = 'Cập nhật thành công';

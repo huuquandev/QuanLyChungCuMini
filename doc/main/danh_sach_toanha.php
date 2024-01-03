@@ -162,56 +162,10 @@
                                   </fieldset>
                                 </span>
                               </div>
-                              <div class="mt-2 col-12">
-                                <h5>Thông tin địa chỉ</h5>
-                              </div>
-                              <!---->
-                              <div class="col-md-4 wrapper ProvinceSelect1">
-                                  <div class="select-btn">
-                                      <span>Tỉnh thành</span>
-                                      <input type="hidden" id="Province1Input">
-                                      <i class="fas fa-angle-down"></i>
-                                  </div>
-                                  <div class="search-option">
-                                    <div class="search">
-                                      <input type="text" placeholder="Search" id="Province1Search">
-                                    </div>
-                                    <ul class="options" id="Province1">
-                                    </ul>
-                                  </div>
-                              </div>
-                              <div class="col-md-4 wrapper DistrictSelect1">
-                                   <div class="select-btn">
-                                      <span>Quận huyện</span>
-                                      <input type="hidden" id="District1Input">
-                                      <i class="fas fa-angle-down"></i>
-                                  </div>
-                                  <div class="search-option">
-                                    <div class="search">
-                                      <input type="text" placeholder="Search" id="District1Search">
-                                    </div>
-                                    <ul class="options" id="District1">
-                                    </ul>
-                                  </div>
-                              </div>
-                              <div class="col-md-4 wrapper WardSelect1">
-                                   <div class="select-btn">
-                                      <span>Phường xã</span>
-                                      <input type="hidden" id="Ward1Input">
-                                      <i class="fas fa-angle-down"></i>
-                                  </div>
-                                  <div class="search-option">
-                                    <div class="search">
-                                      <input type="text" placeholder="Search" id="Ward1Search">
-                                    </div>
-                                    <ul class="options" id="Ward1">
-                                    </ul>
-                                  </div>
-                              </div>
                               <div class="col-12">
                                 <span>
                                   <fieldset class="form-group" id="__BVID__1001">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Địa chỉ chi tiết <span class="text-danger">(*)</span>
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Vị trí cụ thể <span class="text-danger">(*)</span>
                                     </legend>
                                     <div>
                                       <div role="group" class="input-group">
@@ -273,8 +227,25 @@
                                   </div>
                                 </fieldset>
                               </div>
-                            </div>
-            
+                            </div>           
+                      </div>
+                      <div class="row padding-style1-13">
+                        <div class="my-1 col-12">
+                          <div class="d-flex justify-space-between">
+                            <div class="d-flex justify-space-between font-small-4 font-weight-bolder text-uppercase text-success"> 2. Dịch vụ tòa nhà </div>
+                            <button type="button" class="btn btn-icon ml-auto btn-success btn-sm">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                            <div class="list-group"></div>
+                          </div>
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
@@ -308,15 +279,15 @@
                 <input data-v-7f820fac="" type="text" placeholder="Tìm kiếm Tòa nhà..." class="form-control" id="__BVID__395">
               </div>
             </div>
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0" id="">                   
+            <table class="table table-hover table-bordered js-copytextarea tbdata1" cellpadding="0" cellspacing="0" border="0" id="">                   
               <thead>
                       <tr>
                         <th width="10"><input type="checkbox" id="all"></th>
                         <th width="110">Mã tòa nhà</th>
                         <th width="150">Tên tòa nhà</th>
                         <th width="100" class="text-center">Số tầng</th>
-                        <th width="500">Địa chỉ</th>
-                        <th width="110">Hoạt động</th>
+                        <th width="150">Vị trí</th>
+                        <th width="110">Trạng thái</th>
                         <th width="120">Tính năng</th>
                       </tr>
                     </thead>
@@ -335,26 +306,7 @@
                         <td class="ma_toanha"><?php echo $row['ma_toanha']; ?></td>
                         <td class="ten_toanha"><?php echo $row['ten_toanha']; ?></td>
                         <td class="text-center so_tang" ><?php echo $row['so_tang']; ?></td>
-                        <td class="diachi_chitiet">
-                          <?php 
-                                $showaddress = array();
-
-                          if (!empty($row['diachi_chitiet'])) {
-                                  $showaddress[] = $row['diachi_chitiet'];
-                              }
-                              if (!empty($row['tinhthanh'])) {
-                                  $showaddress[] = $row['tinhthanh'];
-                              }
-                              if (!empty($row['quanhuyen'])) {
-                                  $showaddress[] = $row['quanhuyen'];
-                              }
-                              if (!empty($row['phuongxa'])) {
-                                  $showaddress[] = $row['phuongxa'];
-                              }
-                              $show_address = implode(', ', $showaddress); 
-                              echo $show_address;
-                          ?> 
-                        </td>
+                        <td class="diachi_chitiet"><?php echo $row['diachi_chitiet'] ?> </td>
                         <td class="trangthai_toanha">
                           <?php 
                           if($row['trangthai_toanha'] == 1){
@@ -441,52 +393,6 @@
                                           </fieldset>
                                         </span>
                                       </div>
-                                      <div class="mt-2 col-12">
-                                        <h5>Thông tin địa chỉ</h5>
-                                      </div>
-                                      <!---->
-                                      <div class="col-md-4 wrapper ProvinceSelect2">
-                                  <div class="select-btn">
-                                      <span>Tỉnh thành</span>
-                                      <input type="hidden" id="Province2Input">
-                                      <i class="fas fa-angle-down"></i>
-                                  </div>
-                                  <div class="search-option">
-                                    <div class="search">
-                                      <input type="text" placeholder="Search" id="Province2Search">
-                                    </div>
-                                    <ul class="options" id="Province2">
-                                    </ul>
-                                  </div>
-                              </div>
-                              <div class="col-md-4 wrapper DistrictSelect2">
-                                   <div class="select-btn">
-                                      <span>Quận huyện</span>
-                                      <input type="hidden" id="District2Input">
-                                      <i class="fas fa-angle-down"></i>
-                                  </div>
-                                  <div class="search-option">
-                                    <div class="search">
-                                      <input type="text" placeholder="Search" id="District2Search">
-                                    </div>
-                                    <ul class="options" id="District2">
-                                    </ul>
-                                  </div>
-                              </div>
-                              <div class="col-md-4 wrapper WardSelect2">
-                                   <div class="select-btn">
-                                      <span>Phường xã</span>
-                                      <input type="hidden" id="Ward2Input">
-                                      <i class="fas fa-angle-down"></i>
-                                  </div>
-                                  <div class="search-option">
-                                    <div class="search">
-                                      <input type="text" placeholder="Search" id="Ward2Search">
-                                    </div>
-                                    <ul class="options" id="Ward2">
-                                    </ul>
-                                  </div>
-                              </div>
                                       <div class="col-12">
                                         <span>
                                           <fieldset class="form-group" id="__BVID__1001">
@@ -553,9 +459,41 @@
                                           </div>
                                         </fieldset>
                                       </div>
-                                    </div>
-                    
+                                    </div>                  
                               </div>
+                            <div class="row padding-style1-13">
+                                <div class="my-1 col-12">
+                                  <div class="d-flex justify-space-between">
+                                    <div class="d-flex justify-space-between font-small-4 font-weight-bolder text-uppercase text-success"> 2. Dịch vụ tòa nhà </div>
+                                    <button type="button" class="btn btn-icon ml-auto btn-success btn-sm">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row padding-style1-13">
+                                <div class="col">
+                                  <div class="list-group">
+                                    <div class="list-group-item">
+                                      <div class="row">
+                                        <div class="font-weight-bolder col"> 1. eqwe </div>
+                                        <div class="col"> 12,312 đ/Người </div>
+                                        <div class="col">
+                                          <button type="button" class="btn btn px-1 btn-outline-danger ml-1 ml-sm-auto float-sm-right mr-sm-1 w-90 min-w-75 btn-outline-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-x">
+                                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
                                   <button type="button" class="btn btn-primary btnSave" data-dismiss="modal">Lưu</button>
@@ -563,7 +501,7 @@
                             </form>
                           </div>
                         </div>
-                     </div>
+                    </div>
           </div>
         </div>
       </div>
@@ -613,10 +551,7 @@
           $('#Ward1Input').val("");
 
           $('#modal-default').modal('show');      
-          
-          initializeDropdowns("Province1", "District1", "Ward1", "Province1Search", "District1Search", 
-          "Ward1Search", "Province1Input", "District1Input", "Ward1Input", ".ProvinceSelect1", ".DistrictSelect1", 
-          ".WardSelect1", $('#Province1Input').val(), $('#District1Input').val(), $('#Ward1Input').val());    
+            
 
         });
         $('body').on('click', '#btnAdd', function () {  
@@ -638,10 +573,7 @@
             formData.append('tentoanha', $('#tentoanha').val());
             formData.append('diachi', $('#diachichitiet').val());
             formData.append('trangthai', $('#trangthai').val());
-            formData.append('sotang', $('#sotang').val());
-            formData.append('tinhthanh', $('#Province1Input').val());
-            formData.append('quanhuyen', $('#District1Input').val());
-            formData.append("phuongxa", $('#Ward1Input').val());               
+            formData.append('sotang', $('#sotang').val());           
             $.ajax({
                 url: "doc/main/commons/them_toanha.php",
                 type: "post",
@@ -692,9 +624,6 @@
                           button: "Đóng",
                         });    
                         $('#modal-default').modal('hide');    
-                        $('#Province1Input').val('');
-                        $('#District1Input').val('');
-                        $('#Ward1Input').val('');
                         $('#tentoanha').val('');
                         $('#diachichitiet').val('');
                         $('#sotang').val('');
@@ -742,10 +671,7 @@
                     $('#newtrangthai').prop('checked', true);
                 } else {
                     $('#newtrangthai').prop('checked', false);
-                }
-                initializeDropdowns("Province2", "District2", "Ward2", "Province2Search", "District2Search", 
-                  "Ward2Search", "Province2Input", "District2Input", "Ward2Input", ".ProvinceSelect2", ".DistrictSelect2", 
-                  ".WardSelect2", decodedData.tinhthanh, decodedData.quanhuyen, decodedData.phuongxa);  
+                } 
             });
 
         });

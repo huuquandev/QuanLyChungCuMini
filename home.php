@@ -88,7 +88,7 @@
         enableTime: true,
         dateFormat: "Y-m-d H:i",
       });
-      flatpickr("#startDate, #overdate, #date3, #date4", {});
+      flatpickr("#startDate, #overdate, #date3, #date4, #date5", {});
     var data = {
       labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
       datasets: [{

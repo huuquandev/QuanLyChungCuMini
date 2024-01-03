@@ -139,9 +139,9 @@
                     <div class="modal-header">
                         <h4 class="modal-title">Căn hộ/phòng</h4>
                     </div>
+                  <form action="" method="post" enctype="multipart/form-data" class="formadd">
                     <div class="modal-body">
-                        <input type="hidden" id="txtOrderId" value="0" />
-                        <form class="formadd">
+                        <input type="hidden" id="txtOrderId" value="0" />                      
                             <div class="row">
                               <div class="col-md-4">
                                 <span>
@@ -229,7 +229,7 @@
                               <div class="col-md-4">
                                 <span>
                                   <fieldset class="form-group is-valid" value="0" id="__BVID__626">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__626__BV_label_"> Tiền thuê <span class="text-danger"> (*) </span>
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__626__BV_label_"> Tiền thuê/Tháng <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
                                       <input type="text" id="tienthue1" placeholder="5,000,000" class="form-control" name="tienthue" required>
@@ -244,7 +244,7 @@
                               <div class="col-md-4">
                                 <span>
                                   <fieldset class="form-group is-valid" value="0" id="__BVID__630">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__630__BV_label_"> Tiền cọc <span class="text-danger"> (*) </span>
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__630__BV_label_"> Tiền cọc/Phòng <span class="text-danger"> (*) </span>
                                     </legend>
                                     <div>
                                       <input type="text" id="tiencoc1" placeholder="5,000,000" class="form-control" name="tiencoc" required>
@@ -300,20 +300,32 @@
                                 </div>
                               </fieldset>
                             </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <div>
-                                  <!---->
+                            </div>                                                         
+                      </div>
+                            <div class="row padding-style1-13">
+                              <div class="my-1 col-12">
+                                <div class="d-flex justify-space-between">
+                                  <div class="d-flex justify-space-between font-small-4 font-weight-bolder text-uppercase text-success"> 2. Tài sản căn hộ/phòng </div>
+                                  <button type="button" class="btn btn-icon ml-auto btn-success btn-sm btn-show-taisan">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                  </button>
                                 </div>
                               </div>
                             </div>
-                          </form>
-                    </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
-                          <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd">Thêm</button>
-                      </div>
+                            <div class="row padding-style1-13">
+                                <div class="col">
+                                  <div class="list-group1"></div>
+                                </div>
+                            </div>  
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                              <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd">Thêm</button>
+                          </div> 
+                    </form>
+                         
                   </div>
                 </div>
               </div>
@@ -414,7 +426,7 @@
                 <input data-v-6ea5fee4="" type="text" placeholder="Tìm kiếm..." class="form-control">
               </div>
             </div>
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
+            <table class="table table-hover table-bordered js-copytextarea tbdata1" cellpadding="0" cellspacing="0" border="0"
               id="">
               <thead>
                       <tr>
@@ -449,8 +461,8 @@
                     <br>
                     <span class="text-muted ten_tang">Tầng <?php echo $row['ten_tang']; ?> </span>
                   </td>
-                  <td class="text-right tienthue"><?php echo convertToVietnameseCurrency($row['tienthue_canho_phong']); ?> đ</td>
-                  <td class="text-right tiencoc"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?> đ</td>
+                  <td class="text-right tienthue"><?php echo convertToVietnameseCurrency($row['tienthue_canho_phong']); ?> đ/Tháng</td>
+                  <td class="text-right tiencoc"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?> đ/Phòng</td>
                   <td class="text-right dientich"><?php echo convertToVietnameseCurrency($row['dientich_canho_phong']); ?> m²</td>
                   <td class="trangthai_thue">
                       <?php 
@@ -516,17 +528,17 @@
                 </ul>
               </div>
           </div>
-          <div class="modal fade bd-example-modal-lg" id="modal-default2">
+        <div class="modal fade bd-example-modal-lg" id="modal-default2">
                   <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Căn hộ/phòng</h4>
                     </div>
+                    <form class="formedit">
                     <div class="modal-body">
                     <input type="hidden" value="" id="idphong">
-                        <form class="formedit">
                             <div class="row">
-                            <div class="col-md-4">
+                              <div class="col-md-4">
                                 <span>
                                   <div>
                                     <fieldset class="form-group" id="__BVID__605">
@@ -685,15 +697,109 @@
                               </fieldset>
                             </div>
                             </div>
-                          </form>
                     </div>
+                    <div class="row padding-style1-13">
+                              <div class="my-1 col-12">
+                                <div class="d-flex justify-space-between">
+                                  <div class="d-flex justify-space-between font-small-4 font-weight-bolder text-uppercase text-success"> 2. Tài sản căn hộ/phòng </div>
+                                  <button type="button" class="btn btn-icon ml-auto btn-success btn-sm btn-show-taisan">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row padding-style1-13">
+                                <div class="col">
+                                  <div class="list-group2"></div>
+                                </div>
+                            </div> 
                     <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
                                   <button type="button" class="btn btn-primary btnSave" data-dismiss="modal">Lưu</button>
                               </div>
                     </div>
                   </div>
-                </div>   
+                  </form>
+
+            </div>   
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="modal-default3">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Danh sách tài sản</h4>
+                    </div>
+                    <div id="modal-list-service___BV_modal_body_" class="modal-body">
+                        <div class="row  justify-content-between">
+                          <div class="col-md-8 col-lg-4">
+                            <input type="text" placeholder="Tìm kiếm" class="mb-1 form-control" id="__BVID__1178">
+                          </div>
+                          <div class="col-md-4 col-lg-2">
+                            <a href="home.php?title=taisan" class="btn w-100 mr-0 px-0 btn-success"> Thêm mới </a>
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-12">
+                            <div class="vgt-wrap ">
+                              <!---->
+                              <div class="vgt-inner-wrap">
+                                <!---->
+                                <!---->
+                                <!---->
+                                <div class="vgt-fixed-header">
+                                  <!---->
+                                </div>
+                                <div class="vgt-responsive">
+                                <table class="table table-hover table-bordered js-copytextarea tbdata2" cellpadding="0" cellspacing="0" border="0"
+                                  id="sampleTable">
+                                  <thead>
+                                    <tr>
+                                      <th width="10"><input type="checkbox" id="all2"></th>
+                                      <th width="150">Tên tài sản</th>
+                                      <th>Tình trạng</th>
+                                      <th>Giá trị</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="tbhtml">
+                                      <?php 
+                                          $sql = "SELECT tb_taisan.* FROM tb_taisan";
+                                          $query = mysqli_query($conn, $sql);
+                                          if(mysqli_num_rows($query) > 0){
+                                          while ($row = mysqli_fetch_array($query)) {
+                                        ?>
+                                    <tr id="row_<?= $row['id_taisan'];  ?>">
+                                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                      <td class="tentaisan"><?php echo $row['ten_taisan']; ?></td>
+                                      <td class="tinhtrang"><?php echo $row['tinh_trang']; ?></td>
+                                      <td class="giatri"><?php echo convertToVietnameseCurrency($row['gia_tri']);?>đ</td>                                      
+                                    </tr>
+                                    <?php 
+                                        } 
+                                      }else{
+                                        echo '<td valign="top" colspan="3" class="dataTables_empty" style="text-align: center;">Không tìm thấy kết quả</td>';
+                                      }
+                                        ?>
+                                  </tbody>
+                                </table>
+                                </div>
+                                <!---->
+                               
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!---->
+                      </div>
+                          <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                                  <button type="button" class="btn btn-success btnSelectTaiSan" data-dismiss="modal">Chọn</button>
+                          </div>
+                    </div>
+                  </div>
+            </div>   
         </div>
       </div>
     </div>
@@ -739,7 +845,7 @@
                   event.preventDefault(); // Ngăn chặn ký tự được nhập
               }
         });
-        $('.formadd input[required], .formedit input[required]').on('blur', function() {
+        $('.formadd input[required], .formedit input[required]').on('blur', function() {  
             validateInput($(this));
         });
         $('.formadd input[required], .formedit input[required]').on('focus', function() {
@@ -750,6 +856,8 @@
             $(this).closest('.form-group').find('.select-btn').removeClass('is-invalid');
         });
         $('body').on('click', '.btn-add', function () { 
+            selectedItems = []
+            showTable(selectedItems);
             let form = $('.formadd')
             form.trigger('reset');
             $('#modal-default').modal('show');
@@ -758,7 +866,6 @@
         });
         $('body').on('click', '#btnAdd', function () {  
           let isValid = true;
-
           $('.formadd input[required]').each(function() {
             var smallElement = $(this).closest('.form-group').find('small.text-danger');
                   if (!$(this).val().trim()) {
@@ -798,6 +905,12 @@
             formData.append("trang_thai", $('#trangthai1').val());   
             formData.append("ten_toanha", ten_toanha);   
             formData.append("ten_tang", ten_tang);
+            for (let i = 0; i < selectedItems.length; i++) {
+                    formData.append('taisan[]', selectedItems[i].id_taisan); 
+            }
+            for (const pair of formData.entries()) {
+                  console.log(pair[0] + ': ' + pair[1]);
+                }
             $.ajax({
                 url: "doc/main/commons/them_phong.php",
                 type: "post",
@@ -908,7 +1021,8 @@
                 $('#trangthaithue2').val(decodedData.trangthai_canho_phong)
                 $('#toannhaInput2').val(decodedData.id_toanha)
                 $('#tangInput2').val(decodedData.id_tang)
-
+                selectedItems2 = decodedData.taisan
+                showTable2(selectedItems2);
                 if (decodedData.tinhtrang_canho_phong	== 1) {
                     $('#trangthai2').prop('checked', true);
                 } else {
@@ -1204,7 +1318,101 @@
                                             $('.checkbox-switch').val("0");
                                         }                                       
         });
+        $('body').on('click', '.btn-show-taisan', function () { 
+          $('#modal-default3').modal('show');
+            
+        });
+          $('body').on('click', '.btnSelectTaiSan', function () { 
+            showTable(selectedItems);
+            showTable2(selectedItems2);
+            $('#modal-default3').modal('hide');
+          });
   });
+  var selectedItems = [];
+  var selectedItems2 = [];
+
+$('.tbdata2 tbody input[type="checkbox"]').on('change', function() {
+    var row = $(this).closest('tr');
+    var id = row.attr('id').replace('row_', '');
+    var name = row.find('.tentaisan').text();
+    var status = row.find('.tinhtrang').text();
+    var value = row.find('.giatri').text();
+
+    if ($(this).is(':checked')) {
+      selectedItems.push({ id_taisan: id, ten_taisan: name, tinh_trang: status, gia_tri: value });
+      selectedItems2.push({ id_taisan: id, ten_taisan: name, tinh_trang: status, gia_tri: value });
+    } else {
+      selectedItems = selectedItems.filter(function(item) {
+        return item.id_taisan !== id;
+      });
+      selectedItems2 = selectedItems2.filter(function(item) {
+        return item.id_taisan !== id;
+      });
+    }
+    console.log(selectedItems);
+
+    console.log(selectedItems2);
+});
 
 
+  let container = $('.list-group1');
+
+  const showTable = (array) =>{
+            let taisan = '';
+            let count = 0;
+            array.forEach((e, i) => {
+                count++;
+                taisan += `<div class="list-group-item">
+                                      <div class="row" id="${e.id_taisan}">
+                                        <div class="font-weight-bolder col">${count}. ${e.ten_taisan}</div>
+                                        <div class="col"> ${e.tinh_trang} </div>
+                                        <div class="col"> ${e.gia_tri} </div>
+                                        <div class="col">
+                                          <button type="button" class="btn btn px-1 btn-outline-danger ml-1 ml-sm-auto float-sm-right mr-sm-1 w-90 min-w-75 btn-outline-danger" onclick="delImage(${i})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-x">
+                                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>`
+                
+            }); 
+            container.html(taisan);
+  }
+  const delImage = (index) =>{
+    selectedItems.splice(index, 1);
+    showTable(selectedItems);
+  }
+  let container2 = $('.list-group2');
+
+  const showTable2 = (array) =>{
+            let taisan = '';
+            let count = 0;
+            array.forEach((e, i) => {
+                count++;
+                taisan += `<div class="list-group-item">
+                                      <div class="row" id="${e.id_taisan}">
+                                        <div class="font-weight-bolder col">${count}. ${e.ten_taisan}</div>
+                                        <div class="col"> ${e.tinh_trang} </div>
+                                        <div class="col"> ${e.gia_tri} </div>
+                                        <div class="col">
+                                          <button type="button" class="btn btn px-1 btn-outline-danger ml-1 ml-sm-auto float-sm-right mr-sm-1 w-90 min-w-75 btn-outline-danger" onclick="delImage2(${i})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-x">
+                                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>`
+                
+            }); 
+            container2.html(taisan);
+  }
+  const delImage2 = (index) =>{
+    selectedItems2.splice(index, 1);
+    showTable2(selectedItems2);
+  }
 </script> 

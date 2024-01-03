@@ -524,7 +524,7 @@
               <input data-v-38625d2e="" type="text" placeholder="Tìm kiếm" class="form-control" id="search-input-apartment">
             </div>
           </div>
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
+            <table class="table table-hover table-bordered js-copytextarea tbdata1" cellpadding="0" cellspacing="0" border="0"
               id="sampleTable">
               <thead>
                       <tr>
@@ -2071,8 +2071,8 @@
 
         });
         const phongSelect = $('.phongOptionselect');         
-        const phongSelectBtn = $('.phongOptionselect .select-btn');
-        const phongInput = $('#phongInputSearch');
+          const phongSelectBtn = $('.phongOptionselect .select-btn');
+          const phongInput = $('#phongInputSearch');
         toannhaInput.on('change', function () {
           $.ajax({
                         url: "doc/main/commons/lay_phong_by_toanha.php",
@@ -2099,11 +2099,15 @@
                             let arr = filteredResults.map(data => `<li onclick="updateforcanho(this, 'phongSearch3', '${arrayName}', 'phongOptionSearch', 'phongInputSearch', '.phongOptionselect')">${data.ten}</li>`).join("");
 
                             phong.html(arr ? arr : `<p class="text-center">Không có dữ liệu</p>`); 
-                        });       
-            });
-          phongSelectBtn.on('click', function () {
+                        }); 
+                      
+                  });
+            phongSelectBtn.on('click', function () {
             phongSelect.toggleClass('active');
           });
+          phongSelectBtn.children().first().text('Phòng');
+          phongSelectBtn.removeClass('active');
+          phongInput.val("");
         });
         const statusSelect = $('.statusOptionselect');         
         const statusSelectBtn = $('.statusOptionselect .select-btn');

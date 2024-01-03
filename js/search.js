@@ -71,36 +71,11 @@ function searchTable_tb_can_phong() {
 }
 function searchTable_tb_tai_san() {
     const searchapartment = document.getElementById("search-input-apartment");
-    const tb_toanha_selectedtoanha = document.querySelector(".toannhaOptionselect3 .select-btn input input");
-    const tb_toanha_selectedphong = document.querySelector(".phongOptionselect3 .select-btn input");
-    const tb_toanha_selectedtang = document.querySelector(".tangOptionselect3 .select-btn input");
-    const tb_toanha_selectedkho = document.querySelector(".khoOptionselect3 .select-btn input");
-
     table_rows.forEach((row, i) => {    
-        if(tb_toanha_selectedtoanha.value == "Tất cả"){
-            tb_toanha_selectedtoanha.value = "";      
-        }
-        if(tb_toanha_selectedphong.value == "Tất cả"){
-            tb_toanha_selectedphong.value = "";      
-        }
-        if(tb_toanha_selectedtang.value == "Tất cả"){
-            tb_toanha_selectedtang.value = "";      
-        }
-        if(tb_toanha_selectedkho.value == "Tất cả"){
-            tb_toanha_selectedkho.value = "";      
-        }
         let table_data = row.textContent.toLowerCase();
         let search_data = searchapartment.value.toLowerCase();
-        let toanha_data = tb_toanha_selectedtoanha.value.toLowerCase();
-        let phong_data = tb_toanha_selectedphong.value.toLowerCase();
-        let tang_data = tb_toanha_selectedtang.value.toLowerCase();
-        let kho_data = tb_toanha_selectedkho.value.toLowerCase();
         // Kiểm tra xem dòng có chứa cả search_data và status_data hay không
-        let shouldHide = table_data.indexOf(search_data) < 0 || 
-        (toanha_data !== "" && row.querySelector(".ten_can_phong .ten_toanha").textContent.toLowerCase() !== toanha_data) ||
-        (tang_data !== "" && row_tang_data !== tang_data) ||
-        (statusthue_data !== "" && row.querySelector(".trangthai_thue span b").textContent.toLowerCase() !== statusthue_data) ||
-        (statushoatdong_data !== "" && row.querySelector(".trangthai_hoatdong span b").textContent.toLowerCase() !== statushoatdong_data);
+        let shouldHide = table_data.indexOf(search_data) < 0;
         row.classList.toggle('hide', shouldHide);
         row.style.setProperty('--delay', i / 25 + 's');
     });
@@ -130,7 +105,6 @@ function searchTable_tb_baotri_suachua() {
       let status_data = tb_baotri_suachua_selectedstatus.value.toLowerCase();
       let start_date = tb_baotri_suachua_searchstartDate.value;
       let over_date = tb_baotri_suachua_searchoverdate.value;
-      console.log(phong_data);
       if(toanha_data !== ""){
         toanha_data = tb_baotri_suachua_selectedtoanha_text.textContent.toLocaleLowerCase();
       }else{
@@ -141,12 +115,14 @@ function searchTable_tb_baotri_suachua() {
       }else{
         phong_data = "";
       }
+      console.log(toanha_data);
       let ngaybatdauText = row.querySelector(".ngayketthuc .ngaybatdau").value;
       let ngaybatdau = ngaybatdauText.split(" ")[0]; // Lấy phần ngày
       let ngayketthucText = row.querySelector(".ngayketthuc").textContent.trim();
       let ngaykethuc = ngayketthucText.split(" ")[0]; // Lấy phần ngày
       // Kiểm tra xem dòng có chứa cả search_data và status_data hay không
       let shouldHide = table_data.indexOf(search_data) < 0 ||
+      (status_data !== "" && row.querySelector(".trangthaicongviec b").textContent.toLowerCase() !== status_data) ||
       (toanha_data !== "" && row.querySelector(".ten_toanha").textContent.toLowerCase() !== toanha_data) ||
       (phong_data !== "" && row.querySelector(".ten_phong").textContent.toLowerCase() !== phong_data) ||
       (start_date !== "" && ngaybatdau !== start_date) ||
