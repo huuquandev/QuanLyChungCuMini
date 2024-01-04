@@ -467,9 +467,9 @@
                     <br>
                     <span class="text-muted ten_tang">Tầng <?php echo $row['ten_tang']; ?> </span>
                   </td>
-                  <td class="text-right tienthue"><?php echo convertToVietnameseCurrency($row['tienthue_canho_phong']); ?> đ/Tháng</td>
-                  <td class="text-right tiencoc"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?> đ/Phòng</td>
-                  <td class="text-right dientich"><?php echo convertToVietnameseCurrency($row['dientich_canho_phong']); ?> m²</td>
+                  <td class="text-right tienthue"><?php echo convertToVietnameseCurrency($row['tienthue_canho_phong']); ?>đ/Tháng</td>
+                  <td class="text-right tiencoc"><?php echo convertToVietnameseCurrency($row['tiencoc_canho_phong']); ?>đ/Phòng</td>
+                  <td class="text-right dientich"><?php echo convertToVietnameseCurrency($row['dientich_canho_phong']); ?>m²</td>
                   <td class="trangthai_thue">
                       <?php 
                           if($row['trangthai_canho_phong'] == 1){
@@ -800,7 +800,7 @@
                         <!---->
                       </div>
                           <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Hủy</button>
+                                  <button type="button" class="btn btn-secondary btnCloseTaiSan" data-dismiss="modal">Hủy</button>
                                   <button type="button" class="btn btn-success btnSelectTaiSan" data-dismiss="modal">Chọn</button>
                           </div>
                     </div>
@@ -1028,7 +1028,8 @@
                 $('#toannhaInput2').val(decodedData.id_toanha)
                 $('#tangInput2').val(decodedData.id_tang)
                 selectedItems2 = decodedData.taisan
-                showTable2(selectedItems2);
+                newtaisan = [];
+                showTable2(selectedItems2, newtaisan);
                 if (decodedData.tinhtrang_canho_phong	== 1) {
                     $('#trangthai2').prop('checked', true);
                 } else {
@@ -1072,9 +1073,14 @@
             formData.append("ten_toanha", ten_toanha);   
             formData.append("ten_tang", ten_tang);
             formData.append("trang_thai_thue", $('#trangthaithue2').val());
-            for (const pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
+            for (let i = 0; i < selectedItems2.length; i++) {
+                    formData.append('taisan[]', selectedItems2[i].id_taisan); 
+            }for (let i = 0; i < newtaisan.length; i++) {
+                    formData.append('newTaiSan[]', newtaisan[i].id_taisan); 
             }
+            // for (const pair of formData.entries()) {
+            //     console.log(pair[0] + ': ' + pair[1]);
+            // }
             $.ajax({
                 url: "doc/main/commons/sua_phong.php",
                 type: "post",
@@ -1083,6 +1089,7 @@
                 contentType: false,
                 data: formData,
                 success: function (response) {
+                  console.log(response);
                     if (response.success) {     
                       let tienthue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_thue);
                       let tiencoc = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.tien_coc);
@@ -1090,8 +1097,8 @@
                         row.find('.ten_can_phong').contents().first().replaceWith(response.ten_phong);
                         row.find('.ten_toanha').text(response.ten_toanha);
                         row.find('.ten_tang').text(response.ten_tang);
-                        row.find('.tienthue').text(tienthue);
-                        row.find('.tiencoc').text(tiencoc);
+                        row.find('.tienthue').text(tienthue + "/Tháng");
+                        row.find('.tiencoc').text(tiencoc + "/Phòng ");
                         row.find('.dientich').text(response.dien_tich + " m²");
                         row.find('.trangthai_thue span').html(response.trangthaithue);
                         row.find('.trangthai_hoatdong span').html(response.trangthaihoatdong);
@@ -1330,14 +1337,18 @@
         });
           $('body').on('click', '.btnSelectTaiSan', function () { 
             showTable(selectedItems);
-            showTable2(selectedItems2);
+            showTable2(selectedItems2, newtaisan);
+            $('#modal-default3').modal('hide');
+          });
+          $('body').on('click', '.btnCloseTaiSan', function () { 
             $('#modal-default3').modal('hide');
           });
   });
   var selectedItems = [];
   var selectedItems2 = [];
-
+  var newtaisan = [];
 $('.tbdata2 tbody input[type="checkbox"]').on('change', function() {
+
     var row = $(this).closest('tr');
     var id = row.attr('id').replace('row_', '');
     var name = row.find('.tentaisan').text();
@@ -1346,18 +1357,19 @@ $('.tbdata2 tbody input[type="checkbox"]').on('change', function() {
 
     if ($(this).is(':checked')) {
       selectedItems.push({ id_taisan: id, ten_taisan: name, tinh_trang: status, gia_tri: value });
-      selectedItems2.push({ id_taisan: id, ten_taisan: name, tinh_trang: status, gia_tri: value });
+      newtaisan.push({ id_taisan: id, ten_taisan: name, tinh_trang: status, gia_tri: value });
     } else {
       selectedItems = selectedItems.filter(function(item) {
         return item.id_taisan !== id;
       });
-      selectedItems2 = selectedItems2.filter(function(item) {
+      newtaisan = newtaisan.filter(function(item) {
         return item.id_taisan !== id;
       });
     }
     console.log(selectedItems);
-
+    console.log(newtaisan);
     console.log(selectedItems2);
+
 });
 
 
@@ -1392,11 +1404,29 @@ $('.tbdata2 tbody input[type="checkbox"]').on('change', function() {
     showTable(selectedItems);
   }
   let container2 = $('.list-group2');
-
-  const showTable2 = (array) =>{
+  const showTable2 = (array1, array2) =>{
             let taisan = '';
             let count = 0;
-            array.forEach((e, i) => {
+            array1.forEach((e, i) => {
+                count++;
+                taisan += `<div class="list-group-item">
+                                      <div class="row" id="${e.id_taisan}">
+                                        <div class="font-weight-bolder col">${count}. ${e.ten_taisan}</div>
+                                        <div class="col"> ${e.tinh_trang} </div>
+                                        <div class="col"> ${e.gia_tri} </div>
+                                        <div class="col">
+                                          <button type="button" class="btn btn px-1 btn-outline-danger ml-1 ml-sm-auto float-sm-right mr-sm-1 w-90 min-w-75 btn-outline-danger" onclick="delImage2(${i})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-x">
+                                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>`
+                
+            }); 
+            array2.forEach((e, i) => {
                 count++;
                 taisan += `<div class="list-group-item">
                                       <div class="row" id="${e.id_taisan}">
@@ -1419,6 +1449,6 @@ $('.tbdata2 tbody input[type="checkbox"]').on('change', function() {
   }
   const delImage2 = (index) =>{
     selectedItems2.splice(index, 1);
-    showTable2(selectedItems2);
+    showTable2(selectedItems2, newtaisan);
   }
 </script> 

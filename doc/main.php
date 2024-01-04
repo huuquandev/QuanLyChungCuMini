@@ -41,6 +41,10 @@
                     } else {
                         include("main/danh_sach_hopdong.php");
                     }
+                }else if($tam == "nguoidung"){
+                    include("main/danh_sach_tai_khoan.php");
+                }else if($tam == "loaitaikhoan"){
+                    include("main/danh_sach_loai_tai_khoan.php");
                 }
             }else{
                 $tam = '';

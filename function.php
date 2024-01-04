@@ -28,13 +28,18 @@
             $_SESSION['tai_khoan'] = $row['tai_khoan'];
             $_SESSION['ten_hien_thi'] = $row['ten_hien_thi'];
             $_SESSION['mat_khau'] = $row['mat_khau'];
-            $_SESSION['quyen_han'] = $row['quyen_han'];
+            $_SESSION['vai_tro'] = $row['vai_tro'];
             $_SESSION['gioi_tinh'] = $row['gioi_tinh'];
             $_SESSION['so_dien_thoai'] = $row['so_dien_thoai'];
+            $_SESSION['dangnhaplancuoi'] = $row['dangnhaplancuoi'];
+
             $_SESSION['hinh_anh'] = $row['hinh_anh'];
+            $sql_save = "UPDATE tb_taikhoan SET tb_taikhoan.dangnhaplancuoi = NOW() WHERE tb_taikhoan.id_taikhoan = ".$row['id_taikhoan']." ";
+            $query_save = mysqli_query($conn, $sql_save);
+
             return true;
         }else{
-            echo    ' <cript> 
+            echo    ' <script> 
                     swal({ title: "", text: "Sai thông tin đăng nhập hãy kiểm tra lại...", icon: "error", close: true, button: "Thử lại", });                    
                     </script>';
             return false;
@@ -161,7 +166,7 @@
         }
 
     }
-    function SuaCanho_Phong($ten_canho_phong, $id_toanha, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $id_tang, $id_canhophong){
+    function SuaCanho_Phong($ten_canho_phong, $id_toanha, $so_nguoi_o, $tienthue, $tiencoc, $dientich, $trangthai, $id_tang, $id_canhophong, $taisanOld, $newTaiSan){
         GLOBAL $conn;
         $filter_ten_canho_phong = mysqli_real_escape_string($conn, $ten_canho_phong);
         $filter_toanha = mysqli_real_escape_string($conn, $id_toanha);
@@ -173,19 +178,39 @@
         $filter_trangthai = mysqli_real_escape_string($conn, $trangthai);
         $filter_id_canhophong = mysqli_real_escape_string($conn, $id_canhophong);
 
-        $sql = "SELECT * FROM tb_canho_phong WHERE tb_canho_phong.ten_canho_phong = '$filter_ten_canho_phong' AND tb_canho_phong.ten_canho_phong != '$filter_id_canhophong'";
-        $query = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($query) > 0) {     
+        $sql_check = "SELECT * FROM tb_canho_phong WHERE tb_canho_phong.ten_canho_phong = '$filter_ten_canho_phong' AND tb_canho_phong.id_canho_phong != '$filter_id_canhophong'";
+        $query_check = mysqli_query($conn, $sql_check);
+        if (mysqli_num_rows($query_check) > 0) {     
             return 2;
         } else {
-            $sql = "UPDATE tb_canho_phong SET ten_canho_phong='$filter_ten_canho_phong', id_toanha='$filter_toanha', so_nguoi_o='$filter_so_nguoi_o', tienthue_canho_phong='$filter_tienthue', 
+            $sql_Update = "UPDATE tb_canho_phong SET ten_canho_phong='$filter_ten_canho_phong', id_toanha='$filter_toanha', so_nguoi_o='$filter_so_nguoi_o', tienthue_canho_phong='$filter_tienthue', 
             tiencoc_canho_phong='$filter_tiencoc', dientich_canho_phong='$filter_dientich',tinhtrang_canho_phong='$filter_trangthai',id_tang='$filter_tang' WHERE id_canho_phong='$filter_id_canhophong'";
-                $query = mysqli_query($conn, $sql);
-                if ($query) {
-                    return true;
-                } else {
-                    return false;
-                }
+                $query_Update = mysqli_query($conn, $sql_Update);
+                if ($query_Update) {
+                    // Lấy danh sách tài sản hiện tại từ cơ sở dữ liệu
+                    $currentTaiSanCu = "SELECT id_taisan FROM tb_taisan_canhophong WHERE tb_taisan_canhophong.id_canho_phong='$filter_id_canhophong'";
+                    $result = mysqli_query($conn, $currentTaiSanCu);
+                    $existingTaiSanCu = [];
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $existingTaiSanCu[] = $row['id_taisan'];
+                    }
+                    $TaiSanCuToRemove = array_diff($existingTaiSanCu, $taisanOld);
+                    foreach ($TaiSanCuToRemove as $taisan) {
+                        $filteredTaiSan = mysqli_real_escape_string($conn, $taisan);
+                        // Xóa Tai sản cơ sở dữ liệu
+                        $deleteTaiSanSQL = "DELETE FROM tb_taisan_canhophong WHERE id_canho_phong='$filter_id_canhophong' AND id_taisan='$filteredTaiSan'";
+                        mysqli_query($conn, $deleteTaiSanSQL);
+                    }
+                    if (!empty($newTaiSan)) {
+                        foreach ($newTaiSan as $key => $id_taisan) {
+                            $insertTaiSanQuery = "INSERT INTO tb_taisan_canhophong (id_taisan, id_canho_phong)
+                                                    VALUES ('$id_taisan', '$filter_id_canhophong')";
+                            mysqli_query($conn, $insertTaiSanQuery);
+                        }
+                    }
+                    return 1;
+                } 
+            return 0;
         }
     }
     function XoaCanho_Phong($id_canho_phong){

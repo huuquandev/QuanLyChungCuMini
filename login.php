@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 
-<body>
+<body>   
 <?php
     session_start(); 
 

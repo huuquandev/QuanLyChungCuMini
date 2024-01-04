@@ -13,9 +13,12 @@
     $ten_toanha = $_POST['ten_toanha'];
     $ten_tang = $_POST['ten_tang'];
     $trang_thai_thue = $_POST['trang_thai_thue'];
+    $taisanOld = isset($_POST['taisan']) ? $_POST['taisan'] : null;
+    $newTaiSan = isset($_POST['newTaiSan']) ? $_POST['newTaiSan'] : null;
+
     $response = array();
-    $result = SuaCanho_Phong($ten_phong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang, $id_phong);
-    if ($result == true) {
+    $result = SuaCanho_Phong($ten_phong, $id_toanha, $soluong_nguoio, $tien_thue, $tien_coc, $dien_tich, $trang_thai, $id_tang, $id_phong, $taisanOld, $newTaiSan);
+    if ($result == 1) {
         $response['success'] = true;
         $response['id'] = $id_phong;
         $response['ten_phong'] = $ten_phong;
@@ -47,7 +50,7 @@
     } else if($result == 2) {
         $response['success'] = false;
         $response['message'] = 'Tên phòng đã tồn tại';
-    }else {
+    }else if($result == 0){
         $response['success'] = false;
         $response['message'] = 'Cập nhật không thành công';
     }

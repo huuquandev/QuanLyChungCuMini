@@ -32,7 +32,7 @@
       </li>
       <li>
             <a class="app-menu__item sub-btn" href="#">
-                  <i class='app-menu__icon bx bx-user-voice'></i>
+                  <i class='app-menu__icon fas fa-database' style="font-size: 20px;"></i>
                   <span class="app-menu__label">Quản lý Căn hộ/phòng</span>
                   <i class="fas fa-angle-right dropdown"></i>
             </a>
@@ -77,9 +77,15 @@
             <span class="app-menu__label">Cài đặt chung</span></a>
       </li>
       <li>
-            <a class="app-menu__item" href="#">
-                  <i class='app-menu__icon bx bx-cog'></i>
-            <span class="app-menu__label">Danh mục khác</span></a>
+            <a class="app-menu__item sub-btn" href="#">
+                  <i class='app-menu__icon bx bx-user-voice'></i>
+                  <span class="app-menu__label">Nhân viên</span>
+                  <i class="fas fa-angle-right dropdown"></i>
+            </a>
+            <ul class="sub-menu">
+                  <li><a href="../home.php?title=loaitaikhoan" class="sub-item"><i class="fas fa-rocket"></i><span class="app-menu__label">Loại tài khoản</span></a></li>
+                  <li><a href="../home.php?title=nguoidung" class="sub-item"><i class="fas fa-user"></i><span class="app-menu__label">Người dùng</span></a></li>
+            </ul>
       </li><li>
             <a class="app-menu__item" href="#">
                   <i class='app-menu__icon bx bx-cog'></i>

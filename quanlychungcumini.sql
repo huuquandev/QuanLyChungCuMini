@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 03, 2024 lúc 08:00 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Thời gian đã tạo: Th1 04, 2024 lúc 12:30 PM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -105,7 +105,7 @@ CREATE TABLE `tb_canho_phong` (
 
 INSERT INTO `tb_canho_phong` (`id_canho_phong`, `ten_canho_phong`, `ma_canho_phong`, `id_toanha`, `so_nguoi_o`, `tienthue_canho_phong`, `tiencoc_canho_phong`, `dientich_canho_phong`, `trangthai_canho_phong`, `tinhtrang_canho_phong`, `id_tang`) VALUES
 (13, 'P-101', 'P015693', 1, 5, 4000000, 4000000, 100, 1, 1, 40),
-(18, '312', 'P096400', 1, 12, 400000, 4000000, 100, 0, 1, 39);
+(18, 'P-102', 'P096400', 1, 12, 400000, 4000000, 100, 0, 1, 40);
 
 -- --------------------------------------------------------
 
@@ -259,6 +259,27 @@ INSERT INTO `tb_hopdong` (`id`, `id_canho_phong`, `id_dancu`, `ngay_batdau`, `ng
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `tb_quyen`
+--
+
+CREATE TABLE `tb_quyen` (
+  `id_quyen` int(11) NOT NULL,
+  `ten_quyen` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tb_quyen`
+--
+
+INSERT INTO `tb_quyen` (`id_quyen`, `ten_quyen`) VALUES
+(7, 'Thêm'),
+(8, 'Sửa'),
+(9, 'Xóa '),
+(10, 'Xem');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `tb_sudungdichvu`
 --
 
@@ -278,21 +299,25 @@ CREATE TABLE `tb_sudungdichvu` (
 
 CREATE TABLE `tb_taikhoan` (
   `id_taikhoan` int(11) NOT NULL,
+  `ma_taikhoan` varchar(50) NOT NULL,
   `tai_khoan` varchar(50) NOT NULL,
   `mat_khau` varchar(50) NOT NULL,
   `ten_hien_thi` varchar(255) NOT NULL,
   `so_dien_thoai` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `gioi_tinh` int(11) NOT NULL,
   `hinh_anh` text NOT NULL,
-  `quyen_han` int(11) NOT NULL
+  `vai_tro` int(11) NOT NULL,
+  `dangnhaplancuoi` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `tb_taikhoan`
 --
 
-INSERT INTO `tb_taikhoan` (`id_taikhoan`, `tai_khoan`, `mat_khau`, `ten_hien_thi`, `so_dien_thoai`, `gioi_tinh`, `hinh_anh`, `quyen_han`) VALUES
-(1, 'huylohb123', 'huylohb123', 'Phạm Hữu Quân', 378452231, 1, '4dc94d35aa38369639dfb276a1619673.jpg', 2);
+INSERT INTO `tb_taikhoan` (`id_taikhoan`, `ma_taikhoan`, `tai_khoan`, `mat_khau`, `ten_hien_thi`, `so_dien_thoai`, `email`, `gioi_tinh`, `hinh_anh`, `vai_tro`, `dangnhaplancuoi`) VALUES
+(1, 'TK015648', 'huylohb123', 'huylohb123', 'Phạm Hữu Quân', 378452231, 'huylohb123@gmail.com', 1, '4dc94d35aa38369639dfb276a1619673.jpg', 1, '2024-01-04 17:16:25'),
+(2, 'TK019848', 'huylohb1234', 'huylohb123', 'Huuquan', 486787789, 'viphuy12@gmail.com', 2, '', 2, '2024-01-25 17:11:32');
 
 -- --------------------------------------------------------
 
@@ -399,6 +424,52 @@ INSERT INTO `tb_toanha` (`id_toanha`, `ten_toanha`, `ma_toanha`, `so_tang`, `tra
 (72, 'Tòa C', 'CH344573', 12, 0, 'Cạnh Tòa B'),
 (76, 'Tòa  D', 'CH862952', 12, 1, 'Gần tòa B bển phải Tòa C');
 
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tb_vaitro`
+--
+
+CREATE TABLE `tb_vaitro` (
+  `id_vaitro` int(11) NOT NULL,
+  `ma_vaitro` varchar(50) NOT NULL,
+  `ten_vaitro` varchar(50) NOT NULL,
+  `mo_ta_vaitro` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tb_vaitro`
+--
+
+INSERT INTO `tb_vaitro` (`id_vaitro`, `ma_vaitro`, `ten_vaitro`, `mo_ta_vaitro`) VALUES
+(1, 'PM015486', 'Quản trị viên', 'Tài khoản cho các quản trị viên hệ thông'),
+(2, 'PM314898', 'Nhân viên bảo tri', 'Tài khoản cho các bạn nhân viên phụ trách bảo trì'),
+(3, 'PM312511', 'Quản lí tòa nhà', 'Tài khoản cho các bạn nhân viên phụ trách quản lí tòa nhà'),
+(4, 'PM051231', 'Quản lí căn hộ', 'Tài khoản cho các bạn nhân viên phụ trách quản lí căn hộ'),
+(5, 'PM312451', 'Quản lí bảo trì và sửa chữa', 'Tài khoản cho các bạn nhân viên phụ trách quản lí bảo trì và sửa chữa');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tb_vaitro_quyen`
+--
+
+CREATE TABLE `tb_vaitro_quyen` (
+  `id_vaitro_quyen` int(11) NOT NULL,
+  `id_vaitro` int(11) NOT NULL,
+  `id_quyen` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tb_vaitro_quyen`
+--
+
+INSERT INTO `tb_vaitro_quyen` (`id_vaitro_quyen`, `id_vaitro`, `id_quyen`) VALUES
+(1, 1, 7),
+(2, 1, 8),
+(3, 1, 9),
+(4, 1, 10);
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
@@ -469,6 +540,12 @@ ALTER TABLE `tb_hopdong`
   ADD KEY `hopdong_dancu` (`id_dancu`);
 
 --
+-- Chỉ mục cho bảng `tb_quyen`
+--
+ALTER TABLE `tb_quyen`
+  ADD PRIMARY KEY (`id_quyen`);
+
+--
 -- Chỉ mục cho bảng `tb_sudungdichvu`
 --
 ALTER TABLE `tb_sudungdichvu`
@@ -506,6 +583,18 @@ ALTER TABLE `tb_tang`
 --
 ALTER TABLE `tb_toanha`
   ADD PRIMARY KEY (`id_toanha`);
+
+--
+-- Chỉ mục cho bảng `tb_vaitro`
+--
+ALTER TABLE `tb_vaitro`
+  ADD PRIMARY KEY (`id_vaitro`);
+
+--
+-- Chỉ mục cho bảng `tb_vaitro_quyen`
+--
+ALTER TABLE `tb_vaitro_quyen`
+  ADD PRIMARY KEY (`id_vaitro_quyen`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -566,6 +655,12 @@ ALTER TABLE `tb_hopdong`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT cho bảng `tb_quyen`
+--
+ALTER TABLE `tb_quyen`
+  MODIFY `id_quyen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT cho bảng `tb_sudungdichvu`
 --
 ALTER TABLE `tb_sudungdichvu`
@@ -575,7 +670,7 @@ ALTER TABLE `tb_sudungdichvu`
 -- AUTO_INCREMENT cho bảng `tb_taikhoan`
 --
 ALTER TABLE `tb_taikhoan`
-  MODIFY `id_taikhoan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_taikhoan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_taisan`
@@ -587,7 +682,7 @@ ALTER TABLE `tb_taisan`
 -- AUTO_INCREMENT cho bảng `tb_taisan_canhophong`
 --
 ALTER TABLE `tb_taisan_canhophong`
-  MODIFY `id_taisan_canhophong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_taisan_canhophong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_tang`
@@ -600,6 +695,18 @@ ALTER TABLE `tb_tang`
 --
 ALTER TABLE `tb_toanha`
   MODIFY `id_toanha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+
+--
+-- AUTO_INCREMENT cho bảng `tb_vaitro`
+--
+ALTER TABLE `tb_vaitro`
+  MODIFY `id_vaitro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `tb_vaitro_quyen`
+--
+ALTER TABLE `tb_vaitro_quyen`
+  MODIFY `id_vaitro_quyen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
