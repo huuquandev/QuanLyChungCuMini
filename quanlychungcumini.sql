@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 04, 2024 lúc 12:30 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Thời gian đã tạo: Th1 04, 2024 lúc 05:21 PM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -74,10 +74,10 @@ CREATE TABLE `tb_baotri_suachua` (
 INSERT INTO `tb_baotri_suachua` (`id_baotri_suachua`, `id_toanha`, `id_phong`, `ma_baotri_suachua`, `tieude_baotri_suachua`, `mota_baotri_suachua`, `loai_cong_viec`, `mucdo_uutien`, `ngay_batdau`, `ngay_ketthuc`, `id_taikhoan`, `trang_thai`, `ngay_lam`, `ngay_hoanthanh`, `ngay_duyet`, `mota_hoanhthanh`, `mota_lydokhongdat`, `id_nguoiduyet`, `id_nguoitao`, `id_nguoihoanthanh`) VALUES
 (41, 1, 13, 'BT272657', 'eqweqw', 'eqwe', 'eqw', 1, '2023-12-28 03:41:04', '2023-12-31 12:00:00', 1, 3, '2023-12-19 03:49:46', '2023-12-19 03:49:00', '2023-12-19 03:49:52', 'eqwe', NULL, 1, 1, 1),
 (47, 1, 13, 'BT631567', 'eqwe', 'qưeq', 'eqw', 1, '2023-12-20 19:15:09', '2023-12-12 12:00:00', 1, 3, '2023-12-21 14:27:52', '2023-12-21 14:28:00', '2023-12-21 14:33:17', 'eqweqw', NULL, 1, 1, 1),
-(48, 1, 13, 'BT797452', 'eqwe', 'qưeqw', 'eqwe', 1, '2023-12-21 10:22:24', '2023-12-20 12:00:00', 1, 3, '2023-12-21 14:28:13', '2023-12-21 14:28:00', '2023-12-21 14:33:37', 'eqweqwe', NULL, 1, 1, 1),
-(52, 1, 13, 'BT607408', 'ưeqw', 'eqweq', 'eqwe', 1, '2023-12-21 10:39:56', '2023-12-20 12:00:00', 1, 3, '2023-12-21 14:28:15', '2023-12-21 14:28:00', '2023-12-21 14:38:06', 'eqweqw', NULL, 1, 1, 1),
-(53, 1, 13, 'BT974866', 'eqwe', 'qưeq', 'eqwe', 1, '2023-12-21 10:45:42', '2023-12-20 12:00:00', 1, 4, '2023-12-21 14:28:18', '2023-12-21 14:28:00', '2023-12-21 14:38:11', 'eqweqw', '2eqwe', 1, 1, 1),
-(55, 1, 13, 'BT086767', 'Sửa máy giặt', 'sửa máy giặt bị hỏng do chuột cắn', 'Sửa chữa', 2, '2023-12-30 20:37:37', '2023-12-21 12:00:00', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0);
+(48, 1, 13, 'BT797452', 'eqwe', 'qưeqw', 'eqwe', 1, '2023-12-21 10:22:24', '2023-12-20 12:00:00', 2, 3, '2023-12-21 14:28:13', '2023-12-21 14:28:00', '2023-12-21 14:33:37', 'eqweqwe', NULL, 1, 1, 1),
+(52, 1, 13, 'BT607408', 'ưeqw', 'eqweq', 'eqwe', 1, '2023-12-21 10:39:56', '2023-12-20 12:00:00', 1, 0, '2023-12-21 14:28:15', '2023-12-21 14:28:00', '2023-12-21 14:38:06', 'eqweqw', NULL, 1, 1, 2),
+(53, 1, 13, 'BT974866', 'eqwe', 'qưeq', 'eqwe', 2, '2023-12-21 10:45:42', '2023-12-20 12:00:00', 1, 0, '2023-12-21 14:28:18', '2023-12-21 14:28:00', '2023-12-21 14:38:11', 'eqweqw', '2eqwe', 1, 1, 0),
+(55, 1, 13, 'BT086767', 'Sửa máy giặt', 'sửa máy giặt bị hỏng do chuột cắn', 'Sửa chữa', 2, '2023-12-30 20:37:37', '2023-12-21 12:00:00', 2, 3, '2024-01-04 23:09:50', '2024-01-04 23:09:00', '2024-01-04 23:10:48', 'eqweq', NULL, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -273,9 +273,12 @@ CREATE TABLE `tb_quyen` (
 
 INSERT INTO `tb_quyen` (`id_quyen`, `ten_quyen`) VALUES
 (7, 'Thêm'),
-(8, 'Sửa'),
-(9, 'Xóa '),
-(10, 'Xem');
+(8, 'Xóa'),
+(9, 'Sửa'),
+(10, 'Xem'),
+(11, 'Nhận công việc'),
+(12, 'Hoàn thành công việc'),
+(13, 'Duyệt công việc');
 
 -- --------------------------------------------------------
 
@@ -316,8 +319,10 @@ CREATE TABLE `tb_taikhoan` (
 --
 
 INSERT INTO `tb_taikhoan` (`id_taikhoan`, `ma_taikhoan`, `tai_khoan`, `mat_khau`, `ten_hien_thi`, `so_dien_thoai`, `email`, `gioi_tinh`, `hinh_anh`, `vai_tro`, `dangnhaplancuoi`) VALUES
-(1, 'TK015648', 'huylohb123', 'huylohb123', 'Phạm Hữu Quân', 378452231, 'huylohb123@gmail.com', 1, '4dc94d35aa38369639dfb276a1619673.jpg', 1, '2024-01-04 17:16:25'),
-(2, 'TK019848', 'huylohb1234', 'huylohb123', 'Huuquan', 486787789, 'viphuy12@gmail.com', 2, '', 2, '2024-01-25 17:11:32');
+(1, 'TK015648', 'huylohb123', 'huylohb123', 'Phạm Hữu Quân', 378452231, 'huylohb123@gmail.com', 1, '4dc94d35aa38369639dfb276a1619673.jpg', 1, '2024-01-04 23:10:42'),
+(2, 'TK019848', 'huylohb1234', 'huylohb123', 'Huuquan', 486787789, 'viphuy12@gmail.com', 2, '', 2, '2024-01-04 23:20:33'),
+(3, 'TK312413', 'huy1234', '1234567', 'Phạm Hữu Huy', 654654432, 'huy@gmail.com', 3, '', 3, '2024-01-18 22:15:52'),
+(4, 'TK543234', 'hbhb1234', 'hb321', 'Longnt', 0, 'longnt@gmail.com', 1, '', 4, '2024-01-04 16:18:13');
 
 -- --------------------------------------------------------
 
@@ -468,7 +473,11 @@ INSERT INTO `tb_vaitro_quyen` (`id_vaitro_quyen`, `id_vaitro`, `id_quyen`) VALUE
 (1, 1, 7),
 (2, 1, 8),
 (3, 1, 9),
-(4, 1, 10);
+(4, 1, 10),
+(5, 2, 11),
+(6, 2, 12),
+(7, 1, 13),
+(8, 2, 10);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -658,7 +667,7 @@ ALTER TABLE `tb_hopdong`
 -- AUTO_INCREMENT cho bảng `tb_quyen`
 --
 ALTER TABLE `tb_quyen`
-  MODIFY `id_quyen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_quyen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_sudungdichvu`
@@ -670,7 +679,7 @@ ALTER TABLE `tb_sudungdichvu`
 -- AUTO_INCREMENT cho bảng `tb_taikhoan`
 --
 ALTER TABLE `tb_taikhoan`
-  MODIFY `id_taikhoan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_taikhoan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `tb_taisan`
@@ -706,7 +715,7 @@ ALTER TABLE `tb_vaitro`
 -- AUTO_INCREMENT cho bảng `tb_vaitro_quyen`
 --
 ALTER TABLE `tb_vaitro_quyen`
-  MODIFY `id_vaitro_quyen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_vaitro_quyen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

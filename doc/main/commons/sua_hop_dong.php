@@ -1,22 +1,30 @@
+
 <main class="app-content">
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb side">
         <li class="breadcrumb-item active"><a href="#"><b>
           Sửa dân cư
           <?php
-          $sql="SELECT h.*,t.ho_ten,ph.ten_canho_phong from `tb_hopdong` AS h 
-          INNER JOIN `tb_canho_phong` AS ph 
-          INNER JOIN `tb_dancu` AS t 
-          on h.`id_dancu`=t.`id_dancu` AND h.id_canho_phong=ph.id_canho_phong
-          where h.id=".$_GET['id']."";
-          $query = mysqli_query($conn, $sql);
-              // Lấy kết quả
-              $row = mysqli_fetch_assoc($query);
-              $ho_ten = $row['ho_ten'];
+$sql = "SELECT h.*, t.ho_ten,t.id_dancu, ph.ten_canho_phong 
+        FROM `tb_hopdong` AS h 
+        INNER JOIN `tb_canho_phong` AS ph ON h.id_canho_phong = ph.id_canho_phong
+        INNER JOIN `tb_hopdong_chuho` AS ch ON h.id = ch.id_hopdong
+        INNER JOIN `tb_dancu` AS t ON ch.id_chuho = t.id_dancu
+        WHERE h.id = " . $_GET['id'];
 
-              // Hiển thị tên
-              echo  $ho_ten."- "." với id hợp đồng:".$_GET['id'];
-          ?>
+$query = mysqli_query($conn, $sql);
+
+// Lấy kết quả
+$id_dancu=0;
+while ($row = mysqli_fetch_assoc($query)) {
+    $ho_ten = $row['ho_ten'];
+    $id_hopdong = $row['id'];
+    $id_dancu = $row['id_dancu'];
+    // Hiển thị thông tin (Bạn có thể thay đổi cách hiển thị theo nhu cầu của mình)
+    echo $ho_ten . " - với id hợp đồng: " . $id_hopdong . "<br>";
+}
+?>
+
         </b></a></li>
       </ul>
       <div id="clock"></div>
@@ -33,7 +41,6 @@
                                     $id=$row['id'];
                                     $bat_dau = $row['ngay_batdau'];
                                     $ket_thuc=$row['ngay_ketthuc'];
-                                    $id_dan_cu=$row['id_dancu'];
                                     $id_can_ho_phong=$row['id_canho_phong'];
                                     $tong=$row['tong'];
                                     $doi_bat_dau = date("Y-m-d", strtotime($bat_dau));
@@ -112,12 +119,20 @@
                                       <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
                                         <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
                                           <div class="vs__selected-options">
-                                          <select name="name_dan_cu" id="gioitinh"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  >
+                                          <select name="name_dan_cu" id="name_dan_cu"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  >
                                           <?php
-                                            $sql2 = "SELECT `id_dancu`,`cccd`, `ho_ten` FROM `tb_dancu` WHERE `id_dancu` = " . $id_dan_cu;
-                                            $query2 = mysqli_query($conn, $sql2);
-                                            $row2 = mysqli_fetch_assoc($query2);
-                                            echo '<option value="' . $row2['cccd'] . '">' . $row2['ho_ten'] . '-' . $row2['cccd'] . '</option>';
+                                            $sql5 = "SELECT `id_dancu`,`cccd`, `ho_ten` FROM `tb_dancu` where `id_dancu`=$id_dancu";
+                                            $query5 = mysqli_query($conn, $sql5);
+                                            while($row5 = mysqli_fetch_assoc($query5)){
+                                              ;
+                                              echo '<option value="' . $row5['id_dancu'] . '">' . $row5['ho_ten'] . '-' . $row5['cccd'] . '</option>';
+                                            }
+                                            $sql4 = "SELECT `id_dancu`,`cccd`, `ho_ten` FROM `tb_dancu` where `id_dancu`!=$id_dancu";
+                                            $query4 = mysqli_query($conn, $sql4);
+                                            while($row4 = mysqli_fetch_assoc($query4)){
+                                              ;
+                                              echo '<option value="' . $row4['id_dancu'] . '">' . $row4['ho_ten'] . '-' . $row4['cccd'] . '</option>';
+                                            }
 
                                             
                                             ?>
@@ -167,7 +182,8 @@
                                     </div>
                                   </fieldset>
                                 </span>
-                              </div>                              <div class="col-md-4">
+                              </div>                              
+                              <div class="col-md-4">
                                 <span>
                                   <fieldset class="form-group" id="__BVID__995">
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_"> Ngày kết thức <span class="text-danger"> (*) </span>
@@ -206,7 +222,7 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="tongthang" type="number" placeholder="số tháng" class="form-control" name="tongthang" required>
+                                        <input id="tongthang" type="number" placeholder="số tháng"  min="0" class="form-control" name="tongthang" required>
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -253,7 +269,8 @@
                                   <input type="submit" value="Lưu"class="btn btn-primary" id="btn-save" name="btnsave">
                       </div>
                     </form>
-          </div></div></div></div>
+          
+                  </div></div></div></div>
   </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
@@ -311,6 +328,7 @@ if (isset($_POST['btnsave'])) {
     $ngaybatdau = $_POST['ngaybatdau'];
     $ngayketthuc = $_POST['ngayketthuc'];
     $tongthang = $_POST['tongthang'];
+    $id_chuho=$_POST['name_dan_cu'];
     $filehopdong=$_FILES['filehopdong'];
     $content="";
     $file_path ="";
@@ -334,7 +352,7 @@ if (isset($_POST['btnsave'])) {
              // Update the upload directory as needed
     
             // Generate a unique filename to avoid overwriting existing files
-            $unique_filename = uniqid() . '_' . $name_dan_cu. '.' . $file_extension;
+            $unique_filename = uniqid() . '_' . $name_can_ho . '_' . $id_chuho . '.' . $file_extension;
             // Move the uploaded file to the destination directory with the unique filename
             if (move_uploaded_file($file_hop_dong['tmp_name'], $sql_upload_dir . $unique_filename)) {
                 $file_path = $upload_dir . $unique_filename;
@@ -362,6 +380,8 @@ if (isset($_POST['btnsave'])) {
         $content .= updateSql('tong', $tong, $_GET['id']);
         $content .= updateSql('gia', $tienthue_canho_phong, $_GET['id']);
         $content .= updateSql('thoi_han_hop_dong', $tongthang, $_GET['id']);
+        $content .= updateSql1('id_chuho', $id_chuho, $_GET['id'],$id_dancu);
+        echo  $id_chuho."dsdasdasd";
         if($file_path !=""){
           $content .= updateSql('file_hop_dong', $file_path , $_GET['id']);
         }
@@ -379,7 +399,6 @@ if (isset($_POST['btnsave'])) {
             echo '</script>';
         }
 }
-
 function updateSql($name, $value1, $id) {
     global $conn;
     $value = "";
@@ -393,6 +412,41 @@ function updateSql($name, $value1, $id) {
     }
 
     return $value;
+}
+
+function updateSql1($name, $value1, $id,$id_dancu) {
+  global $conn;
+  $value = "";
+  $sql = "UPDATE `tb_hopdong_chuho` SET `$name`='" . $value1 . "' WHERE `id_hopdong`=$id";
+
+  if (mysqli_query($conn, $sql)) {
+    $sql2="SELECT `id_dancu` FROM `tb_dancu` where `id_chu_ho`=$id_dancu" ; 
+    $query2 = mysqli_query($conn, $sql2);
+    while($row2 = mysqli_fetch_assoc($query2)){
+     updateSql3($value1, $row2['id_dancu']);
+    }
+    $value = "";
+
+  } else {
+      // Xử lý khi truy vấn thất bại
+      $value = "Lỗi truy vấn: " . mysqli_error($conn);
+  }
+
+  return $value;
+}
+function updateSql3($value1, $id) {
+  global $conn;
+  $value = "";
+  $sql = "UPDATE `tb_dancu` SET `id_chu_ho`='" . $value1 . "' WHERE `id_dancu`=$id";
+
+  if (mysqli_query($conn, $sql)) {
+      $value = "";
+  } else {
+      // Xử lý khi truy vấn thất bại
+      $value = "Lỗi truy vấn: " . mysqli_error($conn);
+  }
+
+  return $value;
 }
 ?>
 

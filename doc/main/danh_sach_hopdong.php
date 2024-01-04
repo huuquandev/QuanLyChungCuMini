@@ -4,21 +4,81 @@
 
 
   if(isset($_POST['btnAdd'])){
-      $name_dan_cu=$_POST['name_dan_cu'];
+      $tendancu = $_POST['tendancu'];
+      $gioitinh = $_POST['gioitinh'];
+      $cccd=$_POST['cccd'];
+      $sdt = $_POST['sdt'];
+      $ngaysinh = date('Y-m-d', strtotime($_POST['ngaysinh']));
+      $addressDetail = $_POST['addressDetail'];
+      $file_img=$_FILES['file_img'];
+      $email=$_POST['email'];     
+       $id_dan_cu=0;
+       $sql4= "SELECT `cccd` FROM `tb_dancu` WHERE `cccd` = '$cccd';";
+
+   $query4 = mysqli_query($conn, $sql4);
+       if(mysqli_num_rows($query4) ==0){
+        if(them_dan_cu($tendancu,
+      $gioitinh,
+      'chủ hộ',
+      '0',
+      $sdt,
+      $ngaysinh,
+      $addressDetail,
+      $cccd,$file_img, $email,1))
+      {
+        $id_dan_cu=1;
+      }
+       }
+       else{
+        echo '<script>alert("CCCD đã tồn tại");</script>';
+
+       }
+      
       $name_can_ho=$_POST['name_can_ho'];
-      $ngaybatdau=$_POST['ngaybatdau'];
-      $ngayketthuc=$_POST['ngayketthuc'];
-      $tongthang=$_POST['tongthang'];
-      $filehopdong=$_FILES['filehopdong'];
-      echo $name_dan_cu."//".
-      $name_can_ho."//".
-      $ngaybatdau."//".
-      $ngayketthuc."//".
-      $tongthang."//";
-      // print_r($filehopdong);
-      echo ThemHopDong($name_dan_cu, $name_can_ho, $ngaybatdau, $ngayketthuc, $tongthang,$filehopdong);
+        $ngaybatdau=$_POST['ngaybatdau'];
+        $ngayketthuc=$_POST['ngayketthuc'];
+        $tongthang=$_POST['tongthang'];
+        $giam_gia=$_POST['giam_gia'];
+        $filehopdong=$_FILES['filehopdong'];
+        $sql3='SELECT id_dancu,ho_ten FROM `tb_dancu` WHERE `cccd`="'.$cccd.'"';
+        echo $sql3;
+        $query3=mysqli_query($conn,$sql3);
+   
+        if(mysqli_num_rows($query3) ==1){
+          while ($row = mysqli_fetch_array($query3)) {
+            $id_dan_cu=$row['id_dancu'];
+            $name=$row['ho_ten'];
+            echo  'huy'.$id_dan_cu;
+          if($id_dan_cu!=0){
+            echo $id_dan_cu."//".
+            $name_can_ho."//".
+            $ngaybatdau."//".
+            $ngayketthuc."//".
+            $tongthang."//";
+            echo ThemHopDong($id_dan_cu,$name, $name_can_ho, $ngaybatdau, $ngayketthuc, $tongthang,$filehopdong,$giam_gia);
+
+          }
+          else{
+            echo "Error";
+          }
+          }
+        }
+        
+      // else{
+      //     echo "Sửa thát bại";
+      // }
+
+
   }  
 ?>
+<style>
+        .highlight-orange {
+            background-color: orange;
+        }
+
+        .highlight-red {
+            background-color: red;
+        }</style>
 <main class="app-content">
     <div class="row">
       <div class="col-md-12">
@@ -117,6 +177,200 @@
                           <input type="hidden" id="txtOrderId" value="0" />
             
                           <div class="row">
+                          <div class="col-12">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__977">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__977__BV_label_"> Tên dân cư <span class="text-danger">(*)</span>
+                                    </legend>
+                                    <div>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 448 512"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
+                                          </div>
+                                        </div>
+                                        <input id="name" type="text" placeholder="Nguyễn Văn A" class="form-control" name="tendancu" required>
+                                        
+                                        <!---->
+                                      </div>
+                                      <br>
+                                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__977__BV_label_">Cccd/Hộ chiếu <span class="text-danger">(*)</span>
+                                    </legend>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 96l576 0c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96zm0 32V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128H0zM64 405.3c0-29.5 23.9-53.3 53.3-53.3H234.7c29.5 0 53.3 23.9 53.3 53.3c0 5.9-4.8 10.7-10.7 10.7H74.7c-5.9 0-10.7-4.8-10.7-10.7zM176 192a64 64 0 1 1 0 128 64 64 0 1 1 0-128zm176 16c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16z"/></svg>
+                                          </div>
+                                        </div>
+                                        <input id="cccd" type="text" placeholder="Cccd/hộ chiếu" class="form-control" name="cccd" required>
+                                        <!---->
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+
+                              </div>
+                              <div class="mt-2 col-12">
+                                <h5>Thông tin cá nhân</h5>
+                              </div>
+                              <!---->
+                              <div class="col-md-4">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__981">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__981__BV_label_"> Giới tính <span class="text-danger"> (*) </span>
+                                    </legend>
+                                    <div>
+                                      <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
+                                        <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                                          <div class="vs__selected-options">
+                                            <select name="gioitinh" id="gioitinh"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  >
+                                              <option value="">Giới tính</option>
+                                              <option value="nam">Nam</option>
+                                              <option value="nu">Nữ</option>
+                                              <option value="khac">Khác</option>
+                                            </select>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-md-4">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__988">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__988__BV_label_"> Số điện thoại <span class="text-danger"> (*) </span>
+                                    </legend>
+                                    <div>
+                                      <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="district">
+                                        <div id="vs34__combobox" role="combobox" aria-expanded="false" aria-owns="vs34__listbox" aria-label="Search for option" class="" height="70%">
+                                        <input id="sdt" type="text" placeholder="0912345678" class="form-control" name="sdt" required>
+
+
+                                        </div>
+                                        <ul id="vs34__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-md-4">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__995">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_"> Ngày sinh <span class="text-danger"> (*) </span>
+                                    </legend>
+                                    <div>
+                                      <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="ward">
+                                        <div id="vs35__combobox" role="combobox" aria-expanded="false" aria-owns="vs35__listbox" aria-label="Search for option" class="">
+                                        <input id="ngaysinh" type="date" class="form-control" name="ngaysinh" required>
+
+                                        </div>
+                                        <ul id="vs35__listbox" role="listbox" style="display: none; visibility: hidden;"></ul>
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-12">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__1001">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Email <span class="text-danger">(*)</span>
+                                    </legend>
+                                    <div>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
+                                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                              <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                          </div>
+                                        </div>
+                                        <input id="email" type="text" placeholder="hoten@gmail.com" class="form-control" name="email" required>
+                                        <!---->
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-12">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__1001">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_"> Địa chỉ chi tiết <span class="text-danger">(*)</span>
+                                    </legend>
+                                    <div>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin">
+                                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                              <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                          </div>
+                                        </div>
+                                        <input id="addressDetail" type="text" placeholder="91 Nguyễn Chí Thanh" class="form-control" name="addressDetail" required>
+                                        <!---->
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-12">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__977">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__977__BV_label_"> Ảnh đại điện<span class="text-danger"></span>
+                                    </legend>
+                                    <div>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                          <svg fill="#000000" width="14" height="14" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M59,3V6H45v6H31v8H17v8H5V59H3v2H61V3Zm0,55H7V30H19V22H33V14H47V8H59Z"/>
+                                            <polygon points="12 6 12 20 14 20 14 6 19.87 10.4 21.07 8.8 13 2.75 4.93 8.8 6.13 10.4 12 6"/>
+                                            </svg>
+                                          </div>
+                                        </div>
+                                        <input id="file_img" type="file" placeholder="10" class="form-control" name="file_img" >
+                                        <!---->
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="mt-2 col-12">
+                                <h5>Thông tin hợp đồng</h5>
+                              </div>
                               <div class="col-12">
                               <span>
                                   <fieldset class="form-group" id="__BVID__981">
@@ -126,12 +380,14 @@
                                       <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
                                         <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
                                           <div class="vs__selected-options">
-                                          <select name="name_can_ho" id="gioitinh"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  >
+                                          <select name="name_can_ho" id="gioitinh"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  required>
                                                 <option value="" hidden="">Chọn căn hộ</option>
                                                 <?php
-                                                $sql="SELECT c.`ten_canho_phong`,c.`id_canho_phong`,t.`ten_toanha`
+                                                $sql="SELECT c.`ten_canho_phong`, c.`id_canho_phong`, t.`ten_toanha`
                                                 FROM `tb_canho_phong` AS c
-                                                INNER JOIN `tb_toanha` AS t ON t.`id_toanha` = c.`id_toanha`";
+                                                INNER JOIN `tb_toanha` AS t ON t.`id_toanha` = c.`id_toanha`
+                                                LEFT JOIN `tb_hopdong` AS h ON h.id_canho_phong = c.id_canho_phong
+                                                WHERE h.id_canho_phong IS NULL;";
                                                 $query=mysqli_query($conn,$sql);
                                                 if(mysqli_num_rows($query) > 0){
                                                   while ($row = mysqli_fetch_array($query)) {
@@ -161,53 +417,10 @@
                                   </fieldset>
                                 </span>
                               </div>
-                              <div class="mt-2 col-12">
-                                <h5>Thông tin hợp đồng</h5>
-                              </div>
+
                               <!---->
-                              <div class="col-md-4">
-                                <span>
-                                  <fieldset class="form-group" id="__BVID__981">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__981__BV_label_"> Người thuê <span class="text-danger"> (*) </span>
-                                    </legend>
-                                    <div>
-                                      <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
-                                        <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
-                                          <div class="vs__selected-options">
-                                          <select name="name_dan_cu" id="gioitinh"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  >
-                                                <option value="" hidden="">Chọn người thuê</option>
-                                                <?php
-                                                $sql="SELECT `cccd`,`id_dancu`,`ho_ten` From `tb_dancu`";
-                                                $query=mysqli_query($conn,$sql);
-                                                if(mysqli_num_rows($query) > 0){
-                                                  while ($row = mysqli_fetch_array($query)) {
-                                                  echo '<option value="'.$row['id_dancu'].'" >'.$row['ho_ten'].'-'.$row['cccd'].'</option>';
-                                                }}
-                                                ?>                                   
-                                            </select>
-                                          </div>
-                                          <div class="vs__actions">
-                                            <button type="button" title="Clear Selected" aria-label="Clear Selected" class="vs__clear" style="display: none;">
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                                              </svg>
-                                            </button>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down open-indicator vs__open-indicator" role="presentation">
-                                              <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                            <div class="vs__spinner" style="display: none;">Loading...</div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <!---->
-                                      <!---->
-                                      <!---->
-                                    </div>
-                                  </fieldset>
-                                </span>
-                              </div>
-                              <div class="col-md-4">
+                              
+                              <div class="col-md-6">
                                 <span>
                                   <fieldset class="form-group" id="__BVID__995">
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_"> Ngày bắt đầu <span class="text-danger"> (*) </span>
@@ -228,7 +441,7 @@
                                   </fieldset>
                                 </span>
                               </div>                              
-                              <div class="col-md-4">
+                              <div class="col-md-6">
                                 <span>
                                   <fieldset class="form-group" id="__BVID__995">
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__995__BV_label_"> Ngày kết thức <span class="text-danger"> (*) </span>
@@ -249,7 +462,7 @@
                                   </fieldset>
                                 </span>
                               </div>
-                              <div class="col-12">
+                              <div class="col-6">
                                 <span>
                                   <fieldset class="form-group" id="__BVID__1001">
                                     <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_">Tổng số tháng <span class="text-danger">(*)</span>
@@ -265,7 +478,34 @@
                                             </svg>
                                           </div>
                                         </div>
-                                        <input id="tongthang" type="number" placeholder="số tháng" value="0" class="form-control" name="tongthang" required>
+                                        <input id="tongthang" type="number" placeholder="số tháng" value="0" class="form-control" name="tongthang"   required>
+                                        <!---->
+                                      </div>
+                                      <small class="text-danger"></small>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-6">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__1001">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__1001__BV_label_">Giảm giá
+                                    </legend>
+                                    <div>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                          <svg xmlns="http://www.w3.org/2000/svg" height="14px" width="14px" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M374.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-320 320c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l320-320zM128 128A64 64 0 1 0 0 128a64 64 0 1 0 128 0zM384 384a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"/></svg>
+                                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                              <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                          </div>
+                                        </div>
+                                        <input id="giam_gia" type="number" placeholder="Nhập phần trăm giảm  "  class="form-control" name="giam_gia" >
                                         <!---->
                                       </div>
                                       <small class="text-danger"></small>
@@ -362,7 +602,9 @@
                     $sql2 = "SELECT h.*,t.`ho_ten`,ph.`ten_canho_phong` from `tb_hopdong` AS h 
                     INNER JOIN `tb_canho_phong` AS ph 
                     INNER JOIN `tb_dancu` AS t 
-                    on h.`id_dancu`=t.`id_dancu` AND h.`id_canho_phong`=ph.`id_canho_phong`";
+                    INNER JOIN `tb_hopdong_chuho` AS ch
+                    on ch.`id_chuho`=t.`id_dancu`AND h.`id`=ch.`id_hopdong` 
+						         AND h.`id_canho_phong`=ph.`id_canho_phong` ORDER BY `ngay_ketthuc` ASC LIMIT 1000";
                       $query2 = mysqli_query($conn, $sql2);
                       // echo $sql2;
                       if(mysqli_num_rows($query) > 0){
@@ -427,6 +669,76 @@
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"></script>
+<script>
+document.getElementById("cccd").addEventListener("input", function() {
+  var inputValue = this.value.trim();
+  var minLength = 10;
+  var maxLength = 15;
+
+  if (inputValue.length < minLength) {
+    this.setCustomValidity("Độ dài phải ít nhất " + minLength + " ký tự");
+  } else if (inputValue.length > maxLength) {
+    this.setCustomValidity("Độ dài không được vượt quá " + maxLength + " ký tự");
+  } else {
+    this.setCustomValidity("");
+  }
+});
+document.getElementById("sdt").addEventListener("input", function() {
+  var inputValue = this.value.trim();
+  var minLength = 9;
+  var maxLength = 10;
+
+  if (inputValue.length < minLength) {
+    this.setCustomValidity("Độ dài phải ít nhất " + minLength + " ký tự");
+  } else if (inputValue.length > maxLength) {
+    this.setCustomValidity("Độ dài không được vượt quá " + maxLength + " ký tự");
+  } else {
+    this.setCustomValidity("");
+  }
+});
+document.getElementById("filehopdong").addEventListener("input", function() {
+    var allowedExtensions = ['pdf', 'PDF'];
+    var fileName = this.value.trim();
+
+    // Lấy phần mở rộng của tên tệp tin
+    var fileExtension = fileName.split('.').pop().toLowerCase();
+
+    // Kiểm tra xem phần mở rộng có trong danh sách không
+    if (!allowedExtensions.includes(fileExtension)) {
+        this.setCustomValidity("Chỉ chấp nhận tệp tin có định dạng pdf.");
+    } else {
+        this.setCustomValidity("");
+    }
+});
+document.getElementById("file_img").addEventListener("input", function() {
+    var allowedExtensions = ['png', 'jpg', 'git', 'PNG', 'JPG', 'GIT'];
+    var fileName = this.value.trim();
+
+    // Lấy phần mở rộng của tên tệp tin
+    var fileExtension = fileName.split('.').pop().toLowerCase();
+
+    // Kiểm tra xem phần mở rộng có trong danh sách không
+    if (!allowedExtensions.includes(fileExtension)) {
+        this.setCustomValidity("Chỉ chấp nhận tệp tin có định dạng pdf.");
+    } else {
+        this.setCustomValidity("");
+    }
+});
+
+document.getElementById("sdt").addEventListener("input", function() {
+  var inputValue = this.value.trim();
+  var minLength = 9;
+  var maxLength = 10;
+
+  if (inputValue.length < minLength) {
+    this.setCustomValidity("Độ dài phải ít nhất " + minLength + " ký tự");
+  } else if (inputValue.length > maxLength) {
+    this.setCustomValidity("Độ dài không được vượt quá " + maxLength + " ký tự");
+  } else {
+    this.setCustomValidity("");
+  }
+});
+</script>
 <script>
     function tinhTongThang() {
         var ngayBatDau = new Date(document.getElementById("ngaybatdau").value);
@@ -597,4 +909,29 @@
 });
 
 </script>
+<script>
+        // Lấy ngày hiện tại
+        var ngayHienTai = new Date();
 
+        // Lấy tất cả các phần tử có class "end-date"
+        var cacPhanTuEndDate = document.querySelectorAll('.end-date');
+
+        // Duyệt qua từng phần tử và kiểm tra ngày kết thúc
+        cacPhanTuEndDate.forEach(function(phanTu) {
+            var ngayKetThucText = phanTu.textContent;
+            var ngayKetThuc = new Date(ngayKetThucText.split('/').reverse().join('/'));
+
+            // Tạo một ngày mới, thêm 1 tháng vào ngày hiện tại
+            var ngayHienTaiThemMotThang = new Date(ngayHienTai);
+            ngayHienTaiThemMotThang.setMonth(ngayHienTai.getMonth() + 1);
+
+            // Kiểm tra và đặt màu sắc cho từng phần tử
+            if (ngayHienTaiThemMotThang <= ngayKetThuc) {
+              phanTu.classList.add('highlight-green');
+            } else if (ngayHienTai <= ngayKetThuc) {
+              phanTu.classList.add('highlight-orange');
+            } else {
+                phanTu.classList.add('highlight-red');
+            }
+        });
+    </script>

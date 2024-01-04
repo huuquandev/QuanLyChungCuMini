@@ -832,7 +832,7 @@ function initializeDropdownsToanha_Phong_baotri_suachua(btnSelectbuilding, input
         optionSelectLevel.classList.add('active');    
     });  
     $.ajax({
-        url: "doc/main/commons/lay_nguoi_dung.php",
+        url: "doc/main/commons/lay_nhanvienbaotri.php",
         type: "post",
         dataType: "json", 
         }).done(function(nguoidung){

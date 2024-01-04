@@ -708,7 +708,7 @@
                               <div class="my-1 col-12">
                                 <div class="d-flex justify-space-between">
                                   <div class="d-flex justify-space-between font-small-4 font-weight-bolder text-uppercase text-success"> 2. Tài sản căn hộ/phòng </div>
-                                  <button type="button" class="btn btn-icon ml-auto btn-success btn-sm btn-show-taisan">
+                                  <button type="button" class="btn btn-icon ml-auto btn-success btn-sm btn-show-taisan2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
                                       <line x1="12" y1="5" x2="12" y2="19"></line>
                                       <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -769,7 +769,7 @@
                                       <th>Giá trị</th>
                                     </tr>
                                   </thead>
-                                  <tbody id="tbhtml">
+                                  <tbody id="tb_taisan1">
                                       <?php 
                                           $sql = "SELECT tb_taisan.* FROM tb_taisan";
                                           $query = mysqli_query($conn, $sql);
@@ -780,7 +780,7 @@
                                       <td width="10"><input type="checkbox" name="check1" value="1"></td>
                                       <td class="tentaisan"><?php echo $row['ten_taisan']; ?></td>
                                       <td class="tinhtrang"><?php echo $row['tinh_trang']; ?></td>
-                                      <td class="giatri"><?php echo convertToVietnameseCurrency($row['gia_tri']);?>đ</td>                                      
+                                      <td class="giatri"><?php echo convertToVietnameseCurrency($row['gia_tri']);?> đ</td>                                      
                                     </tr>
                                     <?php 
                                         } 
@@ -788,6 +788,64 @@
                                         echo '<td valign="top" colspan="3" class="dataTables_empty" style="text-align: center;">Không tìm thấy kết quả</td>';
                                       }
                                         ?>
+                                  </tbody>
+                                </table>
+                                </div>
+                                <!---->
+                               
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!---->
+                      </div>
+                          <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btnCloseTaiSan" data-dismiss="modal">Hủy</button>
+                                  <button type="button" class="btn btn-success btnSelectTaiSan" data-dismiss="modal">Chọn</button>
+                          </div>
+                    </div>
+                  </div>
+            </div>   
+        </div>
+        <div class="modal fade bd-example-modal-lg" id="modal-default4">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Danh sách tài sản</h4>
+                    </div>
+                    <div id="modal-list-service___BV_modal_body_" class="modal-body">
+                        <div class="row  justify-content-between">
+                          <div class="col-md-8 col-lg-4">
+                            <input type="text" placeholder="Tìm kiếm" class="mb-1 form-control" id="__BVID__1178">
+                          </div>
+                          <div class="col-md-4 col-lg-2">
+                            <a href="home.php?title=taisan" class="btn w-100 mr-0 px-0 btn-success"> Thêm mới </a>
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-12">
+                            <div class="vgt-wrap ">
+                              <!---->
+                              <div class="vgt-inner-wrap">
+                                <!---->
+                                <!---->
+                                <!---->
+                                <div class="vgt-fixed-header">
+                                  <!---->
+                                </div>
+                                <div class="vgt-responsive">
+                                <table class="table table-hover table-bordered js-copytextarea tbdata3" cellpadding="0" cellspacing="0" border="0"
+                                  id="sampleTable">
+                                  <thead>
+                                    <tr>
+                                      <th width="10"><input type="checkbox" id="all3"></th>
+                                      <th width="150">Tên tài sản</th>
+                                      <th>Tình trạng</th>
+                                      <th>Giá trị</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="tb_taisan2">
+                                                                   
                                   </tbody>
                                 </table>
                                 </div>
@@ -1078,9 +1136,9 @@
             }for (let i = 0; i < newtaisan.length; i++) {
                     formData.append('newTaiSan[]', newtaisan[i].id_taisan); 
             }
-            // for (const pair of formData.entries()) {
-            //     console.log(pair[0] + ': ' + pair[1]);
-            // }
+            for (const pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
             $.ajax({
                 url: "doc/main/commons/sua_phong.php",
                 type: "post",
@@ -1335,20 +1393,98 @@
           $('#modal-default3').modal('show');
             
         });
+        $('body').on('click', '.btn-show-taisan2', function () { 
+            $('#modal-default4').modal('show');
+            let id = $('#idphong').val();
+            $.ajax({
+                url: "doc/main/commons/lay_taisan_chuaco.php", 
+                type: "post",
+                dataType: "html",          
+                data: { idphong: id },
+            }).done(function(taisan){
+                var decodedData = JSON.parse(decodeURIComponent(taisan));
+                let str = ``;
+
+                if (decodedData.length === 0) {
+                    str = `<tr"><td colspan="4" class="text-center">Không có tài sản phù hợp.</td></tr>`;
+                } else {
+                    // Nếu có dữ liệu trả về
+                    decodedData.forEach(value => {
+                        str += `<tr id="row_${value.id}"> 
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td class="tentaisan">${value.ten_taisan}</td>
+                                    <td class="tinhtrang">${value.tinh_trang}</td>
+                                    <td class="giatri">${value.gia_tri}</td>                                      
+                                </tr>`;
+                    });
+                }
+                $('#tb_taisan2').html(str);
+                $('#tb_taisan2 input[type="checkbox"]').on('change', function() {
+                    var row = $(this).closest('tr');
+                    var id = row.attr('id').replace('row_', '');
+                    var name = row.find('.tentaisan').text();
+                    var status = row.find('.tinhtrang').text();
+                    var value = row.find('.giatri').text();
+
+                    if ($(this).is(':checked')) {
+                      selectedItems.push({ id_taisan: id, ten_taisan: name, tinh_trang: status, gia_tri: value });
+                      newtaisan.push({ id_taisan: id, ten_taisan: name, tinh_trang: status, gia_tri: value });
+                    } else {
+                      selectedItems = selectedItems.filter(function(item) {
+                        return item.id_taisan !== id;
+                      });
+                      newtaisan = newtaisan.filter(function(item) {
+                        return item.id_taisan !== id;
+                      });
+                    }
+                    console.log(selectedItems2);
+                    console.log(newtaisan);
+
+                });
+                var checkboxes3 = $(".tbdata3 input[type='checkbox']");
+                var checkboxall3 = $(".tbdata3 input#all3");
+
+                // Sử dụng sự kiện change của checkboxall
+                checkboxall3.on('change', function () {
+                    if ($(this).is(':checked')) {
+                        // Nếu checkbox được chọn
+                        $('.tbdata3 tbody tr').each(function () {
+                            var row = $(this);
+                            var id = row.attr('id').replace('row_', '');
+                            var name = row.find('.tentaisan').text();
+                            var status = row.find('.tinhtrang').text();
+                            var value = row.find('.giatri').text();
+                            
+                            newtaisan.push({ id_taisan: id, ten_taisan: name, tinh_trang: status, gia_tri: value });
+                        });
+                        checkboxes3.prop('checked', true);
+                    } else {
+                        // Nếu checkbox bị bỏ chọn
+                        newtaisan = []; // Xóa mảng newtaisan nếu không cần giữ lại dữ liệu khi bỏ chọn checkbox all3
+                        checkboxes3.prop('checked', false);
+                    }
+                    console.log(newtaisan);
+                });
+            });
+        });
+
           $('body').on('click', '.btnSelectTaiSan', function () { 
             showTable(selectedItems);
             showTable2(selectedItems2, newtaisan);
             $('#modal-default3').modal('hide');
+            $('#modal-default4').modal('hide');
+            console.log(selectedItems);
+
           });
           $('body').on('click', '.btnCloseTaiSan', function () { 
             $('#modal-default3').modal('hide');
+            $('#modal-default4').modal('hide');
           });
   });
   var selectedItems = [];
   var selectedItems2 = [];
   var newtaisan = [];
-$('.tbdata2 tbody input[type="checkbox"]').on('change', function() {
-
+$('#tb_taisan1 input[type="checkbox"]').on('change', function() {
     var row = $(this).closest('tr');
     var id = row.attr('id').replace('row_', '');
     var name = row.find('.tentaisan').text();
@@ -1367,24 +1503,48 @@ $('.tbdata2 tbody input[type="checkbox"]').on('change', function() {
       });
     }
     console.log(selectedItems);
-    console.log(newtaisan);
-    console.log(selectedItems2);
 
 });
+              var checkboxes2 = $(".tbdata2 input[type='checkbox']");
+                var checkboxall2 = $(".tbdata2 input#all2");
 
+                // Sử dụng sự kiện change của checkboxall
+                checkboxall2.on('change', function () {
+                    if ($(this).is(':checked')) {
+                        // Nếu checkbox được chọn
+                        $('.tbdata2 tbody tr').each(function () {
+                            var row = $(this);
+                            var id = row.attr('id').replace('row_', '');
+                            var name = row.find('.tentaisan').text();
+                            var status = row.find('.tinhtrang').text();
+                            var value = row.find('.giatri').text();
+                            
+                            selectedItems.push({ id_taisan: id, ten_taisan: name, tinh_trang: status, gia_tri: value });
+                        });
+                        checkboxes2.prop('checked', true);
+                    } else {
+                        // Nếu checkbox bị bỏ chọn
+                        selectedItems = []; // Xóa mảng newtaisan nếu không cần giữ lại dữ liệu khi bỏ chọn checkbox all3
+                        checkboxes2.prop('checked', false);
+                    }
+                    console.log(selectedItems);
+                });
+console.log($('#tb_taisan2 input[type="checkbox"]'));
 
   let container = $('.list-group1');
 
   const showTable = (array) =>{
             let taisan = '';
             let count = 0;
+            
             array.forEach((e, i) => {
                 count++;
+
                 taisan += `<div class="list-group-item">
                                       <div class="row" id="${e.id_taisan}">
                                         <div class="font-weight-bolder col">${count}. ${e.ten_taisan}</div>
                                         <div class="col"> ${e.tinh_trang} </div>
-                                        <div class="col"> ${e.gia_tri} </div>
+                                        <div class="col"> ${e.gia_tri}</div>
                                         <div class="col">
                                           <button type="button" class="btn btn px-1 btn-outline-danger ml-1 ml-sm-auto float-sm-right mr-sm-1 w-90 min-w-75 btn-outline-danger" onclick="delImage(${i})">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-x">
@@ -1408,12 +1568,14 @@ $('.tbdata2 tbody input[type="checkbox"]').on('change', function() {
             let taisan = '';
             let count = 0;
             array1.forEach((e, i) => {
+              let gia_tri = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(e.gia_tri).replace(/\./g, ",");
+
                 count++;
                 taisan += `<div class="list-group-item">
                                       <div class="row" id="${e.id_taisan}">
                                         <div class="font-weight-bolder col">${count}. ${e.ten_taisan}</div>
                                         <div class="col"> ${e.tinh_trang} </div>
-                                        <div class="col"> ${e.gia_tri} </div>
+                                        <div class="col"> ${gia_tri}</div>
                                         <div class="col">
                                           <button type="button" class="btn btn px-1 btn-outline-danger ml-1 ml-sm-auto float-sm-right mr-sm-1 w-90 min-w-75 btn-outline-danger" onclick="delImage2(${i})">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-x">
@@ -1427,12 +1589,13 @@ $('.tbdata2 tbody input[type="checkbox"]').on('change', function() {
                 
             }); 
             array2.forEach((e, i) => {
+              let gia_tri = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(e.gia_tri).replace(/\./g, ",");
                 count++;
                 taisan += `<div class="list-group-item">
                                       <div class="row" id="${e.id_taisan}">
                                         <div class="font-weight-bolder col">${count}. ${e.ten_taisan}</div>
                                         <div class="col"> ${e.tinh_trang} </div>
-                                        <div class="col"> ${e.gia_tri} </div>
+                                        <div class="col"> ${gia_tri} </div>
                                         <div class="col">
                                           <button type="button" class="btn btn px-1 btn-outline-danger ml-1 ml-sm-auto float-sm-right mr-sm-1 w-90 min-w-75 btn-outline-danger" onclick="delImage2(${i})">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-25 feather feather-x">

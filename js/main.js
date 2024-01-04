@@ -1,7 +1,6 @@
 var checkboxes = document.querySelectorAll(".tbdata1 input[type = 'checkbox']");
 var checkboxall = document.querySelector(".tbdata1 input[id = 'all']");
-var checkboxes2 = document.querySelectorAll(".tbdata2 input[type = 'checkbox']");
-var checkboxall2 = document.querySelector(".tbdata2 input[id = 'all2']");
+
 checkboxall.addEventListener('change', function () {
   if (checkboxall.checked == true) {
     checkboxes.forEach(function(checkbox){
@@ -13,17 +12,7 @@ checkboxall.addEventListener('change', function () {
     });  
   } 
 });
-checkboxall2.addEventListener('change', function () {
-  if (checkboxall2.checked == true) {
-    checkboxes2.forEach(function(checkbox){
-      checkbox.checked = true;
-    });
-  } else {
-    checkboxes2.forEach(function(checkbox){
-      checkbox.checked = false;
-    });  
-  } 
-});
+
 function validate() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password-field").value;

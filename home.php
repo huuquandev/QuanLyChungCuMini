@@ -5,6 +5,7 @@
     if(isset($_SESSION['id_taikhoan'])){
 
        $id_taikhoan = $_SESSION['id_taikhoan'];
+       $vaitro = $_SESSION['vai_tro'];
        echo    ' <script> 
                     swal({ title: "", text: "Xin chào '.json_encode($_SESSION['ten_hien_thi']).'", icon: "success", close: true, button: "Close", }); 
                     </script> ';

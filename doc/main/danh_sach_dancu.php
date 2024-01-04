@@ -47,7 +47,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title">Thêm dân cư</h4>
                     </div>
-                    <form action="./doc/main/commons/them_dan_cu.php" method="post" enctype="multipart/form-data">
+                    <form action="./doc/main/commons/them_dan_cu.php" method="post" enctype="multipart/form-data" id="myForm">
                       <div class="modal-body">
                           <input type="hidden" id="txtOrderId" value="0" />
             
@@ -66,22 +66,11 @@
                                           </div>
                                         </div>
                                         <input id="name" type="text" placeholder="Nguyễn Văn A" class="form-control" name="tendancu" required>
+                                        
                                         <!---->
                                       </div>
-                                      <br>
-                                      <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__977__BV_label_">Cccd/Hộ chiếu <span class="text-danger">(*)</span>
-                                    </legend>
-                                      <div role="group" class="input-group">
-                                        <!---->
-                                        <div class="input-group-prepend">
-                                          <div class="input-group-text">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 96l576 0c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96zm0 32V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128H0zM64 405.3c0-29.5 23.9-53.3 53.3-53.3H234.7c29.5 0 53.3 23.9 53.3 53.3c0 5.9-4.8 10.7-10.7 10.7H74.7c-5.9 0-10.7-4.8-10.7-10.7zM176 192a64 64 0 1 1 0 128 64 64 0 1 1 0-128zm176 16c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16z"/></svg>
-                                          </div>
-                                        </div>
-                                        <input id="cccd" type="text" placeholder="Cccd/hộ chiếu" class="form-control" name="cccd" required>
-                                        <!---->
-                                      </div>
-                                      <small class="text-danger"></small>
+                                     
+
                                       <!---->
                                       <!---->
                                       <!---->
@@ -89,6 +78,86 @@
                                   </fieldset>
                                 </span>
                               </div>
+                              <div class="mt-2 col-12">
+                                <h5>Thông tin quan hệ</h5>
+                              </div>
+                              <!---->
+                              <div class="col-md-8">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__981">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__981__BV_label_"> Chủ hộ<span class="text-danger"> (*) </span>
+                                    </legend>
+                                    <div>
+                                      <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
+                                        <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                                        <div class="vs__selected-options">
+                                          
+                                          <select name="name_dan_cu" id="name_dan_cu"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  
+                                          onchange="updateInputValue()" required>
+                                                <option value="" hidden="">Chọn người thuê</option>
+                                                <?php
+                                                
+                                                $sql="SELECT d.`cccd`,d.`id_dancu`,d.`ho_ten`,c.`ten_canho_phong`,c.`id_canho_phong`,t.`ten_toanha`
+                                                FROM `tb_canho_phong` AS c
+                                                INNER JOIN `tb_toanha` AS t ON t.`id_toanha` = c.`id_toanha`
+                                                INNER JOIN `tb_hopdong` AS h ON c.`id_canho_phong` = h.`id_canho_phong`
+                                                INNER JOIN `tb_hopdong_chuho` AS ch ON ch.`id_hopdong` = h.`id`
+                                                INNER JOIN `tb_dancu` AS d ON ch.`id_chuho` = d.`id_dancu`  ";
+                                                $query=mysqli_query($conn,$sql);
+                                                if(mysqli_num_rows($query) > 0){
+                                                  while ($row = mysqli_fetch_array($query)) {
+                                                  echo '<option value="'.$row['id_dancu'].'" >Tên: '.$row['ho_ten'].'-Cccd: '.$row['cccd']. '-Tòa: '.$row['ten_toanha'].'-Phòng: '.$row['ten_canho_phong'].'</option>';
+                                                }}
+                                                ?>                                   
+                                            </select>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-md-4">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__981">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__981__BV_label_">Quan hệ  <span class="text-danger"> (*) </span>
+                                    </legend>
+                                    <div>
+                                      <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
+                                        <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                                          <div class="vs__selected-options">
+                                            <select name="quanhe" id="quanhe"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  >
+                                              <option value="">Mối quan hệ</option>
+                                              <option value="Vợ">Vợ</option>
+                                              <option value="Con Trai">Con Trai</option>
+                                              <option value="Con Gái">Con Gái</option>
+                                              <option value="Ba vợ">Ba vợ</option>
+                                              <option value="Mẹ vợ">Mẹ vợ</option>
+                                              <option value="Ba chồng">Ba chồng</option>
+                                              <option value="Mẹ chồng">Mẹ chồng</option>
+                                              <option value="Chị gái">Chị gái</option>
+                                              <option value="Anh trai">Anh trai</option>
+                                              <option value="Em trai">Em trai</option>
+                                              <option value="Bạn bè">Bạn bè</option>
+                                              <option value="Khác">Khác</option>
+                                            </select>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+           
+
                               <div class="mt-2 col-12">
                                 <h5>Thông tin cá nhân</h5>
                               </div>
@@ -127,7 +196,7 @@
                                     <div>
                                       <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="district">
                                         <div id="vs34__combobox" role="combobox" aria-expanded="false" aria-owns="vs34__listbox" aria-label="Search for option" class="" height="70%">
-                                        <input id="sdt" type="text" placeholder="0912345678" class="form-control" name="sdt" required>
+                                        <input id="sdt" type="number" placeholder="0912345678" class="form-control" name="sdt" required>
 
 
                                         </div>
@@ -159,6 +228,25 @@
                                       <!---->
                                       <!---->
                                     </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-md-12" id="cccd1">
+                              <span>
+                                  <fieldset class="form-group" id="__BVID__1001">
+                              <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__977__BV_label_">Cccd/Hộ chiếu <span class="text-danger">(*)</span>
+                                    </legend>
+                                      <div role="group" class="input-group">
+                                        <!---->
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 96l576 0c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96zm0 32V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128H0zM64 405.3c0-29.5 23.9-53.3 53.3-53.3H234.7c29.5 0 53.3 23.9 53.3 53.3c0 5.9-4.8 10.7-10.7 10.7H74.7c-5.9 0-10.7-4.8-10.7-10.7zM176 192a64 64 0 1 1 0 128 64 64 0 1 1 0-128zm176 16c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16z"/></svg>
+                                          </div>
+                                        </div>
+                                        <input id="cccd" type="text" placeholder="Cccd/hộ chiếu" class="form-control" name="cccd"   >
+                                        <!---->
+                                      </div>
+                                      <small class="text-danger"></small>
                                   </fieldset>
                                 </span>
                               </div>
@@ -287,66 +375,139 @@
                 <tr>
                   <th width="10"><input type="checkbox" id="all"></th>
                   <th width="10">STT</th>
-                  <th width="30">Ảnh dân cư</th>
+                  <th width="10">Ảnh dân cư</th>
                   <th width="20" >Hộ chiếu/ CCCD</th>
                   <th width="50" >Tên dân cư</th>
                   <th width="20" >SĐT</th>
-                  <th width="20"> Giới tính</th>
-                  <th>Địa chỉ</th>
+                  <th width="20">Quan hệ</th>
+                  <th width="20" > Giới tính</th>
+                  <th width="100">Địa chỉ</th>
                   <th width="100">Ngày sinh</th>
                   <th width="100">Chỉnh sửa</th></tr>
                 </tr>
               </thead>
               <tbody id="">
-                  <?php 
-                  $i=1;
-                    $sql = "select * from `tb_dancu` ORDER BY `cccd` DESC";
-                      $query = mysqli_query($conn, $sql);
-                      if(mysqli_num_rows($query) > 0){
-                      while ($row = mysqli_fetch_array($query)) {
-                    ?>
+              <?php
+$i = 1;
 
-                    <tr>
-                      <td width="10">
-                        <input type="checkbox" name="check1" value="1"></td>
-                      <td><?php echo $i++;?></td>
-                      <td ><img style="
-                      width: 100px;
-                      height: 100px;
-                      border-radius: 20%;
-                      " src="./<?php echo $row['hinh_anh']; ?>" alt=""></td>
-<td class="search_td"><?php echo $row['cccd']; ?></td>
-<td class="search_td"><?php echo $row['ho_ten']; ?></td>
-<td class="search_td"><?php echo $row['so_dien_thoai']; ?></td>
+// Lấy danh sách 'chủ hộ' và sắp xếp theo id_dancu
+$sql = "SELECT
+            ho_ten,id_dancu
+        FROM
+            tb_dancu
+        WHERE
+            quan_he = 'chủ hộ' 
+        ORDER BY
+            id_dancu ASC;";
 
-                      <td><?php 
-                                $gioitinh='chưa xác định';
-                                  if($row['gioi_tinh']==0){
-                                    $gioitinh='Nữ';
-                                }
-                                elseif($row['gioi_tinh']==1){
-                                    $gioitinh='Nam';
-                                }
-                                else{
-                                    $gioitinh='Khác';
-                                }
-                      echo $gioitinh; ?></td>
-                      <td><?php echo $row['dia_chi']; ?></td>
-                      <td><?php echo $row['ngay_sinh']; ?></td>
-                      <td class="table-td-center">
-                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" data-id="<?php echo $row['cccd']  ?>"><i class="fas fa-trash-alt"></i>
+$query = mysqli_query($conn, $sql);
+
+if(mysqli_num_rows($query) > 0){
+    while ($row1 = mysqli_fetch_array($query)) {
+        // Lấy thông tin các thành viên trong gia đình có id_chu_ho là id_dancu của 'chủ hộ'
+        $sql1 = "SELECT
+                    id_dancu,
+                    ho_ten,
+                    so_dien_thoai,
+                    cccd,
+                    email,
+                    gioi_tinh,
+                    dia_chi,
+                    ngay_sinh,
+                    hinh_anh,
+                    id_chu_ho,
+                    quan_he
+                FROM
+                    tb_dancu
+               
+                ORDER BY
+                    CASE WHEN quan_he = 'chủ hộ' THEN 0 ELSE 1 END,
+                    id_dancu ASC;";
+
+        $query1 = mysqli_query($conn, $sql1);
+
+        if(mysqli_num_rows($query1) > 0){
+            while ($row = mysqli_fetch_array($query1)) {
+              $weight =$row['quan_he']=='chủ hộ'? 'style="font-weight: bold;"':"" ;
+            ?>
+                <tr <?php echo $weight;?>>
+                    <td width="10">
+                        <input type="checkbox" name="check1" value="1">
+                    </td>
+                    <td><?php echo $i++; ?></td>
+                    <td>
+
+                              <?php 
+                                  $imagePath = "./" . $row['hinh_anh'];
+
+                                  // Kiểm tra xem hình ảnh có tồn tại hay không
+                                  if (file_exists($imagePath)) {
+                                      echo '<img style="width: 100px; height: 100px; border-radius: 20%;" src="./' . $imagePath . '" alt="">';
+                                  } else {
+                                    $ten = $row['ho_ten'];
+
+                                    // Chia chuỗi thành mảng các từ
+                                    $mangTen = explode(' ', $ten);
+                                    $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+                                    
+                                    // Lấy phần tử cuối cùng của mảng
+                                    $tuCuoiCung = end($mangTen);
+                                    
+                                    echo '<div style="width: 100px;
+                                                    height: 100px;
+                                                    position: relative;
+                                                    border-radius: 20%;
+                                                    background:  '.$color.';
+                                                    text-align: center;
+                                                    line-height: 100px;">
+                                            <p style="
+                                                position: absolute;
+                                                top: 50%;
+                                                left: 50%;
+                                                transform: translate(-50%, -50%);
+                                            ">'.$tuCuoiCung.'</p>
+                                        </div>';
+                                  }
+                              ?>
+                          </td>
+
+  
+                    <td class="search_td"><?php echo $row['cccd']; ?></td>
+                    <td class="search_td"><?php echo $row['ho_ten']; ?></td>
+                    <td class="search_td"><?php echo $row['so_dien_thoai']; ?></td>
+                    <td class="search_td"><?php echo 'Quan hệ:'.$row['quan_he'].' với '.$row1['ho_ten']; ?></td>
+                    <td>
+                        <?php 
+                            $gioitinh = 'chưa xác định';
+                            if($row['gioi_tinh'] == 0){
+                                $gioitinh = 'Nữ';
+                            } elseif($row['gioi_tinh'] == 1){
+                                $gioitinh = 'Nam';
+                            } else{
+                                $gioitinh = 'Khác';
+                            }
+                            echo $gioitinh; 
+                        ?>
+                    </td>
+                    <td><?php echo $row['dia_chi']; ?></td>
+                    <td><?php echo $row['ngay_sinh']; ?></td>
+                    <td class="table-td-center">
+                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" id="btn-delete" data-id="<?php echo $row['id_dancu']; ?>">
+                            <i class="fas fa-trash-alt"></i>
                         </button>
-                        <a class="btn btn-primary " href="home.php?title=quanlydancu&id=<?php echo $row['cccd']?>"
-                         data-target="#ModalUP"><i class="fas fa-edit"></i>
-                      </a>
-                      </td>
-                    </tr> 
-                    <?php 
-                    } 
-                  }else{
-                    echo '<tr class="odd"><td valign="top" colspan="7" class="dataTables_empty">Không tìm thấy kết quả</td></tr>';
-                  }
-                    ?>
+                        <a class="btn btn-primary " href="home.php?title=quanlydancu&id=<?php echo $row['cccd']?>" data-target="#ModalUP">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr> 
+<?php 
+            } 
+        } 
+
+    }
+}
+?>
+
                   </tbody>
             </table>
             <div id="noResultsMessage" style="display: block;margin: 0 auto;text-align: center;">There is no person with this name</div>
@@ -425,15 +586,60 @@
                                             $('.checkbox-switch').val("0");
                                         }                                       
                                     });
-    });
 
+    });
 </script>
+<script>
+    // Hàm được gọi khi giá trị của dropdown thay đổi
+    $(document).ready(function() {
+        $('#name_dan_cu').change(function() {
+            // Lấy giá trị của option được chọn
+            var selectedValue = $(this).val();
+
+            // Cập nhật giá trị của trường ẩn (nếu cần)
+            $('#selectedOption').val(selectedValue);
+
+            // Thực hiện AJAX request để gửi dữ liệu lên server và nhận kết quả
+            $.ajax({
+                type: 'POST',
+                url: 'danh_sach_dancu.php',
+                data: { name_dan_cu: selectedValue },
+                success: function(response) {
+                    // Cập nhật giá trị của ô nhập liệu
+                    $('#sdt').val(response);
+
+                    // Hiển thị kết quả trong khu vực resultContainer (nếu cần)
+                    $('#resultContainer').html("Kết quả: " + response);
+                }
+            });
+        });
+    });
+</script>
+<script>
+
+        function validateCCCD() {
+            // Lấy giá trị của CCCD
+            var cccdValue = document.getElementById("cccd").value.trim();
+
+            // Kiểm tra độ dài của giá trị CCCD nếu có
+            var minLength = 10;
+            var maxLength = 15;
+
+            if (cccdValue.length < minLength || cccdValue.length > maxLength) {
+                alert("CCCD phải có độ dài từ " + minLength + " đến " + maxLength + " ký tự");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 
 <script>
-document.getElementById("cccd").addEventListener("input", function() {
+
+document.getElementById("sdt").addEventListener("input", function() {
   var inputValue = this.value.trim();
-  var minLength = 10;
-  var maxLength = 15;
+  var minLength = 9;
+  var maxLength = 10;
 
   if (inputValue.length < minLength) {
     this.setCustomValidity("Độ dài phải ít nhất " + minLength + " ký tự");
@@ -456,6 +662,37 @@ document.getElementById("sdt").addEventListener("input", function() {
     this.setCustomValidity("");
   }
 });
+
+</script>
+<script>
+  // Lắng nghe sự kiện thay đổi trên ô ngày sinh
+  document.getElementById('ngaysinh').addEventListener('change', function() {
+    // Lấy giá trị ngày sinh từ input
+    var ngaySinhInput = document.getElementById('ngaysinh').value;
+
+    // Chuyển đổi giá trị ngày sinh thành đối tượng Date
+    var ngaySinhDate = new Date(ngaySinhInput);
+
+    // Lấy ngày hiện tại
+    var ngayHienTai = new Date();
+
+    // Tính số tuổi bằng cách lấy hiệu của năm hiện tại và năm sinh
+    var soTuoi = ngayHienTai.getFullYear() - ngaySinhDate.getFullYear();
+
+    // Lấy ô CCCD
+    var cccdInput = document.getElementById('cccd1');
+
+    // Kiểm tra nếu số tuổi nhỏ hơn 16, ẩn ô CCCD và xóa giá trị nhập vào nếu có
+    var cccdInput1 = document.getElementById('cccd');
+    if (soTuoi < 16) {
+      cccdInput.style.display = 'none';
+      cccdInput1.value = ''; // Xóa giá trị nhập vào nếu có
+    } else {
+      cccdInput.style.display = 'block';
+      cccdInput1.setAttribute('required', 'required'); // Thêm thuộc tính required
+
+    }
+  });
 </script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {

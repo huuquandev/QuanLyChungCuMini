@@ -40,6 +40,8 @@
                                     $dia_chi=$row['dia_chi'];
                                     $ngay_sinh=$row['ngay_sinh'];
                                     $ngay_chuyen_doi = date("Y-m-d", strtotime($ngay_sinh));
+                                    $id_chu_ho=$row['id_chu_ho'];
+                                    $quanhe=$row['quan_he'];
 
                                     // Hiển thị tên
                                     
@@ -79,11 +81,100 @@
                                   </fieldset>
                                 </span>
                               </div>
+                              <div class="col-md-8">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__981">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__981__BV_label_"> Chủ hộ<span class="text-danger"> (*) </span>
+                                    </legend>
+                                    <div>
+                                      <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
+                                        <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                                        <div class="vs__selected-options">
+                                          
+                                          <select name="name_dan_cu" id="name_dan_cu"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  
+                                          onchange="updateInputValue()">
+
+                                                <?php
+                                                
+                                                $sql="SELECT d.`cccd`,d.`id_dancu`,d.`ho_ten`,c.`ten_canho_phong`,c.`id_canho_phong`,t.`ten_toanha`
+                                                FROM `tb_canho_phong` AS c
+                                                INNER JOIN `tb_toanha` AS t ON t.`id_toanha` = c.`id_toanha`
+                                                INNER JOIN `tb_hopdong` AS h ON c.`id_canho_phong` = h.`id_canho_phong`
+                                                INNER JOIN `tb_hopdong_chuho` AS ch ON ch.`id_hopdong` = h.`id`
+                                                INNER JOIN `tb_dancu` AS d ON ch.`id_chuho` = d.`id_dancu` ";
+                                                $query=mysqli_query($conn,$sql);
+                                                if(mysqli_num_rows($query) > 0){
+                                                  while ($row1 = mysqli_fetch_array($query)) {
+                                                  if($row1['id_dancu'] ==$id_chu_ho){
+                                                    echo '<option value="'.$row['id_dancu'].'" >Tên: '.$row['ho_ten'].'-Cccd: '.$row['cccd']. '-Tòa: '.$row['ten_toanha'].'-Phòng: '.$row['ten_canho_phong'].'</option>';
+                                                  }
+                                                  else{
+
+                                                    echo '<option value="'.$row1['id_dancu'].'" >Tên: '.$row1['ho_ten'].'-Cccd: '.$row1['cccd']. '-Tòa: '.$row1['ten_toanha'].'-Phòng: '.$row1['ten_canho_phong'].'</option>';
+                                                  }}
+                                                  }
+                                                ?>                                   
+                                            </select>
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
+                              <div class="col-md-4">
+                                <span>
+                                  <fieldset class="form-group" id="__BVID__981">
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__981__BV_label_">Quan hệ  <span class="text-danger"> (*) </span>
+                                    </legend>
+                                    <div>
+                                      <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
+                                        <div id="vs33__combobox" role="combobox" aria-expanded="false" aria-owns="vs33__listbox" aria-label="Search for option" class="vs__dropdown-toggle">
+                                          <div class="vs__selected-options">
+                                            <?php
+                                            $quanHe = $row['quan_he'];
+
+                                            // Mảng xác định thứ tự ưu tiên
+                                            $thuTuUuTien = array(
+                                                'Vợ', 'Con Trai', 'Con Gái', 'Ba vợ', 'Mẹ vợ',
+                                                'Ba chồng', 'Mẹ chồng', 'Chị gái', 'Anh trai', 'Em trai',
+                                                'Bạn bè', 'Khác'
+                                            );
+
+                                            echo '<select name="quanhe"id="quanhe"aria-autocomplete="list" aria-labelledby="vs33__combobox" aria-controls="vs33__listbox" autocomplete="off" class="vs__search"  >';
+                                            foreach ($thuTuUuTien as $quanHeOption) {
+                                                echo '<option value="' . $quanHeOption . '"';
+
+                                                // Nếu giá trị của $row['quan_he'] trùng với option, thêm thuộc tính selected
+                                                if ($quanHe == $quanHeOption) {
+                                                    echo ' selected';
+                                                }
+
+                                                echo '>' . $quanHeOption . '</option>';
+                                            }
+                                            echo '</select>';
+                                            ?>
+
+                                          </div>
+
+                                        </div>
+                                      </div>
+                                      <!---->
+                                      <!---->
+                                      <!---->
+                                    </div>
+                                  </fieldset>
+                                </span>
+                              </div>
                               <!---->
                               <div class="col-md-4">
                                 <span>
                                   <fieldset class="form-group" id="__BVID__981">
-                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__981__BV_label_"> Giơi tính <span class="text-danger">  </span>
+                                    <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__981__BV_label_"> Giớii tính <span class="text-danger">  </span>
                                     </legend>
                                     <div>
                                       <div dir="ltr" class="v-select vs--single vs--searchable" id="province">
@@ -117,7 +208,7 @@
                                       <div dir="ltr" class="v-select vs--single vs--searchable vs--disabled" id="district">
                                         <div id="vs34__combobox" role="combobox" aria-expanded="false" aria-owns="vs34__listbox" aria-label="Search for option" class="" height="70%">
                                           <div class="vs__selected-options">
-                                          <input id="sdt" type="number" value="<?php echo $so_dien_thoai;?>" class="form-control" name="sdt" required>
+                                          <input id="sdt" type="number"  min="0" value="<?php echo $so_dien_thoai;?>" class="form-control" name="sdt" required>
                                           </div>
 
                                         </div>
@@ -307,6 +398,8 @@ document.getElementById("sdt").addEventListener("input", function() {
   $cccd=$_POST['cccd'];
   $ngaysinh=$_POST['ngaysinh'];
   $addressDetail=$_POST['addressDetail'];
+  $quanhe=$_POST['quanhe'];
+  $id_chu_ho=$_POST['name_dan_cu'];
   // echo updateSql(1,12,13);
   if(trim($_POST['tendancu'])!=""){
     $content=updateSql('ho_ten',$tendancu,$_GET['id']);
@@ -338,7 +431,12 @@ document.getElementById("sdt").addEventListener("input", function() {
   if(trim($_POST['addressDetail'])!=""){
     $content=updateSql('dia_chi',$addressDetail,$_GET['id']);
   }
-
+  if(trim($_POST['quanhe'])!=""){
+    $content=updateSql('quan_he',$quanhe,$_GET['id']);
+  }
+  if(trim($_POST['name_dan_cu'])!=""){
+    $content=updateSql('id_chu_ho',$id_chu_ho,$_GET['id']);
+  }
   if($file_path!=""){
     $content=updateSql('hinh_anh',$file_path,$_GET['id']);
   }

@@ -194,11 +194,16 @@
                     while ($row = mysqli_fetch_assoc($result)) {
                         $existingTaiSanCu[] = $row['id_taisan'];
                     }
-                    $TaiSanCuToRemove = array_diff($existingTaiSanCu, $taisanOld);
-                    foreach ($TaiSanCuToRemove as $taisan) {
+                    if(!empty($taisanOld)){
+                        $TaiSanCuToRemove = array_diff($existingTaiSanCu, $taisanOld);
+                        foreach ($TaiSanCuToRemove as $taisan) {
                         $filteredTaiSan = mysqli_real_escape_string($conn, $taisan);
                         // Xóa Tai sản cơ sở dữ liệu
                         $deleteTaiSanSQL = "DELETE FROM tb_taisan_canhophong WHERE id_canho_phong='$filter_id_canhophong' AND id_taisan='$filteredTaiSan'";
+                        mysqli_query($conn, $deleteTaiSanSQL);
+                        }
+                    }else{
+                        $deleteTaiSanSQL = "DELETE FROM tb_taisan_canhophong WHERE id_canho_phong='$filter_id_canhophong'";
                         mysqli_query($conn, $deleteTaiSanSQL);
                     }
                     if (!empty($newTaiSan)) {
@@ -242,7 +247,7 @@
         $sql = "INSERT INTO tb_baotri_suachua (id_toanha, id_phong, ma_baotri_suachua, tieude_baotri_suachua, mota_baotri_suachua,
             loai_cong_viec, mucdo_uutien, ngay_batdau, ngay_ketthuc, id_taikhoan, trang_thai, id_nguoitao) 
                     VALUES ('$filter_toanha', '$filter_phong', '$filter_mabaotrisuachua', '$filter_tieude', '$filter_mota',
-                     '$filter_loaicongviec', '$filter_uutien', NOW(), '$filter_hanhoanthanh', '$filter_user', 0, '$filter_id_nguoitao')";
+                     '$filter_loaicongviec', '$filter_uutien', NOW(), '$filter_hanhoanthanh', '$filter_user', 0,)";
         
             $query = mysqli_query($conn, $sql);
             if ($query) {
@@ -665,10 +670,10 @@
         return $kho;
         
     }
-    function lay_all_nguoi_dung(){
+    function lay_all_nhanvienbaotri(){
         GLOBAL $conn;
     
-        $sql = "SELECT * FROM tb_taikhoan";
+        $sql = "SELECT * FROM tb_taikhoan WHERE tb_taikhoan.vai_tro = 2";
 
         $query = mysqli_query($conn, $sql);
 
@@ -786,20 +791,14 @@
 
             return $row;
     }
-    function laytaisan($id_taisan) {
-        GLOBAL $conn;
-    
+    function laytaisan($id_taisan) {    
         GLOBAL $conn;
     
         $sql = "SELECT tb_taisan.* FROM tb_taisan WHERE tb_taisan.id_taisan = $id_taisan";
     
         $query = mysqli_query($conn, $sql);
 
-        $row = mysqli_fetch_array($query);
-    
-        $query = mysqli_query($conn, $sql);
-        $row = mysqli_fetch_assoc($query);
-    
+        $row = mysqli_fetch_array($query); 
         // Lấy danh sách hình ảnh
         $sqlimage1 = "SELECT tb_hinhanh.url_hinhanh
                      FROM tb_hinhanh 
@@ -814,6 +813,25 @@
         $row['images1'] = $images1;
 
         return $row;
+    }
+    function laytaisanchuaco($idphong) {    
+        global $conn;
+    
+        $sql = "SELECT tb_taisan.*, tb_taisan.id_taisan AS id
+        FROM tb_taisan
+        LEFT JOIN tb_taisan_canhophong ON tb_taisan.id_taisan = tb_taisan_canhophong.id_taisan
+        AND tb_taisan_canhophong.id_canho_phong = $idphong
+        WHERE tb_taisan_canhophong.id_taisan IS NULL";
+    
+        $query = mysqli_query($conn, $sql);
+    
+        $result = array(); 
+    
+        while ($row = mysqli_fetch_array($query)) {
+            $result[] = $row; 
+        }
+    
+        return $result; 
     }
     // Quang làm
     function GetListHoaDon(){
@@ -1279,184 +1297,297 @@
     return $input;
 }
 
-       //Quyến làm
-    function xoa_dan_cu($id_dan_cu){
-        GLOBAL $conn;
+function xoa_dan_cu($id_dan_cu) {
+    global $conn;
 
-        $sql = "DELETE FROM `tb_dancu` WHERE  `cccd`=$id_dan_cu;";
+    // Kiểm tra danh sách các dân cư thuộc cùng một chủ hộ
+    $sql1="SELECT `id_dancu`,`id_chu_ho` FROM tb_dancu AS d
+    WHERE   d.`id_chu_ho`=$id_dan_cu";
+    $query = mysqli_query($conn, $sql1);
+    if (mysqli_num_rows($query)>=1){
 
-        $query = mysqli_query($conn, $sql);
-        if ($query) {
-            return true;
-        } else {
-            return false;
+        while ($row = mysqli_fetch_assoc($query)){
+         $xoa1=$row['id_dancu'];
+            $sql3= "DELETE FROM `tb_dancu`  WHERE  `id_chu_ho`='$xoa1' ";
+            $query3 = mysqli_query($conn, $sql3);
+            if ($query3) {
+             
+            } else {
+                return false;
+            }
+                // echo $xoa1;
         }
-    }
-    function xoa_HopDong($hopdong){
-        GLOBAL $conn;
+        $sql3="SELECT `id` FROM tb_hopdong AS d
+        INNER JOIN `tb_hopdong_chuho` as ch ON ch.id_hopdong=d.id
+        INNER JOIN `tb_dancu` as da ON da.id_dancu=ch.id_chuho
+        where da.id_dancu=$id_dan_cu";
+                    $query2 = mysqli_query($conn, $sql3);
+                    if ($query2) {
+                        while ($row = mysqli_fetch_array($query2)){
+                            $sql = "DELETE FROM `tb_hopdong` WHERE  `id`='" .$row['id']."';";
+                            $sql1 = "DELETE FROM `tb_hopdong_chuho` WHERE  `id_hopdong`='" .$row['id']."' LIMIT 1;";
+                            $query1 = mysqli_query($conn, $sql1);
+                            if ($query1) {
+                                $query = mysqli_query($conn, $sql);
+                                if ($query) {
+                                    $sql3= "DELETE FROM `tb_dancu` WHERE  `id_dancu`='$id_dan_cu'";
+                                    $query3 = mysqli_query($conn, $sql3);
+                                    if ($query3) {
+                    
+                                    } else {
+                                        return false;
+                                    }
+                                } else {
+                                    return false;
+                                }
+                            } else {
+                                return false;
+                            }
 
-        $sql = "DELETE FROM `tb_hopdong` WHERE  `id`=$hopdong;";
-
-        $query = mysqli_query($conn, $sql);
-        if ($query) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    function layhopdong($id_hopdong){
-        GLOBAL $conn;
-    
-        $sql = "SELECT * FROM tb_hopdong WHERE id = $id_hopdong";
-    
-        $query = mysqli_query($conn, $sql);
-
-        $row = mysqli_fetch_array($query);
-
-        return $row;
-        
-    }
-    function them_dan_cu($tendancu, $gioitinh, $sdt, $ngaysinh, $addressDetail,$cccd,$file_img, $email){ 
-        $content ="";
-        $file_path = '';
-        GLOBAL $conn;
-        print_r($file_img);
-        // Check if the phone number already exists in the database
-        $checkPhoneNumberQuery = "SELECT COUNT(*) AS count FROM tb_dancu WHERE so_dien_thoai = '$sdt'";
-        $checkPhoneNumberResult = mysqli_query($conn, $checkPhoneNumberQuery);
-        $phoneNumberCount = mysqli_fetch_assoc($checkPhoneNumberResult)['count'];
-        $checkcccd="SELECT COUNT(*) AS count FROM tb_dancu WHERE `cccd`='$cccd'";
-        $checkcccd=mysqli_query($conn,$checkcccd);
-        $checkcccdCount = mysqli_fetch_assoc($checkcccd)['count'];
-        if($checkcccdCount>0){
-            $content .='<br>Căn cước công dân/hộ chiếu đã tồn tại trong hệ thống.';
-        }
-        elseif ($phoneNumberCount > 0) {
-            // Phone number already exists, print a message and stop further processing
-            $content .='<br>Số điện thoại đã tồn tại trong hệ thống.';
-        } else {
-            // Phone number does not exist, proceed with other checks and database insertion
-            if (isset($file_img) && $file_img['error'] !== UPLOAD_ERR_NO_FILE) {
-                // File upload logic here...
-                
-                $file_extension = pathinfo($file_img['name'], PATHINFO_EXTENSION);
-            
-                // Check if the file extension is allowed
-                $allowed_extensions = ['png', 'jpg', 'git', 'PNG', 'JPG', 'GIT'];
-                if (in_array(strtolower($file_extension), $allowed_extensions)) {
-        // ... your code ...
-
-        // Get the absolute path of the current script's directory
-
-        // Specify the relative path to the desired upload directory
-
-                    $upload_dir='images/anh/';
-                    $sql_upload_dir ='../../../images/anh/';
-                    // Use absolute path
-                    // Update the upload directory as needed
-            
-                    // Generate a unique filename to avoid overwriting existing files
-                    $unique_filename = uniqid() . '_' . $sdt . '.' . $file_extension;
-                    echo $unique_filename;
-                    // Move the uploaded file to the destination directory with the unique filename
-                    if (move_uploaded_file($file_img['tmp_name'], $sql_upload_dir . $unique_filename)) {
-                        $file_path = $upload_dir . $unique_filename;
-                    } else {
-                        $content .= 'Lỗi khi di chuyển tệp lên.';
+                        }
                     }
-                } else {
-                    $content .= '<br>Chỉ chấp nhận tệp ảnh (png, jpg, git).';
-                }
-            }
-
-            // Now you can include $file_path in your database query or handle it as needed
-            if($gioitinh=='nam'){
-                $gioitinh=1;
-            }
-            elseif($gioitinh=='nu'){
-                $gioitinh=0;
-            }
-            else{
-                $gioitinh=2;
-            }
-            if($content==""){
-                $sql="INSERT INTO `tb_dancu` (`ho_ten`, `so_dien_thoai`, `cccd`, `gioi_tinh`, `dia_chi`, `ngay_sinh`, `hinh_anh`, `email`) VALUES ('$tendancu', '$sdt', '$cccd', '$gioitinh', '$addressDetail', '$ngaysinh', '$file_path', '$email');";
-                
-            echo $sql;
-            $result = mysqli_query($conn, $sql);
-
-            if ($result) {
-                $content .= 'Thêm thành công';
-                // header("Location: "); // Redirect to another page after successful insert
-                // return $content;
-            } else {
-                $content .= 'Thêm thất bại: ' . mysqli_error($conn);
-            }
-            }
-            
-
-            echo $content;
-            echo '<script>alert("'.$content.'"); window.location = "../../../home.php?title=quanlydancu#";</script>';
-            return $content;
+                    else {
+                        return false;
+                    }
+        
     }
-    }
-    function ThemHopDong($name_dan_cu, $name_can_ho, $ngaybatdau, $ngayketthuc, $tongthang,$filehopdong) {
-        GLOBAL $conn;
-        $content="";
-        $file_path ="";
-        if (isset($filehopdong) && $filehopdong['error'] !== UPLOAD_ERR_NO_FILE) {
-            // File upload logic here...
-            $file_hop_dong = $filehopdong;
-            $file_extension = pathinfo($file_hop_dong['name'], PATHINFO_EXTENSION);
-        
-            // Check if the file extension is allowed
-            $allowed_extensions = ['pdf','PDF'];
-            if (in_array(strtolower($file_extension), $allowed_extensions)) {
-        // ... your code ...
-        
-        // Get the absolute path of the current script's directory
-        
-        // Specify the relative path to the desired upload directory
-                 echo $file_hop_dong['name'];
-                $upload_dir='file/hop_dong/';
-                $sql_upload_dir ='file/hop_dong/';
-                // Use absolute path
-                 // Update the upload directory as needed
-        
-                // Generate a unique filename to avoid overwriting existing files
-                $unique_filename = uniqid() . '_' . $name_dan_cu. '.' . $file_extension;
-                // Move the uploaded file to the destination directory with the unique filename
-                if (move_uploaded_file($file_hop_dong['tmp_name'], $sql_upload_dir . $unique_filename)) {
-                    $file_path = $upload_dir . $unique_filename;
-                } else {
-                    $content .= 'Lỗi khi di chuyển tệp lên.';
-                }
-            } else {
-                $content .= '<br>Chỉ chấp nhận tệp file (pdf).';
-            }
-        }
-        if($content==""){
-            $filter_name_dan_cu = mysqli_real_escape_string($conn,$name_dan_cu);
-            $filter_name_can_ho = mysqli_real_escape_string($conn,$name_can_ho);
-            $filter_ngaybatdau = mysqli_real_escape_string($conn,$ngaybatdau);
-            $filter_ngayketthuc = mysqli_real_escape_string($conn,$ngayketthuc);
-            $filter_tongthang = mysqli_real_escape_string($conn,$tongthang);
-            $filter_tongthang = mysqli_real_escape_string($conn,$tongthang);
-            $filter_hop_dong=mysqli_real_escape_string($conn,$file_path);
-            $sql1="SELECT `tienthue_canho_phong` from `tb_canho_phong` where `id_canho_phong`=$filter_name_can_ho";
-            $query1 = mysqli_query($conn, $sql1);
-            // Lấy kết quả
-            $row = mysqli_fetch_assoc($query1);
-            $gia=$row['tienthue_canho_phong'];
-            $tong=$filter_tongthang*$gia;
-            $sql="INSERT INTO `tb_hopdong` (`id`,`id_canho_phong`, `id_dancu`, `ngay_batdau`, `ngay_ketthuc`, `thoi_han_hop_dong`, `gia`, `tong`, `filehopdong`) VALUES (NULL,$filter_name_can_ho, $filter_name_dan_cu, '$filter_ngaybatdau', '$filter_ngayketthuc', '$filter_tongthang', '$gia', $tong, '$filter_hop_dong');";
-            echo $sql;
-            $query = mysqli_query($conn, $sql);
-            if ($query) {
-                echo '<script>alert("Thêm thành công"); window.location.href = "home.php?title=hopdong";</script>';
-            } else {
-                echo '<script>alert("Thêm thất bại");</script>';
-            }
+    else {
+        // Nếu không có dân cư thuộc chủ hộ, xóa chủ hộ
+        $sql = "DELETE FROM `tb_dancu`  WHERE  `id_dancu`=$id_dan_cu";
+        $query = mysqli_query($conn, $sql);
+
+        if (!$query) {
+            return false;
         }
     }
-    
+
+    return true;
+}
+
+function xoa_HopDong($hopdong){
+ GLOBAL $conn;
+
+ $sql = "DELETE FROM `tb_hopdong` WHERE  `id`=$hopdong;";
+ $sql1 = "DELETE FROM `tb_hopdong_chuho` WHERE  `id_hopdong`=$hopdong LIMIT 1;";
+ $sql2="SELECT `id_dancu`, `id_chu_ho` FROM tb_dancu AS d
+ INNER JOIN `tb_hopdong_chuho` as ch ON ch.id_chuho=d.id_chu_ho
+ INNER JOIN `tb_hopdong` as h ON h.id=ch.id_hopdong
+ WHERE h.id=$hopdong";
+ $query2 = mysqli_query($conn, $sql2);
+ if ($query2) {
+     while ($row = mysqli_fetch_array($query2)){
+         $sql3= "DELETE FROM `tb_dancu` WHERE  `id_dancu`='".$row['id_dancu']."'";
+         $query3 = mysqli_query($conn, $sql3);
+         if ($query3) {
+
+         } else {
+             return false;
+         }
+     }
+ } else {
+     return false;
+ }
+ $query1 = mysqli_query($conn, $sql1);
+ if ($query1) {
+     $query = mysqli_query($conn, $sql);
+     if ($query) {
+         return true;
+     } else {
+         return false;
+     }
+ } else {
+     return false;
+ }
+
+
+}
+function layhopdong($id_hopdong){
+ GLOBAL $conn;
+
+ $sql = "SELECT * FROM tb_hopdong WHERE id = $id_hopdong";
+
+ $query = mysqli_query($conn, $sql);
+
+ $row = mysqli_fetch_array($query);
+
+ return $row;
+ 
+}
+function them_dan_cu($tendancu, $gioitinh,$quanhe,
+$name_dan_cu, $sdt, $ngaysinh, $addressDetail,$cccd,$file_img, $email,$k){ 
+ $content ="";
+ $file_path = '';
+
+ GLOBAL $conn;
+ print_r($file_img);
+ // Check if the phone number already exists in the database
+
+     // Phone number does not exist, proceed with other checks and database insertion
+     if (isset($file_img) && $file_img['error'] !== UPLOAD_ERR_NO_FILE) {
+         // File upload logic here...
+         
+         $file_extension = pathinfo($file_img['name'], PATHINFO_EXTENSION);
+     
+         // Check if the file extension is allowed
+         $allowed_extensions = ['png', 'jpg', 'git', 'PNG', 'JPG', 'GIT'];
+         if (in_array(strtolower($file_extension), $allowed_extensions)) {
+ // ... your code ...
+
+ // Get the absolute path of the current script's directory
+
+ // Specify the relative path to the desired upload directory
+
+             $upload_dir='images/anh/';
+             $sql_upload_dir="";
+             if($k==0){
+                 $sql_upload_dir ='../../../images/anh/';
+             }
+             elseif($k==1){
+                 $sql_upload_dir ='./images/anh/';
+             }
+             echo $sql_upload_dir;
+             // Use absolute path
+             // Update the upload directory as needed
+     
+             // Generate a unique filename to avoid overwriting existing files
+             $unique_filename = uniqid() . '_' . $sdt . '.' . $file_extension;
+             echo $unique_filename;
+             // Move the uploaded file to the destination directory with the unique filename
+             if (move_uploaded_file($file_img['tmp_name'], $sql_upload_dir . $unique_filename)) {
+                 $file_path = $upload_dir . $unique_filename;
+
+             } else {
+                 $content .= 'Lỗi khi di chuyển tệp lên.';
+                 echo '<script>alert("'.$content.'"); history.back();</script>';
+             }
+         } else {
+             $content .= '<br>Chỉ chấp nhận tệp ảnh (png, jpg, git).';
+             echo '<script>alert("'.$content.'"); history.back();</script>';
+         }
+     }
+
+     // Now you can include $file_path in your database query or handle it as needed
+     if($gioitinh=='nam'){
+         $gioitinh=1;
+     }
+     elseif($gioitinh=='nu'){
+         $gioitinh=0;
+     }
+     else{
+         $gioitinh=2;
+     }
+     if($content==""){
+
+         $sql="INSERT INTO `tb_dancu` (`ho_ten`, `so_dien_thoai`, `cccd`, `email`, `gioi_tinh`, `dia_chi`, `ngay_sinh`, `hinh_anh`, `id_chu_ho`, `quan_he`) VALUES ('$tendancu', '$sdt', '$cccd', '$email', '$gioitinh', '$addressDetail', '$ngaysinh', '$file_path','$name_dan_cu','$quanhe');";
+         echo $sql;
+         
+     $result = mysqli_query($conn, $sql);
+
+     if ($result) {
+         $content .= 'Thêm thành công';
+         // header("Location: "); // Redirect to another page after successful insert
+         // return $content;
+     } else {
+         $content .= 'Thêm thất bại: ' . mysqli_error($conn);
+     }
+     }
+     
+
+     echo $content;
+     if($k==0){
+         echo '<script>alert("'.$content.'"); window.location = "../../../home.php?title=quanlydancu#";</script>';
+         echo  $content;
+     }
+}
+
+function ThemHopDong($id_dan_cu, $name, $name_can_ho, $ngaybatdau, $ngayketthuc, $tongthang, $filehopdong,$giam_gia) {
+ global $conn;
+ $content = "";
+ $file_path = "";
+
+ // Kiểm tra xem có tệp tin được tải lên không
+ if (isset($filehopdong) && $filehopdong['error'] !== UPLOAD_ERR_NO_FILE) {
+     $file_hop_dong = $filehopdong;
+     $file_extension = pathinfo($file_hop_dong['name'], PATHINFO_EXTENSION);
+
+     // Kiểm tra định dạng của tệp tin
+     $allowed_extensions = ['pdf', 'PDF'];
+     if (in_array(strtolower($file_extension), $allowed_extensions)) {
+         $upload_dir = 'file/hop_dong/';
+         $sql_upload_dir = 'file/hop_dong/';
+         
+         // Tạo tên tệp tin duy nhất để tránh việc ghi đè các tệp tin hiện tại
+         $unique_filename = uniqid() . '_' . $name . '_' . $id_dan_cu . '.' . $file_extension;
+
+         // Di chuyển tệp tin đã tải lên đến thư mục đích với tên tệp duy nhất
+         if (move_uploaded_file($file_hop_dong['tmp_name'], $sql_upload_dir . $unique_filename)) {
+             $file_path = $upload_dir . $unique_filename;
+         } else {
+             $content .= 'Lỗi khi di chuyển tệp lên.';
+             echo '<script>alert("'.$content.'"); history.back();</script>';
+         }
+     } else {
+         $content .= '<br>Chỉ chấp nhận tệp file (pdf).';
+         echo '<script>alert("'.$content.'"); history.back();</script>';
+     }
+ }
+
+ // Kiểm tra xem có lỗi nào không
+ if ($content == "") {
+     $filter_name_can_ho = mysqli_real_escape_string($conn, $name_can_ho);
+     $filter_ngaybatdau = mysqli_real_escape_string($conn, $ngaybatdau);
+     $filter_ngayketthuc = mysqli_real_escape_string($conn, $ngayketthuc);
+     $filter_tongthang = mysqli_real_escape_string($conn, $tongthang);
+     $filter_hop_dong = mysqli_real_escape_string($conn, $file_path);
+     $filter_giam_gia = mysqli_real_escape_string($conn, $giam_gia);
+
+
+     // Truy vấn để lấy giá thuê của căn hộ
+     $sql1 = "SELECT `tienthue_canho_phong` FROM `tb_canho_phong` WHERE `id_canho_phong` = $filter_name_can_ho";
+     $query1 = mysqli_query($conn, $sql1);
+     $row = mysqli_fetch_assoc($query1);
+     $gia = $row['tienthue_canho_phong'];
+     $filter_giam_gia=$filter_giam_gia!=null ? $filter_giam_gia :0;
+     // Tính tổng tiền
+     $tong = $filter_tongthang * $gia * ((100 - $filter_giam_gia) / 100);
+
+
+     // Tạo câu lệnh SQL để thêm hợp đồng
+     $sql = "INSERT INTO `tb_hopdong` (`id`, `id_canho_phong`, `ngay_batdau`, `ngay_ketthuc`, `thoi_han_hop_dong`, `gia`, `tong`, `filehopdong`,`giam_gia`) 
+             VALUES (NULL, '$filter_name_can_ho', '$filter_ngaybatdau', '$filter_ngayketthuc', '$filter_tongthang', '$gia', '$tong', '$filter_hop_dong','$filter_giam_gia')";
+     
+     // Thực hiện truy vấn
+     $query = mysqli_query($conn, $sql);
+
+     // Kiểm tra kết quả và hiển thị thông báo
+     if ($query) {
+         $sql4= "SELECT `id` FROM `tb_hopdong` WHERE `filehopdong` = '$filter_hop_dong';";
+         echo $sql4;
+     $query4 = mysqli_query($conn, $sql4);
+         if(mysqli_num_rows($query4) ==1){
+             $row = mysqli_fetch_assoc($query4);
+     
+             $id_file = $row['id'];
+             $sql5="INSERT INTO `tb_hopdong_chuho` (`id_hopdong`, `id_chuho`) VALUES ('$id_file','$id_dan_cu');";
+             $query5 = mysqli_query($conn, $sql5);
+             if ($query5) {
+                 echo '<script>alert("Thêm thành công"); window.location.href = "home.php?title=hopdong";</script>';
+             } else {
+                 echo '<script>alert("Thêm thất bại");</script>';
+             }
+             
+         }
+
+     } else {
+         echo '<script>alert("Thêm thất bại");</script>';
+     }
+ } else {
+     echo $content;
+ }
+}
+function  Hop_dong_chu_ho($id_dan_cu,$filehopdong){
+ global $conn;
+
+ 
+
+}

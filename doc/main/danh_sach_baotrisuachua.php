@@ -186,23 +186,38 @@
           <div class="tile-body">
 
             <div class="row element-button">
-            <h4 data-v-38625d2e="" class="card-title">Công việc</h4>
+               <h4 data-v-38625d2e="" class="card-title">Công việc</h4>
               <div class="card_body">
-                <div class="col-sm-2">       
-                <a class="btn btn-add btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i></a>
-                </div>
-                <div class="col-sm-2">
-                  <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
-                      class="fas fa-file-upload"></i></a>
-                </div>
-
-                <div class="col-sm-2">
-                  <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i></a>
-                </div>
-                <div class="col-sm-2">
-                  <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                      class="fas fa-trash-alt"></i></a>
-                </div>
+                <?php 
+                      $sql_vaitro1 = "SELECT tb_vaitro_quyen.*,  tb_vaitro.*, tb_quyen.*
+                      FROM tb_vaitro_quyen
+                      JOIN tb_vaitro ON tb_vaitro_quyen.id_vaitro = tb_vaitro.id_vaitro
+                      JOIN tb_quyen ON tb_vaitro_quyen.id_quyen = tb_quyen.id_quyen
+                      WHERE tb_vaitro.id_vaitro = $vaitro";
+                        $query_vaitro1 = mysqli_query($conn, $sql_vaitro1);
+                        if(mysqli_num_rows($query_vaitro1) > 0){
+                        while ($row = mysqli_fetch_array($query_vaitro1)) {
+                          if($row['id_quyen'] == 7){
+                ?>
+                      <div class="col-sm-2">       
+                        <a class="btn btn-add btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i></a>
+                      </div>
+                <?php 
+                          }
+                        }
+                      }
+                ?>
+                      <div class="col-sm-2">
+                        <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
+                            class="fas fa-file-upload"></i></a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i></a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
+                            class="fas fa-trash-alt"></i></a>
+                      </div>
                 <div class="modal fade bd-example-modal-lg" id="modal-default">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -592,35 +607,59 @@
                 </td>               
       
                   <td class="table-td-center optionbaotrisuachua">
-                    <button class="btn btn-danger btn-sm" type="button" title="Xóa"
-                      onclick="myFunction(this)" id="btn-delete" data-id="<?= $row['id_baotri_suachua'];?>" ><i class="fas fa-trash-alt"></i>
-                    </button>
-                    <?php             
-                      if ($row['trang_thai'] == 3 || $row['trang_thai'] == 4) {
-                        echo ' <button class="btn btn-warning btn-sm" type="button" title="Xem" 
-                        id="btn-show" data-id="' . $row['id_baotri_suachua'] . '"><i class="fa fa-eye"></i>
-                        </button>';
+                    
+                    <?php     
+                                          $sql_vaitro2 = "SELECT tb_vaitro_quyen.*,  tb_vaitro.*, tb_quyen.*
+                                          FROM tb_vaitro_quyen
+                                          JOIN tb_vaitro ON tb_vaitro_quyen.id_vaitro = tb_vaitro.id_vaitro
+                                          JOIN tb_quyen ON tb_vaitro_quyen.id_quyen = tb_quyen.id_quyen
+                                          WHERE tb_vaitro.id_vaitro = $vaitro";
+                                            $query_vaitro2 = mysqli_query($conn, $sql_vaitro2);
+                                            if(mysqli_num_rows($query_vaitro2) > 0){
+                                            while ($row2 = mysqli_fetch_array($query_vaitro2)) {
+                                              if($row2['id_quyen'] == 8){        
+                                                echo '<button class="btn btn-danger btn-sm" type="button" title="Xóa"
+                                                  onclick="myFunction(this)" id="btn-delete" data-id="' . $row['id_baotri_suachua'] . '" ><i class="fas fa-trash-alt"></i>
+                                                </button>';
+                                              }
+                                              if($row2['id_quyen'] == 10){        
+                                                if ($row['trang_thai'] == 3 || $row['trang_thai'] == 4) {
+                                                  echo ' <button class="btn btn-warning btn-sm" type="button" title="Xem" 
+                                                  id="btn-show" data-id="' . $row['id_baotri_suachua'] . '"><i class="fa fa-eye"></i>
+                                                  </button>';
+                                                }
+                                              }
+                                              if($row2['id_quyen'] == 9){
+                                                if($row['trang_thai'] != 3 && $row['trang_thai'] != 4){
+                                                  echo ' <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
+                                                  data-toggle="modal" data-target="#ModalUP" data-id="' .$row['id_baotri_suachua']. '"><i class="fas fa-edit"></i>
+                                                </button>';
+                                                }
+                                              }
+                                              if($row2['id_quyen'] == 12){
+                                                if ($row['trang_thai'] != 3 && $row['trang_thai'] != 4 && $row['trang_thai'] != 2 && $row['id_taikhoan'] == $_SESSION['id_taikhoan']) {
+                                                  echo ' <button class="btn btn-primary btn-sm" type="button" title="Hoàn thành" id="btn-done" 
+                                                  data-id="' . $row['id_baotri_suachua'] . '" data-status="2" data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-thumbs-up"></i>
+                                                  </button>';
+                                                }
+                                              }   
+                                              if($row2['id_quyen'] == 11){
+                                                if (($row['trang_thai'] == 0 && $row['id_taikhoan'] == $_SESSION['id_taikhoan']) || (($row['trang_thai'] == 0 && $row['id_taikhoan'] == 0))) {
+                                                  echo ' <button class="btn btn-secondary btn-sm" type="button" title="Nhận xử lý" 
+                                                  id="btn-addcase" data-id="' . $row['id_baotri_suachua'] . '" data-status="1"  data-user="' . $_SESSION['id_taikhoan'] . '" data-name-user="' . $_SESSION['ten_hien_thi'] . '"><i class="fas fa-briefcase"></i>
+                                                  </button>';
+                                                }
+                                              }   
+                                              if($row2['id_quyen'] == 13){
+                                                if ($row['trang_thai'] == 2) {
+                                                  echo ' <button class="btn btn-success btn-sm" type="button" title="Duyệt" 
+                                                  id="btn-approve" data-id="' . $row['id_baotri_suachua'] . '" data-status="3"  data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-check"></i>
+                                                  </button>';
+                                                }   
+                                              }                                                                                          
+                                                                                          
+                        }
                       }
-                        if($row['trang_thai'] != 3 && $row['trang_thai'] != 4){
-                          echo ' <button class="btn btn-warning btn-sm" type="button" title="Sửa" id="btn-edit"
-                          data-toggle="modal" data-target="#ModalUP" data-id="' .$row['id_baotri_suachua']. '"><i class="fas fa-edit"></i>
-                        </button>';
-                        }
-                        if ($row['trang_thai'] != 3 && $row['trang_thai'] != 4 && $row['trang_thai'] != 2) {
-                            echo ' <button class="btn btn-primary btn-sm" type="button" title="Hoàn thành" id="btn-done" 
-                            data-id="' . $row['id_baotri_suachua'] . '" data-status="2" data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-thumbs-up"></i>
-                            </button>';
-                        }
-                        if ($row['trang_thai'] == 0) {
-                            echo ' <button class="btn btn-secondary btn-sm" type="button" title="Nhận xử lý" 
-                            id="btn-addcase" data-id="' . $row['id_baotri_suachua'] . '" data-status="1"  data-user="' . $_SESSION['id_taikhoan'] . '" data-name-user="' . $_SESSION['ten_hien_thi'] . '"><i class="fas fa-briefcase"></i>
-                            </button>';
-                        }
-                        if ($row['trang_thai'] == 2) {
-                          echo ' <button class="btn btn-success btn-sm" type="button" title="Duyệt" 
-                          id="btn-approve" data-id="' . $row['id_baotri_suachua'] . '" data-status="3"  data-name="' . $row['tieude_baotri_suachua'] . '"><i class="fas fa-check"></i>
-                          </button>';
-                        }
                     ?>                              
                  </td>
                 </tr>
@@ -1478,6 +1517,7 @@
               formData.append("ten_phong", ten_phong);
               formData.append("ten_user", ten_user);
               formData.append("id_nguoitao", id_nguoitao);
+
               for (let i = 0; i < files.length; i++) {
                   formData.append('image[]', files[i]); 
               }
